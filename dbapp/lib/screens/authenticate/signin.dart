@@ -1,6 +1,7 @@
 import 'package:dbapp/services/auth.dart';
 import 'package:dbapp/shared/constants.dart';
 import 'package:flutter/material.dart';
+import 'package:dbapp/shared/loading.dart';
 
 class SignIn extends StatefulWidget {
   final Function toggleView;
@@ -12,6 +13,7 @@ class SignIn extends StatefulWidget {
 class _SignInState extends State<SignIn> {
   final AuthService _auth=AuthService();
   final _formKey=GlobalKey<FormState>();
+  bool loading=false;
   //form state
   String email='';
   String password='';
@@ -37,7 +39,7 @@ class _SignInState extends State<SignIn> {
           )
         ],
       ),
-      body:Container(
+      body: loading ? Loading() : Container(
         padding: EdgeInsets.symmetric(vertical:20.0,horizontal:50.0),
           child:Form(
             key:_formKey, 
@@ -72,10 +74,14 @@ class _SignInState extends State<SignIn> {
                     ),
                     onPressed: () async{
                       if(_formKey.currentState.validate()){
+                            setState(() {
+                              loading=true;
+                            });
                             dynamic result=await _auth.signin(email, password);
                             if(result == null){
                                 setState(() {
                                   error='couldnt sign in ';
+                                  loading=false;
                                 });
                             }
                         }

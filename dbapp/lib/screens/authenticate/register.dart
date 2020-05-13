@@ -2,6 +2,8 @@ import 'package:dbapp/screens/home/home.dart';
 import 'package:dbapp/services/auth.dart';
 import 'package:dbapp/shared/constants.dart';
 import 'package:flutter/material.dart';
+import 'package:dbapp/shared/loading.dart';
+
 
 class Register extends StatefulWidget {
 
@@ -21,6 +23,7 @@ class _RegisterState extends State<Register> {
   String email='';
   String password='';
   String error='';
+  bool loading=false;
   
   @override
   Widget build(BuildContext context) {
@@ -41,7 +44,7 @@ class _RegisterState extends State<Register> {
           )
         ]
       ),
-      body:Container(
+      body: loading? Loading() : Container(
         padding: EdgeInsets.symmetric(vertical:20.0,horizontal:50.0),
           child:Form(
               key:_formKey, 
@@ -77,10 +80,14 @@ class _RegisterState extends State<Register> {
                       ),
                       onPressed: () async{
                         if(_formKey.currentState.validate()){
+                          setState(() {
+                            loading=true;
+                          });
                             dynamic result=await _auth.register(email, password);
                             if(result == null){
                                 setState(() {
                                   error='some error message';
+                                  loading=false;
                                 });
                             }
                         }

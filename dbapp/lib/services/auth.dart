@@ -1,4 +1,5 @@
 import 'package:dbapp/models/user.dart';
+import 'package:dbapp/services/database.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class AuthService{
@@ -6,6 +7,8 @@ class AuthService{
 
   //create user object based on firebase user
   User _userFromFireBaseUser(FirebaseUser user){
+    // print("hi");
+    // print(user);
     return user!=null ? User(uid:user.uid) : null;
   }
 
@@ -50,6 +53,7 @@ class AuthService{
         password: password
       );
       FirebaseUser user=result.user;
+      await DataBaseService(uid:user.uid).updateUserData("new name", 1);
       return _userFromFireBaseUser(user);
     }catch(e){
       print(e.toString());
