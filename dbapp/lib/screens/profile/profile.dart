@@ -2,18 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-void main() => runApp(myapp());
+void main() => runApp(profile());
 
-class myapp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,   
-      theme: ThemeData(fontFamily: 'GoogleSans'),
-      home: new profile(),
-    );
-  }
-}
+// class myapp extends StatelessWidget {
+//   @override
+//   Widget build(BuildContext context) {
+//     return MaterialApp(
+//       debugShowCheckedModeBanner: false,   
+//       theme: ThemeData(fontFamily: 'GoogleSans'),
+//       home: new profile(),
+//     );
+//   }
+// }
 
 class profile extends StatefulWidget {
   @override
@@ -34,7 +34,7 @@ class _profileState extends State<profile> {
                   image: AssetImage("assets/images/profilebg.jpg"),
                 ),
               ),
-              color: Hexcolor('#565656'),
+              // color: Hexcolor('#565656'),
             ),
 
             clipper: getClipper(),
@@ -51,7 +51,7 @@ class _profileState extends State<profile> {
                   decoration: BoxDecoration(
                     color: Colors.grey,
                     image: DecorationImage(
-                      // image: AssetImage("assets/images/profilebg.jpg"),
+                      image: AssetImage("assets/images/profilebg.jpg"),
                       fit: BoxFit.cover,
                     ),
                     borderRadius: BorderRadius.all(Radius.circular(175.0)),

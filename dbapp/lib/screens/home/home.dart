@@ -1,6 +1,7 @@
 import 'package:dbapp/services/auth.dart';
 import 'package:flutter/material.dart';
 import 'package:dbapp/screens/sidebarScreens/page.dart';
+import 'package:dbapp/screens/profile/profile.dart';
 
 class Home extends StatefulWidget {
 
@@ -10,15 +11,12 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   static const TextStyle optionStyle = TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
-  static const List<Widget> _widgetOptions = <Widget>[
+  static List<Widget> _widgetOptions = <Widget>[
     Text(
       'Index 0: Home',
       style: optionStyle,
     ),
-    Profile(
-      'Index 1: Profile',
-      style: optionStyle,
-    ),
+    profile(),
     Text(
       'Index 2: School',
       style: optionStyle,
