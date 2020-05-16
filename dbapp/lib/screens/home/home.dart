@@ -91,12 +91,12 @@ class _HomeState extends State<Home> {
           title: Text('Home'),
         ),
         BottomNavigationBarItem(
-          icon: Icon(Icons.business),
-          title: Text('Business'),
+          icon: Icon(Icons.account_circle),
+          title: Text('Profile'),
         ),
         BottomNavigationBarItem(
-          icon: Icon(Icons.school),
-          title: Text('School'),
+          icon: Icon(Icons.chat_bubble),
+          title: Text('Chat'),
         ),
       ],
       currentIndex: _selectedIndex,
