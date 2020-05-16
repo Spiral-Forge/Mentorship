@@ -29,11 +29,11 @@ class _profileState extends State<profile> {
           
           ClipPath(
             child: Container(
-              // decoration: BoxDecoration(
-              //   image: DecorationImage(
-              //     image: AssetImage("assets/images/profilebg.jpg"),
-              //   ),
-              // ),
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage("assets/images/profilebg.jpg"),
+                ),
+              ),
               color: Hexcolor('#565656'),
             ),
 
@@ -51,7 +51,7 @@ class _profileState extends State<profile> {
                   decoration: BoxDecoration(
                     color: Colors.grey,
                     image: DecorationImage(
-                      image: AssetImage("assets/images/profilebg.jpg"),
+                      // image: AssetImage("assets/images/profilebg.jpg"),
                       fit: BoxFit.cover,
                     ),
                     borderRadius: BorderRadius.all(Radius.circular(175.0)),
