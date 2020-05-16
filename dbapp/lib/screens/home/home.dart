@@ -15,8 +15,8 @@ class _HomeState extends State<Home> {
       'Index 0: Home',
       style: optionStyle,
     ),
-    Text(
-      'Index 1: Business',
+    Profile(
+      'Index 1: Profile',
       style: optionStyle,
     ),
     Text(
