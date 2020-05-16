@@ -29,12 +29,12 @@ class _profileState extends State<profile> {
           
           ClipPath(
             child: Container(
-              decoration: BoxDecoration(
-                image: DecorationImage(
-                  image: AssetImage("assets/images/profilebg.jpg"),
-                ),
-              ),
-              // color: Hexcolor('#565656'),
+              // decoration: BoxDecoration(
+              //   image: DecorationImage(
+              //     image: AssetImage("assets/images/profilebg.jpg"),
+              //   ),
+              // ),
+              color: Hexcolor('#565656'),
             ),
 
             clipper: getClipper(),
@@ -42,7 +42,7 @@ class _profileState extends State<profile> {
           Positioned(
             
             width: MediaQuery.of(context).size.width ,
-            top: MediaQuery.of(context).size.height / 4.5,
+            top: MediaQuery.of(context).size.height / 8,
             child: Column(
               children: <Widget>[
                 Container(
@@ -50,10 +50,10 @@ class _profileState extends State<profile> {
                   height: 150.0,
                   decoration: BoxDecoration(
                     color: Colors.grey,
-                    image: DecorationImage(
-                      image: AssetImage("assets/images/profilebg.jpg"),
-                      fit: BoxFit.cover,
-                    ),
+                    // image: DecorationImage(
+                    //   image: AssetImage("assets/images/profilebg.jpg"),
+                    //   fit: BoxFit.cover,
+                    // ),
                     borderRadius: BorderRadius.all(Radius.circular(175.0)),
                     boxShadow: [
                       BoxShadow(
@@ -63,7 +63,7 @@ class _profileState extends State<profile> {
                     ]
                   ),
                 ),
-                SizedBox( height: 40),
+                SizedBox( height: 30),
                 Text(
                   'Your Name',
                   style: GoogleFonts.lato(
@@ -86,7 +86,7 @@ class _profileState extends State<profile> {
                   ),
                 ),
 
-                SizedBox( height: 15),
+                SizedBox( height: 12),
                 Text(
                   'myemail@gmail.com',
                   style: GoogleFonts.lato(
@@ -97,7 +97,7 @@ class _profileState extends State<profile> {
                   ),
                 ),
                 
-                SizedBox( height: 12),
+                SizedBox( height: 10),
                 Text(
                   '9758548569',
                   style: GoogleFonts.lato(
@@ -108,7 +108,7 @@ class _profileState extends State<profile> {
                   ),
                 ),
 
-                SizedBox( height: 12),
+                SizedBox( height: 10),
                 Text(
                   'Year, Branch',
                   style: GoogleFonts.lato(
@@ -119,7 +119,7 @@ class _profileState extends State<profile> {
                   ),
                 ),
 
-                SizedBox( height: 12),
+                SizedBox( height: 10),
                 Text(
                   '00001032018',
                   style: GoogleFonts.lato(
@@ -130,7 +130,7 @@ class _profileState extends State<profile> {
                   ),
                 ),
 
-                SizedBox( height: 12),
+                SizedBox( height: 10),
                 Text(
                   'linkedin.com/mylinkedin',
                   style: GoogleFonts.lato(
@@ -141,7 +141,7 @@ class _profileState extends State<profile> {
                   ),
                 ),
 
-                SizedBox( height: 12),
+                SizedBox( height: 10),
                 Text(
                   'github.com/mygithub',
                   style: GoogleFonts.lato(
@@ -152,7 +152,7 @@ class _profileState extends State<profile> {
                   ),
                 ),
 
-                SizedBox( height: 12),
+                SizedBox( height: 10),
                 Text(
                   'Languages: C++',
                   style: GoogleFonts.lato(
@@ -162,7 +162,7 @@ class _profileState extends State<profile> {
                     ),
                   ),
                 ),
-                SizedBox( height: 12),
+                SizedBox( height: 10),
                 Text(
                   'Domains: Android Development',
                   style: GoogleFonts.lato(
@@ -173,7 +173,7 @@ class _profileState extends State<profile> {
                   ),
                 ),
 
-                SizedBox( height: 12),
+                SizedBox( height: 10),
                 Text(
                   'Hosteller: Yes',
                   style: GoogleFonts.lato(
@@ -184,7 +184,7 @@ class _profileState extends State<profile> {
                   ),
                 ),
 
-                SizedBox( height: 30),
+                SizedBox( height: 15),
                 Container(
                   height: 30,
                   width: 95,
@@ -222,7 +222,7 @@ class getClipper extends CustomClipper<Path>{
   @override
   Path getClip(Size size){
     var path = new Path();
-    path.lineTo(0.0, size.height/2.3);
+    path.lineTo(0.0, size.height/3);
     path.lineTo(size.width + 350, 0.0);
     path.close();
     return path;
