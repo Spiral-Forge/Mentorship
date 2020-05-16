@@ -129,11 +129,11 @@ class ChatScreenState extends State<ChatScreen> with TickerProviderStateMixin{
               child: Theme.of(context).platform == TargetPlatform.iOS ?
               new CupertinoButton(
                 child: new Text("Send"), 
-                onPressed:_isComposing
+                onPressed: _isComposing
                       ? () => _handleSubmitted(_textController.text) : null,) :
                 new IconButton(
                   icon: new Icon(Icons.send),
-                  onPressed: () => _isComposing
+                  onPressed: _isComposing
                        ? () => _handleSubmitted(_textController.text) : null,
                 ) 
             ),
