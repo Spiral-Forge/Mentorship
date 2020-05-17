@@ -1,3 +1,6 @@
+
+
+import 'package:dbapp/services/profile.dart';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -6,19 +9,10 @@ import 'package:dbapp/screens/sidebarScreens/about.dart';
 import 'package:dbapp/screens/sidebarScreens/faqs.dart';
 import 'package:dbapp/screens/sidebarScreens/feedback.dart';
 import 'package:dbapp/screens/sidebarScreens/guidelines.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:dbapp/shared/loading.dart';
 
-// void main() => runApp(profile());
-
-// class myapp extends StatelessWidget {
-//   @override
-//   Widget build(BuildContext context) {
-//     return MaterialApp(
-//       debugShowCheckedModeBanner: false,   
-//       theme: ThemeData(fontFamily: 'GoogleSans'),
-//       home: new profile(),
-//     );
-//   }
-// }
 
 class profile extends StatefulWidget {
   @override
@@ -27,6 +21,72 @@ class profile extends StatefulWidget {
 
 class _profileState extends State<profile> {
    final AuthService _auth=AuthService();
+   final FirebaseAuth _authUser = FirebaseAuth.instance;
+  Future<FirebaseUser> getCurrentUser(){
+    return _authUser.currentUser();
+  }
+    String name='';
+    String email='';
+    int year;
+    String branch='';
+    int roll;
+    int contact;
+    String linked;
+    String git;
+    List languages=[];
+    List domains=[];
+    bool hostel=false;
+    bool mentor;
+    bool loading=true;
+  @override
+  void initState(){
+    super.initState();
+    print("hi");
+    getCurrentUser().then((user){
+        ProfileService()
+      .getMenteeProfile(user.uid)
+      .then((DocumentSnapshot docs){
+        if(docs.exists){
+          print(docs.data["email"]);
+          setState(() {
+              name=docs.data["name"];
+              email=docs.data["email"];
+              year=docs.data["year"];
+              roll=docs.data["rollNo"];
+              contact=docs.data["contact"];
+              git=docs.data['githubURL'];
+              linked=docs.data['linkedInURL'];
+              languages=docs.data['languages'];
+              domains=docs.data['domains'];
+              hostel=docs.data['hosteller'];
+              mentor=false;
+              loading=false;
+          });
+        }else{
+            ProfileService().getMentorProfile(user.uid)
+            .then((DocumentSnapshot docs){
+              if(docs.exists){
+                print(docs.data["year"]);
+                setState(() {
+                    name=docs.data["name"];
+                    email=docs.data["email"];
+                    year=docs.data["year"];
+                    roll=docs.data["rollNo"];
+                    git=docs.data['githubURL'];
+                    linked=docs.data['linkedInURL'];
+                    contact=docs.data["contact"];
+                    languages=docs.data['languages'];
+                    domains=docs.data['domains'];
+                    hostel=docs.data['hosteller'];
+                    mentor=true;
+                    loading=false;
+                });
+              }
+            });
+        }
+     });
+    });
+  }
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
@@ -89,7 +149,7 @@ class _profileState extends State<profile> {
           ],
         ),
       ),
-      body: new Stack(
+      body: loading ?  Loading() : new Stack(
         children: <Widget>[
           
           ClipPath(
@@ -141,7 +201,7 @@ class _profileState extends State<profile> {
                 ),
                 SizedBox( height: 35),
                 Text(
-                  'Your Name',
+                  name,
                   style: GoogleFonts.lato(
                     textStyle: TextStyle(
                       color: Hexcolor('#565656'),
@@ -152,7 +212,7 @@ class _profileState extends State<profile> {
                 ),
                 SizedBox( height: 8),
                 Text(
-                  'Mentee',
+                  mentor==false ? "Mentee" : "Mentor",
                   style: GoogleFonts.lato(
                     textStyle: TextStyle(
                       fontSize: 20,
@@ -164,7 +224,7 @@ class _profileState extends State<profile> {
 
                 SizedBox( height: 15),
                 Text(
-                  'myemail@gmail.com',
+                  email==null? "null" : email,
                   style: GoogleFonts.lato(
                     textStyle: TextStyle(
                       color: Hexcolor('#565656'),
@@ -175,7 +235,7 @@ class _profileState extends State<profile> {
                 
                 SizedBox( height: 10),
                 Text(
-                  '9758548569',
+                  contact.toString(),
                   style: GoogleFonts.lato(
                     textStyle: TextStyle(
                       color: Hexcolor('#565656'),
@@ -186,7 +246,7 @@ class _profileState extends State<profile> {
 
                 SizedBox( height: 10),
                 Text(
-                  'Year, Branch',
+                  year == null ? "null" : year.toString()+" "+branch,
                   style: GoogleFonts.lato(
                     textStyle: TextStyle(
                       color: Hexcolor('#565656'),
@@ -197,7 +257,7 @@ class _profileState extends State<profile> {
 
                 SizedBox( height: 10),
                 Text(
-                  '00001032018',
+                  roll==null ? "nul" : roll.toString(),
                   style: GoogleFonts.lato(
                     textStyle: TextStyle(
                       color: Hexcolor('#565656'),
@@ -208,7 +268,7 @@ class _profileState extends State<profile> {
 
                 SizedBox( height: 10),
                 Text(
-                  'linkedin.com/mylinkedin',
+                  linked==null ? "null" : linked,
                   style: GoogleFonts.lato(
                     textStyle: TextStyle(
                       color: Hexcolor('#565656'),
@@ -219,7 +279,7 @@ class _profileState extends State<profile> {
 
                 SizedBox( height: 10),
                 Text(
-                  'github.com/mygithub',
+                  git==null? "null" : git,
                   style: GoogleFonts.lato(
                     textStyle: TextStyle(
                       color: Hexcolor('#565656'),
@@ -230,7 +290,7 @@ class _profileState extends State<profile> {
 
                 SizedBox( height: 10),
                 Text(
-                  'Languages: C++',
+                  languages.length==0? "null" : "Languages: "+languages.toString(),
                   style: GoogleFonts.lato(
                     textStyle: TextStyle(
                       color: Hexcolor('#565656'),
@@ -240,7 +300,7 @@ class _profileState extends State<profile> {
                 ),
                 SizedBox( height: 10),
                 Text(
-                  'Domains: Android Development',
+                  domains.length==0? "null" : "Domains: "+domains.toString(),
                   style: GoogleFonts.lato(
                     textStyle: TextStyle(
                       color: Hexcolor('#565656'),
@@ -251,7 +311,7 @@ class _profileState extends State<profile> {
 
                 SizedBox( height: 10),
                 Text(
-                  'Hosteller: Yes',
+                  hostel ? "Hosteller: Yes" : "Hosteller: No",
                   style: GoogleFonts.lato(
                     textStyle: TextStyle(
                       color: Hexcolor('#565656'),
