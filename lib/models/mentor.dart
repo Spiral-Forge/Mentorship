@@ -12,6 +12,7 @@ class Mentor{
   List<String> domains = List<String>();
   bool hosteller;
   List<String> languages=List<String>();
+  String peerId;
 
   Mentor({this.name,this.year,this.email,this.rollNo,this.branch,this.contact,this.linkedInURL,this.githubURL,this.domains,this.hosteller,this.languages});
 }

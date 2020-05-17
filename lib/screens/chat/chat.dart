@@ -205,7 +205,7 @@ class ChatScreenState extends State<ChatScreen> with TickerProviderStateMixin{
                       ? () => _handleSubmitted(_textController.text) : null,) :
                 new IconButton(
                   icon: new Icon(Icons.send),
-                  onPressed: () => _isComposing
+                  onPressed: _isComposing
                        ? () => _handleSubmitted(_textController.text) : null,
                 ) 
             ),
