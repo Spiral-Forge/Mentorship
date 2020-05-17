@@ -91,7 +91,7 @@ class ChatScreenState extends State<ChatScreen> with TickerProviderStateMixin{
       appBar: AppBar(
         title:Text("Chat with your mentor"),
         elevation: Theme.of(context).platform== TargetPlatform.iOS ? 0.0 : 4.0,
-        backgroundColor:Colors.brown[400] ,
+        backgroundColor:Colors.teal[300] ,
         // actions: <Widget>[
         //   FlatButton.icon(
         //     onPressed: () async{

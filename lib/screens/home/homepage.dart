@@ -18,8 +18,8 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       appBar: AppBar(
         title:Text("myapp"),
-        backgroundColor:Colors.brown[400] ,
-        elevation: 0.0,
+        backgroundColor:Colors.teal[300] ,
+        elevation: Theme.of(context).platform== TargetPlatform.iOS ? 0.0 : 4.0,
         // actions: <Widget>[
         //   FlatButton.icon(
         //     onPressed: () async{

@@ -20,8 +20,8 @@ class _HomeState extends State<Home> {
   int _currentIndex=0;
   static const TextStyle optionStyle = TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
   final List<Widget> _children = <Widget>[
-    HomePage(),
     profile(),
+    HomePage(),
     FriendlyChatApp()
   ];
 
@@ -41,12 +41,12 @@ class _HomeState extends State<Home> {
       type: BottomNavigationBarType.fixed,
       items: const <BottomNavigationBarItem>[
         BottomNavigationBarItem(
-          icon: Icon(Icons.home),
-          title: Text('Home'),
-        ),
-        BottomNavigationBarItem(
           icon: Icon(Icons.person),
           title: Text('Profile'),
+        ),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.home),
+          title: Text('Home'),
         ),
         BottomNavigationBarItem(
           icon: Icon(Icons.chat),
@@ -54,7 +54,7 @@ class _HomeState extends State<Home> {
         ),
       ],
       currentIndex: _currentIndex,
-      selectedItemColor: Colors.amber[800],
+      selectedItemColor: Colors.teal[500],
       onTap: _onItemTapped,
     ),
     );

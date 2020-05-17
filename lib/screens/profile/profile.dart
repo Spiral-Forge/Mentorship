@@ -32,7 +32,7 @@ class _profileState extends State<profile> {
     return new Scaffold(
       appBar: AppBar(
         title:Text("Your Profile"),
-        backgroundColor:Colors.brown[400] ,
+        backgroundColor:Colors.teal[300] ,
         elevation: 0.0,
         // actions: <Widget>[
         //   FlatButton.icon(
@@ -107,7 +107,7 @@ class _profileState extends State<profile> {
           Positioned(
             
             width: MediaQuery.of(context).size.width ,
-            top: MediaQuery.of(context).size.height / 4.5,
+            top: MediaQuery.of(context).size.height / 6,
             child: Column(
               children: <Widget>[
                 Container(
