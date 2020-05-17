@@ -3,6 +3,7 @@ import 'package:dbapp/services/auth.dart';
 import 'package:dbapp/shared/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:dbapp/shared/loading.dart';
+import 'package:flutter/services.dart';
 
 
 class Register extends StatefulWidget {
@@ -81,6 +82,16 @@ class _RegisterState extends State<Register> {
                       setState(()=>password=val);
                     }
                   ),
+                  new TextField(
+                      decoration: new InputDecoration(labelText: "Enter your number"),
+                      keyboardType: TextInputType.number,
+                      inputFormatters: <TextInputFormatter>[
+                          WhitelistingTextInputFormatter.digitsOnly
+                      ],
+                      onChanged: (val){
+                        setState(()=>year=int.parse(val));
+                      } // Only numbers can be entered
+                  ),
                   SizedBox(height:20.0),
                   RaisedButton(
                     color:Colors.green,
@@ -94,7 +105,6 @@ class _RegisterState extends State<Register> {
                             loading=true;
                           });
                             name='Suhani';
-                            year=1;
                             rollNo=021;
                             branch='IT';
                             contact=99;

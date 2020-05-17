@@ -1,6 +1,5 @@
 import 'package:dbapp/services/auth.dart';
 import 'package:flutter/material.dart';
-import 'package:dbapp/screens/sidebarScreens/page.dart';
 import 'package:dbapp/screens/profile/profile.dart';
 import 'package:dbapp/screens/chat/chat.dart';
 import 'package:dbapp/screens/home/homepage.dart';
