@@ -22,6 +22,16 @@ class _RegisterState extends State<Register> {
   //form fields
   String email='';
   String password='';
+  String name='';
+  int year=0;
+  int rollNo=0;
+  String branch='';
+  int contact=0;
+  String linkedInURL='';
+  String githubURL='';
+  List<String> domains = [];
+  bool hosteller;
+  List<String> languages=[];
   String error='';
   bool loading=false;
   
@@ -83,7 +93,17 @@ class _RegisterState extends State<Register> {
                           setState(() {
                             loading=true;
                           });
-                            dynamic result=await _auth.register(email, password);
+                            name='Suhani';
+                            year=1;
+                            rollNo=021;
+                            branch='IT';
+                            contact=99;
+                            linkedInURL='suhanichawla';
+                            githubURL='suhanichawla';
+                            domains = ["web","android"];
+                            hosteller=false;
+                            languages=["cpp","java"];
+                            dynamic result=await _auth.register(email, password,name,year,rollNo,branch,contact,linkedInURL,githubURL,domains,hosteller,languages,false);
                             if(result == null){
                                 setState(() {
                                   error='some error message';
