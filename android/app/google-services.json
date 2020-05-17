@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "890298441261",
+    "firebase_url": "https://mentorshipproject-77cef.firebaseio.com",
+    "project_id": "mentorshipproject-77cef",
+    "storage_bucket": "mentorshipproject-77cef.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:890298441261:android:8abbb85b3202efcbe5e2a4",
+        "android_client_info": {
+          "package_name": "com.spiralforge.dbapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "890298441261-p2okmtae1geu70i6qhui5supp5bb49dq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAZMv7cSTpjADMBsP-26p4MtC86Ygclwh0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "890298441261-p2okmtae1geu70i6qhui5supp5bb49dq.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
