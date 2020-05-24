@@ -16,7 +16,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  final AuthService _auth=AuthService();
+  final AuthService _auth = AuthService();
   var _darkTheme = true;
 
   @override
@@ -24,7 +24,6 @@ class _HomePageState extends State<HomePage> {
 
     ThemeChanger _themeChanger = Provider.of<ThemeChanger>(context);
     // final _themeChanger = Provider.of<ThemeChanger>(context);
-    
     _darkTheme = (_themeChanger.getTheme() == darkTheme);
 
     return Scaffold(

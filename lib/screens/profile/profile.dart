@@ -1,10 +1,14 @@
-
-
 import 'package:dbapp/services/profile.dart';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:dbapp/services/auth.dart';
+
+import 'package:provider/provider.dart';
+import 'package:dbapp/blocs/theme.dart';
+import 'package:dbapp/blocs/values.dart';
+
+import 'package:dbapp/screens/home/homepage.dart';
 import 'package:dbapp/screens/sidebarScreens/about.dart';
 import 'package:dbapp/screens/sidebarScreens/faqs.dart';
 import 'package:dbapp/screens/sidebarScreens/feedback.dart';
@@ -20,24 +24,29 @@ class profile extends StatefulWidget {
 }
 
 class _profileState extends State<profile> {
-   final AuthService _auth=AuthService();
-   final FirebaseAuth _authUser = FirebaseAuth.instance;
+
+  var _darkTheme = true;
+
+  final AuthService _auth=AuthService();
+  final FirebaseAuth _authUser = FirebaseAuth.instance;
   Future<FirebaseUser> getCurrentUser(){
     return _authUser.currentUser();
   }
-    String name='';
-    String email='';
-    int year;
-    String branch='';
-    int roll;
-    int contact;
-    String linked;
-    String git;
-    List languages=[];
-    List domains=[];
-    bool hostel=false;
-    bool mentor;
-    bool loading=true;
+
+  String name='';
+  String email='';
+  int year;
+  String branch='';
+  int roll;
+  int contact;
+  String linked;
+  String git;
+  List languages=[];
+  List domains=[];
+  bool hostel=false;
+  bool mentor;
+  bool loading=true;
+
   @override
   void initState(){
     super.initState();
@@ -89,6 +98,11 @@ class _profileState extends State<profile> {
   }
   @override
   Widget build(BuildContext context) {
+
+    ThemeChanger _themeChanger = Provider.of<ThemeChanger>(context);
+    // final _themeChanger = Provider.of<ThemeChanger>(context);
+    _darkTheme = (_themeChanger.getTheme() == darkTheme);
+
     return new Scaffold(
       appBar: AppBar(
         title:Text("Your Profile"),
