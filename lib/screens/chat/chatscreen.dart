@@ -3,6 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:dbapp/services/auth.dart';
+
+import 'package:provider/provider.dart';
+import 'package:dbapp/blocs/theme.dart';
+import 'package:dbapp/blocs/values.dart';
+
+import 'package:dbapp/screens/home/homepage.dart';
+
 import 'package:dbapp/screens/sidebarScreens/about.dart';
 import 'package:dbapp/screens/sidebarScreens/faqs.dart';
 import 'package:dbapp/screens/sidebarScreens/feedback.dart';
@@ -23,11 +30,13 @@ class ChatScreen extends StatefulWidget{
 
 class ChatScreenState extends State<ChatScreen> {
 
+  var _darkTheme = true;
+
   final AuthService _auth=AuthService();
   var chats;
-  String msg='';
+  String msg = '';
   bool sendBy;
-  bool loading=true;
+  bool loading = true;
   final TextEditingController textController = new TextEditingController();
 
   Widget chatMessages(){
@@ -118,6 +127,11 @@ class ChatScreenState extends State<ChatScreen> {
 
   @override 
   Widget build(BuildContext context){
+
+    ThemeChanger _themeChanger = Provider.of<ThemeChanger>(context);
+    // final _themeChanger = Provider.of<ThemeChanger>(context);
+    _darkTheme = (_themeChanger.getTheme() == darkTheme);
+
     return new Scaffold( 
       appBar: AppBar(
         title:Text(widget.chatRoomId),
@@ -217,14 +231,14 @@ class ChatScreenState extends State<ChatScreen> {
                   .width,
               child: Container(
                 padding: EdgeInsets.symmetric(horizontal: 24, vertical: 24),
-                color: Color(0x54FFFFFF),
+                // color: Color(0x54FFFFFF),
                 child: Row(
                   children: [
                     Expanded(
                         child: TextField(
                           controller: textController,
                           decoration: InputDecoration(
-                              hintText: "Message ...",
+                              hintText: "Message...",
                               hintStyle: TextStyle(
                                 color: Colors.grey[700],
                                 fontSize: 16,
@@ -301,14 +315,14 @@ class ChatMessageTile extends StatelessWidget{
           ),
           gradient: LinearGradient(
             colors:[
-            Colors.teal,
-            Colors.teal ]
+            Colors.teal[300],
+            Colors.teal[300] ]
           )
         ),
         child: Text(message,
           textAlign: TextAlign.start,
           style: TextStyle(
-            color: Colors.white,
+            // color: Colors.white,
             fontSize: 16,
             fontFamily: 'OverpassRegular',
             fontWeight: FontWeight.w300)
@@ -418,13 +432,13 @@ class ChatMessageTile extends StatelessWidget{
 
 
 
-final ThemeData kIOSTheme = new ThemeData(
-  primarySwatch: Colors.teal,
-  primaryColor: Colors.teal[200],
-  primaryColorBrightness: Brightness.light,
-);
+// final ThemeData kIOSTheme = new ThemeData(
+//   primarySwatch: Colors.teal,
+//   primaryColor: Colors.teal[200],
+//   primaryColorBrightness: Brightness.light,
+// );
 
-final ThemeData KDefaultTheme = new ThemeData(
-  primarySwatch: Colors.teal,
-  accentColor: Colors.teal[200],
-);
+// final ThemeData KDefaultTheme = new ThemeData(
+//   primarySwatch: Colors.teal,
+//   accentColor: Colors.teal[200],
+// );

@@ -18,6 +18,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+
    final AuthService _auth=AuthService();
    bool loading=true;
    List<EventTile> eventlist=[];
@@ -71,6 +72,7 @@ class _HomePageState extends State<HomePage> {
           }
     });
   }
+
   var _darkTheme = true;
 
   @override
@@ -78,7 +80,6 @@ class _HomePageState extends State<HomePage> {
 
     ThemeChanger _themeChanger = Provider.of<ThemeChanger>(context);
     // final _themeChanger = Provider.of<ThemeChanger>(context);
-    
     _darkTheme = (_themeChanger.getTheme() == darkTheme);
 
     return Scaffold(
