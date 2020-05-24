@@ -50,7 +50,7 @@ class _HomeState extends State<Home> {
         ),
       ],
       currentIndex: _currentIndex,
-      selectedItemColor: Colors.teal[300],
+      selectedItemColor: Colors.teal[500],
       onTap: _onItemTapped,
     ),
     );

@@ -108,14 +108,6 @@ class _profileState extends State<profile> {
         child: new ListView(
           children: <Widget>[
             new ListTile(
-              title: new Text("Code of Conduct"),
-              trailing: new Icon(Icons.arrow_right),
-              onTap: () {
-                Navigator.of(context).pop();
-                Navigator.of(context).push(new MaterialPageRoute(builder: (BuildContext context) => new Guidelines()));
-              }
-            ),
-            new ListTile(
               title: new Text("About"),
               trailing: new Icon(Icons.arrow_right),
               onTap: () {
@@ -131,7 +123,14 @@ class _profileState extends State<profile> {
                 Navigator.of(context).push(new MaterialPageRoute(builder: (BuildContext context) => new FAQS()));
               }
             ),
-            
+            new ListTile(
+              title: new Text("Guidelines"),
+              trailing: new Icon(Icons.arrow_right),
+              onTap: () {
+                Navigator.of(context).pop();
+                Navigator.of(context).push(new MaterialPageRoute(builder: (BuildContext context) => new Guidelines()));
+              }
+            ),
             new ListTile(
               title: new Text("Contact us and feedback"),
               trailing: new Icon(Icons.arrow_right),
@@ -141,33 +140,6 @@ class _profileState extends State<profile> {
               }
             ),
              
-            new Divider(),
-            new ListTile(
-              trailing: Transform.scale(
-                scale: 1.4,
-                child: Switch(
-                  value: _darkTheme,
-                  onChanged: (val) {
-                    setState(() {
-                      _darkTheme = val;
-                    });
-                    onThemeChanged(val, _themeChanger);
-                  },
-                ),
-              ),
-              // leading: new IconButton(
-              //             onPressed: () => _themeChanger.setTheme(Theme.dark()),
-              //             icon: Icon(
-              //               Icons.brightness_3
-              //             ),
-              //             color: Hexcolor('#565656'),
-              //           ),
-              // title: new Text("Change Theme"),
-              // onTap: () {
-              //   Navigator.of(context).pop();
-              //   Navigator.of(context).push(new MaterialPageRoute(builder: (BuildContext context) => new ThemeChanger(ThemeData.dark())));
-              // }
-            ),           
             new Divider(),
             new ListTile(
               title: new Text("Logout"),
@@ -232,8 +204,8 @@ class _profileState extends State<profile> {
                   name,
                   style: GoogleFonts.lato(
                     textStyle: TextStyle(
-                      // color: Hexcolor('#565656'),
-                      // fontFamily: GoogleFonts,
+                      color: Hexcolor('#565656'),
+                      //fontFamily: GoogleFonts,
                       fontSize: 28,
                     ),
                   ),
@@ -255,7 +227,7 @@ class _profileState extends State<profile> {
                   email==null? "null" : email,
                   style: GoogleFonts.lato(
                     textStyle: TextStyle(
-                      //color: Hexcolor('#565656'),
+                      color: Hexcolor('#565656'),
                       fontSize: 20,
                     ),
                   ),
@@ -266,7 +238,7 @@ class _profileState extends State<profile> {
                   contact.toString(),
                   style: GoogleFonts.lato(
                     textStyle: TextStyle(
-                     // color: Hexcolor('#565656'),
+                      color: Hexcolor('#565656'),
                       fontSize: 20,
                     ),
                   ),
@@ -277,7 +249,7 @@ class _profileState extends State<profile> {
                   year == null ? "null" : year.toString()+" "+branch,
                   style: GoogleFonts.lato(
                     textStyle: TextStyle(
-                     // color: Hexcolor('#565656'),
+                      color: Hexcolor('#565656'),
                       fontSize: 20,
                     ),
                   ),
@@ -288,7 +260,7 @@ class _profileState extends State<profile> {
                   roll==null ? "nul" : roll.toString(),
                   style: GoogleFonts.lato(
                     textStyle: TextStyle(
-                      // color: Hexcolor('#565656'),
+                      color: Hexcolor('#565656'),
                       fontSize: 20,
                     ),
                   ),
@@ -299,7 +271,7 @@ class _profileState extends State<profile> {
                   linked==null ? "null" : linked,
                   style: GoogleFonts.lato(
                     textStyle: TextStyle(
-                      //color: Hexcolor('#565656'),
+                      color: Hexcolor('#565656'),
                       fontSize: 20,
                     ),
                   ),
@@ -310,7 +282,7 @@ class _profileState extends State<profile> {
                   git==null? "null" : git,
                   style: GoogleFonts.lato(
                     textStyle: TextStyle(
-                      //color: Hexcolor('#565656'),
+                      color: Hexcolor('#565656'),
                       fontSize: 20,
                     ),
                   ),
@@ -321,7 +293,7 @@ class _profileState extends State<profile> {
                   languages.length==0? "null" : "Languages: "+languages.toString(),
                   style: GoogleFonts.lato(
                     textStyle: TextStyle(
-                      //color: Hexcolor('#565656'),
+                      color: Hexcolor('#565656'),
                       fontSize: 20,
                     ),
                   ),
@@ -331,7 +303,7 @@ class _profileState extends State<profile> {
                   domains.length==0? "null" : "Domains: "+domains.toString(),
                   style: GoogleFonts.lato(
                     textStyle: TextStyle(
-                      //color: Hexcolor('#565656'),
+                      color: Hexcolor('#565656'),
                       fontSize: 20,
                     ),
                   ),
@@ -342,7 +314,7 @@ class _profileState extends State<profile> {
                   hostel ? "Hosteller: Yes" : "Hosteller: No",
                   style: GoogleFonts.lato(
                     textStyle: TextStyle(
-                      //color: Hexcolor('#565656'),
+                      color: Hexcolor('#565656'),
                       fontSize: 20,
                     ),
                   ),
@@ -354,7 +326,7 @@ class _profileState extends State<profile> {
                   width: 95,
                   child: Material(
                     borderRadius: BorderRadius.circular(25),
-                    shadowColor: Colors.blueGrey[200],
+                    shadowColor: Colors.blueGrey,
                     elevation: 7.0,
                     child: GestureDetector(
                       onTap: () {},
@@ -363,7 +335,7 @@ class _profileState extends State<profile> {
                           'Edit Info',
                           style: GoogleFonts.lato(
                             textStyle: TextStyle(
-                              color: Colors.teal[300],
+                              color: Hexcolor('#96ece7'),
                             ),
                           ),
                         ),
