@@ -204,8 +204,8 @@ class _profileState extends State<profile> {
                   name,
                   style: GoogleFonts.lato(
                     textStyle: TextStyle(
-                      color: Hexcolor('#565656'),
-                      //fontFamily: GoogleFonts,
+                      // color: Hexcolor('#565656'),
+                      // fontFamily: GoogleFonts,
                       fontSize: 28,
                     ),
                   ),
@@ -227,7 +227,7 @@ class _profileState extends State<profile> {
                   email==null? "null" : email,
                   style: GoogleFonts.lato(
                     textStyle: TextStyle(
-                      color: Hexcolor('#565656'),
+                      //color: Hexcolor('#565656'),
                       fontSize: 20,
                     ),
                   ),
@@ -238,7 +238,7 @@ class _profileState extends State<profile> {
                   contact.toString(),
                   style: GoogleFonts.lato(
                     textStyle: TextStyle(
-                      color: Hexcolor('#565656'),
+                     // color: Hexcolor('#565656'),
                       fontSize: 20,
                     ),
                   ),
@@ -249,7 +249,7 @@ class _profileState extends State<profile> {
                   year == null ? "null" : year.toString()+" "+branch,
                   style: GoogleFonts.lato(
                     textStyle: TextStyle(
-                      color: Hexcolor('#565656'),
+                     // color: Hexcolor('#565656'),
                       fontSize: 20,
                     ),
                   ),
@@ -260,7 +260,7 @@ class _profileState extends State<profile> {
                   roll==null ? "nul" : roll.toString(),
                   style: GoogleFonts.lato(
                     textStyle: TextStyle(
-                      color: Hexcolor('#565656'),
+                      // color: Hexcolor('#565656'),
                       fontSize: 20,
                     ),
                   ),
@@ -271,7 +271,7 @@ class _profileState extends State<profile> {
                   linked==null ? "null" : linked,
                   style: GoogleFonts.lato(
                     textStyle: TextStyle(
-                      color: Hexcolor('#565656'),
+                      //color: Hexcolor('#565656'),
                       fontSize: 20,
                     ),
                   ),
@@ -282,7 +282,7 @@ class _profileState extends State<profile> {
                   git==null? "null" : git,
                   style: GoogleFonts.lato(
                     textStyle: TextStyle(
-                      color: Hexcolor('#565656'),
+                      //color: Hexcolor('#565656'),
                       fontSize: 20,
                     ),
                   ),
@@ -293,7 +293,7 @@ class _profileState extends State<profile> {
                   languages.length==0? "null" : "Languages: "+languages.toString(),
                   style: GoogleFonts.lato(
                     textStyle: TextStyle(
-                      color: Hexcolor('#565656'),
+                      //color: Hexcolor('#565656'),
                       fontSize: 20,
                     ),
                   ),
@@ -303,7 +303,7 @@ class _profileState extends State<profile> {
                   domains.length==0? "null" : "Domains: "+domains.toString(),
                   style: GoogleFonts.lato(
                     textStyle: TextStyle(
-                      color: Hexcolor('#565656'),
+                      //color: Hexcolor('#565656'),
                       fontSize: 20,
                     ),
                   ),
@@ -314,7 +314,7 @@ class _profileState extends State<profile> {
                   hostel ? "Hosteller: Yes" : "Hosteller: No",
                   style: GoogleFonts.lato(
                     textStyle: TextStyle(
-                      color: Hexcolor('#565656'),
+                      //color: Hexcolor('#565656'),
                       fontSize: 20,
                     ),
                   ),
@@ -326,7 +326,7 @@ class _profileState extends State<profile> {
                   width: 95,
                   child: Material(
                     borderRadius: BorderRadius.circular(25),
-                    shadowColor: Colors.blueGrey,
+                    shadowColor: Colors.blueGrey[200],
                     elevation: 7.0,
                     child: GestureDetector(
                       onTap: () {},
@@ -335,7 +335,7 @@ class _profileState extends State<profile> {
                           'Edit Info',
                           style: GoogleFonts.lato(
                             textStyle: TextStyle(
-                              color: Hexcolor('#96ece7'),
+                              color: Colors.teal[300],
                             ),
                           ),
                         ),
