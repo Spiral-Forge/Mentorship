@@ -1,11 +1,65 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-class MyFeedback extends StatelessWidget {
+import '../../services/auth.dart';
+import '../../services/database.dart';
 
+enum SingingCharacter { login, suggestion, complaint, other }
+var feedbackopt;
+
+class MyFeedback extends StatefulWidget {
+
+  @override
+  _MyFeedbackState createState() => _MyFeedbackState();
+}
+
+class _MyFeedbackState extends State<MyFeedback> {
+
+  final TextEditingController textController = new TextEditingController();
+
+  final AuthService _auth=AuthService();
+  final FirebaseAuth _authUser = FirebaseAuth.instance;
+  Future<FirebaseUser> getCurrentUser(){
+    return _authUser.currentUser();
+  }
+
+  Map <int,String> feedbackOption = {
+    1:"Login Problem",
+    2:"Suggestions",
+    3:"Complaints",
+    4:"Other issues",
+  };
+  String uid="";
+
+  @override
+  void initState(){
+    super.initState();
+    getCurrentUser().then((user){
+      uid = user.uid;
+      setState((){
+         uid: uid;
+      });
+    });
+  }
+
+  submitFeedback(){
+    if(textController.text.isNotEmpty){
+      Map<String, dynamic> feedbackMap = {
+        "type": feedbackOption[feedbackopt],
+        "description": textController.text,
+        'submittedBy': uid,
+      };
+       DataBaseService().addFeedback(feedbackMap);
+    }
+    setState(() {
+      textController.text="";
+    });
+  }
+  
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
-      appBar: new AppBar(title: new Text("Feedback"), backgroundColor: Colors.redAccent),
+      appBar: new AppBar(title: new Text("Feedback"), backgroundColor: Colors.teal),
       body: Padding(
     padding: EdgeInsets.all(16.0),
     child: Column(
@@ -16,26 +70,26 @@ class MyFeedback extends StatelessWidget {
         ),
           
         Text(
-          "Please select type of feedback",style: TextStyle(
-            color: Color(0xFFC5C5C5)),
+          "Select type of feedback",style: TextStyle(
+            color: Colors.black,
+            fontSize: 25,
+            ),
         ),
 
         SizedBox(height: 25.0),
-        buildCheckItem("Login Trouble"),
-        buildCheckItem("Other Issues"),
-        buildCheckItem("Suggestions"),
-        buildCheckItem("Complaints"),
+        BuildCheckBox(),
         SizedBox(height: 20.0),
         buildFeedbackForm(),
         SizedBox(height:20.0),
-        buildNumberField(),
         Spacer(),
         Row(
           children:<Widget>[
             Expanded(
               child: FlatButton(
-                onPressed: (){},
-                color: Color(0xffe5e5e5),
+                onPressed: (){
+                  submitFeedback();
+                },
+                color: Colors.teal,
                 padding: EdgeInsets.all(16.0),
                 child: Text(
                   "SUBMIT",
@@ -53,56 +107,8 @@ class MyFeedback extends StatelessWidget {
   ),
     );
   }
-}
 
-buildNumberField(){
-  return TextField(
-    style: TextStyle(
-      color: Colors.black,
 
-    ),
-    decoration: InputDecoration(
-      contentPadding: EdgeInsets.all(0.0),
-      prefixIcon: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: <Widget>[
-          Container(
-            decoration: BoxDecoration(border: Border(
-              right: BorderSide(width: 1.0,color: Color(0xffc5c5c5))
-
-            ),
-            ),
-            child: Row(
-              mainAxisSize: MainAxisSize.min,
-              children:<Widget>[
-                SizedBox(width: 10.0),
-                Text("+91",style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  color:Color(0xffc5c5c5),
-                ),
-                ),
-                Icon(Icons.arrow_drop_down,color: Colors.cyan,),
-                SizedBox(width:10.0),
-
-              ],
-            ),
-
-          ),
-
-          SizedBox(width: 10.0),
-        ],
-        ),
-
-        hintStyle: TextStyle(
-          fontSize:14.0,
-          color: Color(0xffc5c5c5),
-
-        ),
-        hintText: "Phone Number",
-        border: OutlineInputBorder(),
-    ),
-  );
-}
 
 buildFeedbackForm(){
   return Container(
@@ -110,6 +116,7 @@ buildFeedbackForm(){
     child: Stack(
       children:<Widget>[
         TextField(
+          controller: textController,
           maxLines: 10,
           decoration: InputDecoration(
             hintText: "Please breifly describe the issue",
@@ -122,69 +129,80 @@ buildFeedbackForm(){
                  borderSide: BorderSide(color: Color(0xffe5e5e5)),
 
                )
+            ),
           ),
-          ),
-          Align(
-            alignment: Alignment.bottomCenter,
-            child:Container(
-              decoration: BoxDecoration(
-                border: Border(
-                  top: BorderSide(
-                    width: 1.0,
-                    color: Color(0xffa6a6a6),
-
-                  ),
-                   ),
-
-              ),
-              padding: EdgeInsets.all(8.0),
-              child: Row(
-                children:<Widget>[
-                  Container(
-                    decoration: BoxDecoration(
-                      color: Color(0xffe5e5e5),
-                      borderRadius: BorderRadius.circular(5.0),
-
-                    ),
-                    child: Padding(
-                      padding: EdgeInsets.all(8.0),
-                      child: Icon(
-                        Icons.add,
-                        color: Color(0xffa5a5a5),
-
-                      ),
-                      ),
-                    ),
-                    SizedBox(width:10.0),
-                    Text("Upload screenshot (OPTIONAL)",style: TextStyle(
-                      color:Color(0xffc5c5c5),
-                     ),
-                    ),
-                ]
-              ),
-              ),
-
-          )
       ]
     )
   );
 }
+}
 
-buildCheckItem(title){
-  return Padding(
-    padding: EdgeInsets.only(bottom: 15.0),
-    child: Row(
-     children: <Widget>[
-       Icon(Icons.check_circle,color: Colors.blue),
-       SizedBox(width: 10.0),
-       Text(
-         title,
-         style: TextStyle(
-           fontWeight: FontWeight.bold,
-           color: Colors.blue,
-         ),
+class BuildCheckBox extends StatefulWidget {
+  BuildCheckBox({Key key}) : super(key: key);
+
+  @override
+  _BuildCheckBoxState createState() => _BuildCheckBoxState();
+}
+
+class _BuildCheckBoxState extends State<BuildCheckBox> {
+  SingingCharacter _character = SingingCharacter.login;
+
+  Widget build(BuildContext context) {
+    return Column(
+      children: <Widget>[
+        ListTile(
+          title: const Text('Login Problem'),
+          leading: Radio(
+            value: SingingCharacter.login,
+            groupValue: _character,
+            onChanged: (SingingCharacter value) {
+              setState(() {
+                _character = value;
+                feedbackopt=1;
+              });
+            },
+          ),
         ),
-      ]
-    ),
-  );
+        ListTile(
+          title: const Text('Suggestions'),
+          leading: Radio(
+            value: SingingCharacter.suggestion,
+            groupValue: _character,
+            onChanged: (SingingCharacter value) {
+              setState(() {
+                _character = value;
+                feedbackopt=2;
+              });
+            },
+          ),
+        ),
+        ListTile(
+          title: const Text('Complaints'),
+          leading: Radio(
+            value: SingingCharacter.complaint,
+            groupValue: _character,
+            onChanged: (SingingCharacter value) {
+              setState(() {
+                _character = value;
+                feedbackopt=3;
+              });
+            },
+          ),
+        ),
+        ListTile(
+          title: const Text('Other issues'),
+          leading: Radio(
+            value: SingingCharacter.other,
+            groupValue: _character,
+            onChanged: (SingingCharacter value) {
+              setState(() {
+                _character = value;
+                feedbackopt=4;
+              });
+            },
+          ),
+        ),
+      ],
+    );
+  }
 }
