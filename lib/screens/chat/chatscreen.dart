@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/cupertino.dart';
@@ -42,7 +41,8 @@ class ChatScreenState extends State<ChatScreen> {
   Widget chatMessages(){
     return loading? Loading() : 
     ListView.builder(
-      itemCount: 20,
+      shrinkWrap: true,
+      itemCount: chats.length,
        itemBuilder: (context,index){
          return chats[index];
        }
@@ -103,23 +103,18 @@ class ChatScreenState extends State<ChatScreen> {
     DataBaseService().getChats(widget.chatRoomId).then((val){
           print("after this");
           print(val.documents[0].data["message"]);
-          this.setState((){
-            chats = val;
-            loading=false;
-          });
           List<ChatMessageTile> templist=[];
-          for(var i=0;i<20;i++){
+          for(var i=0;i<val.documents.length;i++){
             templist.add(
               ChatMessageTile(
                 message: val.documents[i].data["message"], 
-                sendbyMe: widget.myName == chats.documents[0].data["sendBy"], 
+                sendbyMe: true,
+                //widget.myName == chats.documents[i].data["sendBy"]
                 myName: widget.myName)
             );
           }
           this.setState((){
             chats=templist;
-            msg=val.documents[1].data["message"];
-            
             loading=false;
           });
       });
@@ -223,6 +218,7 @@ class ChatScreenState extends State<ChatScreen> {
       body: Container(
         child: Stack(
           children: <Widget>[
+            
             chatMessages(),
             Container(alignment: Alignment.bottomCenter,
               width: MediaQuery
@@ -299,19 +295,19 @@ class ChatMessageTile extends StatelessWidget{
       child: Container(
         margin: sendbyMe? EdgeInsets.only(left: 30) : EdgeInsets.only(right:30),
         padding: EdgeInsets.only(
-          top: 17, bottom: 17,
-          left: 20, right: 20
+          top: 12, bottom: 12,
+          left: 15, right: 15
         ),
         decoration: BoxDecoration(
           borderRadius: sendbyMe? BorderRadius.only(
-            topLeft: Radius.circular(23),
-            topRight: Radius.circular(23),
-            bottomLeft: Radius.circular(23)
+            topLeft: Radius.circular(20),
+            topRight: Radius.circular(20),
+            bottomLeft: Radius.circular(20)
           ) : 
           BorderRadius.only(
-            topLeft: Radius.circular(23),
-            topRight: Radius.circular(23),
-            bottomRight: Radius.circular(23)
+            topLeft: Radius.circular(20),
+            topRight: Radius.circular(20),
+            bottomRight: Radius.circular(20)
           ),
           gradient: LinearGradient(
             colors:[

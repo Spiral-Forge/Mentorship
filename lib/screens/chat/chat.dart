@@ -66,12 +66,10 @@ class _FriendlyChatAppState extends State<FriendlyChatApp> {
       print(chatroomid);
       setState((){
          chatroomid= chatroomid;
-         loading=false;
       });
       dataBaseService.getUserName(peerId).then((value){
         peerName = value;
         print(peerName);
-        print("this uid is going in "+uid);
         dataBaseService.getMyName(uid).then((value){
           setState(() {
             myname = value;
@@ -84,6 +82,9 @@ class _FriendlyChatAppState extends State<FriendlyChatApp> {
           };
 
           dataBaseService.addChatRoom(chatRoom, chatroomid);
+          setState(() {
+            loading=false;
+          });
 
         });
       });
