@@ -14,3 +14,9 @@ const textInputDecorations=InputDecoration(
                         )
                       )
                   );
+
+const headingDecoration=TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 40.0,
+                      height: 1
+);  
