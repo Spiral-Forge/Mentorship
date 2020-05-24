@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
-<dict>
+  <dict>
 	<key>CLIENT_ID</key>
 	<string>890298441261-mt3gngj6dcgovr9lonrkofago77bmaj4.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
@@ -32,5 +32,5 @@
 	<string>1:890298441261:ios:f8adeaae884ef89de5e2a4</string>
 	<key>DATABASE_URL</key>
 	<string>https://mentorshipproject-77cef.firebaseio.com</string>
-</dict>
+  </dict>
 </plist>

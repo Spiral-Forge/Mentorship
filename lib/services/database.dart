@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dbapp/models/mentee.dart';
 import 'package:dbapp/models/mentor.dart';
+import 'package:dbapp/models/chatlist.dart';
 
 class DataBaseService{
   //collection reference
@@ -42,7 +43,69 @@ class DataBaseService{
     
   }
 
-  // userdata list from snapshot
+  Future<bool> addChatRoom(chatRoom, chatRoomId) {
+    Firestore.instance
+        .collection("MentorMentee")
+        .document(chatRoomId)
+        .setData(chatRoom)
+        .catchError((e) {
+      print(e);
+    });
+  }
+
+  Future getUserName(id) async{
+    DocumentSnapshot snapshot= await Firestore.instance.collection("Mentor")
+    .document(id).get();
+    return snapshot.data["name"];
+  }
+
+  Future getMyName(id) async{
+    DocumentSnapshot snapshot= await Firestore.instance.collection("Mentee")
+    .document(id).get();
+    return snapshot.data["name"];
+  }
+
+
+  Future<void> addMessage(String chatRoomId, chatMessageMap){
+
+    Firestore.instance.collection("MentorMentee")
+        .document(chatRoomId)
+        .collection("chats")
+        .add(chatMessageMap).catchError((e){
+          print("Error in add message");
+    });
+  }
+
+  getChats(String chatRoomId){
+    print("wwere inside getchats");
+    print(chatRoomId);
+    // return await Firestore.instance
+    //     .collection("MentorMentee")
+    //     .document(chatRoomId)
+    //     .collection("chats")
+    //     .snapshots();
+    //     //.map(_chatListFromSnapshot);
+    //     // print("inside get chats");
+    //     // print(variable);
+    //     // return variable;
+        var document = Firestore.instance.collection('MentorMentee').document(chatRoomId).collection("chats");
+        return document.getDocuments();
+
+        // await document.get().then((val){
+        //   print("yoyo");
+        //   print(val.data["chats"]);
+        // });
+        //document.get();
+  }
+
+  // Future<dynamic> getUserChats(String itIsMyName) async {
+  //   return await Firestore.instance
+  //       .collection("MentorMentee")
+  //       .where('users', arrayContains: itIsMyName)
+  //       .snapshots();
+  // }
+
+//my list from snapshtot
   // List<Mentor> _userListFromSnapshot(QuerySnapshot snapshot){
   //   return snapshot.documents.map((doc){
   //     return UserData(
@@ -52,10 +115,20 @@ class DataBaseService{
   //   }).toList();
   // }
 
+
+  //userdata list from snapshot
+  List<Chatlist> _chatListFromSnapshot(QuerySnapshot snapshot){
+    return snapshot.documents.map((doc){
+      return Chatlist(
+        message:doc.data['message'] ?? '',
+      );
+    }).toList();
+  }
+
   //get a new stream for any changes to user collecion
-  // Stream<List<Mentor>> get users{
+  // Stream<List<Chatlist>> get mychats{
   //   return mentorCollection.snapshots()
-  //     .map(_userListFromSnapshot);
+     
   // }
   // Stream<List<Mentee>> get users{
   //   return menteeCollection.snapshots()

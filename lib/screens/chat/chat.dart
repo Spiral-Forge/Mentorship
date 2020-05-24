@@ -1,11 +1,18 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:dbapp/services/auth.dart';
+import 'package:dbapp/screens/chat/chatscreen.dart';
 import 'package:dbapp/screens/sidebarScreens/about.dart';
 import 'package:dbapp/screens/sidebarScreens/faqs.dart';
 import 'package:dbapp/screens/sidebarScreens/feedback.dart';
 import 'package:dbapp/screens/sidebarScreens/guidelines.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import '../../services/database.dart';
+import '../../services/database.dart';
+import 'package:dbapp/shared/loading.dart';
 
 // void main(){
 //   runApp(new FriendlyChatApp());
@@ -18,220 +25,82 @@ class FriendlyChatApp extends StatefulWidget{
 }
 
 class _FriendlyChatAppState extends State<FriendlyChatApp> {
+  DataBaseService dataBaseService = new DataBaseService();
+  QuerySnapshot searchResultSnapshot;
+  bool loading=true;
+  String chatroomid="";
+  String uid="";
+  String peerName;
+  String myname;
+
+  final String peerId = "S03TGDOFDMYayaQ9bAGmWxG10sj1";
+
+  
   final AuthService _auth=AuthService();
+  final FirebaseAuth _authUser = FirebaseAuth.instance;
+  Future<FirebaseUser> getCurrentUser(){
+    return _authUser.currentUser();
+  }
+
+  getChatRoomId(String a, String b) {
+    if (a.substring(0, 1).codeUnitAt(0) > b.substring(0, 1).codeUnitAt(0)) {
+      return "$b\_$a";
+    } else {
+      return "$a\_$b";
+    }
+  }
+  
+
+  @override
+  void initState(){
+    print("hi firest call");
+    super.initState();
+    getCurrentUser().then((user){
+      uid = user.uid;
+      print("uid is this "+uid);
+      setState((){
+         uid: uid;
+      });
+      chatroomid = getChatRoomId(uid, peerId);
+      print("hey");
+      print(chatroomid);
+      setState((){
+         chatroomid= chatroomid;
+         loading=false;
+      });
+      dataBaseService.getUserName(peerId).then((value){
+        peerName = value;
+        print(peerName);
+        print("this uid is going in "+uid);
+        dataBaseService.getMyName(uid).then((value){
+          setState(() {
+            myname = value;
+          });
+          print(myname);
+          List<String> users = [myname,peerName];
+          Map<String, dynamic> chatRoom = {
+            "users": users,
+            "chatRoomId" : chatroomid,
+          };
+
+          dataBaseService.addChatRoom(chatRoom, chatroomid);
+
+        });
+      });
+    });
+  }
+
   @override 
   Widget build(BuildContext context){
     return new MaterialApp( 
       title: "Friendly Chat",
       theme: defaultTargetPlatform == TargetPlatform.iOS ? kIOSTheme : KDefaultTheme,
-      home: new ChatScreen(),
+       //home: new Text(chatroomid));
+      home: loading ? Loading() : new ChatScreen( 
+        chatRoomId: chatroomid,
+        myName: myname, )
     );
   }
-}
-
-const String _name = "Urvi";
-
-class ChatMessage extends StatelessWidget{
-    ChatMessage({this.text,this.animationController});
-    final String text;
-    final AnimationController animationController;
-    @override
-    Widget build(BuildContext context){
-      return new SizeTransition(
-        sizeFactor: new CurvedAnimation(
-          parent: animationController,curve: Curves.fastLinearToSlowEaseIn),
-        axisAlignment: 0.0,
-        child: new Container(
-          margin: const EdgeInsets.symmetric(vertical: 10.0),
-          child: new Row( 
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              new Container(
-                margin: const EdgeInsets.only(right: 16.0),
-                child: new CircleAvatar(child: new Text(_name[0])),
-              ),
-              new Expanded(
-                child: new Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget> [
-                    new Text(_name,style: Theme.of(context).textTheme.subhead),
-                    new Container(
-                      margin: const EdgeInsets.only(top: 5.0),
-                      child: new Text(text),
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          ),
-        ),
-      );
-    }
-}
-
-class ChatScreen extends StatefulWidget{
-  @override 
-  State createState()=> new ChatScreenState();
-}
-
-class ChatScreenState extends State<ChatScreen> with TickerProviderStateMixin{
-  final AuthService _auth=AuthService();
-  @override 
-  void dispose(){
-    for(ChatMessage message in _messages)
-      message.animationController.dispose();
-    super.dispose();
-  }
-  Widget build(BuildContext context){
-    return new Scaffold( 
-      // appBar: new AppBar(title: new Text("Chatting App"),
-      //   elevation: Theme.of(context).platform== TargetPlatform.iOS ? 0.0 : 4.0,
-      // ),
-      appBar: AppBar(
-        title:Text("Chat with your mentor"),
-        elevation: Theme.of(context).platform== TargetPlatform.iOS ? 0.0 : 4.0,
-        backgroundColor:Colors.teal[300] ,
-        // actions: <Widget>[
-        //   FlatButton.icon(
-        //     onPressed: () async{
-        //       await _auth.signOut();
-        //     }, 
-        //     icon: Icon(Icons.person),
-        //     label:Text('logout')
-        //     )
-        // ],
-      ),
-      drawer: new Drawer(
-        child: new ListView(
-          children: <Widget>[
-            new ListTile(
-              title: new Text("About"),
-              trailing: new Icon(Icons.arrow_right),
-              onTap: () {
-                Navigator.of(context).pop();
-                Navigator.of(context).push(new MaterialPageRoute(builder: (BuildContext context) => new About()));
-              }
-            ),
-            new ListTile(
-              title: new Text("FAQs"),
-              trailing: new Icon(Icons.arrow_right),
-              onTap: () {
-                Navigator.of(context).pop();
-                Navigator.of(context).push(new MaterialPageRoute(builder: (BuildContext context) => new FAQS()));
-              }
-            ),
-            new ListTile(
-              title: new Text("Guidelines"),
-              trailing: new Icon(Icons.arrow_right),
-              onTap: () {
-                Navigator.of(context).pop();
-                Navigator.of(context).push(new MaterialPageRoute(builder: (BuildContext context) => new Guidelines()));
-              }
-            ),
-            new ListTile(
-              title: new Text("Contact us and feedback"),
-              trailing: new Icon(Icons.arrow_right),
-              onTap: () {
-                Navigator.of(context).pop();
-                Navigator.of(context).push(new MaterialPageRoute(builder: (BuildContext context) => new MyFeedback()));
-              }
-            ),
-             
-            new Divider(),
-            new ListTile(
-              title: new Text("Logout"),
-              trailing: new Icon(Icons.people),
-              onTap: () async => await _auth.signOut()
-            ),
-          ],
-        ),
-      ),
-      body: new Container(
-        child: new Column(
-          children: <Widget>[
-            new Flexible(
-              child: new ListView.builder(
-                padding: new EdgeInsets.all(8.0),
-                reverse: true,
-                itemBuilder: (_, int index) => _messages[index],
-                itemCount: _messages.length,
-              ),
-            ),
-            new Divider(height: 1.0),
-            new Container( 
-              decoration: new BoxDecoration(
-                color: Theme.of(context).cardColor),
-              child: _buildTextComposer(),
-            ),
-          ],
-        ),
-        decoration: Theme.of(context).platform == TargetPlatform.iOS 
-            ? new BoxDecoration(
-              border: new Border(top: new BorderSide(color: Colors.teal)),
-            ) 
-        : null),
-    );
-  }
-  final List<ChatMessage> _messages = <ChatMessage>[];
-  final TextEditingController _textController = new TextEditingController();
-  bool _isComposing = false;
-
-  Widget _buildTextComposer(){
-    return new IconTheme(
-      data: new IconThemeData(color: Theme.of(context).accentColor), 
-      child: new Container( 
-        margin: const EdgeInsets.symmetric(horizontal: 8.0),
-        child: new Row(
-          children: <Widget>[
-            new Flexible(
-              child: new TextField(
-                controller: _textController,
-                onChanged: (String text){
-                  setState(() {
-                    _isComposing = text.length > 0;
-                  });
-                },
-                onSubmitted: _handleSubmitted,
-                decoration: new InputDecoration.collapsed(hintText: "Send a message"),
-              ) ,
-            ),
-            new Container(
-              margin: new EdgeInsets.symmetric(horizontal: 4.0),
-              child: Theme.of(context).platform == TargetPlatform.iOS ?
-              new CupertinoButton(
-                child: new Text("Send"), 
-                onPressed:_isComposing
-                      ? () => _handleSubmitted(_textController.text) : null,) :
-                new IconButton(
-                  icon: new Icon(Icons.send),
-                  onPressed: _isComposing
-                       ? () => _handleSubmitted(_textController.text) : null,
-                ) 
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  void _handleSubmitted(String text){
-    _textController.clear();
-    setState(() {
-      _isComposing = false;
-    });
-    ChatMessage message = new ChatMessage(
-      text: text,
-      animationController: new AnimationController( 
-        duration: new Duration(milliseconds: 300),
-        vsync: this,
-      ),
-    );
-    setState(() {
-      _messages.insert(0,message);
-    });
-    message.animationController.forward();
-  }
-
 }
 
 final ThemeData kIOSTheme = new ThemeData(
