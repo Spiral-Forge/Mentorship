@@ -42,7 +42,7 @@ class ChatScreenState extends State<ChatScreen> {
   Widget chatMessages(){
     return loading? Loading() : 
     ListView.builder(
-      itemCount: chats.length,
+      itemCount: 20,
        itemBuilder: (context,index){
          return chats[index];
        }
@@ -108,7 +108,7 @@ class ChatScreenState extends State<ChatScreen> {
             loading=false;
           });
           List<ChatMessageTile> templist=[];
-          for(var i=0;i<val.documents.length;i++){
+          for(var i=0;i<20;i++){
             templist.add(
               ChatMessageTile(
                 message: val.documents[i].data["message"], 

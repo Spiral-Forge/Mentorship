@@ -101,6 +101,16 @@ class DataBaseService{
         //document.get();
   }
 
+  Future<bool> addFeedback(feedbackMap) {
+    Firestore.instance
+        .collection("feedback")
+        .add(feedbackMap)
+        .catchError((e) {
+      print(e);
+    });
+  }
+
+
   // Future<dynamic> getUserChats(String itIsMyName) async {
   //   return await Firestore.instance
   //       .collection("MentorMentee")
