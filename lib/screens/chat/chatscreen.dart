@@ -137,6 +137,14 @@ class ChatScreenState extends State<ChatScreen> {
         child: new ListView(
           children: <Widget>[
             new ListTile(
+              title: new Text("Code of Conduct"),
+              trailing: new Icon(Icons.arrow_right),
+              onTap: () {
+                Navigator.of(context).pop();
+                Navigator.of(context).push(new MaterialPageRoute(builder: (BuildContext context) => new Guidelines()));
+              }
+            ),
+            new ListTile(
               title: new Text("About"),
               trailing: new Icon(Icons.arrow_right),
               onTap: () {
@@ -152,14 +160,7 @@ class ChatScreenState extends State<ChatScreen> {
                 Navigator.of(context).push(new MaterialPageRoute(builder: (BuildContext context) => new FAQS()));
               }
             ),
-            new ListTile(
-              title: new Text("Guidelines"),
-              trailing: new Icon(Icons.arrow_right),
-              onTap: () {
-                Navigator.of(context).pop();
-                Navigator.of(context).push(new MaterialPageRoute(builder: (BuildContext context) => new Guidelines()));
-              }
-            ),
+            
             new ListTile(
               title: new Text("Contact us and feedback"),
               trailing: new Icon(Icons.arrow_right),
@@ -169,6 +170,33 @@ class ChatScreenState extends State<ChatScreen> {
               }
             ),
              
+            new Divider(),
+            new ListTile(
+              trailing: Transform.scale(
+                scale: 1.4,
+                child: Switch(
+                  value: _darkTheme,
+                  onChanged: (val) {
+                    setState(() {
+                      _darkTheme = val;
+                    });
+                    onThemeChanged(val, _themeChanger);
+                  },
+                ),
+              ),
+              // leading: new IconButton(
+              //             onPressed: () => _themeChanger.setTheme(Theme.dark()),
+              //             icon: Icon(
+              //               Icons.brightness_3
+              //             ),
+              //             color: Hexcolor('#565656'),
+              //           ),
+              // title: new Text("Change Theme"),
+              // onTap: () {
+              //   Navigator.of(context).pop();
+              //   Navigator.of(context).push(new MaterialPageRoute(builder: (BuildContext context) => new ThemeChanger(ThemeData.dark())));
+              // }
+            ),           
             new Divider(),
             new ListTile(
               title: new Text("Logout"),
