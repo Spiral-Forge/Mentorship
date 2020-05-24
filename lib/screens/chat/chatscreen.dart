@@ -107,6 +107,12 @@ class ChatScreenState extends State<ChatScreen> {
                 myName: widget.myName)
             );
           }
+          this.setState((){
+            chats=templist;
+            msg=val.documents[1].data["message"];
+            
+            loading=false;
+          });
       });
   }
 

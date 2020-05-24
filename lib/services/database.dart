@@ -42,7 +42,10 @@ class DataBaseService{
     }
     
   }
-
+   getEvents(){
+    return Firestore.instance.collection("Events")
+        .getDocuments();
+  }
   Future<bool> addChatRoom(chatRoom, chatRoomId) {
     Firestore.instance
         .collection("MentorMentee")
