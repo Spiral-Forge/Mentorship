@@ -74,15 +74,6 @@ class _HomePageState extends State<HomePage> {
         title:Text("myapp"),
         backgroundColor:Colors.teal[300] ,
         elevation: Theme.of(context).platform== TargetPlatform.iOS ? 0.0 : 4.0,
-        // actions: <Widget>[
-        //   FlatButton.icon(
-        //     onPressed: () async{
-        //       await _auth.signOut();
-        //     }, 
-        //     icon: Icon(Icons.person),
-        //     label:Text('logout')
-        //     )
-        // ],
       ),
       drawer: new Drawer(
         child: new ListView(
@@ -130,30 +121,6 @@ class _HomePageState extends State<HomePage> {
         ),
       ),
       body: eventList()
-      // new Column(
-      //     children: <Widget>[
-      //       Container(
-      //         padding: EdgeInsets.all(40.0),
-      //         child:Text("Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.")
-      //       ),
-      //       Container(
-      //         child:Text("OUR EVENTS")
-      //       ),
-      //       Expanded(child: eventList())
-      //     ],
-      //   )
-      // LayoutBuilder(
-      //   builder: (BuildContext context, BoxConstraints viewportConstraints) {
-      //     return SingleChildScrollView(
-      //         child:new Column(
-      //           children: <Widget>[
-      //             Text("hello world"),
-      //             eventList(),
-      //           ],
-      //         )
-      //     );
-      //   }
-      // )
     );
   }
 }
