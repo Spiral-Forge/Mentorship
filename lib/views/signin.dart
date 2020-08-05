@@ -97,10 +97,22 @@ class _SignInState extends State<SignIn> {
                   SizedBox(
                     height:8
                   ),
-                  Container(
-                    padding:EdgeInsets.symmetric(horizontal:16,vertical:16),
-                    alignment: Alignment.centerRight,
-                    child:Text("Forgot password?",style:simpleTextFieldStyle())
+                  GestureDetector(
+                    onTap: (){
+                      if(emailController.text.length==0){
+                        Toast.show("Please enter the email", context, duration: Toast.LENGTH_SHORT, gravity:  Toast.BOTTOM);
+                      }else{
+                        authMethods.resetPassword(emailController.text).then((value) {
+                          Toast.show("Check your email for password reset", context, duration: Toast.LENGTH_SHORT, gravity:  Toast.BOTTOM);
+                        });
+                      }
+                      
+                    },
+                    child: Container(
+                      padding:EdgeInsets.symmetric(horizontal:16,vertical:16),
+                      alignment: Alignment.centerRight,
+                      child:Text("Forgot password?",style:simpleTextFieldStyle())
+                    ),
                   ),
                   SizedBox(
                     height:8

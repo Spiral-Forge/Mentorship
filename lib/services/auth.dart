@@ -28,7 +28,7 @@ class AuthMethods{
        print(e.toString());
     }
   }
-  Future resetPassword(String email,String password) async {
+  Future resetPassword(String email) async {
     try{
       return await _auth.sendPasswordResetEmail(email: email);
 
