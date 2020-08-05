@@ -1,108 +1,68 @@
+import 'package:chatApp/models/user.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:dbapp/models/mentee.dart';
-import 'package:dbapp/models/mentor.dart';
-import 'package:dbapp/models/chatlist.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
-class DataBaseService{
-  //collection reference
-  final String uid;
-  DataBaseService({this.uid});
-  final CollectionReference mentorCollection= Firestore.instance.collection("Mentor");
-  final CollectionReference menteeCollection= Firestore.instance.collection("Mentee");
-
-  Future updateUserData(String name,int year, String email,int rollNo,String branch,int contact,String linkedInURL,String githubURL,List<String> domains,bool hosteller,List<String> languages,bool mentor) async{
-    if(mentor){
-      return await mentorCollection.document(uid).setData({
-      'name':name,
-      'year':year,
-      'email': email,
-      'rollNo': rollNo,
-      'branch':branch,
-      'contact':contact,
-      'linkedInURL': linkedInURL,
-      'githubURL': githubURL,
-      'domains':domains,
-      'hosteller':hosteller,
-      'languages':languages
-      });
-    }else{
-      return await menteeCollection.document(uid).setData({
-      'name':name,
-      'year':year,
-      'email': email,
-      'rollNo': rollNo,
-      'branch':branch,
-      'contact':contact,
-      'linkedInURL': linkedInURL,
-      'githubURL': githubURL,
-      'domains':domains,
-      'hosteller':hosteller,
-      'languages':languages
-      });
-    }
-    
-  }
-   getEvents(){
+class DatabaseMethods{
+  getEvents(){
     return Firestore.instance.collection("Events")
         .getDocuments();
   }
-  Future<bool> addChatRoom(chatRoom, chatRoomId) {
-    Firestore.instance
-        .collection("MentorMentee")
-        .document(chatRoomId)
-        .setData(chatRoom)
+  getUserByUsername(String name) async {
+    return await Firestore.instance.collection("users")
+      .where("name",isEqualTo:name)
+      .getDocuments();
+  }
+  getUserInfo(String email) async {
+    return Firestore.instance
+        .collection("users")
+        .where("email", isEqualTo: email)
+        .getDocuments()
         .catchError((e) {
-      print(e);
+      print(e.toString());
+    });
+  }
+  getProfile(String userID){
+    return Firestore.instance.collection('users').document(userID).get();
+  }
+
+  uploadUserInfo(userMap) async {
+    return await Firestore.instance.collection("users")
+    .add(userMap);
+
+  }
+  createChatRoom(String chatRoomID,chatRoomMap){
+    Firestore.instance.collection("ChatRoom").document(chatRoomID)
+      .setData(chatRoomMap).catchError((e){
+        print(e.toString());
+      });
+  }
+
+  addConversationMessage(String chatRoomID,messageMap){
+    Firestore.instance.collection("ChatRoom")
+    .document(chatRoomID)
+    .collection("chats")
+    .add(messageMap)
+    .catchError((e){
+      print(e.toString());
     });
   }
 
-  Future getUserName(id) async{
-    DocumentSnapshot snapshot= await Firestore.instance.collection("Mentor")
-    .document(id).get();
-    return snapshot.data["name"];
+  getConversationMessages(String chatRoomID)async {
+    return await Firestore.instance.collection("ChatRoom")
+    .document(chatRoomID)
+    .collection("chats")
+    .orderBy("time",descending: false)
+    .snapshots();
   }
 
-  Future getMyName(id) async{
-    DocumentSnapshot snapshot= await Firestore.instance.collection("Mentee")
-    .document(id).get();
-    return snapshot.data["name"];
+  getChatRooms(String userID) async {
+    return await Firestore.instance.collection("ChatRoom")
+            .where("users",arrayContains:userID)
+            .snapshots();
   }
 
-
-  Future<void> addMessage(String chatRoomId, chatMessageMap){
-
-    Firestore.instance.collection("MentorMentee")
-        .document(chatRoomId)
-        .collection("chats")
-        .add(chatMessageMap).catchError((e){
-          print("Error in add message");
-    });
-  }
-
-  getChats(String chatRoomId){
-    print("wwere inside getchats");
-    print(chatRoomId);
-    // return await Firestore.instance
-    //     .collection("MentorMentee")
-    //     .document(chatRoomId)
-    //     .collection("chats")
-    //     .snapshots();
-    //     //.map(_chatListFromSnapshot);
-    //     // print("inside get chats");
-    //     // print(variable);
-    //     // return variable;
-        var document = Firestore.instance.collection('MentorMentee').document(chatRoomId).collection("chats");
-        return document.getDocuments();
-
-        // await document.get().then((val){
-        //   print("yoyo");
-        //   print(val.data["chats"]);
-        // });
-        //document.get();
-  }
-
-  Future<bool> addFeedback(feedbackMap) {
-    Firestore.instance
+  Future<DocumentReference> addFeedback(feedbackMap) {
+    return Firestore.instance
         .collection("feedback")
         .add(feedbackMap)
         .catchError((e) {
@@ -110,59 +70,20 @@ class DataBaseService{
     });
   }
 
-
-  // Future<dynamic> getUserChats(String itIsMyName) async {
-  //   return await Firestore.instance
-  //       .collection("MentorMentee")
-  //       .where('users', arrayContains: itIsMyName)
-  //       .snapshots();
-  // }
-
-//my list from snapshtot
-  // List<Mentor> _userListFromSnapshot(QuerySnapshot snapshot){
-  //   return snapshot.documents.map((doc){
-  //     return UserData(
-  //       name:doc.data['name'] ?? '',
-  //       year: doc.data['year'] ?? 0
-  //     );
-  //   }).toList();
-  // }
-
-
-  //userdata list from snapshot
-  List<Chatlist> _chatListFromSnapshot(QuerySnapshot snapshot){
-    return snapshot.documents.map((doc){
-      return Chatlist(
-        message:doc.data['message'] ?? '',
-      );
-    }).toList();
+  Future<dynamic> getUserFromID(String userID) async{
+    dynamic doc=await Firestore.instance.collection("users").document(userID).get();
+    return await doc.data["name"];
+    // .then((value){
+    //   print(value.data);
+    //   return(value.data["name"]);
+    // });
+    // .where("documentID", isEqualTo: userID)
+    //     .getDocuments();
+  
+    // print(document.documents[0].data["name"]);
+    // firestoreInstance.collection("users").document(firebaseUser.uid).get().then((value){
+    //   print(value.data);
+    // });
   }
 
-  //get a new stream for any changes to user collecion
-  // Stream<List<Chatlist>> get mychats{
-  //   return mentorCollection.snapshots()
-     
-  // }
-  // Stream<List<Mentee>> get users{
-  //   return menteeCollection.snapshots()
-  //     .map(_userListFromSnapshot);
-  // }
 }
-
-// Future getUser(String uid) async{
-//   try{
-//     var userData=await menteeCollection.document(uid).get();
-//     return Mentee.fromData(userData.data);
-//   }catch(e){
-//     return e.message;
-//   }
-// }
-
-// Future getUser(String uid) async {
-//     try {
-//       var userData = await menteeCollection.document(uid).get();
-//       return User.fromData(userData.data);
-//     } catch (e) {
-//       return e.message;
-//     }
-//   }

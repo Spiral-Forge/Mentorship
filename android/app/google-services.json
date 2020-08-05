@@ -1,34 +1,34 @@
 {
   "project_info": {
-    "project_number": "890298441261",
-    "firebase_url": "https://mentorshipproject-77cef.firebaseio.com",
-    "project_id": "mentorshipproject-77cef",
-    "storage_bucket": "mentorshipproject-77cef.appspot.com"
+    "project_number": "18987676672",
+    "firebase_url": "https://mentorshipproject-f9dbb.firebaseio.com",
+    "project_id": "mentorshipproject-f9dbb",
+    "storage_bucket": "mentorshipproject-f9dbb.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:890298441261:android:8abbb85b3202efcbe5e2a4",
+        "mobilesdk_app_id": "1:18987676672:android:42996ad63532999fa914e5",
         "android_client_info": {
-          "package_name": "com.spiralforge.dbapp"
+          "package_name": "com.example.chatApp"
         }
       },
       "oauth_client": [
         {
-          "client_id": "890298441261-p2okmtae1geu70i6qhui5supp5bb49dq.apps.googleusercontent.com",
+          "client_id": "18987676672-1f4kib6po81e8t7r03rs43tnek754716.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyAZMv7cSTpjADMBsP-26p4MtC86Ygclwh0"
+          "current_key": "AIzaSyA5QUERQeTTXd3vQf7A36w2UEjHsCJip-o"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "890298441261-p2okmtae1geu70i6qhui5supp5bb49dq.apps.googleusercontent.com",
+              "client_id": "18987676672-1f4kib6po81e8t7r03rs43tnek754716.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

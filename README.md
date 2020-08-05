@@ -1,4 +1,4 @@
-# dbapp
+# chatApp
 
 A new Flutter project.
 
