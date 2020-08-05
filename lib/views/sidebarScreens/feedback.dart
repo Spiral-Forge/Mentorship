@@ -3,7 +3,7 @@ import 'package:chatApp/services/database.dart';
 import 'package:flutter/material.dart';
 
 import '../../services/auth.dart';
-
+import 'package:toast/toast.dart';
 
 enum SingingCharacter { login, suggestion, complaint, other }
 var feedbackopt;
@@ -48,7 +48,7 @@ class _MyFeedbackState extends State<MyFeedback> {
   //   // });
   // }
 
-  submitFeedback(){
+  submitFeedback(BuildContext context){
     if(textController.text.isNotEmpty){
       Map<String, dynamic> feedbackMap = {
         "type": feedbackOption[feedbackopt],
@@ -58,13 +58,17 @@ class _MyFeedbackState extends State<MyFeedback> {
        databaseMethods.addFeedback(feedbackMap).then((value) {
          if(value!=null){
            //show toast saying thanks
+           Toast.show("Thank you for your feedback!", context, duration: Toast.LENGTH_SHORT, gravity:  Toast.BOTTOM);
          }else{
            //show toasts saying some error occured
+           Toast.show("Some error occured. Please try again later.", context, duration: Toast.LENGTH_SHORT, gravity:  Toast.BOTTOM);
          }
         setState(() {
           textController.text="";
         });
        });
+    }else{
+      Toast.show("Feedback cant be empty.", context, duration: Toast.LENGTH_SHORT, gravity:  Toast.BOTTOM);
     }
    
   }
@@ -103,7 +107,7 @@ class _MyFeedbackState extends State<MyFeedback> {
             Expanded(
               child: FlatButton(
                 onPressed: (){
-                  submitFeedback();
+                  submitFeedback(context);
                 },
                 color: Colors.teal,
                 padding: EdgeInsets.all(16.0),

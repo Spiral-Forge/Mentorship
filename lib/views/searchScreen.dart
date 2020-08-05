@@ -4,6 +4,7 @@ import 'package:chatApp/helper/Storage.dart';
 import 'package:chatApp/services/database.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:toast/toast.dart';
 
 import 'conversation.dart';
 
@@ -94,10 +95,13 @@ class _SearchScreenState extends State<SearchScreen> {
 
   void initiateSearch() {
     databaseMethods.getUserByUsername(searchController.text).then((data){
-      //print(data);
-      setState(() {
-        searchSnapshot=data;
-      });
+      if(data.documents.length==0){
+        Toast.show("No matching users found", context, duration: Toast.LENGTH_SHORT, gravity:  Toast.BOTTOM);
+      }else{
+        setState(() {
+          searchSnapshot=data;
+        });
+      }
     });
   }
 

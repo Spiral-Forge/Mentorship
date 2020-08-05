@@ -5,6 +5,7 @@ import 'package:chatApp/services/auth.dart';
 import 'package:chatApp/services/database.dart';
 import 'package:chatApp/views/bottomNavigationScreen.dart';
 import 'package:flutter/material.dart';
+import 'package:toast/toast.dart';
 
 import 'chatRoomScreen.dart';
 
@@ -49,6 +50,7 @@ class _SignUpState extends State<SignUp> {
           });
           
         }else{
+          Toast.show("Some error occured. Please try again later.", context, duration: Toast.LENGTH_SHORT, gravity:  Toast.BOTTOM);
           Navigator.pushReplacement(context, MaterialPageRoute(
             builder: (context)=>SignUp(widget.toggle)
           ));
@@ -60,7 +62,7 @@ class _SignUpState extends State<SignUp> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: appBarMain(context,"signup"),
+      appBar: appBarMain(context,isLoading ? "Signing you up" : "Signup"),
       body:isLoading ? Container(
         child: Center(child: CircularProgressIndicator()),
       ) :

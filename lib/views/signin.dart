@@ -5,8 +5,9 @@ import 'package:chatApp/services/database.dart';
 import 'package:chatApp/views/bottomNavigationScreen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:toast/toast.dart';
 
-import 'chatRoomScreen.dart';
+// import 'chatRoomScreen.dart';
 
 class SignIn extends StatefulWidget {
   final Function toggle;
@@ -40,7 +41,7 @@ class _SignInState extends State<SignIn> {
             builder: (context)=>BottomNavigationScreen()
           ));
         }else{
-          print("cant sign u in");
+          Toast.show("Some error occured. Please try again later.", context, duration: Toast.LENGTH_SHORT, gravity:  Toast.BOTTOM);
           Navigator.pushReplacement(context, MaterialPageRoute(
             builder: (context)=>SignIn(widget.toggle)
           ));
@@ -51,7 +52,7 @@ class _SignInState extends State<SignIn> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: appBarMain(context,"signin"),
+      appBar: appBarMain(context,isLoading ? "Signing you in" : "Signin"),
       body:isLoading ? Container(
         child: Center(child: CircularProgressIndicator()),
       ) : 
