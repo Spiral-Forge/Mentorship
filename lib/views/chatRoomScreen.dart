@@ -11,7 +11,9 @@ import 'package:chatApp/views/sidebarScreens/faqs.dart';
 import 'package:chatApp/views/sidebarScreens/feedback.dart';
 import 'package:chatApp/views/sidebarScreens/guidelines.dart';
 import 'package:flutter/material.dart';
-
+import 'package:chatApp/blocs/theme.dart';
+import 'package:chatApp/blocs/values.dart';
+import 'package:provider/provider.dart';
 class ChatRoom extends StatefulWidget {
   @override
   _ChatRoomState createState() => _ChatRoomState();
@@ -59,6 +61,9 @@ class _ChatRoomState extends State<ChatRoom> {
   }
   @override
   Widget build(BuildContext context) {
+    ThemeChanger _themeChanger = Provider.of<ThemeChanger>(context);
+    //final _themeChanger = Provider.of<ThemeChanger>(context);
+   _darkTheme = (_themeChanger.getTheme() == darkTheme);
     return Scaffold(
       appBar: AppBar(
         title: Text("Chat Room"),
@@ -120,12 +125,12 @@ class _ChatRoomState extends State<ChatRoom> {
                 scale: 1.4,
                 child: Switch(
                   value: _darkTheme,
-                  // onChanged: (val) {
-                  //   setState(() {
-                  //     _darkTheme = val;
-                  //   });
-                  //   //onThemeChanged(val, _themeChanger);
-                  // },
+                  onChanged: (val) {
+                    setState(() {
+                      _darkTheme = val;
+                    });
+                    onThemeChanged(val, _themeChanger);
+                  },
                 ),
               ),
               // leading: new IconButton(
@@ -225,4 +230,10 @@ class _ChatRoomTileState extends State<ChatRoomTile> {
       ),
     );
   }
+}
+
+void onThemeChanged(bool value, ThemeChanger _themeChanger) async {
+  (value) ? _themeChanger.setTheme(darkTheme) : _themeChanger.setTheme(lightTheme);
+    // var prefs = await SharedPreferences.getInstance();
+    // prefs.setBool('darkMode', value);
 }

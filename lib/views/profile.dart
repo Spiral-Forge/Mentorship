@@ -4,7 +4,6 @@ import 'package:chatApp/config/constants.dart';
 import 'package:chatApp/helper/authenticate.dart';
 import 'package:chatApp/services/auth.dart';
 import 'package:chatApp/services/database.dart';
-import 'package:chatApp/views/homepage.dart';
 import 'package:chatApp/views/sidebarScreens/about.dart';
 import 'package:chatApp/views/sidebarScreens/faqs.dart';
 import 'package:chatApp/views/sidebarScreens/feedback.dart';
@@ -15,8 +14,8 @@ import 'package:google_fonts/google_fonts.dart';
 // import 'package:dbapp/services/auth.dart';
 
 // import 'package:provider/provider.dart';
-// import 'package:dbapp/blocs/theme.dart';
-// import 'package:dbapp/blocs/values.dart';
+import 'package:chatApp/blocs/theme.dart';
+import 'package:chatApp/blocs/values.dart';
 
 // import 'package:dbapp/screens/home/homepage.dart';
 // import 'package:dbapp/screens/sidebarScreens/about.dart';
@@ -26,10 +25,9 @@ import 'package:google_fonts/google_fonts.dart';
 
 // import 'package:dbapp/shared/loading.dart';
 
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:provider/provider.dart';
 
-import 'chatRoomScreen.dart';
 class Profile extends StatefulWidget {
   @override
   _ProfileState createState() => new _ProfileState();
@@ -45,9 +43,9 @@ class _ProfileState extends State<Profile> {
   final AuthMethods _auth=new AuthMethods();
   final FirebaseAuth _authUser = FirebaseAuth.instance;
   final DatabaseMethods databaseMethods=new DatabaseMethods();
-  Future<FirebaseUser> getCurrentUser(){
-    return _authUser.currentUser();
-  }
+  // Future<FirebaseUser> getCurrentUser(){
+  //   return _authUser.currentUser();
+  // }
 
   String name='';
   String email='';
@@ -140,16 +138,16 @@ class _ProfileState extends State<Profile> {
     //});
   }
 
-  @override
+  //@override
   // Widget build(BuildContext context) {
   //   return Container(child: Text("profile page"),);
   // }
   @override
   Widget build(BuildContext context) {
 
-    //ThemeChanger _themeChanger = Provider.of<ThemeChanger>(context);
-    // final _themeChanger = Provider.of<ThemeChanger>(context);
-   // _darkTheme = (_themeChanger.getTheme() == darkTheme);
+    ThemeChanger _themeChanger = Provider.of<ThemeChanger>(context);
+    //final _themeChanger = Provider.of<ThemeChanger>(context);
+   _darkTheme = (_themeChanger.getTheme() == darkTheme);
 
     return new Scaffold(
       appBar: AppBar(
@@ -209,12 +207,12 @@ class _ProfileState extends State<Profile> {
                 scale: 1.4,
                 child: Switch(
                   value: _darkTheme,
-                  // onChanged: (val) {
-                  //   setState(() {
-                  //     _darkTheme = val;
-                  //   });
-                  //   //onThemeChanged(val, _themeChanger);
-                  // },
+                  onChanged: (val) {
+                    setState(() {
+                      _darkTheme = val;
+                    });
+                    onThemeChanged(val, _themeChanger);
+                  },
                 ),
               ),
               // leading: new IconButton(
@@ -463,4 +461,10 @@ class getClipper extends CustomClipper<Path>{
   bool shouldReclip(CustomClipper<Path> oldClipper){
     return true;
   }
+}
+
+void onThemeChanged(bool value, ThemeChanger _themeChanger) async {
+  (value) ? _themeChanger.setTheme(darkTheme) : _themeChanger.setTheme(lightTheme);
+    // var prefs = await SharedPreferences.getInstance();
+    // prefs.setBool('darkMode', value);
 }

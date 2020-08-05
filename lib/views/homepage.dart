@@ -8,6 +8,9 @@ import 'package:chatApp/views/sidebarScreens/faqs.dart';
 import 'package:chatApp/views/sidebarScreens/feedback.dart';
 import 'package:chatApp/views/sidebarScreens/guidelines.dart';
 import 'package:flutter/material.dart';
+import 'package:chatApp/blocs/theme.dart';
+import 'package:chatApp/blocs/values.dart';
+import 'package:provider/provider.dart';
 // import 'package:dbapp/blocs/theme.dart';
 // import 'package:dbapp/blocs/values.dart';
 // import 'package:flutter/material.dart';
@@ -89,9 +92,9 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
 
-    //ThemeChanger _themeChanger = Provider.of<ThemeChanger>(context);
+    ThemeChanger _themeChanger = Provider.of<ThemeChanger>(context);
     // final _themeChanger = Provider.of<ThemeChanger>(context);
-    //_darkTheme = (_themeChanger.getTheme() == darkTheme);
+    _darkTheme = (_themeChanger.getTheme() == darkTheme);
 
     return Scaffold(
       appBar: AppBar(
@@ -142,12 +145,12 @@ class _HomePageState extends State<HomePage> {
                 scale: 1.4,
                 child: Switch(
                   value: _darkTheme,
-                  // onChanged: (val) {
-                  //   setState(() {
-                  //     _darkTheme = val;
-                  //   });
-                  //   //onThemeChanged(val, _themeChanger);
-                  // },
+                  onChanged: (val) {
+                    setState(() {
+                      _darkTheme = val;
+                    });
+                    onThemeChanged(val, _themeChanger);
+                  },
                 ),
               ),
               // leading: new IconButton(
@@ -233,9 +236,9 @@ class EventTile extends StatelessWidget {
   }
 }
 
-// void onThemeChanged(bool value, ThemeChanger _themeChanger) async {
-//   (value) ? _themeChanger.setTheme(darkTheme) : _themeChanger.setTheme(lightTheme);
-//     // var prefs = await SharedPreferences.getInstance();
-//     // prefs.setBool('darkMode', value);
-// }
+void onThemeChanged(bool value, ThemeChanger _themeChanger) async {
+  (value) ? _themeChanger.setTheme(darkTheme) : _themeChanger.setTheme(lightTheme);
+    // var prefs = await SharedPreferences.getInstance();
+    // prefs.setBool('darkMode', value);
+}
 
