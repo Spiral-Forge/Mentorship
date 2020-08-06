@@ -6,7 +6,6 @@ final darkTheme = ThemeData(
   brightness: Brightness.dark,
   backgroundColor: const Color(0xFF212121),
   accentColor: Colors.white,
-  textSelectionColor: Colors.white,
   //accentIconTheme: IconThemeData(color: Colors.pink),
   dividerColor: Colors.black,
 );

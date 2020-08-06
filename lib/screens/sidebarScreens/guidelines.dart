@@ -1,6 +1,8 @@
-import 'package:chatApp/common/constants.dart';
 import 'package:flutter/material.dart';
+import 'package:dbapp/shared/constants.dart';
 
+import '../../shared/constants.dart';
+import '../../shared/constants.dart';
 
 class Guidelines extends StatelessWidget {
   final List guidelinelist=["Lorem Ipsum is simply dummy text of the printin.Lorem Ipsum is simply dummy text of the printin.Lorem Ipsum is simply dummy text of the printin.Lorem Ipsum is simply dummy text of the printin.Lorem Ipsum is simply dummy text of the printin.Lorem Ipsum is simply dummy text of the printin.Lorem Ipsum is simply dummy text of the printin.Lorem Ipsum is simply dummy text of the printin.","Guideline2","Guideline3","Guideline4","guideline5S","Guideline2","Guideline3","Guideline4","guideline5S","Guideline2","Guideline3","Guideline4","guideline5S","Guideline2","Guideline3","Guideline4","guideline5S","Guideline2","Guideline3","Guideline4","guideline5S"];

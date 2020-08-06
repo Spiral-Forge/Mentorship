@@ -1,58 +1,40 @@
-import 'package:chatApp/helper/authenticate.dart';
-import 'package:chatApp/helper/Storage.dart';
-//import 'package:chatApp/views/chatRoomScreen.dart';
-import 'package:chatApp/views/bottomNavigationScreen.dart';
+import 'package:dbapp/screens/wrapper.dart';
+import 'package:dbapp/services/auth.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
-import 'blocs/theme.dart';
+import 'package:provider/provider.dart';
+import 'package:dbapp/blocs/theme.dart';
+
+import 'package:flutter/foundation.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:dbapp/models/user.dart';
+
+
 void main() => runApp(
   ChangeNotifierProvider<ThemeChanger>(
     create: (_) => ThemeChanger(ThemeData.light()),
     child: MyApp(),
   )
 );
-class MyApp extends StatefulWidget {
+
+class MyApp extends StatelessWidget {
+  // This widget is the root of your application.
   @override
-  _MyAppState createState() => _MyAppState();
-}
-
-class _MyAppState extends State<MyApp> {
-  
-  bool isLoggedIn;
-
-  @override
-  void initState(){
-    super.initState();
-    //StorageHelperFunctions.clearData();
-    //print("cleared everything");
-    getLoggedInState();
-  }
-
-  getLoggedInState() async{
-    await StorageHelperFunctions.getUserLoggedIn().then((val){
-        setState(() {
-          isLoggedIn=val;
-        });
-    });
-  }
-
-      
-  @override
-  Widget build(BuildContext context){
+  Widget build(BuildContext context) {
     final _themeChanger = Provider.of<ThemeChanger>(context);
-    return MaterialApp(
-      title:"Protege",
-      debugShowCheckedModeBanner: false,
-      theme: _themeChanger.getTheme(),
-      // ThemeData(
-      //   primarySwatch:Colors.blue,
-      //   visualDensity: VisualDensity.adaptivePlatformDensity 
-      // ),
-      home:isLoggedIn==null||false ? Authenticate() : BottomNavigationScreen()
+    return StreamProvider<FirebaseUser>.value(
+      value:AuthService().user,
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        theme: _themeChanger.getTheme(),
+        home:Wrapper(),
+      ),
     );
+    
   }
 }
+
 
 class MaterialAppWithTheme extends StatelessWidget {
   @override
@@ -64,3 +46,15 @@ class MaterialAppWithTheme extends StatelessWidget {
     );
   }
 }
+
+// final ThemeData kIOSTheme = new ThemeData(
+//   primarySwatch: Colors.teal,
+//   primaryColor: Colors.teal[200],
+//   primaryColorBrightness: Brightness.light,
+// );
+
+// final ThemeData KDefaultTheme = new ThemeData(
+//   primarySwatch: Colors.teal,
+//   accentColor: Colors.teal[200],
+// );
+

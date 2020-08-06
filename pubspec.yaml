@@ -1,9 +1,5 @@
-name: chatApp
+name: dbapp
 description: A new Flutter project.
-
-# The following line prevents the package from being accidentally published to
-# pub.dev using `pub publish`. This is preferred for private packages.
-publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 
 # The following defines the version and build number for your application.
 # A version number is three numbers separated by dots, like 1.2.43
@@ -18,28 +14,25 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 version: 1.0.0+1
 
 environment:
-  sdk: ">=2.7.0 <3.0.0"
+  sdk: ">=2.1.0 <3.0.0"
 
 dependencies:
   flutter:
     sdk: flutter
   hexcolor:
   google_fonts:
-
-
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
-  cupertino_icons: ^0.1.3
-  firebase_auth: ^0.16.1
-  cloud_firestore: ^0.13.7
-  shared_preferences: ^0.5.8
-  flutter_spinkit: ^4.1.2
+  cupertino_icons: ^0.1.2
+  firebase_auth: ^0.16.0
+  cloud_firestore: ^0.13.5
   provider: ^3.1.0
-
+  flutter_spinkit: "^4.1.2"
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
@@ -56,6 +49,7 @@ flutter:
   assets:
    - assets/images/bg2.jpg
    - assets/images/send.png
+  #  - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
@@ -69,11 +63,11 @@ flutter:
   # list giving the asset and other descriptors for the font. For
   # example:
   fonts:
-  - family: GoogleSans
-    fonts:
-      - asset: assets/fonts/Google-Sans-Font/GoogleSans-Regular.ttf
-      - asset: assets/fonts/Google-Sans-Font/GoogleSans-Medium.ttf
-      - asset: assets/fonts/Google-Sans-Font/GoogleSans-BoldItalic.ttf
+    - family: GoogleSans
+      fonts:
+        - asset: assets/fonts/Google-Sans-Font/GoogleSans-Regular.ttf
+        - asset: assets/fonts/Google-Sans-Font/GoogleSans-Medium.ttf
+        - asset: assets/fonts/Google-Sans-Font/GoogleSans-BoldItalic.ttf
   # fonts:
   #   - family: Schyler
   #     fonts:

@@ -1,51 +1,37 @@
-// import 'package:dbapp/services/profile.dart';
-import 'package:chatApp/common/loading.dart';
-import 'package:chatApp/config/constants.dart';
-import 'package:chatApp/helper/authenticate.dart';
-import 'package:chatApp/services/auth.dart';
-import 'package:chatApp/services/database.dart';
-import 'package:chatApp/views/sidebarScreens/about.dart';
-import 'package:chatApp/views/sidebarScreens/faqs.dart';
-import 'package:chatApp/views/sidebarScreens/feedback.dart';
-import 'package:chatApp/views/sidebarScreens/guidelines.dart';
+import 'package:dbapp/services/profile.dart';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:google_fonts/google_fonts.dart';
-// import 'package:dbapp/services/auth.dart';
+import 'package:dbapp/services/auth.dart';
 
-// import 'package:provider/provider.dart';
-import 'package:chatApp/blocs/theme.dart';
-import 'package:chatApp/blocs/values.dart';
-
-// import 'package:dbapp/screens/home/homepage.dart';
-// import 'package:dbapp/screens/sidebarScreens/about.dart';
-// import 'package:dbapp/screens/sidebarScreens/faqs.dart';
-// import 'package:dbapp/screens/sidebarScreens/feedback.dart';
-// import 'package:dbapp/screens/sidebarScreens/guidelines.dart';
-
-// import 'package:dbapp/shared/loading.dart';
-
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:provider/provider.dart';
+import 'package:dbapp/blocs/theme.dart';
+import 'package:dbapp/blocs/values.dart';
 
-class Profile extends StatefulWidget {
+import 'package:dbapp/screens/home/homepage.dart';
+import 'package:dbapp/screens/sidebarScreens/about.dart';
+import 'package:dbapp/screens/sidebarScreens/faqs.dart';
+import 'package:dbapp/screens/sidebarScreens/feedback.dart';
+import 'package:dbapp/screens/sidebarScreens/guidelines.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:dbapp/shared/loading.dart';
+
+
+class profile extends StatefulWidget {
   @override
-  _ProfileState createState() => new _ProfileState();
+  _profileState createState() => new _profileState();
 }
 
-class _ProfileState extends State<Profile> {
+class _profileState extends State<profile> {
 
   var _darkTheme = true;
 
-  //TODO
-  //add shared preferences for profile viewing
-  //do after register is done
-  final AuthMethods _auth=new AuthMethods();
+  final AuthService _auth=AuthService();
   final FirebaseAuth _authUser = FirebaseAuth.instance;
-  final DatabaseMethods databaseMethods=new DatabaseMethods();
-  // Future<FirebaseUser> getCurrentUser(){
-  //   return _authUser.currentUser();
-  // }
+  Future<FirebaseUser> getCurrentUser(){
+    return _authUser.currentUser();
+  }
 
   String name='';
   String email='';
@@ -64,90 +50,58 @@ class _ProfileState extends State<Profile> {
   @override
   void initState(){
     super.initState();
-    print("user id is "+Constants.myID);
-    databaseMethods.getProfile(Constants.myID).then((userData){
-      print(userData);
-      if(userData.exists){
-          //print("inside of if");
-          //print(userData.data["email"]);
-
+    print("hi");
+    getCurrentUser().then((user){
+        ProfileService()
+      .getMenteeProfile(user.uid)
+      .then((DocumentSnapshot docs){
+        if(docs.exists){
+          print(docs.data["email"]);
           setState(() {
-              name=userData.data["name"];
-              email=userData.data["email"];
-              // year=userData.data["year"];
-              // roll=userData.data["rollNo"];
-              // contact=userData.data["contact"];
-              // git=userData.data['githubURL'];
-              // linked=userData.data['linkedInURL'];
-              // languages=userData.data['languages'];
-              // domains=userData.data['domains'];
-              // hostel=userData.data['hosteller'];
+              name=docs.data["name"];
+              email=docs.data["email"];
+              year=docs.data["year"];
+              roll=docs.data["rollNo"];
+              contact=docs.data["contact"];
+              git=docs.data['githubURL'];
+              linked=docs.data['linkedInURL'];
+              languages=docs.data['languages'];
+              domains=docs.data['domains'];
+              hostel=docs.data['hosteller'];
               mentor=false;
               loading=false;
           });
+        }else{
+            ProfileService().getMentorProfile(user.uid)
+            .then((DocumentSnapshot docs){
+              if(docs.exists){
+                print(docs.data["year"]);
+                setState(() {
+                    name=docs.data["name"];
+                    email=docs.data["email"];
+                    year=docs.data["year"];
+                    roll=docs.data["rollNo"];
+                    git=docs.data['githubURL'];
+                    linked=docs.data['linkedInURL'];
+                    contact=docs.data["contact"];
+                    languages=docs.data['languages'];
+                    domains=docs.data['domains'];
+                    hostel=docs.data['hosteller'];
+                    mentor=true;
+                    loading=false;
+                });
+              }
+            });
         }
+     });
     });
-    // getCurrentUser().then((user){
-      
-    //     ProfileService()
-    //   .getMenteeProfile(user.uid)
-    //   .then((DocumentSnapshot docs){
-    //     print("im coming here and docs has arrived now printing it");
-    //     print(docs);
-    //     if(docs.exists){
-    //       print("inside of if");
-    //       print(docs.data["email"]);
-    //       setState(() {
-    //           name=docs.data["name"];
-    //           email=docs.data["email"];
-    //           year=docs.data["year"];
-    //           roll=docs.data["rollNo"];
-    //           contact=docs.data["contact"];
-    //           git=docs.data['githubURL'];
-    //           linked=docs.data['linkedInURL'];
-    //           languages=docs.data['languages'];
-    //           domains=docs.data['domains'];
-    //           hostel=docs.data['hosteller'];
-    //           mentor=false;
-    //           loading=false;
-    //       });
-    //     }else{
-    //       print("inside of else");
-    //         ProfileService().getMentorProfile(user.uid)
-    //         .then((DocumentSnapshot docs){
-    //           if(docs.exists){
-    //             print(docs.data["year"]);
-    //             setState(() {
-    //                 name=docs.data["name"];
-    //                 email=docs.data["email"];
-    //                 year=docs.data["year"];
-    //                 roll=docs.data["rollNo"];
-    //                 git=docs.data['githubURL'];
-    //                 linked=docs.data['linkedInURL'];
-    //                 contact=docs.data["contact"];
-    //                 languages=docs.data['languages'];
-    //                 domains=docs.data['domains'];
-    //                 hostel=docs.data['hosteller'];
-    //                 mentor=true;
-    //                 loading=false;
-    //             });
-    //           }
-    //         });
-    //     }
-    //  });
-    //});
   }
-
-  //@override
-  // Widget build(BuildContext context) {
-  //   return Container(child: Text("profile page"),);
-  // }
   @override
   Widget build(BuildContext context) {
 
     ThemeChanger _themeChanger = Provider.of<ThemeChanger>(context);
-    //final _themeChanger = Provider.of<ThemeChanger>(context);
-   _darkTheme = (_themeChanger.getTheme() == darkTheme);
+    // final _themeChanger = Provider.of<ThemeChanger>(context);
+    _darkTheme = (_themeChanger.getTheme() == darkTheme);
 
     return new Scaffold(
       appBar: AppBar(
@@ -232,12 +186,7 @@ class _ProfileState extends State<Profile> {
             new ListTile(
               title: new Text("Logout"),
               trailing: new Icon(Icons.people),
-              onTap: () async{
-                await _auth.signOut();
-                Navigator.pushReplacement(context, MaterialPageRoute(
-                  builder: (context)=>Authenticate()
-                ));
-              }
+              onTap: () async => await _auth.signOut()
             ),
           ],
         ),
@@ -461,10 +410,4 @@ class getClipper extends CustomClipper<Path>{
   bool shouldReclip(CustomClipper<Path> oldClipper){
     return true;
   }
-}
-
-void onThemeChanged(bool value, ThemeChanger _themeChanger) async {
-  (value) ? _themeChanger.setTheme(darkTheme) : _themeChanger.setTheme(lightTheme);
-    // var prefs = await SharedPreferences.getInstance();
-    // prefs.setBool('darkMode', value);
 }

@@ -1,9 +1,8 @@
-import 'package:chatApp/config/constants.dart';
-import 'package:chatApp/services/database.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import '../../services/auth.dart';
-
+import '../../services/database.dart';
 
 enum SingingCharacter { login, suggestion, complaint, other }
 var feedbackopt;
@@ -18,12 +17,11 @@ class _MyFeedbackState extends State<MyFeedback> {
 
   final TextEditingController textController = new TextEditingController();
 
-  final AuthMethods _auth=new AuthMethods();
-  final DatabaseMethods databaseMethods=new DatabaseMethods();
-  //final FirebaseAuth _authUser = FirebaseAuth.instance;
-  // Future<FirebaseUser> getCurrentUser(){
-  //   return _authUser.currentUser();
-  // }
+  final AuthService _auth=AuthService();
+  final FirebaseAuth _authUser = FirebaseAuth.instance;
+  Future<FirebaseUser> getCurrentUser(){
+    return _authUser.currentUser();
+  }
 
   Map <int,String> feedbackOption = {
     1:"Login Problem",
@@ -31,47 +29,33 @@ class _MyFeedbackState extends State<MyFeedback> {
     3:"Complaints",
     4:"Other issues",
   };
-  String userID=Constants.myID;
+  String uid="";
 
-  // @override
-  // void initState(){
-  //   super.initState();
-  // //print("my id is "+Constants.myID);
-  //   // setState((){
-  //   //      userID: Constants.myID;
-  //   // });
-  //   // getCurrentUser().then((user){
-  //   //   uid = user.uid;
-  //   //   setState((){
-  //   //      uid: uid;
-  //   //   });
-  //   // });
-  // }
+  @override
+  void initState(){
+    super.initState();
+    getCurrentUser().then((user){
+      uid = user.uid;
+      setState((){
+         uid: uid;
+      });
+    });
+  }
 
   submitFeedback(){
     if(textController.text.isNotEmpty){
       Map<String, dynamic> feedbackMap = {
         "type": feedbackOption[feedbackopt],
         "description": textController.text,
-        'submittedBy': userID,
+        'submittedBy': uid,
       };
-       databaseMethods.addFeedback(feedbackMap).then((value) {
-         if(value!=null){
-           //show toast saying thanks
-         }else{
-           //show toasts saying some error occured
-         }
-        setState(() {
-          textController.text="";
-        });
-       });
+       DataBaseService().addFeedback(feedbackMap);
     }
-   
+    setState(() {
+      textController.text="";
+    });
   }
-  //  @override
-  // Widget build(BuildContext context) {
-  //   return Container(child: Text("feedback screen"),);
-  // }
+  
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
@@ -220,5 +204,5 @@ class _BuildCheckBoxState extends State<BuildCheckBox> {
         ),
       ],
     );
- }
+  }
 }

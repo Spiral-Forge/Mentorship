@@ -1,28 +1,15 @@
-import 'package:chatApp/common/loading.dart';
-import 'package:chatApp/helper/authenticate.dart';
-import 'package:chatApp/services/auth.dart';
-import 'package:chatApp/services/database.dart';
-import 'package:chatApp/views/chatRoomScreen.dart';
-import 'package:chatApp/views/sidebarScreens/about.dart';
-import 'package:chatApp/views/sidebarScreens/faqs.dart';
-import 'package:chatApp/views/sidebarScreens/feedback.dart';
-import 'package:chatApp/views/sidebarScreens/guidelines.dart';
+import 'package:dbapp/blocs/theme.dart';
+import 'package:dbapp/blocs/values.dart';
 import 'package:flutter/material.dart';
-import 'package:chatApp/blocs/theme.dart';
-import 'package:chatApp/blocs/values.dart';
+import 'package:dbapp/services/auth.dart';
 import 'package:provider/provider.dart';
-// import 'package:dbapp/blocs/theme.dart';
-// import 'package:dbapp/blocs/values.dart';
-// import 'package:flutter/material.dart';
-
-// import 'package:provider/provider.dart';
-// import 'package:dbapp/screens/sidebarScreens/about.dart';
-// import 'package:dbapp/screens/sidebarScreens/faqs.dart';
-// import 'package:dbapp/screens/sidebarScreens/feedback.dart';
-// import 'package:dbapp/screens/sidebarScreens/guidelines.dart';
-// import 'package:dbapp/services/database.dart';
-// import 'package:dbapp/shared/loading.dart';
-// import 'package:hexcolor/hexcolor.dart';
+import 'package:dbapp/screens/sidebarScreens/about.dart';
+import 'package:dbapp/screens/sidebarScreens/faqs.dart';
+import 'package:dbapp/screens/sidebarScreens/feedback.dart';
+import 'package:dbapp/screens/sidebarScreens/guidelines.dart';
+import 'package:dbapp/services/database.dart';
+import 'package:dbapp/shared/loading.dart';
+import 'package:hexcolor/hexcolor.dart';
 
 
 class HomePage extends StatefulWidget {
@@ -32,8 +19,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
 
-   final AuthMethods _auth=AuthMethods();
-   final DatabaseMethods databaseMethods=new DatabaseMethods();
+   final AuthService _auth=AuthService();
    bool loading=true;
    List<EventTile> eventlist=[];
     Widget eventList(){
@@ -66,7 +52,7 @@ class _HomePageState extends State<HomePage> {
      }
   void initState(){
     super.initState();
-    databaseMethods.getEvents().then((val){
+    DataBaseService().getEvents().then((val){
       print(val.documents[0].data);
       List<EventTile> templist=[];
           for(var i=0;i<val.documents.length;i++){
@@ -170,12 +156,7 @@ class _HomePageState extends State<HomePage> {
             new ListTile(
               title: new Text("Logout"),
               trailing: new Icon(Icons.people),
-              onTap: () async{
-                await _auth.signOut();
-                Navigator.pushReplacement(context, MaterialPageRoute(
-                  builder: (context)=>Authenticate()
-                ));
-              }
+              onTap: () async => await _auth.signOut()
             ),
           ],
         ),
