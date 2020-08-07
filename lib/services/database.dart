@@ -7,12 +7,11 @@ class DataBaseService{
   //collection reference
   final String uid;
   DataBaseService({this.uid});
-  final CollectionReference mentorCollection= Firestore.instance.collection("Mentor");
+  final CollectionReference userCollection= Firestore.instance.collection("Users");
   final CollectionReference menteeCollection= Firestore.instance.collection("Mentee");
 
   Future updateUserData(String name,int year, String email,int rollNo,String branch,int contact,String linkedInURL,String githubURL,List<String> domains,bool hosteller,List<String> languages,bool mentor) async{
-    if(mentor){
-      return await mentorCollection.document(uid).setData({
+    return await userCollection.document(uid).setData({
       'name':name,
       'year':year,
       'email': email,
@@ -23,23 +22,26 @@ class DataBaseService{
       'githubURL': githubURL,
       'domains':domains,
       'hosteller':hosteller,
-      'languages':languages
+      'languages':languages,
+      'post': mentor ? "Mentor" : "Mentee"
       });
-    }else{
-      return await menteeCollection.document(uid).setData({
-      'name':name,
-      'year':year,
-      'email': email,
-      'rollNo': rollNo,
-      'branch':branch,
-      'contact':contact,
-      'linkedInURL': linkedInURL,
-      'githubURL': githubURL,
-      'domains':domains,
-      'hosteller':hosteller,
-      'languages':languages
-      });
-    }
+    // if(mentor){
+      
+    // }else{
+    //   return await menteeCollection.document(uid).setData({
+    //   'name':name,
+    //   'year':year,
+    //   'email': email,
+    //   'rollNo': rollNo,
+    //   'branch':branch,
+    //   'contact':contact,
+    //   'linkedInURL': linkedInURL,
+    //   'githubURL': githubURL,
+    //   'domains':domains,
+    //   'hosteller':hosteller,
+    //   'languages':languages
+    //   });
+    // }
     
   }
    getEvents(){

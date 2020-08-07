@@ -1,3 +1,5 @@
+import 'package:dbapp/screens/ResourceCenter/resourceList.dart';
+import 'package:dbapp/screens/ResourceCenter/resourcesCategoryList.dart';
 import 'package:dbapp/services/auth.dart';
 import 'package:flutter/material.dart';
 import 'package:dbapp/screens/profile/profile.dart';
@@ -16,9 +18,9 @@ class _HomeState extends State<Home> {
   int _currentIndex=1;
   static const TextStyle optionStyle = TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
   final List<Widget> _children = <Widget>[
-    profile(),
+    Profile(),
     HomePage(),
-    FriendlyChatApp()
+    ResourceCategoryList()
   ];
 
   void _onItemTapped(int index) {
@@ -46,7 +48,7 @@ class _HomeState extends State<Home> {
         ),
         BottomNavigationBarItem(
           icon: Icon(Icons.chat),
-          title: Text('Chat'),
+          title: Text('Resource Center'),
         ),
       ],
       currentIndex: _currentIndex,

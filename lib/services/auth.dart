@@ -50,7 +50,7 @@ class AuthService{
         password: password,
       );
       FirebaseUser user=result.user;
-      await DataBaseService(uid:user.uid).updateUserData(name,year,email,rollNo,branch,contact,linkedInURL,githubURL,domains,hosteller,languages,false);
+      await DataBaseService(uid:user.uid).updateUserData(name,year,email,rollNo,branch,contact,linkedInURL,githubURL,domains,hosteller,languages,mentor);
       return user;
     }catch(e){
       print(e.toString());

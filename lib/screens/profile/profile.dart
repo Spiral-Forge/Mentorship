@@ -18,12 +18,12 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:dbapp/shared/loading.dart';
 
 
-class profile extends StatefulWidget {
+class Profile extends StatefulWidget {
   @override
-  _profileState createState() => new _profileState();
+  _ProfileState createState() => new _ProfileState();
 }
 
-class _profileState extends State<profile> {
+class _ProfileState extends State<Profile> {
 
   var _darkTheme = true;
 
@@ -53,8 +53,9 @@ class _profileState extends State<profile> {
     print("hi");
     getCurrentUser().then((user){
         ProfileService()
-      .getMenteeProfile(user.uid)
-      .then((DocumentSnapshot docs){
+      .getUserProfile(user.uid)
+      .then((docs){
+        print(docs);
         if(docs.exists){
           print(docs.data["email"]);
           setState(() {
@@ -68,31 +69,34 @@ class _profileState extends State<profile> {
               languages=docs.data['languages'];
               domains=docs.data['domains'];
               hostel=docs.data['hosteller'];
-              mentor=false;
+              mentor=docs.data['post'] == 'Mentor';
               loading=false;
           });
-        }else{
-            ProfileService().getMentorProfile(user.uid)
-            .then((DocumentSnapshot docs){
-              if(docs.exists){
-                print(docs.data["year"]);
-                setState(() {
-                    name=docs.data["name"];
-                    email=docs.data["email"];
-                    year=docs.data["year"];
-                    roll=docs.data["rollNo"];
-                    git=docs.data['githubURL'];
-                    linked=docs.data['linkedInURL'];
-                    contact=docs.data["contact"];
-                    languages=docs.data['languages'];
-                    domains=docs.data['domains'];
-                    hostel=docs.data['hosteller'];
-                    mentor=true;
-                    loading=false;
-                });
-              }
-            });
-        }
+         }else{
+           print("coming here");
+         }
+        //else{
+        //     ProfileService().getMentorProfile(user.uid)
+        //     .then((DocumentSnapshot docs){
+        //       if(docs.exists){
+        //         print(docs.data["year"]);
+        //         setState(() {
+        //             name=docs.data["name"];
+        //             email=docs.data["email"];
+        //             year=docs.data["year"];
+        //             roll=docs.data["rollNo"];
+        //             git=docs.data['githubURL'];
+        //             linked=docs.data['linkedInURL'];
+        //             contact=docs.data["contact"];
+        //             languages=docs.data['languages'];
+        //             domains=docs.data['domains'];
+        //             hostel=docs.data['hosteller'];
+        //             mentor=true;
+        //             loading=false;
+        //         });
+        //       }
+        //     });
+        // }
      });
     });
   }
@@ -411,3 +415,10 @@ class getClipper extends CustomClipper<Path>{
     return true;
   }
 }
+
+void onThemeChanged(bool value, ThemeChanger _themeChanger) async {
+  (value) ? _themeChanger.setTheme(darkTheme) : _themeChanger.setTheme(lightTheme);
+    // var prefs = await SharedPreferences.getInstance();
+    // prefs.setBool('darkMode', value);
+}
+
