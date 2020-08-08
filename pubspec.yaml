@@ -30,6 +30,7 @@ dependencies:
   flutter_spinkit: "^4.1.2"
   toast: ^0.1.5
   shared_preferences: ^0.5.8
+  dropdownfield: 1.0.0
 
 dev_dependencies:
   flutter_test:
@@ -51,6 +52,7 @@ flutter:
   assets:
    - assets/images/bg2.jpg
    - assets/images/send.png
+   - assets/images/avatars/
   #  - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

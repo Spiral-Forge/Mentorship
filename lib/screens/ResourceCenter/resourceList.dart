@@ -35,7 +35,7 @@ class _ResourceListState extends State<ResourceList> {
 
   
   Widget resourceList(){
-        return Center(
+        return resourcesList.length==0 ? Center(child: Container(child: Text("No resources available yet"),),) : Center(
           child: Container(
               child:ListView.builder(
               itemCount: resourcesList.length,

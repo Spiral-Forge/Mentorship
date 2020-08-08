@@ -111,8 +111,8 @@ class DataBaseService{
         //document.get();
   }
 
-  Future<bool> addFeedback(feedbackMap) {
-    Firestore.instance
+  Future<bool> addFeedback(feedbackMap) async{
+    await Firestore.instance
         .collection("feedback")
         .add(feedbackMap)
         .catchError((e) {
@@ -146,6 +146,21 @@ class DataBaseService{
         message:doc.data['message'] ?? '',
       );
     }).toList();
+  }
+
+  Future<DocumentReference> addResource(collectionName,title,link) async{
+    print("coming here");
+    Map<String,String> resourceMap={
+      "Title":title,
+      "Link":link
+    };
+    print(resourceMap);
+    return await Firestore.instance
+        .collection(collectionName)
+        .add(resourceMap)
+        .catchError((e) {
+      print(e);
+    });
   }
 
   //get a new stream for any changes to user collecion

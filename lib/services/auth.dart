@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:dbapp/models/user.dart';
 import 'package:dbapp/services/storage.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -35,10 +37,15 @@ class AuthService{
         email: email, 
         password: password,
       );
+      //print("coming here atlease");
       FirebaseUser user=result.user;
       DataBaseService(uid:user.uid).getUserData().then((userdata) async{
-        //print(userdata.data);
-        await StorageServices.saveUserInfo(userdata.data);
+       // print(userdata.data);
+        Map<String,dynamic> userMap=userdata.data;
+        userMap["avatarNum"]=Random().nextInt(4)+1;
+        //print("printing user map");
+        //print(userMap);
+        await StorageServices.saveUserInfo(userMap);
         return user;
       });
     }catch(e){
@@ -69,7 +76,8 @@ class AuthService{
         'domains':domains,
         'hosteller':hosteller,
         'languages':languages,
-        'post': mentor ? "Mentor" : "Mentee"
+        'post': mentor ? "Mentor" : "Mentee",
+        "avatarNum": Random().nextInt(4)+1
       };
       print("coming here");
       await StorageServices.saveUserInfo(userlist);

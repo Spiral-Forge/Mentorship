@@ -87,7 +87,17 @@ class _HomePageState extends State<HomePage> {
         title:Text("Mentorship App"),
         backgroundColor:Colors.teal[300] ,
         elevation: Theme.of(context).platform== TargetPlatform.iOS ? 0.0 : 4.0,
+        actions: <Widget>[
+          FlatButton.icon(
+            onPressed: () async{
+             //add navigation to edit profile page
+            }, 
+            icon: Icon(Icons.person,color: Colors.white,),
+            label:Text('Know your mentor',style: TextStyle(color:Colors.white),)
+            )
+        ],
       ),
+      
       drawer: new Drawer(
         child: new ListView(
           children: <Widget>[

@@ -7,9 +7,11 @@ import 'package:dbapp/screens/sidebarScreens/faqs.dart';
 import 'package:dbapp/screens/sidebarScreens/feedback.dart';
 import 'package:dbapp/screens/sidebarScreens/guidelines.dart';
 import 'package:dbapp/services/auth.dart';
+import 'package:dbapp/services/database.dart';
 import 'package:dbapp/services/storage.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:toast/toast.dart';
 
 class ResourceCategoryList extends StatefulWidget {
   @override
@@ -20,12 +22,21 @@ class _ResourceCategoryListState extends State<ResourceCategoryList> {
    var _darkTheme = true;
    final _formKey = GlobalKey<FormState>();
    String post='';
+   TextEditingController titleController=new TextEditingController();
+   TextEditingController linkController=new TextEditingController();
+  
+  String _value;
+
+  //  String selectedName='';
+  //  String selectedCollectionID='';
 
    @override
    void initState(){
      getPostStatus();
      super.initState();
    }
+
+
    void getPostStatus(){
      StorageServices.getUserPost().then((value) {
        setState(() {
@@ -33,6 +44,32 @@ class _ResourceCategoryListState extends State<ResourceCategoryList> {
        });
      });
    }
+
+  var selectedType;
+  Map<String,String> fieldMap={
+    "Development":"Development",
+    "Scholarship":"Scholarship",
+    "College":"College",
+    "Machine Learning":"ML",
+    "Open-Source":"OpenSource",
+    "Competitive Coding":"CompCoding"
+
+  };
+   
+  List<String> fields = <String>[
+    "Development",
+    "Scholarship",
+    "College",
+    "Machine Learning",
+    "Open-Source",
+    "Competitive Coding"
+  ];
+  //   List<String> fields = <String>[
+  //   'Savings',
+  //   'Deposit',
+  //   'Checking',
+  //   'Brokerage'
+  // ];
 
   @override
   Widget build(BuildContext context) {
@@ -49,80 +86,120 @@ class _ResourceCategoryListState extends State<ResourceCategoryList> {
           FlatButton.icon(
             icon:Icon(Icons.add,color: Colors.white,),
             label:Text(''),
-            onPressed: (){
-               showDialog(
-                context: context,
-                builder: (BuildContext context) {
-                  return AlertDialog(
-                    content: Stack(
-                      overflow: Overflow.visible,
-                      children: <Widget>[
-                        Positioned(
-                          right: -40.0,
-                          top: -40.0,
-                          child: InkResponse(
-                            onTap: () {
-                              Navigator.of(context).pop();
-                            },
-                            child: CircleAvatar(
-                              child: Icon(Icons.close),
-                              backgroundColor: Colors.red,
-                            ),
-                          ),
+            onPressed: () async{
+                  await showDialog<void>(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return AlertDialog(
+                        content: StatefulBuilder(
+                          builder: (BuildContext context, StateSetter setState) {
+                            return Stack(
+                              overflow: Overflow.visible,
+                              children: <Widget>[
+                                Positioned(
+                                    right: -40.0,
+                                    top: -40.0,
+                                    child: InkResponse(
+                                      onTap: () {
+                                        Navigator.of(context).pop();
+                                      },
+                                      child: CircleAvatar(
+                                        child: Icon(Icons.close),
+                                        backgroundColor: Colors.red,
+                                      ),
+                                    ),
+                                  ),
+                                Form(
+                                  child: Column(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: <Widget>[
+                                      
+                                      TextField(
+                                        controller: titleController,
+                                        decoration: InputDecoration(
+                                          icon: Icon(Icons.title),
+                                          labelText: 'Title',
+                                        ),
+                                      ),
+                                      TextField(
+                                        controller: linkController,
+                                        decoration: InputDecoration(
+                                          icon: Icon(Icons.link),
+                                          labelText: 'Link',
+                                        ),
+                                      ),
+                                      SizedBox(height: 15.0,),
+                                      Row(
+                                        children: <Widget>[
+                                          Icon(Icons.adb,color:Colors.grey),
+                                          SizedBox(width: 15.0,),
+                                          DropdownButton(
+                                            items: fields
+                                                .map((value) => DropdownMenuItem(
+                                                      child: Text(
+                                                        value,
+                                                        // style: TextStyle(color: Color(0xff11b719)),
+                                                      ),
+                                                      value: value,
+                                                    ))
+                                                .toList(),
+                                            onChanged: (selectedField) {
+                                              print('$selectedField');
+                                              setState(() {
+                                                selectedType = selectedField;
+                                              });
+                                            },
+                                            value: selectedType,
+                                            isExpanded: false,
+                                            hint: Text(
+                                              'Choose Resource Type',
+                                              //style: TextStyle(color: Color(0xff11b719)),
+                                            ),
+                                          ),
+                                          
+                                        ],
+                                      ),
+                                      SizedBox(height: 15.0,),
+                                      Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: RaisedButton(
+                                              child: Text("Submitß"),
+                                              onPressed: () async{
+                                               // if (_formKey.currentState.validate()) {
+                                                  var result=await DataBaseService().addResource(fieldMap[selectedType],titleController.text,linkController.text);
+                                                  if(result==null){
+                                                    //toast and close
+                                                    print("some error occured");
+                                                    titleController.text='';
+                                                    linkController.text='';
+                                                    Navigator.of(context).pop();
+                                                    Toast.show("Some error occured. Please try again later.", context, duration: Toast.LENGTH_SHORT, gravity:  Toast.BOTTOM);
+                                                    
+                                                  }else{
+                                                    //toast and close
+                                                    print(result);
+                                                    titleController.text='';
+                                                    linkController.text='';
+                                                    Navigator.of(context).pop();
+                                                    Toast.show("Resources successfully added!", context, duration: Toast.LENGTH_SHORT, gravity:  Toast.BOTTOM);
+                                                  }
+                                                  //print(fieldMap[selectedType]);
+                                                  //_formKey.currentState.save();
+                                                //}
+                                              },
+                                            ),
+                                          )
+                                    ]
+                                  ),
+                                ),
+                              ],
+                            );
+                          },
                         ),
-                        Form(
-                          key: _formKey,
-                          child: Column(
-                            mainAxisSize: MainAxisSize.min,
-                            children: <Widget>[
-                               TextField(
-                                obscureText: true,
-                                decoration: InputDecoration(
-                                  icon: Icon(Icons.title),
-                                  labelText: 'Title',
-                                ),
-                              ),
-                              TextField(
-                                obscureText: true,
-                                decoration: InputDecoration(
-                                  icon: Icon(Icons.description),
-                                  labelText: 'Description',
-                                ),
-                              ),
-                              TextField(
-                                obscureText: true,
-                                decoration: InputDecoration(
-                                  icon: Icon(Icons.link),
-                                  labelText: 'Link',
-                                ),
-                              ),
-                              // Padding(
-                              //   padding: EdgeInsets.all(8.0),
-                              //   child: TextFormField(),
-                              // ),
-                              // Padding(
-                              //   padding: EdgeInsets.all(8.0),
-                              //   child: TextFormField(),
-                              // ),
-                              Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: RaisedButton(
-                                  child: Text("Submitß"),
-                                  onPressed: () {
-                                    if (_formKey.currentState.validate()) {
-                                      _formKey.currentState.save();
-                                    }
-                                  },
-                                ),
-                              )
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
+                      );
+                    },
                   );
-                });
-            },
+            }
           )
         ]
       ),
@@ -208,15 +285,15 @@ class _ResourceCategoryListState extends State<ResourceCategoryList> {
                 GestureDetector(
                   onTap: () {
                     Navigator.push(context, MaterialPageRoute(
-                      builder: (context) => ResourceList("App Development Resources","AppDev")
+                      builder: (context) => ResourceList("Development Resources",fieldMap["Development"])
                       ));
                   },
-                  child: ResourceCategoryTile("App Development","assets/images/bg2.jpg")
+                  child: ResourceCategoryTile("Development","assets/images/bg2.jpg")
                 ),
                 GestureDetector(
                   onTap: () {
                     Navigator.push(context, MaterialPageRoute(
-                      builder: (context) => ResourceList("College Resources","College")
+                      builder: (context) => ResourceList("College Resources",fieldMap["College"])
                       ));
                   },
                   child: ResourceCategoryTile("College assignments and papers","assets/images/bg2.jpg")
@@ -229,7 +306,7 @@ class _ResourceCategoryListState extends State<ResourceCategoryList> {
                 GestureDetector(
                   onTap: () {
                     Navigator.push(context, MaterialPageRoute(
-                      builder: (context) => ResourceList("Machine Learning Resources","ML")
+                      builder: (context) => ResourceList("Machine Learning Resources",fieldMap["Machine Learning"])
                       ));
                   },
                   child: ResourceCategoryTile("Machine Learning","assets/images/bg2.jpg")
@@ -237,10 +314,10 @@ class _ResourceCategoryListState extends State<ResourceCategoryList> {
                 GestureDetector(
                   onTap: () {
                     Navigator.push(context, MaterialPageRoute(
-                      builder: (context) => ResourceList("AR/VR Resources","ARVR")
+                      builder: (context) => ResourceList("Scholarship Resources",fieldMap["Scholarship"])
                       ));
                   },
-                  child: ResourceCategoryTile("AR/VR","assets/images/bg2.jpg")
+                  child: ResourceCategoryTile("Scholarships","assets/images/bg2.jpg")
                 )
               ],
             ),
@@ -250,7 +327,7 @@ class _ResourceCategoryListState extends State<ResourceCategoryList> {
                 GestureDetector(
                   onTap: () {
                     Navigator.push(context, MaterialPageRoute(
-                      builder: (context) => ResourceList("Competitive Coding resources","CompCoding")
+                      builder: (context) => ResourceList("Competitive Coding resources",fieldMap["Competitive Coding"])
                       ));
                   },
                   child: ResourceCategoryTile("Competitive Coding","assets/images/bg2.jpg")
@@ -258,10 +335,10 @@ class _ResourceCategoryListState extends State<ResourceCategoryList> {
                 GestureDetector(
                   onTap: () {
                     Navigator.push(context, MaterialPageRoute(
-                      builder: (context) => ResourceList("Web Development Resources","WebDev")
+                      builder: (context) => ResourceList("Open-Source Resources",fieldMap["Open-Source"])
                       ));
                   },
-                  child: ResourceCategoryTile("Web Development","assets/images/bg2.jpg")
+                  child: ResourceCategoryTile("Open-Source","assets/images/bg2.jpg")
                 )
               ],
             )

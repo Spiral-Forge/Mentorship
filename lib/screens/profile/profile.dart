@@ -17,6 +17,7 @@ import 'package:dbapp/screens/sidebarScreens/guidelines.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:dbapp/shared/loading.dart';
+import 'dart:math';
 
 
 class Profile extends StatefulWidget {
@@ -27,7 +28,9 @@ class Profile extends StatefulWidget {
 class _ProfileState extends State<Profile> {
 
   var _darkTheme = true;
-
+  // Random random = new ;
+  int randomNum= Random().nextInt(4)+1;
+  
   final AuthService _auth=AuthService();
   final FirebaseAuth _authUser = FirebaseAuth.instance;
   // Future<FirebaseUser> getCurrentUser(){
@@ -57,10 +60,11 @@ class _ProfileState extends State<Profile> {
   void initState(){
     super.initState();
     print("hi");
-    print(user);
+    print(randomNum);
+    //print(user);
     getCurrentUser().then((userinfo){
       print("printing user");
-      print(userinfo["name"]);
+      print(userinfo);
       setState(() {
         //print(user.runtimeType);
         user=userinfo;
@@ -249,10 +253,10 @@ class _ProfileState extends State<Profile> {
                   height: 150.0,
                   decoration: BoxDecoration(
                     color: Hexcolor('#96ece7'),
-                    // image: DecorationImage(
-                    //   image: AssetImage("assets/images/profilebg.jpg"),
-                    //   fit: BoxFit.fit,
-                    // ),
+                    image: DecorationImage(
+                      image: AssetImage("assets/images/avatars/av"+user["avatarNum"].toString()+".jpg"),
+                      fit: BoxFit.cover,
+                    ),
                     borderRadius: BorderRadius.all(Radius.circular(175.0)),
                     boxShadow: [
                       BoxShadow(
@@ -264,7 +268,7 @@ class _ProfileState extends State<Profile> {
                 ),
                 SizedBox( height: 35),
                 Text(
-                  user["name"] != null ? user["name"] : "wtf is happeening",
+                  user["name"] != null ? user["name"] : "null",
                   style: GoogleFonts.lato(
                     textStyle: TextStyle(
                       // color: Hexcolor('#565656'),
