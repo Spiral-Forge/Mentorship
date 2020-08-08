@@ -1,7 +1,8 @@
 import 'package:dbapp/models/user.dart';
+import 'package:dbapp/services/storage.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:dbapp/services/database.dart';
-
+import 'dart:convert';
 class AuthService{
   final FirebaseAuth _auth=FirebaseAuth.instance;
 
@@ -35,7 +36,11 @@ class AuthService{
         password: password,
       );
       FirebaseUser user=result.user;
-      return user;
+      DataBaseService(uid:user.uid).getUserData().then((userdata) async{
+        //print(userdata.data);
+        await StorageServices.saveUserInfo(userdata.data);
+        return user;
+      });
     }catch(e){
       print(e.toString());
       return null;
@@ -51,6 +56,28 @@ class AuthService{
       );
       FirebaseUser user=result.user;
       await DataBaseService(uid:user.uid).updateUserData(name,year,email,rollNo,branch,contact,linkedInURL,githubURL,domains,hosteller,languages,mentor);
+      //List<String> userList=[name,year.toString(),email,rollNo.toString(),branch,contact.toString(),linkedInURL,githubURL,domains.toString(),hosteller.toString(),languages.toString(),mentor.toString()];
+      Map<String,dynamic> userlist={
+        'name':name,
+        'year':year,
+        'email': email,
+        'rollNo': rollNo,
+        'branch':branch,
+        'contact':contact,
+        'linkedInURL': linkedInURL,
+        'githubURL': githubURL,
+        'domains':domains,
+        'hosteller':hosteller,
+        'languages':languages,
+        'post': mentor ? "Mentor" : "Mentee"
+      };
+      print("coming here");
+      await StorageServices.saveUserInfo(userlist);
+      print("saved info");
+      //String info= await StorageServices.getUserName();
+      
+      // print(decoded["domains"].runtimeType);
+      // print("got info");
       return user;
     }catch(e){
       print(e.toString());

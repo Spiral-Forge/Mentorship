@@ -1,4 +1,5 @@
 import 'package:dbapp/services/profile.dart';
+import 'package:dbapp/services/storage.dart';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -29,53 +30,68 @@ class _ProfileState extends State<Profile> {
 
   final AuthService _auth=AuthService();
   final FirebaseAuth _authUser = FirebaseAuth.instance;
-  Future<FirebaseUser> getCurrentUser(){
-    return _authUser.currentUser();
-  }
+  // Future<FirebaseUser> getCurrentUser(){
+  //   return _authUser.currentUser();
+  // }
 
-  String name='';
-  String email='';
-  int year;
-  String branch='';
-  int roll;
-  int contact;
-  String linked;
-  String git;
-  List languages=[];
-  List domains=[];
-  bool hostel=false;
-  bool mentor;
+  // String name='';
+  // String email='';
+  // int year;
+  // String branch='';
+  // int roll;
+  // int contact;
+  // String linked;
+  // String git;
+  // List languages=[];
+  // List domains=[];
+  // bool hostel=false;
+  // bool mentor;
   bool loading=true;
+  Map<String,dynamic> user={};
+
+  getCurrentUser() async{
+    return await StorageServices.getUserInfo();
+  }
 
   @override
   void initState(){
     super.initState();
     print("hi");
-    getCurrentUser().then((user){
-        ProfileService()
-      .getUserProfile(user.uid)
-      .then((docs){
-        print(docs);
-        if(docs.exists){
-          print(docs.data["email"]);
-          setState(() {
-              name=docs.data["name"];
-              email=docs.data["email"];
-              year=docs.data["year"];
-              roll=docs.data["rollNo"];
-              contact=docs.data["contact"];
-              git=docs.data['githubURL'];
-              linked=docs.data['linkedInURL'];
-              languages=docs.data['languages'];
-              domains=docs.data['domains'];
-              hostel=docs.data['hosteller'];
-              mentor=docs.data['post'] == 'Mentor';
-              loading=false;
-          });
-         }else{
-           print("coming here");
-         }
-        //else{
+    print(user);
+    getCurrentUser().then((userinfo){
+      print("printing user");
+      print(userinfo["name"]);
+      setState(() {
+        //print(user.runtimeType);
+        user=userinfo;
+        loading=false;
+      });
+    });
+    // getCurrentUser().then((user){
+    //     ProfileService()
+    //   .getUserProfile(user.uid)
+    //   .then((docs){
+    //     print(docs);
+    //     if(docs.exists){
+    //       print(docs.data["email"]);
+    //       setState(() {
+    //           name=docs.data["name"];
+    //           email=docs.data["email"];
+    //           year=docs.data["year"];
+    //           roll=docs.data["rollNo"];
+    //           contact=docs.data["contact"];
+    //           git=docs.data['githubURL'];
+    //           linked=docs.data['linkedInURL'];
+    //           languages=docs.data['languages'];
+    //           domains=docs.data['domains'];
+    //           hostel=docs.data['hosteller'];
+    //           mentor=docs.data['post'] == 'Mentor';
+    //           loading=false;
+    //       });
+    //      }else{
+    //        print("coming here");
+    //      }
+    //     //else{
         //     ProfileService().getMentorProfile(user.uid)
         //     .then((DocumentSnapshot docs){
         //       if(docs.exists){
@@ -97,12 +113,13 @@ class _ProfileState extends State<Profile> {
         //       }
         //     });
         // }
-     });
-    });
+    // });
+    //});
   }
   @override
   Widget build(BuildContext context) {
-
+    //print("user");
+  //print(user);
     ThemeChanger _themeChanger = Provider.of<ThemeChanger>(context);
     // final _themeChanger = Provider.of<ThemeChanger>(context);
     _darkTheme = (_themeChanger.getTheme() == darkTheme);
@@ -112,15 +129,15 @@ class _ProfileState extends State<Profile> {
         title:Text("Your Profile"),
         backgroundColor:Colors.teal[300] ,
         elevation: 0.0,
-        // actions: <Widget>[
-        //   FlatButton.icon(
-        //     onPressed: () async{
-        //       await _auth.signOut();
-        //     }, 
-        //     icon: Icon(Icons.person),
-        //     label:Text('logout')
-        //     )
-        // ],
+        actions: <Widget>[
+          FlatButton.icon(
+            onPressed: () async{
+             //add navigation to edit profile page
+            }, 
+            icon: Icon(Icons.person,color: Colors.white,),
+            label:Text('Edit Profile',style: TextStyle(color:Colors.white),)
+            )
+        ],
       ),
       drawer: new Drawer(
         child: new ListView(
@@ -195,7 +212,7 @@ class _ProfileState extends State<Profile> {
           ],
         ),
       ),
-      body: loading ?  Loading() : new Stack(
+      body:  new Stack(
         children: <Widget>[
           
           ClipPath(
@@ -247,7 +264,7 @@ class _ProfileState extends State<Profile> {
                 ),
                 SizedBox( height: 35),
                 Text(
-                  name,
+                  user["name"] != null ? user["name"] : "wtf is happeening",
                   style: GoogleFonts.lato(
                     textStyle: TextStyle(
                       // color: Hexcolor('#565656'),
@@ -258,7 +275,7 @@ class _ProfileState extends State<Profile> {
                 ),
                 SizedBox( height: 8),
                 Text(
-                  mentor==false ? "Mentee" : "Mentor",
+                  user["post"]!=null ? user["post"] : "Null",
                   style: GoogleFonts.lato(
                     textStyle: TextStyle(
                       fontSize: 20,
@@ -270,7 +287,7 @@ class _ProfileState extends State<Profile> {
 
                 SizedBox( height: 15),
                 Text(
-                  email==null? "null" : email,
+                  user["email"]==null? "null" : user["email"],
                   style: GoogleFonts.lato(
                     textStyle: TextStyle(
                       //color: Hexcolor('#565656'),
@@ -281,7 +298,7 @@ class _ProfileState extends State<Profile> {
                 
                 SizedBox( height: 10),
                 Text(
-                  contact.toString(),
+                  user["contact"] != null ? user["contact"].toString(): "null",
                   style: GoogleFonts.lato(
                     textStyle: TextStyle(
                      // color: Hexcolor('#565656'),
@@ -292,7 +309,7 @@ class _ProfileState extends State<Profile> {
 
                 SizedBox( height: 10),
                 Text(
-                  year == null ? "null" : year.toString()+" "+branch,
+                  user["year"] == null ? "null" : user["year"].toString()+" "+user["branch"],
                   style: GoogleFonts.lato(
                     textStyle: TextStyle(
                      // color: Hexcolor('#565656'),
@@ -303,7 +320,7 @@ class _ProfileState extends State<Profile> {
 
                 SizedBox( height: 10),
                 Text(
-                  roll==null ? "nul" : roll.toString(),
+                  user["roll"]==null ? "null" : user["roll"].toString(),
                   style: GoogleFonts.lato(
                     textStyle: TextStyle(
                       // color: Hexcolor('#565656'),
@@ -314,7 +331,7 @@ class _ProfileState extends State<Profile> {
 
                 SizedBox( height: 10),
                 Text(
-                  linked==null ? "null" : linked,
+                  user["linkedInURL"]==null ? "null" : user["linkedInURL"],
                   style: GoogleFonts.lato(
                     textStyle: TextStyle(
                       //color: Hexcolor('#565656'),
@@ -325,7 +342,7 @@ class _ProfileState extends State<Profile> {
 
                 SizedBox( height: 10),
                 Text(
-                  git==null? "null" : git,
+                  user["githubURL"] ==null? "null" : user["githubURL"],
                   style: GoogleFonts.lato(
                     textStyle: TextStyle(
                       //color: Hexcolor('#565656'),
@@ -336,7 +353,7 @@ class _ProfileState extends State<Profile> {
 
                 SizedBox( height: 10),
                 Text(
-                  languages.length==0? "null" : "Languages: "+languages.toString(),
+                  user["languages"] != null ? "Languages: "+user["languages"].toString() : "null",
                   style: GoogleFonts.lato(
                     textStyle: TextStyle(
                       //color: Hexcolor('#565656'),
@@ -346,7 +363,7 @@ class _ProfileState extends State<Profile> {
                 ),
                 SizedBox( height: 10),
                 Text(
-                  domains.length==0? "null" : "Domains: "+domains.toString(),
+                  user["domains"] !=null ? "Domains: "+user["domains"].toString() : "null",
                   style: GoogleFonts.lato(
                     textStyle: TextStyle(
                       //color: Hexcolor('#565656'),
@@ -357,7 +374,7 @@ class _ProfileState extends State<Profile> {
 
                 SizedBox( height: 10),
                 Text(
-                  hostel ? "Hosteller: Yes" : "Hosteller: No",
+                  user["hostel"]!=null && user["hostel"]==true? "Hosteller: Yes" : "Hosteller: No",
                   style: GoogleFonts.lato(
                     textStyle: TextStyle(
                       //color: Hexcolor('#565656'),

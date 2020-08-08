@@ -43,14 +43,28 @@ class _ResourcePopupState extends State<ResourcePopup> {
                           child: Column(
                             mainAxisSize: MainAxisSize.min,
                             children: <Widget>[
-                              Padding(
-                                padding: EdgeInsets.all(8.0),
-                                child: TextFormField(),
+                              TextField(
+                                obscureText: true,
+                                decoration: InputDecoration(
+                                  icon: Icon(Icons.lock),
+                                  labelText: 'Password',
+                                ),
                               ),
-                              Padding(
-                                padding: EdgeInsets.all(8.0),
-                                child: TextFormField(),
+                              TextField(
+                                obscureText: true,
+                                decoration: InputDecoration(
+                                  icon: Icon(Icons.lock),
+                                  labelText: 'Password',
+                                ),
                               ),
+                              // Padding(
+                              //   padding: EdgeInsets.all(8.0),
+                              //   child: TextFormField(),
+                              // ),
+                              // Padding(
+                              //   padding: EdgeInsets.all(8.0),
+                              //   child: TextFormField(),
+                              // ),
                               Padding(
                                 padding: const EdgeInsets.all(8.0),
                                 child: RaisedButton(

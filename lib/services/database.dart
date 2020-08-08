@@ -8,7 +8,7 @@ class DataBaseService{
   final String uid;
   DataBaseService({this.uid});
   final CollectionReference userCollection= Firestore.instance.collection("Users");
-  final CollectionReference menteeCollection= Firestore.instance.collection("Mentee");
+  //final CollectionReference menteeCollection= Firestore.instance.collection("Mentee");
 
   Future updateUserData(String name,int year, String email,int rollNo,String branch,int contact,String linkedInURL,String githubURL,List<String> domains,bool hosteller,List<String> languages,bool mentor) async{
     return await userCollection.document(uid).setData({
@@ -44,9 +44,17 @@ class DataBaseService{
     // }
     
   }
-   getEvents(){
-    return Firestore.instance.collection("Events")
+   getEvents() async {
+    return await Firestore.instance.collection("Events")
         .getDocuments();
+  }
+
+  getCurrentCollectionData(collectionName) async{
+    return await Firestore.instance.collection(collectionName).getDocuments();
+  }
+
+  getUserData() async{
+    return await Firestore.instance.collection("Users").document(this.uid).get();
   }
   Future<bool> addChatRoom(chatRoom, chatRoomId) {
     Firestore.instance

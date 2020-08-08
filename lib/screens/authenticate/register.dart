@@ -113,7 +113,7 @@ class _RegisterState extends State<Register> {
                             domains = ["web","android"];
                             hosteller=false;
                             languages=["cpp","java"];
-                            dynamic result=await _auth.register(email, password,name,year,rollNo,branch,contact,linkedInURL,githubURL,domains,hosteller,languages,true);
+                            dynamic result=await _auth.register(email, password,name,year,rollNo,branch,contact,linkedInURL,githubURL,domains,hosteller,languages,false);
                             if(result == null){
                                 setState(() {
                                   error='some error message';
