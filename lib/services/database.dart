@@ -111,8 +111,8 @@ class DataBaseService{
         //document.get();
   }
 
-  Future<bool> addFeedback(feedbackMap) async{
-    await Firestore.instance
+  Future<DocumentReference> addFeedback(feedbackMap) async{
+    return await Firestore.instance
         .collection("feedback")
         .add(feedbackMap)
         .catchError((e) {

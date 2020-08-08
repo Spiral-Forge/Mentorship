@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:toast/toast.dart';
 
 import '../../services/auth.dart';
 import '../../services/database.dart';
@@ -49,7 +50,13 @@ class _MyFeedbackState extends State<MyFeedback> {
         "description": textController.text,
         'submittedBy': uid,
       };
-       DataBaseService().addFeedback(feedbackMap);
+       DataBaseService().addFeedback(feedbackMap).then((value) {
+         if(value!=null){
+           Toast.show("Thank you for your feedback", context, duration: Toast.LENGTH_SHORT, gravity:  Toast.BOTTOM);
+         }else{
+           Toast.show("Some error occured. Please try again later.", context, duration: Toast.LENGTH_SHORT, gravity:  Toast.BOTTOM);
+         }
+       });
     }
     setState(() {
       textController.text="";
