@@ -1,3 +1,4 @@
+import 'package:dbapp/screens/authenticate/authenticate.dart';
 import 'package:dbapp/services/profile.dart';
 import 'package:dbapp/services/storage.dart';
 import 'package:flutter/material.dart';
@@ -211,7 +212,9 @@ class _ProfileState extends State<Profile> {
             new ListTile(
               title: new Text("Logout"),
               trailing: new Icon(Icons.people),
-              onTap: () async => await _auth.signOut()
+              onTap: () async {
+                await _auth.signOut();
+              }
             ),
           ],
         ),

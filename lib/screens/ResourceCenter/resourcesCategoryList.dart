@@ -2,6 +2,7 @@ import 'package:dbapp/blocs/theme.dart';
 import 'package:dbapp/blocs/values.dart';
 import 'package:dbapp/screens/ResourceCenter/category.dart';
 import 'package:dbapp/screens/ResourceCenter/resourceList.dart';
+import 'package:dbapp/screens/authenticate/authenticate.dart';
 import 'package:dbapp/screens/sidebarScreens/about.dart';
 import 'package:dbapp/screens/sidebarScreens/faqs.dart';
 import 'package:dbapp/screens/sidebarScreens/feedback.dart';
@@ -271,7 +272,9 @@ class _ResourceCategoryListState extends State<ResourceCategoryList> {
             new ListTile(
               title: new Text("Logout"),
               trailing: new Icon(Icons.people),
-              onTap: () async => await _auth.signOut()
+              onTap: () async {
+                await _auth.signOut();
+              }
             ),
           ],
         ),

@@ -1,5 +1,9 @@
 import 'package:dbapp/blocs/theme.dart';
 import 'package:dbapp/blocs/values.dart';
+import 'package:dbapp/screens/authenticate/authenticate.dart';
+import 'package:dbapp/screens/profile/peerProfile.dart';
+import 'package:dbapp/services/storage.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:dbapp/services/auth.dart';
 import 'package:provider/provider.dart';
@@ -19,8 +23,17 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
 
-   final AuthService _auth=AuthService();
+   final FirebaseAuth _authUser = FirebaseAuth.instance;
+  final AuthService _auth=AuthService();
    bool loading=true;
+   String post;
+   bool postFlag=false;
+   static List<String> peerID=["ErALIMxliCR6RK7WQOHOobyBUDj2","GkQDNOXYq5VOq0n3qzLnIJkIWHT2"];
+   List fixedList = Iterable<int>.generate(peerID.length).toList();
+  Future<FirebaseUser> getCurrentUser(){
+    return _authUser.currentUser();
+  }
+
    List<EventTile> eventlist=[];
     Widget eventList(){
       return loading ? Loading() : 
@@ -63,6 +76,7 @@ class _HomePageState extends State<HomePage> {
                 time:val.documents[i].data["time"],
                 venue:val.documents[i].data["venue"],
                 description:val.documents[i].data["description"] ,
+                url:val.documents[i].data["url"]
                 )
             );
             this.setState((){
@@ -70,7 +84,22 @@ class _HomePageState extends State<HomePage> {
               loading=false;
             });
           }
+          setPost();
     });
+  }
+
+  void setPost() async{
+    FirebaseUser user= await getCurrentUser();
+    DataBaseService().getPeerData(user.uid).then((value){
+      setState(() {
+        post=value.data["post"];
+        postFlag=true;
+      });
+      //print("this already happened");
+    });
+    // await StorageServices.getUserPost().then((value) {
+      
+    // });
   }
 
   var _darkTheme = true;
@@ -84,18 +113,33 @@ class _HomePageState extends State<HomePage> {
 
     return Scaffold(
       appBar: AppBar(
-        title:Text("Mentorship App"),
+        title:Text("Protege"),
         backgroundColor:Colors.teal[300] ,
         elevation: Theme.of(context).platform== TargetPlatform.iOS ? 0.0 : 4.0,
-        actions: <Widget>[
+        actions: peerID.length<=1 ? <Widget>[
           FlatButton.icon(
             onPressed: () async{
              //add navigation to edit profile page
+             Navigator.push(context, MaterialPageRoute(builder: (context)=> PeerProfile(post,"GkQDNOXYq5VOq0n3qzLnIJkIWHT2")));
             }, 
-            icon: Icon(Icons.person,color: Colors.white,),
-            label:Text('Know your mentor',style: TextStyle(color:Colors.white),)
+            icon: postFlag==true ? Icon(Icons.person,color: Colors.white,):Icon(null),
+            label:Text(postFlag==true ? post=="Mentor" ? 'Know your mentee':'Know your mentor':"",style: TextStyle(color:Colors.white),)
             )
+        ] :
+         <Widget>[
+          PopupMenuButton<String>(
+            onSelected: (value) => Navigator.push(context,MaterialPageRoute(builder: (context)=>PeerProfile(post,value))),
+            itemBuilder: (BuildContext context){
+              return fixedList.map((index){
+                return PopupMenuItem<String>(
+                  value: peerID[index],
+                  child: Text("View mentee "+(index+1).toString()+" profile"),
+                );
+              }).toList();
+            },
+          )
         ],
+
       ),
       
       drawer: new Drawer(
@@ -166,7 +210,9 @@ class _HomePageState extends State<HomePage> {
             new ListTile(
               title: new Text("Logout"),
               trailing: new Icon(Icons.people),
-              onTap: () async => await _auth.signOut()
+              onTap: () async {
+                await _auth.signOut();
+              }
             ),
           ],
         ),
@@ -183,11 +229,13 @@ class EventTile extends StatelessWidget {
   final String time;
   final String venue;
   final String description;
+  final String url;
 
-  EventTile({@required this.name,this.date, this.time, this.venue,this.description});
-
+  EventTile({@required this.name,this.date, this.time, this.venue,this.description,this.url});
+  
   @override 
   Widget build(BuildContext context){
+    print(url);
     return Container(
       child:Card(
         shape: RoundedRectangleBorder(
@@ -203,7 +251,8 @@ class EventTile extends StatelessWidget {
               decoration: BoxDecoration(
                 image:DecorationImage(
                   fit:BoxFit.fill,
-                  image: AssetImage("assets/images/bg2.jpg")
+                  image: NetworkImage(url)
+                  //AssetImage("assets/images/bg2.jpg")
                  )
               ),
             )

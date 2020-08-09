@@ -55,6 +55,11 @@ class DataBaseService{
 
   getUserData() async{
     return await Firestore.instance.collection("Users").document(this.uid).get();
+    
+  }
+
+  getPeerData(String peerID) async{
+    return await Firestore.instance.collection("Users").document(peerID).get();
   }
   Future<bool> addChatRoom(chatRoom, chatRoomId) {
     Firestore.instance
