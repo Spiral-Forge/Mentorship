@@ -10,14 +10,14 @@ class DataBaseService{
   final CollectionReference userCollection= Firestore.instance.collection("Users");
   //final CollectionReference menteeCollection= Firestore.instance.collection("Mentee");
 
-  Future updateUserData(String name,int year, String email,int rollNo,String branch,int contact,String linkedInURL,String githubURL,List<String> domains,bool hosteller,List<String> languages,bool mentor) async{
+  Future updateUserData(String name,String phoneNo,String email,String branch,String year,String rollNo,String linkedInURL,String githubURL,List domains,List languages,bool hosteller, bool mentor) async{
     return await userCollection.document(uid).setData({
       'name':name,
       'year':year,
       'email': email,
       'rollNo': rollNo,
       'branch':branch,
-      'contact':contact,
+      'phoneNo':phoneNo,
       'linkedInURL': linkedInURL,
       'githubURL': githubURL,
       'domains':domains,
