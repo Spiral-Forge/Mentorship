@@ -23,8 +23,13 @@ class StorageServices{
   static Future<bool> saveUserInfo(Map<String,dynamic> userMap) async{
     SharedPreferences prefs=await SharedPreferences.getInstance();
     prefs.setString(sharedPreferncePostKey, userMap["post"]);
-    return await prefs.setString(sharedPreferenceUserInfoKey, json.encode(userMap));
+    print('Imprinting');
+    print(userMap);
     
+    var rv = await prefs.setString(sharedPreferenceUserInfoKey, json.encode(userMap));
+    print(rv);
+    return rv;
+
   }
 
   static Future<bool> saveUserEmail(String email) async{

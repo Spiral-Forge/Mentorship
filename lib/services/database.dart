@@ -10,20 +10,21 @@ class DataBaseService{
   final CollectionReference userCollection= Firestore.instance.collection("Users");
   //final CollectionReference menteeCollection= Firestore.instance.collection("Mentee");
 
-  Future updateUserData(String name,String phoneNo,String email,String branch,String year,String rollNo,String linkedInURL,String githubURL,List domains,List languages,bool hosteller, bool mentor) async{
+  Future updateUserData(String name,String phoneNo,String email,String year,String branch,String rollNo,String linkedInURL,String githubURL,List domains,List languages,bool hosteller, String post) async{
     return await userCollection.document(uid).setData({
       'name':name,
       'year':year,
       'email': email,
       'rollNo': rollNo,
       'branch':branch,
-      'phoneNo':phoneNo,
+      'contact':phoneNo,
       'linkedInURL': linkedInURL,
       'githubURL': githubURL,
       'domains':domains,
       'hosteller':hosteller,
       'languages':languages,
-      'post': mentor ? "Mentor" : "Mentee"
+      'post': post,
+      'peerid' : []
       });
     // if(mentor){
       
