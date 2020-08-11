@@ -53,6 +53,7 @@ flutter:
   assets:
    - assets/images/bg2.jpg
    - assets/images/send.png
+   - assets/images/
    - assets/images/avatars/
   #  - images/a_dot_ham.jpeg
 

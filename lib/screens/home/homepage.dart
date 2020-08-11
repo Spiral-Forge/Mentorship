@@ -28,7 +28,7 @@ class _HomePageState extends State<HomePage> {
    bool loading=true;
    String post;
    bool postFlag=false;
-   static List<String> peerID=["ErALIMxliCR6RK7WQOHOobyBUDj2","GkQDNOXYq5VOq0n3qzLnIJkIWHT2"];
+   static List<dynamic> peerID=[];
    List fixedList = Iterable<int>.generate(peerID.length).toList();
   Future<FirebaseUser> getCurrentUser(){
     return _authUser.currentUser();
@@ -94,6 +94,7 @@ class _HomePageState extends State<HomePage> {
       setState(() {
         post=value.data["post"];
         postFlag=true;
+        peerID=value.data["peerID"]!=null ? value.data["peerID"] : [];
       });
       //print("this already happened");
     });
@@ -120,7 +121,7 @@ class _HomePageState extends State<HomePage> {
           FlatButton.icon(
             onPressed: () async{
              //add navigation to edit profile page
-             Navigator.push(context, MaterialPageRoute(builder: (context)=> PeerProfile(post,"GkQDNOXYq5VOq0n3qzLnIJkIWHT2")));
+             Navigator.push(context, MaterialPageRoute(builder: (context)=> PeerProfile(post,peerID.length==0 ? null:peerID[0])));
             }, 
             icon: postFlag==true ? Icon(Icons.person,color: Colors.white,):Icon(null),
             label:Text(postFlag==true ? post=="Mentor" ? 'Know your mentee':'Know your mentor':"",style: TextStyle(color:Colors.white),)

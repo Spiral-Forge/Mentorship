@@ -106,7 +106,9 @@ class _RegisterState extends State<Register> {
                   children: [
                     RaisedButton(
                       child: visibleCard == 4 ? Text('Register') : Text('Next'),
-                      onPressed: isNextEnabled ? showToast : null,
+                      onPressed: (){
+                        isNextEnabled ? showToast() : null;
+                      }
                     ),
                     Visibility(
                       visible: visibleCard == 1,

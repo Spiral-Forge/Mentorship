@@ -24,7 +24,7 @@ class DataBaseService{
       'hosteller':hosteller,
       'languages':languages,
       'post': post,
-      'peerid' : []
+      'peerID' : []
       });
     // if(mentor){
       

@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:dbapp/screens/profile/unaddedProfile.dart';
 import 'package:dbapp/services/database.dart';
 import 'package:dbapp/shared/loading.dart';
 import 'package:flutter/material.dart';
@@ -19,23 +20,31 @@ class _PeerProfileState extends State<PeerProfile> {
   Map<String,dynamic> user;
   bool loading=true;
   int avatorNum=Random().nextInt(4)+1;
+  bool isPeerAdded;
 
   void initState(){
-    
-    DataBaseService().getPeerData(widget.peerID).then((userinfo){
-     // print("coming here");
-     // print(userinfo.data);
+    if(widget.peerID==null){
       setState(() {
-        //print(user.runtimeType);
-        user=userinfo.data;
-        loading=false;
+        isPeerAdded=false;
       });
-    });
+    }else{
+      DataBaseService().getPeerData(widget.peerID).then((userinfo){
+        // print("coming here");
+        // print(userinfo.data);
+          setState(() {
+            //print(user.runtimeType);
+            user=userinfo.data;
+            loading=false;
+            isPeerAdded=true;
+          });
+          super.initState();
+        });
+    }
 
   }
   @override
   Widget build(BuildContext context) {
-    return loading ?  Loading() : Scaffold(
+    return isPeerAdded==false ? UnaddedProfile(widget.post) : loading ?  Loading() : Scaffold(
       appBar: new AppBar(title: new Text(widget.post=="Mentor"?"Your Mentee": "Your Mentor"), backgroundColor: Colors.teal[300]),
       body:Stack(
         children: <Widget>[

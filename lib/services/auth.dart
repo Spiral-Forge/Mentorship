@@ -77,7 +77,9 @@ class AuthService{
         'languages':languages,
         'hosteller':hosteller,
         'post': post,
-        "avatarNum": Random().nextInt(4)+1
+        "avatarNum": Random().nextInt(4)+1,
+        "peerID":[]
+
       };
       print("coming here");
       await StorageServices.saveUserInfo(userlist);
