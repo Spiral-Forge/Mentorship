@@ -1,5 +1,7 @@
 import 'package:dbapp/screens/authenticate/authenticate.dart';
 import 'package:dbapp/services/profile.dart';
+import 'package:dbapp/screens/profile/editProfile.dart';
+
 import 'package:dbapp/services/storage.dart';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
@@ -18,6 +20,7 @@ import 'package:dbapp/screens/sidebarScreens/guidelines.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:dbapp/shared/loading.dart';
+
 import 'dart:math';
 
 
@@ -137,7 +140,9 @@ class _ProfileState extends State<Profile> {
         actions: <Widget>[
           FlatButton.icon(
             onPressed: () async{
-             //add navigation to edit profile page
+              //Navigator.of(context).pop();
+            //  Navigator.of(context).push(new MaterialPageRoute(builder: (BuildContext context) => new EditProfilePage(user)));
+            Navigator.push(context, MaterialPageRoute(builder: (context) => new EditProfilePage(user)));
             }, 
             icon: Icon(Icons.person,color: Colors.white,),
             label:Text('Edit Profile',style: TextStyle(color:Colors.white),)
@@ -251,23 +256,24 @@ class _ProfileState extends State<Profile> {
             top: MediaQuery.of(context).size.height / 9,
             child: Column(
               children: <Widget>[
+                
                 Container(
                   width: 150.0,
                   height: 150.0,
-                  decoration: BoxDecoration(
-                    color: Hexcolor('#96ece7'),
-                    image: DecorationImage(
-                      image: AssetImage("assets/images/avatars/av"+user["avatarNum"].toString()+".jpg"),
-                      fit: BoxFit.cover,
-                    ),
-                    borderRadius: BorderRadius.all(Radius.circular(175.0)),
-                    boxShadow: [
-                      BoxShadow(
-                        blurRadius: 7.0,
-                        color: Colors.black,
-                      )
-                    ]
-                  ),
+                  // decoration: BoxDecoration(
+                  //   color: Hexcolor('#96ece7'),
+                  //   image: DecorationImage(
+                  //     image: AssetImage("assets/images/avatars/av"+user["avatarNum"].toString()+".jpg"),
+                  //     fit: BoxFit.cover,
+                  //   ),
+                  //   borderRadius: BorderRadius.all(Radius.circular(175.0)),
+                  //   boxShadow: [
+                  //     BoxShadow(
+                  //       blurRadius: 7.0,
+                  //       color: Colors.black,
+                  //     )
+                  //   ]
+                  // ),
                 ),
                 SizedBox( height: 35),
                 Text(
@@ -389,8 +395,6 @@ class _ProfileState extends State<Profile> {
                     ),
                   ),
                 ),
-
-                SizedBox( height: 25),
                 Container(
                   height: 30,
                   width: 95,
@@ -399,7 +403,7 @@ class _ProfileState extends State<Profile> {
                     shadowColor: Colors.blueGrey[200],
                     elevation: 7.0,
                     child: GestureDetector(
-                      onTap: () {},
+                      onTap: () => EditProfilePage,
                       child: Center(
                         child: Text(
                           'Edit Info',
@@ -414,6 +418,8 @@ class _ProfileState extends State<Profile> {
                     ),
                   ),
                 ),
+                SizedBox( height: 25),
+                
               ],
             ) 
           )

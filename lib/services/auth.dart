@@ -55,28 +55,28 @@ class AuthService{
   }
   
   //register wit email and password
-  Future register(String name,String phoneNo,String email,String password,String year,String branch,String rollNo,String linkedInURL,String githubURL,List domains,List languages,bool hosteller, bool mentor) async{
+  Future register(String name,String phoneNo,String email,String password,String year,String branch,String rollNo,String linkedInURL,String githubURL,List domains,List languages,bool hosteller, String post) async{
     try{
       AuthResult result=await _auth.createUserWithEmailAndPassword(
         email: email, 
         password: password,
       );
       FirebaseUser user=result.user;
-      await DataBaseService(uid:user.uid).updateUserData(name, phoneNo, email, year, branch, rollNo,linkedInURL,githubURL,domains,languages, hosteller, mentor);
+      await DataBaseService(uid:user.uid).updateUserData(name, phoneNo, email, year, branch, rollNo,linkedInURL,githubURL,domains,languages, hosteller, post);
       //List<String> userList=[name,year.toString(),email,rollNo.toString(),branch,contact.toString(),linkedInURL,githubURL,domains.toString(),hosteller.toString(),languages.toString(),mentor.toString()];
       Map<String,dynamic> userlist={
         'name':name,
-        'phoneNo':phoneNo,
+        'contact':phoneNo,
         'email': email,
-        'branch':branch,
         'year':year,
+        'branch':branch,
         'rollNo': rollNo,
         'linkedInURL': linkedInURL,
         'githubURL': githubURL,
         'domains':domains,
         'languages':languages,
         'hosteller':hosteller,
-        'post': mentor ? "Mentor" : "Mentee",
+        'post': post,
         "avatarNum": Random().nextInt(4)+1
       };
       print("coming here");

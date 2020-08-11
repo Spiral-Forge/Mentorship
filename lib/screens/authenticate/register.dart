@@ -10,14 +10,15 @@ int _radioValue = -1;
 int visibleCard = 1;
 
 bool mentor = true;
+String post = '';
 
 String name = '';
 String phoneNo = '';
 String email = '';
 String password = '';
 
-String year = '';
-String branch = '';
+String year = 'First';
+String branch = 'CSE-1';
 String rollNo = '';
 
 String linkedInURL = '';
@@ -28,10 +29,6 @@ bool hosteller;
 
 bool isNextEnabled = true;
 
-bool card1validate = false;
-bool card2validate = false;
-bool card3validate = false;
-bool card4validate = false;
 
 class Register extends StatefulWidget {
   //taken from parent props:
@@ -64,7 +61,7 @@ class _RegisterState extends State<Register> {
         domains,
         languages,
         hosteller,
-        mentor);
+        post);
     if (result == null) {
       setState(() {
         error = 'some error message';
@@ -147,7 +144,6 @@ class _RegisterState extends State<Register> {
                         margin: EdgeInsets.all(15),
                       ),
                     ),
-                    
                   ],
                 ),
               ));
@@ -171,6 +167,7 @@ class MentorOrMenteeFormState extends State<MentorOrMenteeForm> {
     setState(() {
       _radioValue = value;
       mentor = _radioValue == 0;
+      post = mentor? 'Mentor' : 'Mentee';
     });
   }
 
@@ -213,7 +210,6 @@ class MentorOrMenteeFormState extends State<MentorOrMenteeForm> {
                   print(_radioValue);
                   // It returns true if the form is valid, otherwise returns false
                   if (_formKey1.currentState.validate() && _radioValue != -1) {
-                    card1validate = true;
                     isNextEnabled = true;
                     // If the form is valid, display a Snackbar.
                     // Scaffold.of(context).showSnackBar(
@@ -373,9 +369,8 @@ class ContactFormState extends State<ContactForm> {
                   // It returns true if the form is valid, otherwise returns false
                   if (_formKey2.currentState.validate()) {
                     setState(() {
-                    isNextEnabled = true;
+                      isNextEnabled = true;
                     });
-                    card2validate = true;
                     // If the form is valid, display a Snackbar.
                     // Scaffold.of(context).showSnackBar(
                     //     SnackBar(content: Text('Data is in processing.')));
@@ -436,6 +431,7 @@ class CollegeFormState extends State<CollegeForm> {
     _selectedYear = _dropdownYear[0];
     _dropdownBranchItems = buildDropDownMenuItems(_dropdownBranch);
     _selectedBranch = _dropdownBranch[0];
+    
   }
 
   List<DropdownMenuItem<ListItem>> buildDropDownMenuItems(List listItems) {
@@ -511,6 +507,50 @@ class CollegeFormState extends State<CollegeForm> {
               });
             },
           ),
+          new Divider(height: 10, color: Colors.white),
+          Text('Enter your Linkedin Profile URL'),
+          TextFormField(
+              style: TextStyle(color: Colors.grey),
+              decoration: const InputDecoration(
+                enabledBorder: UnderlineInputBorder(
+                  borderSide: BorderSide(color: Colors.grey),
+                ),
+                focusedBorder: UnderlineInputBorder(
+                  borderSide: BorderSide(color: Colors.blue),
+                ),
+                border: UnderlineInputBorder(),
+              ),
+              // validator: (val) {
+              //   if (val.length == 0) {
+              //     return 'Required';
+              //   }
+              //   return '';
+              // },
+              onChanged: (val) {
+                setState(() => linkedInURL = val);
+              }),
+          new Divider(height: 10, color: Colors.white),
+          Text('Enter your GitHub Profile URL'),
+          TextFormField(
+              style: TextStyle(color: Colors.grey),
+              decoration: const InputDecoration(
+                enabledBorder: UnderlineInputBorder(
+                  borderSide: BorderSide(color: Colors.grey),
+                ),
+                focusedBorder: UnderlineInputBorder(
+                  borderSide: BorderSide(color: Colors.blue),
+                ),
+                border: UnderlineInputBorder(),
+              ),
+              // validator: (val) {
+              //   if (val.length == 0) {
+              //     return 'Required';
+              //   }
+              //   return '';
+              // },
+              onChanged: (val) {
+                setState(() => githubURL = val);
+              }),
           new Container(
               padding: const EdgeInsets.only(left: 175.0, top: 40.0),
               child: new RaisedButton(
@@ -520,15 +560,15 @@ class CollegeFormState extends State<CollegeForm> {
                   // It returns true if the form is valid, otherwise returns false
                   if (_formKey3.currentState.validate()) {
                     setState(() {
-                    isNextEnabled = true;
+                      isNextEnabled = true;
                     });
-                    card3validate = true;
                     // If the form is valid, display a Snackbar.
                     // Scaffold.of(context).showSnackBar(
                     //     SnackBar(content: Text('Data is in processing.')));
                   }
                 },
               )),
+          
         ],
       ),
     );
@@ -580,7 +620,7 @@ class PreferencesFormState extends State<PreferencesForm> {
   Widget build(BuildContext context) {
     // Build a Form widget using the _formKey created above.
     return SingleChildScrollView(
-          child: Form(
+      child: Form(
         key: _formKey4,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -678,55 +718,6 @@ class PreferencesFormState extends State<PreferencesForm> {
                 },
               ),
             ),
-            // Visibility(
-            //   visible: _radioValue == 0,
-            //   child: Column(children: <Widget>[
-            //     new Divider(height: 10, color: Colors.white),
-            //     Text('Enter your Linkedin Profile URL'),
-            //     TextFormField(
-            //         style: TextStyle(color: Colors.grey),
-            //         decoration: const InputDecoration(
-            //           enabledBorder: UnderlineInputBorder(
-            //             borderSide: BorderSide(color: Colors.grey),
-            //           ),
-            //           focusedBorder: UnderlineInputBorder(
-            //             borderSide: BorderSide(color: Colors.blue),
-            //           ),
-            //           border: UnderlineInputBorder(),
-            //         ),
-            //         validator: (val) {
-            //           if (val.length == 0) {
-            //             return 'Required';
-            //           }
-            //           return '';
-            //         },
-            //         onChanged: (val) {
-            //           setState(() => linkedInURL = val);
-            //         }),
-            //     new Divider(height: 10, color: Colors.white),
-            //     Text('Enter your GitHub Profile URL'),
-            //     TextFormField(
-            //         style: TextStyle(color: Colors.grey),
-            //         decoration: const InputDecoration(
-            //           enabledBorder: UnderlineInputBorder(
-            //             borderSide: BorderSide(color: Colors.grey),
-            //           ),
-            //           focusedBorder: UnderlineInputBorder(
-            //             borderSide: BorderSide(color: Colors.blue),
-            //           ),
-            //           border: UnderlineInputBorder(),
-            //         ),
-            //         validator: (val) {
-            //           if (val.length == 0) {
-            //             return 'Required';
-            //           }
-            //           return '';
-            //         },
-            //         onChanged: (val) {
-            //           setState(() => githubURL = val);
-            //         })
-            //   ]),
-            // ),
             new Divider(height: 0, color: Colors.white),
             new Text(_radioValue == 0
                 ? "Are you a hosteller?"
@@ -753,11 +744,10 @@ class PreferencesFormState extends State<PreferencesForm> {
                     // It returns true if the form is valid, otherwise returns false
                     if (_formKey4.currentState.validate() &&
                         _hostellerValue != -1) {
-                          print("hyyy");
+                      print("hyyy");
                       setState(() {
                         isNextEnabled = true;
                       });
-                      card4validate = true;
                       // If the form is valid, display a Snackbar.
                       // Scaffold.of(context).showSnackBar(
                       //     SnackBar(content: Text('Data is in processing.')));
