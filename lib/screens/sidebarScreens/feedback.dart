@@ -1,12 +1,15 @@
+import 'package:dbapp/services/storage.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_mailer/flutter_mailer.dart';
 import 'package:toast/toast.dart';
 
 import '../../services/auth.dart';
 import '../../services/database.dart';
 
 enum SingingCharacter { login, suggestion, complaint, other }
-var feedbackopt;
+var feedbackopt=1;
 
 class MyFeedback extends StatefulWidget {
 
@@ -19,6 +22,7 @@ class _MyFeedbackState extends State<MyFeedback> {
   final TextEditingController textController = new TextEditingController();
 
   final AuthService _auth=AuthService();
+  Map<String,dynamic> user;
   final FirebaseAuth _authUser = FirebaseAuth.instance;
   Future<FirebaseUser> getCurrentUser(){
     return _authUser.currentUser();
@@ -35,38 +39,70 @@ class _MyFeedbackState extends State<MyFeedback> {
   @override
   void initState(){
     super.initState();
-    getCurrentUser().then((user){
-      uid = user.uid;
-      setState((){
-         uid: uid;
+    setUser();
+  }
+
+  void setUser() async{
+    await StorageServices.getUserInfo().then((userInfo){
+      print(userInfo);
+      setState(() {
+        user=userInfo;
       });
     });
   }
 
   submitFeedback(){
     if(textController.text.isNotEmpty){
-      Map<String, dynamic> feedbackMap = {
-        "type": feedbackOption[feedbackopt],
-        "description": textController.text,
-        'submittedBy': uid,
-      };
-       DataBaseService().addFeedback(feedbackMap).then((value) {
-         if(value!=null){
-           Toast.show("Thank you for your feedback", context, duration: Toast.LENGTH_SHORT, gravity:  Toast.BOTTOM);
-         }else{
-           Toast.show("Some error occured. Please try again later.", context, duration: Toast.LENGTH_SHORT, gravity:  Toast.BOTTOM);
-         }
-       });
+      sendMail();
+      /**
+       * Uncomment for saving into DB
+       */
+      //  DataBaseService().addFeedback(feedbackMap).then((value) {
+      //    if(value!=null){
+      //      Toast.show("Thank you for your feedback", context, duration: Toast.LENGTH_SHORT, gravity:  Toast.BOTTOM);
+      //    }else{
+      //      Toast.show("Some error occured. Please try again later.", context, duration: Toast.LENGTH_SHORT, gravity:  Toast.BOTTOM);
+      //    }
+      //  });
+    }else{
+      Toast.show("Feedback cannot be empty. Please try again.", context, duration: Toast.LENGTH_SHORT, gravity:  Toast.BOTTOM);
     }
-    setState(() {
-      textController.text="";
-    });
+  }
+  
+
+  void sendMail() async{
+
+    String mailBody="<br>"+user["name"]+"<br>"+user["year"]+" year "+user["branch"]+"<br>";
+    print(feedbackOption[feedbackopt]);
+    final MailOptions mailOptions = MailOptions(
+      body: textController.text+mailBody,
+      subject: "Protege App Feedback: "+feedbackOption[feedbackopt],
+      recipients: <String>['suhanichawla2000@gmail.com'],
+      isHTML: true,
+      // bccRecipients: ['other@example.com'],
+      ccRecipients: <String>['suhanijklmnchawla2000@gmail.com'],
+    );
+    try {
+      await FlutterMailer.send(mailOptions);
+      setState(() {
+        textController.text="";
+        feedbackopt=1;
+      });
+      Toast.show("Thank you for your feedback", context, duration: Toast.LENGTH_SHORT, gravity:  Toast.BOTTOM);
+    } on PlatformException catch (error) {
+      print(error.toString());
+      Toast.show("Some error occured. Please try again later.", context, duration: Toast.LENGTH_SHORT, gravity:  Toast.BOTTOM);
+    } catch (error) {
+      print(error.toString());
+      Toast.show("Some error occured. Please try again later.", context, duration: Toast.LENGTH_SHORT, gravity:  Toast.BOTTOM);
+    }
+
   }
   
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
-      appBar: new AppBar(title: new Text("Feedback"), backgroundColor: Colors.teal),
+      appBar: new AppBar(title: new Text("Feedback"), backgroundColor: Colors.teal[300]),
       body: Padding(
     padding: EdgeInsets.all(16.0),
     child: Column(
@@ -95,8 +131,9 @@ class _MyFeedbackState extends State<MyFeedback> {
               child: FlatButton(
                 onPressed: (){
                   submitFeedback();
+                  //sendMail();
                 },
-                color: Colors.teal,
+                color: Colors.teal[300],
                 padding: EdgeInsets.all(16.0),
                 child: Text(
                   "SUBMIT",
