@@ -1,5 +1,5 @@
 import 'package:dbapp/services/auth.dart';
-import 'package:dbapp/shared/constants.dart';
+import 'package:dbapp/shared/styles.dart';
 import 'package:flutter/material.dart';
 import 'package:dbapp/shared/loading.dart';
 
