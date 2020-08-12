@@ -26,23 +26,6 @@ class DataBaseService{
       'post': post,
       'peerID' : []
       });
-    // if(mentor){
-      
-    // }else{
-    //   return await menteeCollection.document(uid).setData({
-    //   'name':name,
-    //   'year':year,
-    //   'email': email,
-    //   'rollNo': rollNo,
-    //   'branch':branch,
-    //   'contact':contact,
-    //   'linkedInURL': linkedInURL,
-    //   'githubURL': githubURL,
-    //   'domains':domains,
-    //   'hosteller':hosteller,
-    //   'languages':languages
-    //   });
-    // }
     
   }
    getEvents() async {
@@ -168,32 +151,5 @@ class DataBaseService{
       print(e);
     });
   }
-
-  //get a new stream for any changes to user collecion
-  // Stream<List<Chatlist>> get mychats{
-  //   return mentorCollection.snapshots()
-     
-  // }
-  // Stream<List<Mentee>> get users{
-  //   return menteeCollection.snapshots()
-  //     .map(_userListFromSnapshot);
-  // }
 }
 
-// Future getUser(String uid) async{
-//   try{
-//     var userData=await menteeCollection.document(uid).get();
-//     return Mentee.fromData(userData.data);
-//   }catch(e){
-//     return e.message;
-//   }
-// }
-
-// Future getUser(String uid) async {
-//     try {
-//       var userData = await menteeCollection.document(uid).get();
-//       return User.fromData(userData.data);
-//     } catch (e) {
-//       return e.message;
-//     }
-//   }

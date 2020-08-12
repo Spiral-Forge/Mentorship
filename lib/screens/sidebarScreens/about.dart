@@ -1,12 +1,13 @@
+import 'package:dbapp/constants/colors.dart';
+import 'package:dbapp/constants/sidebarConstants.dart';
 import 'package:flutter/material.dart';
-// import 'package:dbapp/screens/sidebarScreens/aboutHelper.dart';
 class About extends StatelessWidget {
   
 
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
-      appBar: new AppBar(title: new Text("About"), backgroundColor: Colors.redAccent),
+      appBar: new AppBar(title: new Text("About"), backgroundColor: AppColors.COLOR_TEAL_LIGHT),
       body: SingleChildScrollView(
         scrollDirection: Axis.vertical,
               child: new Column(
@@ -14,34 +15,17 @@ class About extends StatelessWidget {
             Center(
               child: new Container(
                 margin: EdgeInsets.symmetric(vertical:20.0,horizontal:10.0),
-                child: Text("Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book",style: TextStyle(fontSize:20.0 ),),
+                child: Text(SidebarConstants.aboutSoc,style: TextStyle(fontSize:20.0 ),),
               ),
             ),
-            new Mycard1(),
+              new Mycard1(),
               new Mycard2(),
               new Mycard3(),
               new Mycard4(),
-            // ListView(
-            //   shrinkWrap: true,
-            //   children: <Widget>[
-                
-            //   ],
-            // )
            
           ],
         ),
       )
-      // new Container(
-      //     margin:EdgeInsets.symmetric(vertical:16.0,horizontal:20.0),
-      //     child:new Stack(
-      //       children: <Widget>[
-      //         myCard,
-      //         myimage
-              
-      //       ],
-      //     )
-      //   )
-      
       
     );
   }
@@ -137,9 +121,9 @@ final thumbnail1 = new Container(
     padding: EdgeInsets.only(left:25.0),
     height: 124.0,
     margin: new EdgeInsets.only(left: 46.0),
-    child: Center(child: Text(" Urvi Goel \n Founder \n SOMe cool line she said",style: TextStyle(fontSize:20.0),)),
+    child: Center(child: Text(SidebarConstants.founderUrvi,style: TextStyle(fontSize:20.0),)),
     decoration: new BoxDecoration(
-      color: Colors.teal,
+      color: AppColors.COLOR_TEAL_DARK,
       shape: BoxShape.rectangle,
       borderRadius: new BorderRadius.circular(8.0),
       boxShadow: <BoxShadow>[
@@ -172,9 +156,9 @@ final thumbnail1 = new Container(
      padding: EdgeInsets.only(left:25.0),
     height: 124.0,
     margin: new EdgeInsets.only(left: 46.0),
-    child: Center(child: Text("Nitasha Dhingra \n Founder \n SOMe cool line she said",style: TextStyle(fontSize:20.0),)),
+    child: Center(child: Text(SidebarConstants.founderNitasha,style: TextStyle(fontSize:20.0),)),
     decoration: new BoxDecoration(
-      color: Colors.teal,
+      color: AppColors.COLOR_TEAL_DARK,
       shape: BoxShape.rectangle,
       borderRadius: new BorderRadius.circular(8.0),
       boxShadow: <BoxShadow>[
@@ -205,9 +189,9 @@ final thumbnail1 = new Container(
      padding: EdgeInsets.only(left:25.0),
     height: 124.0,
     margin: new EdgeInsets.only(left: 46.0),
-    child: Center(child: Text("Oshin Saini \n Founder \n SOMe cool line she said",style: TextStyle(fontSize:20.0),)),
+    child: Center(child: Text(SidebarConstants.founderOshin,style: TextStyle(fontSize:20.0),)),
     decoration: new BoxDecoration(
-      color: Colors.teal,
+      color: AppColors.COLOR_TEAL_DARK,
       shape: BoxShape.rectangle,
       borderRadius: new BorderRadius.circular(8.0),
       boxShadow: <BoxShadow>[
@@ -238,9 +222,9 @@ final thumbnail1 = new Container(
      padding: EdgeInsets.only(left:25.0),
     height: 124.0,
     margin: new EdgeInsets.only(left: 46.0),
-    child: Center(child: Text("Suhani Chawla \n Founder \n SOMe cool line i said",style: TextStyle(fontSize:20.0),)),
+    child: Center(child: Text(SidebarConstants.founderSuhani,style: TextStyle(fontSize:20.0),)),
     decoration: new BoxDecoration(
-      color: Colors.teal,
+      color: AppColors.COLOR_TEAL_DARK,
       shape: BoxShape.rectangle,
       borderRadius: new BorderRadius.circular(8.0),
       boxShadow: <BoxShadow>[

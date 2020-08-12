@@ -1,3 +1,4 @@
+import 'package:dbapp/constants/colors.dart';
 import 'package:dbapp/constants/sidebarConstants.dart';
 import 'package:dbapp/services/storage.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -7,7 +8,7 @@ import 'package:flutter_mailer/flutter_mailer.dart';
 import 'package:toast/toast.dart';
 import '../../services/auth.dart';
 
-enum SingingCharacter { login, suggestion, complaint, other }
+enum SingingCharacter { login, suggestion, complaint, other}
 var feedbackopt=1;
 
 class MyFeedback extends StatefulWidget {
@@ -67,7 +68,6 @@ class _MyFeedbackState extends State<MyFeedback> {
   void sendMail() async{
 
     String mailBody="<br>"+user["name"]+"<br>"+user["year"]+" year "+user["branch"]+"<br>";
-    print(feedbackOption[feedbackopt]);
     final MailOptions mailOptions = MailOptions(
       body: textController.text+mailBody,
       subject: "Protege App Feedback: "+feedbackOption[feedbackopt],
@@ -95,7 +95,7 @@ class _MyFeedbackState extends State<MyFeedback> {
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
-      appBar: new AppBar(title: new Text("Feedback"), backgroundColor: Colors.teal[300]),
+      appBar: new AppBar(title: new Text("Feedback"), backgroundColor: AppColors.COLOR_TEAL_LIGHT),
       body: Padding(
     padding: EdgeInsets.all(16.0),
     child: Column(
@@ -126,7 +126,7 @@ class _MyFeedbackState extends State<MyFeedback> {
                   submitFeedback();
                   //sendMail();
                 },
-                color: Colors.teal[300],
+                color: AppColors.COLOR_TEAL_LIGHT,
                 padding: EdgeInsets.all(16.0),
                 child: Text(
                   "SUBMIT",

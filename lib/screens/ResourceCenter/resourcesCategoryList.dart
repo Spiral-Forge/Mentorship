@@ -1,5 +1,7 @@
 import 'package:dbapp/blocs/theme.dart';
 import 'package:dbapp/blocs/values.dart';
+import 'package:dbapp/constants/colors.dart';
+import 'package:dbapp/constants/screenConstants.dart';
 import 'package:dbapp/screens/ResourceCenter/category.dart';
 import 'package:dbapp/screens/ResourceCenter/resourceList.dart';
 import 'package:dbapp/screens/authenticate/authenticate.dart';
@@ -47,30 +49,9 @@ class _ResourceCategoryListState extends State<ResourceCategoryList> {
    }
 
   var selectedType;
-  Map<String,String> fieldMap={
-    "Development":"Development",
-    "Scholarship":"Scholarship",
-    "College":"College",
-    "Machine Learning":"ML",
-    "Open-Source":"OpenSource",
-    "Competitive Coding":"CompCoding"
-
-  };
+  Map<String,String> fieldMap=ScreenConstants.resourceFieldMap;
    
-  List<String> fields = <String>[
-    "Development",
-    "Scholarship",
-    "College",
-    "Machine Learning",
-    "Open-Source",
-    "Competitive Coding"
-  ];
-  //   List<String> fields = <String>[
-  //   'Savings',
-  //   'Deposit',
-  //   'Checking',
-  //   'Brokerage'
-  // ];
+  List<String> fields = ScreenConstants.resourceFields;
 
   @override
   Widget build(BuildContext context) {
@@ -81,7 +62,7 @@ class _ResourceCategoryListState extends State<ResourceCategoryList> {
     return new Scaffold(
       appBar: AppBar(
         title:Text("Resource Center"),
-        backgroundColor:Colors.teal[300] ,
+        backgroundColor:AppColors.COLOR_TEAL_LIGHT,
         elevation: 0.0,
         actions: post=="Mentee" || post=="" ? null: <Widget>[
           FlatButton.icon(
@@ -260,7 +241,7 @@ class _ResourceCategoryListState extends State<ResourceCategoryList> {
               //             icon: Icon(
               //               Icons.brightness_3
               //             ),
-              //             color: Hexcolor('#565656'),
+              //             color: AppColors.PROTEGE_GREY,
               //           ),
               // title: new Text("Change Theme"),
               // onTap: () {
@@ -354,7 +335,5 @@ class _ResourceCategoryListState extends State<ResourceCategoryList> {
 
 void onThemeChanged(bool value, ThemeChanger _themeChanger) async {
   (value) ? _themeChanger.setTheme(darkTheme) : _themeChanger.setTheme(lightTheme);
-    // var prefs = await SharedPreferences.getInstance();
-    // prefs.setBool('darkMode', value);
 }
 

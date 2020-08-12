@@ -1,10 +1,8 @@
-import 'package:dbapp/screens/authenticate/authenticate.dart';
-import 'package:dbapp/services/profile.dart';
+import 'package:dbapp/constants/colors.dart';
 import 'package:dbapp/screens/profile/editProfile.dart';
 
 import 'package:dbapp/services/storage.dart';
 import 'package:flutter/material.dart';
-import 'package:hexcolor/hexcolor.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:dbapp/services/auth.dart';
 
@@ -12,14 +10,11 @@ import 'package:provider/provider.dart';
 import 'package:dbapp/blocs/theme.dart';
 import 'package:dbapp/blocs/values.dart';
 
-import 'package:dbapp/screens/home/homepage.dart';
 import 'package:dbapp/screens/sidebarScreens/about.dart';
 import 'package:dbapp/screens/sidebarScreens/faqs.dart';
 import 'package:dbapp/screens/sidebarScreens/feedback.dart';
 import 'package:dbapp/screens/sidebarScreens/guidelines.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:dbapp/shared/loading.dart';
 
 import 'dart:math';
 
@@ -135,7 +130,7 @@ class _ProfileState extends State<Profile> {
     return new Scaffold(
       appBar: AppBar(
         title:Text("Your Profile"),
-        backgroundColor:Colors.teal[300] ,
+        backgroundColor:AppColors.COLOR_TEAL_LIGHT ,
         elevation: 0.0,
         actions: <Widget>[
           FlatButton.icon(
@@ -143,14 +138,12 @@ class _ProfileState extends State<Profile> {
               //Navigator.of(context).pop();
             //  Navigator.of(context).push(new MaterialPageRoute(builder: (BuildContext context) => new EditProfilePage(user)));
             Navigator.push( context, MaterialPageRoute( builder: (context) => EditProfilePage(user)), ).then((value){
-              print("coming here");
               StorageServices.getUserInfo().then((value){
                 print(value);
                 setState(() {
                   user=value;
                 });
               });
-              print("now working");
             } );
             }, 
             icon: Icon(Icons.person,color: Colors.white,),
@@ -214,7 +207,7 @@ class _ProfileState extends State<Profile> {
               //             icon: Icon(
               //               Icons.brightness_3
               //             ),
-              //             color: Hexcolor('#565656'),
+              //             color: AppColors.PROTEGE_GREY,
               //           ),
               // title: new Text("Change Theme"),
               // onTap: () {
@@ -246,7 +239,7 @@ class _ProfileState extends State<Profile> {
             //       ),    
             //     ),
             //   ),
-            //   color: Hexcolor('#565656'),
+            //   color: AppColors.PROTEGE_GREY,
             // ),
             Column(
               children: <Widget>[
@@ -269,27 +262,27 @@ class _ProfileState extends State<Profile> {
                 Container(
                   width: 150.0,
                   height: 150.0,
-                  // decoration: BoxDecoration(
-                  //   color: Hexcolor('#96ece7'),
-                  //   image: DecorationImage(
-                  //     image: AssetImage("assets/images/avatars/av"+user["avatarNum"].toString()+".jpg"),
-                  //     fit: BoxFit.cover,
-                  //   ),
-                  //   borderRadius: BorderRadius.all(Radius.circular(175.0)),
-                  //   boxShadow: [
-                  //     BoxShadow(
-                  //       blurRadius: 7.0,
-                  //       color: Colors.black,
-                  //     )
-                  //   ]
-                  // ),
+                  decoration: BoxDecoration(
+                    color: AppColors.PROTEGE_CYAN,
+                    image: DecorationImage(
+                      image: user["avatarNum"]!= null ? AssetImage("assets/images/avatars/av"+user["avatarNum"].toString()+".jpg"):AssetImage("assets/images/avatars/av1.jpg"),
+                      fit: BoxFit.cover,
+                    ),
+                    borderRadius: BorderRadius.all(Radius.circular(175.0)),
+                    boxShadow: [
+                      BoxShadow(
+                        blurRadius: 7.0,
+                        color: Colors.black,
+                      )
+                    ]
+                  ),
                 ),
                 SizedBox( height: 35),
                 Text(
                   user["name"] != null ? user["name"] : "null",
                   style: GoogleFonts.lato(
                     textStyle: TextStyle(
-                      // color: Hexcolor('#565656'),
+                      // color: AppColors.PROTEGE_GREY,
                       // fontFamily: GoogleFonts,
                       fontSize: 28,
                     ),
@@ -301,7 +294,7 @@ class _ProfileState extends State<Profile> {
                   style: GoogleFonts.lato(
                     textStyle: TextStyle(
                       fontSize: 20,
-                      color: Hexcolor('#96ece7'),
+                      color: AppColors.PROTEGE_CYAN,
                       fontStyle: FontStyle.italic,
                     ),
                   ),
@@ -312,7 +305,7 @@ class _ProfileState extends State<Profile> {
                   user["email"]==null? "null" : user["email"],
                   style: GoogleFonts.lato(
                     textStyle: TextStyle(
-                      //color: Hexcolor('#565656'),
+                      //color: AppColors.PROTEGE_GREY,
                       fontSize: 20,
                     ),
                   ),
@@ -323,7 +316,7 @@ class _ProfileState extends State<Profile> {
                   user["contact"] != null ? user["contact"].toString(): "null",
                   style: GoogleFonts.lato(
                     textStyle: TextStyle(
-                     // color: Hexcolor('#565656'),
+                     // color: AppColors.PROTEGE_GREY,
                       fontSize: 20,
                     ),
                   ),
@@ -334,7 +327,7 @@ class _ProfileState extends State<Profile> {
                   user["year"] == null ? "null" : user["year"].toString()+" "+user["branch"],
                   style: GoogleFonts.lato(
                     textStyle: TextStyle(
-                     // color: Hexcolor('#565656'),
+                     // color: AppColors.PROTEGE_GREY,
                       fontSize: 20,
                     ),
                   ),
@@ -345,7 +338,7 @@ class _ProfileState extends State<Profile> {
                   user["rollNo"]==null ? "null" : user["rollNo"].toString(),
                   style: GoogleFonts.lato(
                     textStyle: TextStyle(
-                      // color: Hexcolor('#565656'),
+                      // color: AppColors.PROTEGE_GREY,
                       fontSize: 20,
                     ),
                   ),
@@ -353,10 +346,10 @@ class _ProfileState extends State<Profile> {
 
                 SizedBox( height: 10),
                 Text(
-                  user["linkedInURL"]==null ? "null" : user["linkedInURL"],
+                  user["linkedInURL"]==null ? "Not added yet" : user["linkedInURL"],
                   style: GoogleFonts.lato(
                     textStyle: TextStyle(
-                      //color: Hexcolor('#565656'),
+                      //color: AppColors.PROTEGE_GREY,
                       fontSize: 20,
                     ),
                   ),
@@ -364,10 +357,10 @@ class _ProfileState extends State<Profile> {
 
                 SizedBox( height: 10),
                 Text(
-                  user["githubURL"] ==null? "null" : user["githubURL"],
+                  user["githubURL"] ==null? "Not added yet" : user["githubURL"],
                   style: GoogleFonts.lato(
                     textStyle: TextStyle(
-                      //color: Hexcolor('#565656'),
+                      //color: AppColors.PROTEGE_GREY,
                       fontSize: 20,
                     ),
                   ),
@@ -378,7 +371,7 @@ class _ProfileState extends State<Profile> {
                   user["languages"] != null ? "Languages: "+user["languages"].toString() : "null",
                   style: GoogleFonts.lato(
                     textStyle: TextStyle(
-                      //color: Hexcolor('#565656'),
+                      //color: AppColors.PROTEGE_GREY,
                       fontSize: 20,
                     ),
                   ),
@@ -388,7 +381,7 @@ class _ProfileState extends State<Profile> {
                   user["domains"] !=null ? "Domains: "+user["domains"].toString() : "null",
                   style: GoogleFonts.lato(
                     textStyle: TextStyle(
-                      //color: Hexcolor('#565656'),
+                      //color: AppColors.PROTEGE_GREY,
                       fontSize: 20,
                     ),
                   ),
@@ -399,34 +392,33 @@ class _ProfileState extends State<Profile> {
                   user["hostel"]!=null && user["hostel"]==true? "Hosteller: Yes" : "Hosteller: No",
                   style: GoogleFonts.lato(
                     textStyle: TextStyle(
-                      //color: Hexcolor('#565656'),
+                      //color: AppColors.PROTEGE_GREY,
                       fontSize: 20,
                     ),
                   ),
                 ),
-                Container(
-                  height: 30,
-                  width: 95,
-                  child: Material(
-                    borderRadius: BorderRadius.circular(25),
-                    shadowColor: Colors.blueGrey[200],
-                    elevation: 7.0,
-                    child: GestureDetector(
-                      onTap: () => EditProfilePage,
-                      child: Center(
-                        child: Text(
-                          'Edit Info',
-                          style: GoogleFonts.lato(
-                            textStyle: TextStyle(
-                              color: Colors.teal[300],
-                            ),
-                          ),
-                        ),
-                      ),
-                      
-                    ),
-                  ),
-                ),
+                // Container(
+                //   height: 30,
+                //   width: 95,
+                //   child: Material(
+                //     borderRadius: BorderRadius.circular(25),
+                //     shadowColor: Colors.blueGrey[200],
+                //     elevation: 7.0,
+                //     child: GestureDetector(
+                //       onTap: () => EditProfilePage,
+                //       child: Center(
+                //         child: Text(
+                //           'Edit Info',
+                //           style: GoogleFonts.lato(
+                //             textStyle: TextStyle(
+                //               color: AppColors.COLOR_TEAL_LIGHT,
+                //             ),
+                //           ),
+                //         ),
+                //       ),  
+                //     ),
+                //   ),
+                // ),
                 SizedBox( height: 25),
                 
               ],
@@ -457,7 +449,5 @@ class getClipper extends CustomClipper<Path>{
 
 void onThemeChanged(bool value, ThemeChanger _themeChanger) async {
   (value) ? _themeChanger.setTheme(darkTheme) : _themeChanger.setTheme(lightTheme);
-    // var prefs = await SharedPreferences.getInstance();
-    // prefs.setBool('darkMode', value);
 }
 

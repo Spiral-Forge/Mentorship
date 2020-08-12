@@ -1,3 +1,5 @@
+import 'package:dbapp/constants/colors.dart';
+import 'package:dbapp/constants/screenConstants.dart';
 import 'package:dbapp/screens/home/home.dart';
 import 'package:dbapp/services/auth.dart';
 import 'package:dbapp/shared/styles.dart';
@@ -83,9 +85,9 @@ class _RegisterState extends State<Register> {
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
-        backgroundColor: Colors.brown[100],
+        backgroundColor: AppColors.PROTEGE_CYAN,
         appBar: AppBar(
-            backgroundColor: Colors.brown,
+            backgroundColor: AppColors.COLOR_TEAL_DARK,
             elevation: 0.0,
             title: Text("Register"),
             actions: <Widget>[
@@ -641,32 +643,7 @@ class PreferencesFormState extends State<PreferencesForm> {
                     return 'Please select one or more options';
                   }
                 },
-                dataSource: [
-                  {
-                    "display": "Web Development",
-                    "value": "Web Development",
-                  },
-                  {
-                    "display": "App Development",
-                    "value": "App Development",
-                  },
-                  {
-                    "display": "Machine Learning",
-                    "value": "Machine Learning",
-                  },
-                  {
-                    "display": "IOT",
-                    "value": "IOT",
-                  },
-                  {
-                    "display": "BlockChain",
-                    "value": "BlockChain",
-                  },
-                  {
-                    "display": "Competitive Programming",
-                    "value": "Competitive Programming",
-                  }
-                ],
+                dataSource: ScreenConstants.registerFieldData,
                 textField: 'display',
                 valueField: 'value',
                 okButtonLabel: 'OK',
@@ -692,20 +669,7 @@ class PreferencesFormState extends State<PreferencesForm> {
                     return 'Please select one or more options';
                   }
                 },
-                dataSource: [
-                  {
-                    "display": "C/C++",
-                    "value": "C/C++",
-                  },
-                  {
-                    "display": "Java",
-                    "value": "Java",
-                  },
-                  {
-                    "display": "Python",
-                    "value": "Python",
-                  },
-                ],
+                dataSource: ScreenConstants.registerLanguageData,
                 textField: 'display',
                 valueField: 'value',
                 okButtonLabel: 'OK',
@@ -746,7 +710,6 @@ class PreferencesFormState extends State<PreferencesForm> {
                     // It returns true if the form is valid, otherwise returns false
                     if (_formKey4.currentState.validate() &&
                         _hostellerValue != -1) {
-                      print("hyyy");
                       setState(() {
                         isNextEnabled = true;
                       });
@@ -763,87 +726,3 @@ class PreferencesFormState extends State<PreferencesForm> {
   }
 }
 
-// body: loading? Loading() : Container(
-//         padding: EdgeInsets.symmetric(vertical:20.0,horizontal:50.0),
-//           child:Form(
-//               key:_formKey,
-//               child: Column(
-//                 children: <Widget>[
-//                   SizedBox(height:20.0),
-//                   TextFormField(
-//                     decoration: textInputDecorations.copyWith(
-//                          labelText: "Enter Email",
-//                     ),
-//                      validator: (val) => val.isEmpty ? 'Enter an email' :null,
-//                     onChanged: (val){
-//                       setState(()=>email=val);
-//                     }
-//                   ),
-//                   SizedBox(height:20.0),
-//                   TextFormField(
-//                     decoration: textInputDecorations.copyWith(
-//                          labelText: "Enter Password",
-//                     ),
-//                     validator: (val) => val.length<6 ? 'Enter an password 6+ chars long' :null,
-//                     obscureText: true,
-//                     onChanged: (val){
-//                       setState(()=>password=val);
-//                     }
-//                   ),
-//                   new TextField(
-//                       decoration: new InputDecoration(labelText: "Enter your number"),
-//                       keyboardType: TextInputType.number,
-//                       inputFormatters: <TextInputFormatter>[
-//                           WhitelistingTextInputFormatter.digitsOnly
-//                       ],
-//                       onChanged: (val){
-//                         setState(()=>year=int.parse(val));
-//                       } // Only numbers can be entered
-//                   ),
-//                   SizedBox(height:20.0),
-//                   RaisedButton(
-//                     color:Colors.green,
-//                     child:Text(
-//                       'Sign up',
-//                       style: TextStyle(color:Colors.white),
-//                       ),
-//                       onPressed: () async{
-//                         if(_formKey.currentState.validate()){
-//                           setState(() {
-//                             loading=true;
-//                           });
-//                             name='Suhani';
-//                             rollNo=021;
-//                             branch='IT';
-//                             contact=99;
-//                             linkedInURL='suhanichawla';
-//                             githubURL='suhanichawla';
-//                             domains = ["web","android"];
-//                             hosteller=false;
-//                             languages=["cpp","java"];
-//                             dynamic result=await _auth.register(email, password,name,year,rollNo,branch,contact,linkedInURL,githubURL,domains,hosteller,languages,false);
-//                             if(result == null){
-//                                 setState(() {
-//                                   error='some error message';
-//                                   loading=false;
-//                                 });
-//                             }
-//                         }
-//                       },
-//                   ),
-//                   SizedBox(height:20.0),
-//                   Text(
-//                     error,
-//                     style:TextStyle(
-//                       color:Colors.red,
-//                       fontSize: 14.0
-//                     )
-//                   )
-//                 ],
-//               ),
-//             )
-//           )
-
-//       );
-//   }
-// }

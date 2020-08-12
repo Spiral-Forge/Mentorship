@@ -1,8 +1,8 @@
 import 'package:dbapp/blocs/theme.dart';
 import 'package:dbapp/blocs/values.dart';
-import 'package:dbapp/screens/authenticate/authenticate.dart';
+import 'package:dbapp/constants/colors.dart';
+import 'package:dbapp/constants/screenConstants.dart';
 import 'package:dbapp/screens/profile/peerProfile.dart';
-import 'package:dbapp/services/storage.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:dbapp/services/auth.dart';
@@ -13,7 +13,6 @@ import 'package:dbapp/screens/sidebarScreens/feedback.dart';
 import 'package:dbapp/screens/sidebarScreens/guidelines.dart';
 import 'package:dbapp/services/database.dart';
 import 'package:dbapp/shared/loading.dart';
-import 'package:hexcolor/hexcolor.dart';
 
 
 class HomePage extends StatefulWidget {
@@ -30,9 +29,9 @@ class _HomePageState extends State<HomePage> {
    bool postFlag=false;
    static List<dynamic> peerID=[];
    List fixedList = Iterable<int>.generate(peerID.length).toList();
-  Future<FirebaseUser> getCurrentUser(){
-    return _authUser.currentUser();
-  }
+    Future<FirebaseUser> getCurrentUser(){
+      return _authUser.currentUser();
+    }
 
    List<EventTile> eventlist=[];
     Widget eventList(){
@@ -47,7 +46,7 @@ class _HomePageState extends State<HomePage> {
               if(index==0){
                 return Container(
                   padding: EdgeInsets.all(40.0),
-                  child:Text("Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.")
+                  child:Text(ScreenConstants.homepageText)
                 );
               }else if(index==1){
                 return Center(
@@ -115,7 +114,7 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       appBar: AppBar(
         title:Text("Protege"),
-        backgroundColor:Colors.teal[300] ,
+        backgroundColor:AppColors.COLOR_TEAL_LIGHT,
         elevation: Theme.of(context).platform== TargetPlatform.iOS ? 0.0 : 4.0,
         actions: peerID.length<=1 ? <Widget>[
           FlatButton.icon(
@@ -199,7 +198,7 @@ class _HomePageState extends State<HomePage> {
               //             icon: Icon(
               //               Icons.brightness_3
               //             ),
-              //             color: Hexcolor('#565656'),
+              //             color: AppColors.PROTEGE_GREY,
               //           ),
               // title: new Text("Change Theme"),
               // onTap: () {
@@ -279,7 +278,5 @@ class EventTile extends StatelessWidget {
 
 void onThemeChanged(bool value, ThemeChanger _themeChanger) async {
   (value) ? _themeChanger.setTheme(darkTheme) : _themeChanger.setTheme(lightTheme);
-    // var prefs = await SharedPreferences.getInstance();
-    // prefs.setBool('darkMode', value);
 }
 

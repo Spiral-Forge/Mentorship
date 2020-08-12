@@ -1,3 +1,4 @@
+import 'package:dbapp/constants/colors.dart';
 import 'package:dbapp/constants/sidebarConstants.dart';
 import 'package:flutter/material.dart';
 
@@ -23,7 +24,7 @@ final List faqlist=SidebarConstants.faqQuestionAnswers;
                 return Container(
                   padding: EdgeInsets.symmetric(horizontal:10.0,vertical:10.0),
                   margin: EdgeInsets.only(left:10.0,right:10.0),
-                  color: Colors.blueGrey,
+                  color: AppColors.PROTEGE_GREY,
                   child: Center(
                     child: Text(faqlist[index-1]) ,
                   ),
@@ -38,9 +39,9 @@ final List faqlist=SidebarConstants.faqQuestionAnswers;
                  return Container(
                    padding: EdgeInsets.symmetric(horizontal:10.0,vertical:10.0),
                   margin: EdgeInsets.only(bottom:20.0,left:10.0,right:10.0),
-                  color: Colors.grey,
+                  color: AppColors.PROTEGE_CYAN,
                   child: Center(
-                    child: Text(faqlist[index-1]) ,
+                    child: Text(faqlist[index-1],style:TextStyle(color:Colors.black)),
                   ),
                   );
                 // return Container(
@@ -56,7 +57,7 @@ final List faqlist=SidebarConstants.faqQuestionAnswers;
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
-      appBar: new AppBar(title: new Text("FAQs"), backgroundColor: Colors.redAccent),
+      appBar: new AppBar(title: new Text("FAQs"), backgroundColor: AppColors.COLOR_TEAL_LIGHT),
      body:  faqList()
     );
   }

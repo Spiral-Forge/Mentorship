@@ -1,3 +1,4 @@
+import 'package:dbapp/constants/colors.dart';
 import 'package:dbapp/services/auth.dart';
 import 'package:dbapp/shared/styles.dart';
 import 'package:flutter/material.dart';
@@ -24,15 +25,15 @@ class _SignInState extends State<SignIn> {
   Widget build(BuildContext context) {
     
     return Scaffold(
-      backgroundColor: Colors.brown[100],
+      backgroundColor: AppColors.PROTEGE_CYAN,
       appBar: AppBar(
-        backgroundColor: Colors.brown,
+        backgroundColor: AppColors.COLOR_TEAL_DARK,
         elevation: 0.0,
-        title:Text("appbar"),
+        title:Text("Sign In"),
         actions: <Widget>[
           FlatButton.icon(
             icon:Icon(Icons.person),
-            label:Text('register'),
+            label:Text('Register'),
             onPressed: (){
               widget.toggleView();
             },
@@ -67,7 +68,7 @@ class _SignInState extends State<SignIn> {
                 ),
                 SizedBox(height:20.0),
                 RaisedButton(
-                  color:Colors.green,
+                  color:AppColors.PROTEGE_GREY,
                   child:Text(
                     'Sign In',
                     style: TextStyle(color:Colors.white),
@@ -80,7 +81,7 @@ class _SignInState extends State<SignIn> {
                             dynamic result=await _auth.signin(email, password);
                             if(result == null){
                                 setState(() {
-                                  error='couldnt sign in ';
+                                  error='Couldnt sign you in.';
                                   loading=false;
                                 });
                             }
@@ -91,7 +92,7 @@ class _SignInState extends State<SignIn> {
                   Text(
                     error,
                     style:TextStyle(
-                      color:Colors.red,
+                      color:AppColors.COLOR_ERROR_RED,
                       fontSize: 14.0
                     )
                   )

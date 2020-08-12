@@ -1,3 +1,4 @@
+import 'package:dbapp/constants/colors.dart';
 import 'package:dbapp/screens/home/home.dart';
 import 'package:dbapp/screens/profile/profile.dart';
 import 'package:dbapp/shared/loading.dart';
@@ -7,6 +8,8 @@ import 'package:multiselect_formfield/multiselect_formfield.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:dbapp/services/database.dart';
 import 'package:dbapp/services/storage.dart';
+
+
 
 String name = '';
 String phoneNo = '';
@@ -43,7 +46,7 @@ class EditProfilePageState extends State<EditProfilePage> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: new AppBar(
-            title: new Text("Edit Profile"), backgroundColor: Colors.teal),
+            title: new Text("Edit Profile"), backgroundColor: AppColors.COLOR_TEAL_DARK),
         body: Card(
           child: new Container(
               padding: EdgeInsets.all(12),
@@ -117,35 +120,28 @@ class _RegistrationFormState extends State<RegistrationForm> {
     _dropdownYearItems = buildDropDownMenuItems(_dropdownYear);
     _dropdownBranchItems = buildDropDownMenuItems(_dropdownBranch);
 
-    if (userInfo['branch'] == '') {
-      _selectedBranch = _dropdownBranch[0];
-    } else {
-      _dropdownBranch.forEach((element) {
-        if (element.name == userInfo['branch']) {
-          _selectedBranch = element;
-        }
-      });
-    }
+    _dropdownBranch.forEach((element) {
+      if (element.name == userInfo['branch']) {
+        _selectedBranch = element;
+      }
+    });
 
-    if (userInfo['year'] == '') {
-      _selectedYear = _dropdownYear[0];
-    } else {
-      _dropdownYear.forEach((element) {
-        if (element.name == userInfo['year']) {
-          _selectedYear = element;
-        }
-      });
-    }
+    _dropdownYear.forEach((element) {
+      if (element.name == userInfo['year']) {
+        _selectedYear = element;
+      }
+    });
     branch = _selectedBranch.name;
     year = _selectedYear.name;
+
     if (userInfo['hosteller']) {
       _hostellerValue = 0;
     } else {
       _hostellerValue = 1;
     }
     setState(() {
-      loading = false;
-    });
+        loading = false;
+      });
   }
 
   void _handleHostellerValue(int value) {
@@ -156,25 +152,23 @@ class _RegistrationFormState extends State<RegistrationForm> {
   }
 
   void updateData() async {
+    
     final FirebaseAuth _authUser = FirebaseAuth.instance;
     FirebaseUser user = await _authUser.currentUser();
     print(user.uid);
-    Map<String, dynamic> userMap = {
-      'name': name,
-      'contact': phoneNo,
-      'email': userInfo['email'],
-      'year': year,
-      'branch': branch,
-      'rollNo': rollNo,
-      'linkedInURL': linkedInUrl,
-      'githubURL': githubUrl,
-      'domains': domains,
-      'languages': languages,
-      'hosteller': hosteller,
-      'post': userInfo['post']
-    };
-    dynamic result = await DataBaseService(uid: user.uid).updateUserData(
-        name,
+    Map<String,dynamic> userMap = {'name':name,
+        'contact': phoneNo,
+        'email' : userInfo['email'],
+        'year': year,
+        'branch':branch,
+        'rollNo':rollNo,
+        'linkedInURL': linkedInUrl,
+        'githubURL': githubUrl,
+        'domains': domains,
+        'languages': languages,
+        'hosteller': hosteller,
+        'post' : userInfo['post']};
+        dynamic result = await DataBaseService(uid: user.uid).updateUserData(name,
         phoneNo,
         userInfo['email'],
         year,
@@ -203,291 +197,291 @@ class _RegistrationFormState extends State<RegistrationForm> {
   }
 
   Widget build(BuildContext context) {
-    return loading
-        ? Loading()
-        : Form(
-            key: _formKey,
-            child: ListView(
-                shrinkWrap: true,
-                padding: EdgeInsets.all(10),
-                children: <Widget>[
-                  Text('Name'),
-                  new TextFormField(
-                      initialValue: name,
-                      keyboardType: TextInputType.text,
-                      style: TextStyle(color: Colors.grey),
-                      decoration: const InputDecoration(
-                          enabledBorder: UnderlineInputBorder(
-                            borderSide: BorderSide(color: Colors.grey),
-                          ),
-                          focusedBorder: UnderlineInputBorder(
-                            borderSide: BorderSide(color: Colors.blue),
-                          ),
-                          border: UnderlineInputBorder()),
-                      validator: (value) {
-                        if (value.isEmpty) {
-                          return 'Required';
-                        }
-                        return null;
-                      },
-                      onChanged: (val) {
-                        setState(() => name = val);
-                      }),
-                  Divider(
-                    height: 20,
-                    color: Colors.white,
-                  ),
-                  Text('Phone Number'),
-                  TextFormField(
-                      initialValue: phoneNo,
-                      keyboardType: TextInputType.phone,
-                      style: TextStyle(color: Colors.grey),
-                      decoration: const InputDecoration(
-                        enabledBorder: UnderlineInputBorder(
-                          borderSide: BorderSide(color: Colors.grey),
-                        ),
-                        focusedBorder: UnderlineInputBorder(
-                          borderSide: BorderSide(color: Colors.blue),
-                        ),
-                        border: UnderlineInputBorder(),
+    return loading? Loading() : Form(
+        key: _formKey,
+        child: ListView(
+            shrinkWrap: true,
+            padding: EdgeInsets.all(10),
+            children: <Widget>[
+              Text('Name'),
+              new TextFormField(
+                  initialValue: name,
+                  keyboardType: TextInputType.text,
+                  style: TextStyle(color: AppColors.PROTEGE_GREY),
+                  decoration: const InputDecoration(
+                      enabledBorder: UnderlineInputBorder(
+                        borderSide: BorderSide(color: Colors.grey),
                       ),
-                      validator: (value) {
-                        if (value.isEmpty) {
-                          return 'Required';
-                        } else if (value.length != 10) {
-                          return 'Incorrect';
-                        }
-                        return null;
-                      },
-                      onChanged: (val) {
-                        setState(() => phoneNo = val);
-                      }),
-                  Divider(
-                    height: 20,
-                    color: Colors.white,
+                      focusedBorder: UnderlineInputBorder(
+                        borderSide: BorderSide(color: Colors.blue),
+                      ),
+                      border: UnderlineInputBorder()),
+                  validator: (value) {
+                    if (value.isEmpty) {
+                      return 'Required';
+                    }
+                    return null;
+                  },
+                  onChanged: (val) {
+                    setState(() => name = val);
+                  }),
+              Divider(
+                height: 20,
+                color: Colors.white,
+              ),
+              Text('Phone Number'),
+              TextFormField(
+                  initialValue: phoneNo,
+                  keyboardType: TextInputType.phone,
+                  style: TextStyle(color: AppColors.PROTEGE_GREY),
+                  decoration: const InputDecoration(
+                    enabledBorder: UnderlineInputBorder(
+                      borderSide: BorderSide(color: Colors.grey),
+                    ),
+                    focusedBorder: UnderlineInputBorder(
+                      borderSide: BorderSide(color: Colors.blue),
+                    ),
+                    border: UnderlineInputBorder(),
                   ),
-                  Text('Branch'),
-                  DropdownButton<ListItem>(
-                      value: _selectedBranch,
-                      items: _dropdownBranchItems,
-                      onChanged: (value) {
-                        setState(() {
-                          _selectedBranch = value;
-                          branch = value.name;
-                        });
-                      }),
-                  Divider(
-                    height: 20,
-                    color: Colors.white,
+                  validator: (value) {
+                    if (value.isEmpty) {
+                      return 'Required';
+                    } else if (value.length != 10) {
+                      return 'Incorrect';
+                    }
+                    return null;
+                  },
+                  onChanged: (val) {
+                    setState(() => phoneNo = val);
+                  }),
+              Divider(
+                height: 20,
+                color: Colors.white,
+              ),
+              Text('Branch'),
+              DropdownButton<ListItem>(
+                  value: _selectedBranch,
+                  items: _dropdownBranchItems,
+                  onChanged: (value) {
+                    setState(() {
+                      _selectedBranch = value;
+                      branch = value.name;
+                    });
+                  }),
+              Divider(
+                height: 20,
+                color: Colors.white,
+              ),
+              Text('Year'),
+              DropdownButton<ListItem>(
+                  value: _selectedYear,
+                  items: _dropdownYearItems,
+                  onChanged: (value) {
+                    setState(() {
+                      _selectedYear = value;
+                      year = value.name;
+                    });
+                  }),
+              Divider(
+                height: 20,
+                color: Colors.white,
+              ),
+              Text('Roll Number'),
+              TextFormField(
+                initialValue: rollNo,
+                keyboardType: TextInputType.number,
+                style: TextStyle(color: AppColors.PROTEGE_GREY),
+                decoration: new InputDecoration(
+                    enabledBorder: UnderlineInputBorder(
+                      borderSide: BorderSide(color: Colors.grey),
+                    ),
+                    focusedBorder: UnderlineInputBorder(
+                      borderSide: BorderSide(color: Colors.blue),
+                    ),
+                    border: UnderlineInputBorder()),
+                validator: (value) {
+                  if (value.length != 11) {
+                    return 'Incorrect Roll Number';
+                  }
+                  return null;
+                },
+                onChanged: (val) {
+                  setState(() {
+                    rollNo = val;
+                  });
+                },
+              ),
+              Divider(
+                height: 20,
+                color: Colors.white,
+              ),
+              Text('LinkedIn Profile URL'),
+              TextFormField(
+                  initialValue: linkedInUrl,
+                  style: TextStyle(color: AppColors.PROTEGE_GREY),
+                  decoration: const InputDecoration(
+                    enabledBorder: UnderlineInputBorder(
+                      borderSide: BorderSide(color: Colors.grey),
+                    ),
+                    focusedBorder: UnderlineInputBorder(
+                      borderSide: BorderSide(color: Colors.blue),
+                    ),
+                    border: UnderlineInputBorder(),
                   ),
-                  Text('Year'),
-                  DropdownButton<ListItem>(
-                      value: _selectedYear,
-                      items: _dropdownYearItems,
-                      onChanged: (value) {
-                        setState(() {
-                          _selectedYear = value;
-                          year = value.name;
-                        });
-                      }),
-                  Divider(
-                    height: 20,
-                    color: Colors.white,
+                  onChanged: (val) {
+                    setState(() => linkedInUrl = val);
+                  }),
+              Divider(
+                height: 20,
+                color: Colors.white,
+              ),
+              Text('GitHub Profile URL'),
+              TextFormField(
+                  initialValue: githubUrl,
+                  style: TextStyle(color: AppColors.PROTEGE_GREY),
+                  decoration: const InputDecoration(
+                    enabledBorder: UnderlineInputBorder(
+                      borderSide: BorderSide(color: Colors.grey),
+                    ),
+                    focusedBorder: UnderlineInputBorder(
+                      borderSide: BorderSide(color: Colors.blue),
+                    ),
+                    border: UnderlineInputBorder(),
                   ),
-                  Text('Roll Number'),
-                  TextFormField(
-                    initialValue: rollNo,
-                    keyboardType: TextInputType.number,
-                    style: TextStyle(color: Colors.grey),
-                    decoration: new InputDecoration(
-                        enabledBorder: UnderlineInputBorder(
-                          borderSide: BorderSide(color: Colors.grey),
-                        ),
-                        focusedBorder: UnderlineInputBorder(
-                          borderSide: BorderSide(color: Colors.blue),
-                        ),
-                        border: UnderlineInputBorder()),
-                    validator: (value) {
-                      if (value.length != 11) {
-                        return 'Incorrect Roll Number';
+                  onChanged: (val) {
+                    setState(() => githubUrl = val);
+                  }),
+              Divider(
+                height: 20,
+                color: Colors.white,
+              ),
+              Text('Domains'),
+              Container(
+                padding: EdgeInsets.all(4),
+                child: MultiSelectFormField(
+                  fillColor: Colors.transparent,
+                  autovalidate: false,
+                  titleText: 'Select domains',
+                  validator: (value) {
+                    if (value == null || value.length == 0) {
+                      return 'Please select one or more options';
+                    }
+                  },
+                  dataSource: [
+                    {
+                      "display": "Web Development",
+                      "value": "Web Development",
+                    },
+                    {
+                      "display": "App Development",
+                      "value": "App Development",
+                    },
+                    {
+                      "display": "Machine Learning",
+                      "value": "Machine Learning",
+                    },
+                    {
+                      "display": "IOT",
+                      "value": "IOT",
+                    },
+                    {
+                      "display": "BlockChain",
+                      "value": "BlockChain",
+                    },
+                    {
+                      "display": "Competitive Programming",
+                      "value": "Competitive Programming",
+                    }
+                  ],
+                  textField: 'display',
+                  valueField: 'value',
+                  okButtonLabel: 'OK',
+                  cancelButtonLabel: 'CANCEL',
+                  hintText: '',
+                  initialValue: domains,
+                  onSaved: (value) {
+                    if (value == null) return;
+                    setState(() {
+                      domains = value;
+                    });
+                  },
+                ),
+              ),
+              new Divider(height: 0, color: Colors.white),
+              Divider(
+                height: 20,
+                color: Colors.white,
+              ),
+              Text('Languages'),
+              Container(
+                padding: EdgeInsets.all(6),
+                child: MultiSelectFormField(
+                  fillColor: Colors.transparent,
+                  autovalidate: false,
+                  titleText: 'Select languages',
+                  validator: (value) {
+                    if (value == null || value.length == 0) {
+                      return 'Please select one or more options';
+                    }
+                  },
+                  dataSource: [
+                    {
+                      "display": "C/C++",
+                      "value": "C/C++",
+                    },
+                    {
+                      "display": "Java",
+                      "value": "Java",
+                    },
+                    {
+                      "display": "Python",
+                      "value": "Python",
+                    },
+                  ],
+                  textField: 'display',
+                  valueField: 'value',
+                  okButtonLabel: 'OK',
+                  cancelButtonLabel: 'CANCEL',
+                  hintText: '',
+                  initialValue: languages,
+                  onSaved: (value) {
+                    if (value == null) return;
+                    setState(() {
+                      languages = value;
+                    });
+                  },
+                ),
+              ),
+              Divider(
+                height: 20,
+                color: Colors.white,
+              ),
+              Text('Hosteller'),
+              new Row(children: <Widget>[
+                new Radio(
+                    value: 0,
+                    groupValue: _hostellerValue,
+                    onChanged: _handleHostellerValue),
+                new Text('Yes'),
+                new Radio(
+                    value: 1,
+                    groupValue: _hostellerValue,
+                    onChanged: _handleHostellerValue),
+                new Text('No'),
+              ]),
+              new Container(
+                  padding: const EdgeInsets.only(left: 175.0, top: 20.0),
+                  child: new RaisedButton(
+                    child: const Text('Save'),
+                    onPressed: () async {
+                      if (_formKey.currentState.validate()) {
+                        await updateData();
+                        print("this is getting printed");
+                        Navigator.of(context).pop();
+                        //Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> Home(0)));
                       }
-                      return null;
                     },
-                    onChanged: (val) {
-                      setState(() {
-                        rollNo = val;
-                      });
-                    },
-                  ),
-                  Divider(
-                    height: 20,
-                    color: Colors.white,
-                  ),
-                  Text('LinkedIn Profile URL'),
-                  TextFormField(
-                      initialValue: linkedInUrl,
-                      style: TextStyle(color: Colors.grey),
-                      decoration: const InputDecoration(
-                        enabledBorder: UnderlineInputBorder(
-                          borderSide: BorderSide(color: Colors.grey),
-                        ),
-                        focusedBorder: UnderlineInputBorder(
-                          borderSide: BorderSide(color: Colors.blue),
-                        ),
-                        border: UnderlineInputBorder(),
-                      ),
-                      onChanged: (val) {
-                        setState(() => linkedInUrl = val);
-                      }),
-                  Divider(
-                    height: 20,
-                    color: Colors.white,
-                  ),
-                  Text('GitHub Profile URL'),
-                  TextFormField(
-                      initialValue: githubUrl,
-                      style: TextStyle(color: Colors.grey),
-                      decoration: const InputDecoration(
-                        enabledBorder: UnderlineInputBorder(
-                          borderSide: BorderSide(color: Colors.grey),
-                        ),
-                        focusedBorder: UnderlineInputBorder(
-                          borderSide: BorderSide(color: Colors.blue),
-                        ),
-                        border: UnderlineInputBorder(),
-                      ),
-                      onChanged: (val) {
-                        setState(() => githubUrl = val);
-                      }),
-                  Divider(
-                    height: 20,
-                    color: Colors.white,
-                  ),
-                  Text('Domains'),
-                  Container(
-                    padding: EdgeInsets.all(4),
-                    child: MultiSelectFormField(
-                      fillColor: Colors.transparent,
-                      autovalidate: false,
-                      titleText: 'Select domains',
-                      validator: (value) {
-                        if (value == null || value.length == 0) {
-                          return 'Please select one or more options';
-                        }
-                      },
-                      dataSource: [
-                        {
-                          "display": "Web Development",
-                          "value": "Web Development",
-                        },
-                        {
-                          "display": "App Development",
-                          "value": "App Development",
-                        },
-                        {
-                          "display": "Machine Learning",
-                          "value": "Machine Learning",
-                        },
-                        {
-                          "display": "IOT",
-                          "value": "IOT",
-                        },
-                        {
-                          "display": "BlockChain",
-                          "value": "BlockChain",
-                        },
-                        {
-                          "display": "Competitive Programming",
-                          "value": "Competitive Programming",
-                        }
-                      ],
-                      textField: 'display',
-                      valueField: 'value',
-                      okButtonLabel: 'OK',
-                      cancelButtonLabel: 'CANCEL',
-                      hintText: '',
-                      initialValue: domains,
-                      onSaved: (value) {
-                        if (value == null) return;
-                        setState(() {
-                          domains = value;
-                        });
-                      },
-                    ),
-                  ),
-                  new Divider(height: 0, color: Colors.white),
-                  Divider(
-                    height: 20,
-                    color: Colors.white,
-                  ),
-                  Text('Languages'),
-                  Container(
-                    padding: EdgeInsets.all(6),
-                    child: MultiSelectFormField(
-                      fillColor: Colors.transparent,
-                      autovalidate: false,
-                      titleText: 'Select languages',
-                      validator: (value) {
-                        if (value == null || value.length == 0) {
-                          return 'Please select one or more options';
-                        }
-                      },
-                      dataSource: [
-                        {
-                          "display": "C/C++",
-                          "value": "C/C++",
-                        },
-                        {
-                          "display": "Java",
-                          "value": "Java",
-                        },
-                        {
-                          "display": "Python",
-                          "value": "Python",
-                        },
-                      ],
-                      textField: 'display',
-                      valueField: 'value',
-                      okButtonLabel: 'OK',
-                      cancelButtonLabel: 'CANCEL',
-                      hintText: '',
-                      initialValue: languages,
-                      onSaved: (value) {
-                        if (value == null) return;
-                        setState(() {
-                          languages = value;
-                        });
-                      },
-                    ),
-                  ),
-                  Divider(
-                    height: 20,
-                    color: Colors.white,
-                  ),
-                  Text('Hosteller'),
-                  new Row(children: <Widget>[
-                    new Radio(
-                        value: 0,
-                        groupValue: _hostellerValue,
-                        onChanged: _handleHostellerValue),
-                    new Text('Yes'),
-                    new Radio(
-                        value: 1,
-                        groupValue: _hostellerValue,
-                        onChanged: _handleHostellerValue),
-                    new Text('No'),
-                  ]),
-                  new Container(
-                      padding: const EdgeInsets.only(left: 175.0, top: 20.0),
-                      child: new RaisedButton(
-                        child: const Text('Save'),
-                        onPressed: () async {
-                          if (_formKey.currentState.validate()) {
-                            await updateData();
-                            Navigator.of(context).pop();
-                          }
-                        },
-                      )),
-                ]));
+                  )),
+            ]));
   }
 }

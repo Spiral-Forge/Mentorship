@@ -17,19 +17,6 @@ class ResourceTile extends StatelessWidget {
         child:Column(
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
-            // Padding(padding: const EdgeInsets.all(8.0),
-            // child: 
-            // Container(
-            //   width: MediaQuery.of(context).size.width/2.4,
-            //   height:140.0,
-            //   decoration: BoxDecoration(
-            //     image:DecorationImage(
-            //       fit:BoxFit.fill,
-            //       image: AssetImage(imagePath)
-            //      )
-            //   ),
-            // )
-            //),
             Container(
               width: MediaQuery.of(context).size.width,
               child: 

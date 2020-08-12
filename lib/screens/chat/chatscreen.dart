@@ -198,7 +198,7 @@ class ChatScreenState extends State<ChatScreen> {
               //             icon: Icon(
               //               Icons.brightness_3
               //             ),
-              //             color: Hexcolor('#565656'),
+              //             color: AppColors.PROTEGE_GREY,
               //           ),
               // title: new Text("Change Theme"),
               // onTap: () {

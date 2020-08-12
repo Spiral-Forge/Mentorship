@@ -1,5 +1,6 @@
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:dbapp/constants/colors.dart';
 import 'package:dbapp/screens/ResourceCenter/resource.dart';
 import 'package:dbapp/services/database.dart';
 import 'package:flutter/material.dart';
@@ -22,7 +23,6 @@ class _ResourceListState extends State<ResourceList> {
   @override
   void initState(){
     DataBaseService().getCurrentCollectionData(widget.collectionName).then((value){
-      print("getting data");
       print(value.documents[0].data.runtimeType);
       setState(() {
         resourcesList=value.documents;
@@ -51,7 +51,7 @@ class _ResourceListState extends State<ResourceList> {
     return new Scaffold(
       appBar: new AppBar(
         title: new Text(widget.resourceField), 
-        backgroundColor: Colors.teal
+        backgroundColor: AppColors.COLOR_TEAL_DARK
       ),
      body:  resourceList()
     );

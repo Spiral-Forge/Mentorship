@@ -1,3 +1,4 @@
+import 'package:dbapp/constants/colors.dart';
 import 'package:dbapp/screens/ResourceCenter/resourceList.dart';
 import 'package:dbapp/screens/ResourceCenter/resourcesCategoryList.dart';
 import 'package:dbapp/services/auth.dart';
@@ -52,7 +53,7 @@ class _HomeState extends State<Home> {
         ),
       ],
       currentIndex: _currentIndex,
-      selectedItemColor: Colors.teal[300],
+      selectedItemColor: AppColors.COLOR_TEAL_LIGHT,
       onTap: _onItemTapped,
     ),
     );

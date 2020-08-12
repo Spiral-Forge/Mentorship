@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:dbapp/constants/colors.dart';
 import 'package:dbapp/screens/profile/unaddedProfile.dart';
 import 'package:dbapp/services/database.dart';
 import 'package:dbapp/shared/loading.dart';
@@ -29,10 +30,7 @@ class _PeerProfileState extends State<PeerProfile> {
       });
     }else{
       DataBaseService().getPeerData(widget.peerID).then((userinfo){
-        // print("coming here");
-        // print(userinfo.data);
           setState(() {
-            //print(user.runtimeType);
             user=userinfo.data;
             loading=false;
             isPeerAdded=true;
@@ -45,7 +43,7 @@ class _PeerProfileState extends State<PeerProfile> {
   @override
   Widget build(BuildContext context) {
     return isPeerAdded==false ? UnaddedProfile(widget.post) : loading ?  Loading() : Scaffold(
-      appBar: new AppBar(title: new Text(widget.post=="Mentor"?"Your Mentee": "Your Mentor"), backgroundColor: Colors.teal[300]),
+      appBar: new AppBar(title: new Text(widget.post=="Mentor"?"Your Mentee": "Your Mentor"), backgroundColor:AppColors.COLOR_TEAL_LIGHT),
       body:Stack(
         children: <Widget>[
           
@@ -59,7 +57,7 @@ class _PeerProfileState extends State<PeerProfile> {
             //       ),    
             //     ),
             //   ),
-            //   color: Hexcolor('#565656'),
+            //   color: AppColors.PROTEGE_GREY,
             // ),
             Column(
               children: <Widget>[
@@ -82,7 +80,7 @@ class _PeerProfileState extends State<PeerProfile> {
                   width: 150.0,
                   height: 150.0,
                   decoration: BoxDecoration(
-                    color: Hexcolor('#96ece7'),
+                    color: AppColors.PROTEGE_CYAN,
                     image: DecorationImage(
                       image: AssetImage("assets/images/avatars/av"+avatorNum.toString()+".jpg"),
                       fit: BoxFit.cover,
@@ -101,7 +99,7 @@ class _PeerProfileState extends State<PeerProfile> {
                   user["name"] != null ? user["name"] : "null",
                   style: GoogleFonts.lato(
                     textStyle: TextStyle(
-                      // color: Hexcolor('#565656'),
+                      // color: AppColors.PROTEGE_GREY,
                       // fontFamily: GoogleFonts,
                       fontSize: 28,
                     ),
@@ -113,7 +111,7 @@ class _PeerProfileState extends State<PeerProfile> {
                   style: GoogleFonts.lato(
                     textStyle: TextStyle(
                       fontSize: 20,
-                      color: Hexcolor('#96ece7'),
+                      color: AppColors.PROTEGE_CYAN,
                       fontStyle: FontStyle.italic,
                     ),
                   ),
@@ -124,7 +122,7 @@ class _PeerProfileState extends State<PeerProfile> {
                   user["email"]==null? "null" : user["email"],
                   style: GoogleFonts.lato(
                     textStyle: TextStyle(
-                      //color: Hexcolor('#565656'),
+                      //color: AppColors.PROTEGE_GREY,
                       fontSize: 20,
                     ),
                   ),
@@ -135,7 +133,7 @@ class _PeerProfileState extends State<PeerProfile> {
                   user["contact"] != null ? user["contact"].toString(): "null",
                   style: GoogleFonts.lato(
                     textStyle: TextStyle(
-                     // color: Hexcolor('#565656'),
+                     // color: AppColors.PROTEGE_GREY,
                       fontSize: 20,
                     ),
                   ),
@@ -146,7 +144,7 @@ class _PeerProfileState extends State<PeerProfile> {
                   user["year"] == null ? "null" : user["year"].toString()+" "+user["branch"],
                   style: GoogleFonts.lato(
                     textStyle: TextStyle(
-                     // color: Hexcolor('#565656'),
+                     // color: AppColors.PROTEGE_GREY,
                       fontSize: 20,
                     ),
                   ),
@@ -154,10 +152,10 @@ class _PeerProfileState extends State<PeerProfile> {
 
                 SizedBox( height: 10),
                 Text(
-                  user["roll"]==null ? "null" : user["roll"].toString(),
+                  user["rollNo"]==null ? "null" : user["rollNo"].toString(),
                   style: GoogleFonts.lato(
                     textStyle: TextStyle(
-                      // color: Hexcolor('#565656'),
+                      // color: AppColors.PROTEGE_GREY,
                       fontSize: 20,
                     ),
                   ),
@@ -165,10 +163,10 @@ class _PeerProfileState extends State<PeerProfile> {
 
                 SizedBox( height: 10),
                 Text(
-                  user["linkedInURL"]==null ? "null" : user["linkedInURL"],
+                  user["linkedInURL"]==null ? "Not added yet" : user["linkedInURL"],
                   style: GoogleFonts.lato(
                     textStyle: TextStyle(
-                      //color: Hexcolor('#565656'),
+                      //color: AppColors.PROTEGE_GREY,
                       fontSize: 20,
                     ),
                   ),
@@ -176,10 +174,10 @@ class _PeerProfileState extends State<PeerProfile> {
 
                 SizedBox( height: 10),
                 Text(
-                  user["githubURL"] ==null? "null" : user["githubURL"],
+                  user["githubURL"] ==null? "Not added yet" : user["githubURL"],
                   style: GoogleFonts.lato(
                     textStyle: TextStyle(
-                      //color: Hexcolor('#565656'),
+                      //color: AppColors.PROTEGE_GREY,
                       fontSize: 20,
                     ),
                   ),
@@ -190,7 +188,7 @@ class _PeerProfileState extends State<PeerProfile> {
                   user["languages"] != null ? "Languages: "+user["languages"].toString() : "null",
                   style: GoogleFonts.lato(
                     textStyle: TextStyle(
-                      //color: Hexcolor('#565656'),
+                      //color: AppColors.PROTEGE_GREY,
                       fontSize: 20,
                     ),
                   ),
@@ -200,7 +198,7 @@ class _PeerProfileState extends State<PeerProfile> {
                   user["domains"] !=null ? "Domains: "+user["domains"].toString() : "null",
                   style: GoogleFonts.lato(
                     textStyle: TextStyle(
-                      //color: Hexcolor('#565656'),
+                      //color: AppColors.PROTEGE_GREY,
                       fontSize: 20,
                     ),
                   ),
@@ -211,7 +209,7 @@ class _PeerProfileState extends State<PeerProfile> {
                   user["hostel"]!=null && user["hostel"]==true? "Hosteller: Yes" : "Hosteller: No",
                   style: GoogleFonts.lato(
                     textStyle: TextStyle(
-                      //color: Hexcolor('#565656'),
+                      //color: AppColors.PROTEGE_GREY,
                       fontSize: 20,
                     ),
                   ),
