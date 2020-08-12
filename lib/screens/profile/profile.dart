@@ -142,7 +142,17 @@ class _ProfileState extends State<Profile> {
             onPressed: () async{
               //Navigator.of(context).pop();
             //  Navigator.of(context).push(new MaterialPageRoute(builder: (BuildContext context) => new EditProfilePage(user)));
-            Navigator.push(context, MaterialPageRoute(builder: (context) => new EditProfilePage(user)));
+            //Navigator.push(context, MaterialPageRoute(builder: (context) => new EditProfilePage(user)));
+            Navigator.push( context, MaterialPageRoute( builder: (context) => EditProfilePage(user)), ).then((value){
+              print("coming here");
+              StorageServices.getUserInfo().then((value){
+                print(value);
+                setState(() {
+                  user=value;
+                });
+              });
+              print("now working");
+            } );
             }, 
             icon: Icon(Icons.person,color: Colors.white,),
             label:Text('Edit Profile',style: TextStyle(color:Colors.white),)
@@ -333,7 +343,7 @@ class _ProfileState extends State<Profile> {
 
                 SizedBox( height: 10),
                 Text(
-                  user["roll"]==null ? "null" : user["roll"].toString(),
+                  user["rollNo"]==null ? "null" : user["rollNo"].toString(),
                   style: GoogleFonts.lato(
                     textStyle: TextStyle(
                       // color: Hexcolor('#565656'),
