@@ -1,8 +1,9 @@
+import 'package:dbapp/constants/sidebarConstants.dart';
 import 'package:flutter/material.dart';
 
 class FAQS extends StatelessWidget {
 
-final List faqlist=["fffffffffffffffff","aLorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, 1","q2","a2","q3","ans3","q4","q5","1","2","q1","a1","q2","a2","q3","Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, ","q4","q5","1","2","q1","a1","q2","a2","q3","ans3","q4","q5","1","2"];
+final List faqlist=SidebarConstants.faqQuestionAnswers;
  Widget faqList(){
       return Center(
         child: Container(

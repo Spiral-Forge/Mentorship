@@ -1,11 +1,12 @@
+import 'package:dbapp/constants/sidebarConstants.dart';
 import 'package:flutter/material.dart';
-import 'package:dbapp/shared/constants.dart';
+import 'package:dbapp/shared/styles.dart';
 
-import '../../shared/constants.dart';
-import '../../shared/constants.dart';
+import '../../shared/styles.dart';
+import '../../shared/styles.dart';
 
 class Guidelines extends StatelessWidget {
-  final List guidelinelist=["Lorem Ipsum is simply dummy text of the printin.Lorem Ipsum is simply dummy text of the printin.Lorem Ipsum is simply dummy text of the printin.Lorem Ipsum is simply dummy text of the printin.Lorem Ipsum is simply dummy text of the printin.Lorem Ipsum is simply dummy text of the printin.Lorem Ipsum is simply dummy text of the printin.Lorem Ipsum is simply dummy text of the printin.","Guideline2","Guideline3","Guideline4","guideline5S","Guideline2","Guideline3","Guideline4","guideline5S","Guideline2","Guideline3","Guideline4","guideline5S","Guideline2","Guideline3","Guideline4","guideline5S","Guideline2","Guideline3","Guideline4","guideline5S"];
+  final List guidelinelist=SidebarConstants.guidelines;
 
   Widget guidelineList(){
       return Center(

@@ -1,12 +1,11 @@
+import 'package:dbapp/constants/sidebarConstants.dart';
 import 'package:dbapp/services/storage.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_mailer/flutter_mailer.dart';
 import 'package:toast/toast.dart';
-
 import '../../services/auth.dart';
-import '../../services/database.dart';
 
 enum SingingCharacter { login, suggestion, complaint, other }
 var feedbackopt=1;
@@ -28,12 +27,7 @@ class _MyFeedbackState extends State<MyFeedback> {
     return _authUser.currentUser();
   }
 
-  Map <int,String> feedbackOption = {
-    1:"Login Problem",
-    2:"Suggestions",
-    3:"Complaints",
-    4:"Other issues",
-  };
+  Map <int,String> feedbackOption = SidebarConstants.feedbackOptionsMap;
   String uid="";
 
   @override
@@ -77,10 +71,9 @@ class _MyFeedbackState extends State<MyFeedback> {
     final MailOptions mailOptions = MailOptions(
       body: textController.text+mailBody,
       subject: "Protege App Feedback: "+feedbackOption[feedbackopt],
-      recipients: <String>['suhanichawla2000@gmail.com'],
+      recipients: SidebarConstants.feedbackRecipients,
       isHTML: true,
-      // bccRecipients: ['other@example.com'],
-      ccRecipients: <String>['suhanijklmnchawla2000@gmail.com'],
+      ccRecipients: SidebarConstants.feedbackCCRecipients,
     );
     try {
       await FlutterMailer.send(mailOptions);
@@ -114,7 +107,7 @@ class _MyFeedbackState extends State<MyFeedback> {
           
         Text(
           "Select type of feedback",style: TextStyle(
-            color: Colors.black,
+            //color: Colors.black,
             fontSize: 25,
             ),
         ),
