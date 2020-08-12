@@ -1,3 +1,5 @@
+import 'package:dbapp/screens/home/home.dart';
+import 'package:dbapp/screens/profile/profile.dart';
 import 'package:dbapp/shared/loading.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -134,7 +136,8 @@ class _RegistrationFormState extends State<RegistrationForm> {
         }
       });
     }
-
+    branch = _selectedBranch.name;
+    year = _selectedYear.name;
     if (userInfo['hosteller']) {
       _hostellerValue = 0;
     } else {
@@ -183,11 +186,14 @@ class _RegistrationFormState extends State<RegistrationForm> {
         languages,
         hosteller,
         userInfo['post']);
-    await StorageServices.saveUserInfo(userMap).then((value) {
-      print('saved in storage');
-      //setState(() {});
-      StorageServices.getUserInfo().then((value) => print(value));
-    });
+        await StorageServices.saveUserInfo(userMap).then((value) { 
+        print('saved in storage'); 
+        //setState(() {});
+        StorageServices.getUserInfo().then((value){
+          print("this is getting printed inside get info");
+          print(value);
+        });
+        });
     if (result == null) {
       setState(() {
         error = 'some error message';
