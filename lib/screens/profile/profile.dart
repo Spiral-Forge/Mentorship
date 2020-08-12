@@ -342,7 +342,7 @@ class _ProfileState extends State<Profile> {
 
                 SizedBox( height: 10),
                 Text(
-                  user["roll"]==null ? "null" : user["roll"].toString(),
+                  user["rollNo"]==null ? "null" : user["rollNo"].toString(),
                   style: GoogleFonts.lato(
                     textStyle: TextStyle(
                       // color: Hexcolor('#565656'),
