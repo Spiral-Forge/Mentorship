@@ -142,7 +142,6 @@ class _ProfileState extends State<Profile> {
             onPressed: () async{
               //Navigator.of(context).pop();
             //  Navigator.of(context).push(new MaterialPageRoute(builder: (BuildContext context) => new EditProfilePage(user)));
-            //Navigator.push(context, MaterialPageRoute(builder: (context) => new EditProfilePage(user)));
             Navigator.push( context, MaterialPageRoute( builder: (context) => EditProfilePage(user)), ).then((value){
               print("coming here");
               StorageServices.getUserInfo().then((value){
