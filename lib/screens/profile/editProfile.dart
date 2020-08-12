@@ -136,7 +136,8 @@ class _RegistrationFormState extends State<RegistrationForm> {
         }
       });
     }
-
+    branch = _selectedBranch.name;
+    year = _selectedYear.name;
     if (userInfo['hosteller']) {
       _hostellerValue = 0;
     } else {
