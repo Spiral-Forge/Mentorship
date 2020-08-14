@@ -46,7 +46,21 @@ class _HomePageState extends State<HomePage> {
               if(index==0){
                 return Container(
                   padding: EdgeInsets.all(40.0),
-                  child:Text(ScreenConstants.homepageText)
+                  child:Container(child: Wrap(
+                    children: <Widget>[
+                      Container(
+                        width: 70.0,
+                        height: 70.0,
+                        decoration: new BoxDecoration(
+                        //shape: BoxShape.circle,
+                        image: new DecorationImage(
+                          fit: BoxFit.fill,
+                          image: new AssetImage('assets/images/logo.jpeg')
+                          )
+                      )),
+                      Container(child: Text(ScreenConstants.homepageText)),
+                    ],
+                  ))
                 );
               }else if(index==1){
                 return Center(

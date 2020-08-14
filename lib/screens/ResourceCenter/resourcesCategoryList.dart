@@ -272,7 +272,7 @@ class _ResourceCategoryListState extends State<ResourceCategoryList> {
                       builder: (context) => ResourceList("Development Resources",fieldMap["Development"])
                       ));
                   },
-                  child: ResourceCategoryTile("Development","assets/images/bg2.jpg")
+                  child: ResourceCategoryTile("Development","assets/images/webDev.png")
                 ),
                 GestureDetector(
                   onTap: () {
@@ -280,7 +280,7 @@ class _ResourceCategoryListState extends State<ResourceCategoryList> {
                       builder: (context) => ResourceList("College Resources",fieldMap["College"])
                       ));
                   },
-                  child: ResourceCategoryTile("College assignments and papers","assets/images/bg2.jpg")
+                  child: ResourceCategoryTile("College assignments and papers","assets/images/college.jpg")
                 )
               ],
             ),
@@ -293,7 +293,7 @@ class _ResourceCategoryListState extends State<ResourceCategoryList> {
                       builder: (context) => ResourceList("Machine Learning Resources",fieldMap["Machine Learning"])
                       ));
                   },
-                  child: ResourceCategoryTile("Machine Learning","assets/images/bg2.jpg")
+                  child: ResourceCategoryTile("Machine Learning","assets/images/ML.jpg")
                 ),
                 GestureDetector(
                   onTap: () {
@@ -301,7 +301,7 @@ class _ResourceCategoryListState extends State<ResourceCategoryList> {
                       builder: (context) => ResourceList("Scholarship Resources",fieldMap["Scholarship"])
                       ));
                   },
-                  child: ResourceCategoryTile("Scholarships","assets/images/bg2.jpg")
+                  child: ResourceCategoryTile("Scholarships","assets/images/scholarship.png")
                 )
               ],
             ),
@@ -314,7 +314,7 @@ class _ResourceCategoryListState extends State<ResourceCategoryList> {
                       builder: (context) => ResourceList("Competitive Coding resources",fieldMap["Competitive Coding"])
                       ));
                   },
-                  child: ResourceCategoryTile("Competitive Coding","assets/images/bg2.jpg")
+                  child: ResourceCategoryTile("Competitive Coding","assets/images/compCoding.jpg")
                 ),
                 GestureDetector(
                   onTap: () {
@@ -322,7 +322,7 @@ class _ResourceCategoryListState extends State<ResourceCategoryList> {
                       builder: (context) => ResourceList("Open-Source Resources",fieldMap["Open-Source"])
                       ));
                   },
-                  child: ResourceCategoryTile("Open-Source","assets/images/bg2.jpg")
+                  child: ResourceCategoryTile("Open-Source","assets/images/openSource.jpg")
                 )
               ],
             )

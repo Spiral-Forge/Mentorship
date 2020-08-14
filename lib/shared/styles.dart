@@ -1,9 +1,10 @@
+import 'package:dbapp/constants/colors.dart';
 import 'package:flutter/material.dart';
 
 const textInputDecorations=InputDecoration(
                       enabledBorder: OutlineInputBorder(
                         borderSide: BorderSide(
-                          color:Colors.white,
+                          color: const Color(0xFF565656),
                           width:2.0
                         )
                       ),
