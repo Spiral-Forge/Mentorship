@@ -1,9 +1,11 @@
+
 import 'package:dbapp/blocs/theme.dart';
 import 'package:dbapp/blocs/values.dart';
 import 'package:dbapp/constants/colors.dart';
 import 'package:dbapp/constants/screenConstants.dart';
 import 'package:dbapp/screens/profile/peerProfile.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:dbapp/services/auth.dart';
 import 'package:provider/provider.dart';
@@ -13,6 +15,7 @@ import 'package:dbapp/screens/sidebarScreens/feedback.dart';
 import 'package:dbapp/screens/sidebarScreens/guidelines.dart';
 import 'package:dbapp/services/database.dart';
 import 'package:dbapp/shared/loading.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 
 class HomePage extends StatefulWidget {
@@ -89,7 +92,8 @@ class _HomePageState extends State<HomePage> {
                 time:val.documents[i].data["time"],
                 venue:val.documents[i].data["venue"],
                 description:val.documents[i].data["description"] ,
-                url:val.documents[i].data["url"]
+                url:val.documents[i].data["url"],
+                link:val.documents[i].data["link"]
                 )
             );
             this.setState((){
@@ -244,8 +248,9 @@ class EventTile extends StatelessWidget {
   final String venue;
   final String description;
   final String url;
+  final String link;
 
-  EventTile({@required this.name,this.date, this.time, this.venue,this.description,this.url});
+  EventTile({@required this.name,this.date, this.time, this.venue,this.description,this.url,this.link});
   
   @override 
   Widget build(BuildContext context){
@@ -278,8 +283,23 @@ class EventTile extends StatelessWidget {
                 title: Center(child: Text(name)),
                 subtitle: Center(child: Text("Date: "+date+"\nTime: "+time+"\nWhere: "+venue)),
                 
-                children: <Widget>[
-                  Text(description)
+                children: [
+                  Text(description),
+                  new Center(
+                  child: new RichText(
+                    text: new TextSpan(
+                      children: [
+                        new TextSpan(
+                          text: 'Register Here',
+                          style: new TextStyle(color: Colors.blue),
+                          recognizer: new TapGestureRecognizer()
+                            ..onTap = () { launch(link);
+                          },
+                        ),
+                      ],
+                    ),
+                  )
+                  )
                 ],
                 ),
             )

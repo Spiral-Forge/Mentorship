@@ -1,4 +1,6 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class ResourceTile extends StatelessWidget {
  final String resourceName;
@@ -25,7 +27,21 @@ class ResourceTile extends StatelessWidget {
                 title: Center(child: Text(resourceName,style: TextStyle(fontSize: 15))),
                 //subtitle: Center(child: Text("link here")),
                 children: <Widget>[
-                  Text(link)
+                  new Center(
+                  child: new RichText(
+                    text: new TextSpan(
+                      children: [
+                        new TextSpan(
+                          text: link,
+                          style: new TextStyle(color: Colors.blue),
+                          recognizer: new TapGestureRecognizer()
+                            ..onTap = () { launch(link);
+                          },
+                        ),
+                      ],
+                    ),
+                  )
+                  )
                 ]
                 
                 ),
