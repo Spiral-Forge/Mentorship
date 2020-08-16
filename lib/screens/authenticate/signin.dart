@@ -1,4 +1,5 @@
 import 'package:dbapp/constants/colors.dart';
+import 'package:dbapp/screens/authenticate/form1.dart';
 import 'package:dbapp/services/auth.dart';
 import 'package:dbapp/shared/styles.dart';
 import 'package:flutter/material.dart';
@@ -55,7 +56,7 @@ class _SignInState extends State<SignIn> with SingleTickerProviderStateMixin{
             icon:Icon(Icons.person,color: Colors.white,),
             label:Text('Register',style:TextStyle(color:Colors.white)),
             onPressed: (){
-              widget.toggleView();
+              Navigator.push( context, new MaterialPageRoute( builder: (BuildContext context) => RegisterForm1()));
             },
           )
         ],

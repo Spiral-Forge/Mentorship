@@ -1,5 +1,5 @@
 import 'package:dbapp/screens/authenticate/signin.dart';
-import 'package:dbapp/screens/authenticate/register.dart';
+import 'package:dbapp/screens/authenticate/form1.dart';
 import 'package:flutter/material.dart';
 
 class Authenticate extends StatefulWidget {
@@ -20,7 +20,7 @@ class _AuthenticateState extends State<Authenticate> {
     if(showSignIn){
       return SignIn(toggleView: toggleView);
     }else{
-      return Register(toggleView: toggleView);
+      return RegisterForm1(toggleView: toggleView);
     }
     
   }

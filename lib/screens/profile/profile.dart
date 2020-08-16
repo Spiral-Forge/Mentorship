@@ -226,7 +226,8 @@ class _ProfileState extends State<Profile> {
           ],
         ),
       ),
-      body:  new Stack(
+      body:  new ListView(
+        shrinkWrap: true,
         children: <Widget>[
           
           ClipPath(
@@ -253,12 +254,10 @@ class _ProfileState extends State<Profile> {
             clipper: getClipper(),
           ),
           Positioned(
-            
             width: MediaQuery.of(context).size.width ,
             top: MediaQuery.of(context).size.height / 9,
             child: Column(
               children: <Widget>[
-                
                 Container(
                   width: 150.0,
                   height: 150.0,
@@ -435,7 +434,7 @@ class getClipper extends CustomClipper<Path>{
   @override
   Path getClip(Size size){
     var path = new Path();
-    path.lineTo(0.0, size.height/3.3);
+    path.lineTo(0.0, size.height/1.3);
     path.lineTo(size.width + 500, 0.0);
     path.close();
     return path;

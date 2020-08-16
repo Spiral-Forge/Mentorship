@@ -227,7 +227,7 @@ class _RegistrationFormState extends State<RegistrationForm> {
                   }),
               Divider(
                 height: 20,
-                color: Colors.white,
+                color: Colors.transparent,
               ),
               Text('Phone Number'),
               TextFormField(
@@ -256,7 +256,7 @@ class _RegistrationFormState extends State<RegistrationForm> {
                   }),
               Divider(
                 height: 20,
-                color: Colors.white,
+                color: Colors.transparent,
               ),
               Text('Branch'),
               DropdownButton<ListItem>(
@@ -270,7 +270,7 @@ class _RegistrationFormState extends State<RegistrationForm> {
                   }),
               Divider(
                 height: 20,
-                color: Colors.white,
+                color: Colors.transparent,
               ),
               Text('Year'),
               DropdownButton<ListItem>(
@@ -284,7 +284,7 @@ class _RegistrationFormState extends State<RegistrationForm> {
                   }),
               Divider(
                 height: 20,
-                color: Colors.white,
+                color: Colors.transparent,
               ),
               Text('Roll Number'),
               TextFormField(
@@ -313,7 +313,7 @@ class _RegistrationFormState extends State<RegistrationForm> {
               ),
               Divider(
                 height: 20,
-                color: Colors.white,
+                color: Colors.transparent,
               ),
               Text('LinkedIn Profile URL'),
               TextFormField(
@@ -333,7 +333,7 @@ class _RegistrationFormState extends State<RegistrationForm> {
                   }),
               Divider(
                 height: 20,
-                color: Colors.white,
+                color: Colors.transparent,
               ),
               Text('GitHub Profile URL'),
               TextFormField(
@@ -353,7 +353,7 @@ class _RegistrationFormState extends State<RegistrationForm> {
                   }),
               Divider(
                 height: 20,
-                color: Colors.white,
+                color: Colors.transparent,
               ),
               Text('Domains'),
               Container(
@@ -407,10 +407,9 @@ class _RegistrationFormState extends State<RegistrationForm> {
                   },
                 ),
               ),
-              new Divider(height: 0, color: Colors.white),
               Divider(
                 height: 20,
-                color: Colors.white,
+                color: Colors.transparent,
               ),
               Text('Languages'),
               Container(
@@ -454,7 +453,7 @@ class _RegistrationFormState extends State<RegistrationForm> {
               ),
               Divider(
                 height: 20,
-                color: Colors.white,
+                color: Colors.transparent,
               ),
               Text('Hosteller'),
               new Row(children: <Widget>[

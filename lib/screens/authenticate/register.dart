@@ -31,7 +31,6 @@ bool hosteller;
 
 bool isNextEnabled = true;
 
-
 class Register extends StatefulWidget {
   //taken from parent props:
   final Function toggleView;
@@ -72,6 +71,16 @@ class _RegisterState extends State<Register> {
     }
   }
 
+  Function _handleNext() {
+    if (isNextEnabled) {
+      return () {
+        showToast();
+      };
+    } else {
+      return null;
+    }
+  }
+
   void showToast() {
     setState(() {
       if (visibleCard == 4) {
@@ -80,6 +89,12 @@ class _RegisterState extends State<Register> {
       visibleCard++;
       isNextEnabled = false;
     });
+  }
+
+  void initState() {
+    super.initState();
+    visibleCard = 1;
+    isNextEnabled = false;
   }
 
   @override
@@ -106,12 +121,13 @@ class _RegisterState extends State<Register> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    RaisedButton(
-                      child: visibleCard == 4 ? Text('Register') : Text('Next'),
-                      onPressed: (){
-                        isNextEnabled ? showToast() : null;
-                      }
-                    ),
+                    // new RaisedButton(
+                    //   child: visibleCard == 4 ? Text('Register') : Text('Next'),
+                    //   onPressed: _handleNext(),
+                    //   //{
+                    //   //isNextEnabled ? showToast() : null;
+                    //   //}
+                    // ),
                     Visibility(
                       visible: visibleCard == 1,
                       child: Card(
@@ -171,7 +187,7 @@ class MentorOrMenteeFormState extends State<MentorOrMenteeForm> {
     setState(() {
       _radioValue = value;
       mentor = _radioValue == 0;
-      post = mentor? 'Mentor' : 'Mentee';
+      post = mentor ? 'Mentor' : 'Mentee';
     });
   }
 
@@ -187,11 +203,11 @@ class MentorOrMenteeFormState extends State<MentorOrMenteeForm> {
     // Build a Form widget using the _formKey created above.
     return Form(
       key: _formKey1,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+      child: ListView(
+        shrinkWrap: true,
         children: <Widget>[
           new Text('Do you want to register as a mentor or a mentee?'),
-          new Divider(height: 5.0, color: Colors.white),
+          new Divider(height: 5.0, color: Colors.transparent),
           new Row(
             children: <Widget>[
               new Radio(
@@ -214,7 +230,11 @@ class MentorOrMenteeFormState extends State<MentorOrMenteeForm> {
                   print(_radioValue);
                   // It returns true if the form is valid, otherwise returns false
                   if (_formKey1.currentState.validate() && _radioValue != -1) {
-                    isNextEnabled = true;
+                    setState(() {
+                      isNextEnabled = true;
+                      visibleCard++;
+                    });
+
                     // If the form is valid, display a Snackbar.
                     // Scaffold.of(context).showSnackBar(
                     //     SnackBar(content: Text('Data is in processing.')));
@@ -248,8 +268,8 @@ class ContactFormState extends State<ContactForm> {
     // Build a Form widget using the _formKey created above.
     return Form(
       key: _formKey2,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+      child: ListView(
+        shrinkWrap: true,
         children: <Widget>[
           new TextFormField(
               keyboardType: TextInputType.text,
@@ -435,7 +455,6 @@ class CollegeFormState extends State<CollegeForm> {
     _selectedYear = _dropdownYear[0];
     _dropdownBranchItems = buildDropDownMenuItems(_dropdownBranch);
     _selectedBranch = _dropdownBranch[0];
-    
   }
 
   List<DropdownMenuItem<ListItem>> buildDropDownMenuItems(List listItems) {
@@ -456,8 +475,8 @@ class CollegeFormState extends State<CollegeForm> {
     // Build a Form widget using the _formKey created above.
     return Form(
       key: _formKey3,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+      child: ListView(
+        shrinkWrap: true,
         children: <Widget>[
           Text("Select your branch"),
           DropdownButton<ListItem>(
@@ -471,7 +490,7 @@ class CollegeFormState extends State<CollegeForm> {
               }),
           new Divider(
             height: 10,
-            color: Colors.white,
+            color: Colors.transparent
           ),
           Text("Select your year"),
           DropdownButton<ListItem>(
@@ -485,7 +504,7 @@ class CollegeFormState extends State<CollegeForm> {
               }),
           new Divider(
             height: 10,
-            color: Colors.white,
+            color: Colors.transparent,
           ),
           Text('Enter your Roll Number'),
           TextFormField(
@@ -511,50 +530,50 @@ class CollegeFormState extends State<CollegeForm> {
               });
             },
           ),
-          new Divider(height: 10, color: Colors.white),
-          Text('Enter your Linkedin Profile URL'),
-          TextFormField(
-              style: TextStyle(color: Colors.grey),
-              decoration: const InputDecoration(
-                enabledBorder: UnderlineInputBorder(
-                  borderSide: BorderSide(color: Colors.grey),
-                ),
-                focusedBorder: UnderlineInputBorder(
-                  borderSide: BorderSide(color: Colors.blue),
-                ),
-                border: UnderlineInputBorder(),
-              ),
-              // validator: (val) {
-              //   if (val.length == 0) {
-              //     return 'Required';
-              //   }
-              //   return '';
-              // },
-              onChanged: (val) {
-                setState(() => linkedInURL = val);
-              }),
-          new Divider(height: 10, color: Colors.white),
-          Text('Enter your GitHub Profile URL'),
-          TextFormField(
-              style: TextStyle(color: Colors.grey),
-              decoration: const InputDecoration(
-                enabledBorder: UnderlineInputBorder(
-                  borderSide: BorderSide(color: Colors.grey),
-                ),
-                focusedBorder: UnderlineInputBorder(
-                  borderSide: BorderSide(color: Colors.blue),
-                ),
-                border: UnderlineInputBorder(),
-              ),
-              // validator: (val) {
-              //   if (val.length == 0) {
-              //     return 'Required';
-              //   }
-              //   return '';
-              // },
-              onChanged: (val) {
-                setState(() => githubURL = val);
-              }),
+          // new Divider(height: 10, color: Colors.transparent),
+          // Text('Enter your Linkedin Profile URL'),
+          // TextFormField(
+          //     style: TextStyle(color: Colors.grey),
+          //     decoration: const InputDecoration(
+          //       enabledBorder: UnderlineInputBorder(
+          //         borderSide: BorderSide(color: Colors.grey),
+          //       ),
+          //       focusedBorder: UnderlineInputBorder(
+          //         borderSide: BorderSide(color: Colors.blue),
+          //       ),
+          //       border: UnderlineInputBorder(),
+          //     ),
+          //     // validator: (val) {
+          //     //   if (val.length == 0) {
+          //     //     return 'Required';
+          //     //   }
+          //     //   return '';
+          //     // },
+          //     onChanged: (val) {
+          //       setState(() => linkedInURL = val);
+          //     }),
+          // new Divider(height: 10, color: Colors.transparent),
+          // Text('Enter your GitHub Profile URL'),
+          // TextFormField(
+          //     style: TextStyle(color: Colors.grey),
+          //     decoration: const InputDecoration(
+          //       enabledBorder: UnderlineInputBorder(
+          //         borderSide: BorderSide(color: Colors.grey),
+          //       ),
+          //       focusedBorder: UnderlineInputBorder(
+          //         borderSide: BorderSide(color: Colors.blue),
+          //       ),
+          //       border: UnderlineInputBorder(),
+          //     ),
+          //     // validator: (val) {
+          //     //   if (val.length == 0) {
+          //     //     return 'Required';
+          //     //   }
+          //     //   return '';
+          //     // },
+          //     onChanged: (val) {
+          //       setState(() => githubURL = val);
+          //     }),
           new Container(
               padding: const EdgeInsets.only(left: 175.0, top: 40.0),
               child: new RaisedButton(
@@ -563,6 +582,7 @@ class CollegeFormState extends State<CollegeForm> {
                   print(branch.toString() + year.toString() + rollNo);
                   // It returns true if the form is valid, otherwise returns false
                   if (_formKey3.currentState.validate()) {
+                    print(branch.toString() + year.toString() + rollNo);
                     setState(() {
                       isNextEnabled = true;
                     });
@@ -572,7 +592,6 @@ class CollegeFormState extends State<CollegeForm> {
                   }
                 },
               )),
-          
         ],
       ),
     );
@@ -632,7 +651,7 @@ class PreferencesFormState extends State<PreferencesForm> {
             new Text(_radioValue == 0
                 ? "Tell us about the domains you have worked in and the languages you know"
                 : "What skills do you want in your mentor?"),
-            new Divider(height: 12, color: Colors.white),
+            new Divider(height: 12, color: Colors.transparent),
             Container(
               padding: EdgeInsets.all(6),
               child: MultiSelectFormField(
@@ -658,7 +677,7 @@ class PreferencesFormState extends State<PreferencesForm> {
                 },
               ),
             ),
-            new Divider(height: 0, color: Colors.white),
+            new Divider(height: 0, color: Colors.transparent),
             Container(
               padding: EdgeInsets.all(6),
               child: MultiSelectFormField(
@@ -684,7 +703,7 @@ class PreferencesFormState extends State<PreferencesForm> {
                 },
               ),
             ),
-            new Divider(height: 0, color: Colors.white),
+            new Divider(height: 0, color: Colors.transparent),
             new Text(_radioValue == 0
                 ? "Are you a hosteller?"
                 : "Do you want your mentor to be a hosteller?"),
@@ -725,4 +744,3 @@ class PreferencesFormState extends State<PreferencesForm> {
     );
   }
 }
-
