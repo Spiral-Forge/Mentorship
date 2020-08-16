@@ -99,18 +99,7 @@ class _RegisterForm3State extends State<RegisterForm3> {
           backgroundColor: AppColors.COLOR_TEAL_DARK,
           elevation: 0.0,
           title: Text("Register"),
-          actions: <Widget>[
-            FlatButton.icon(
-              icon: Icon(Icons.person),
-              label: Text('Sign In'),
-              onPressed: () {
-                Navigator.push(
-                    context,
-                    new MaterialPageRoute(
-                        builder: (BuildContext context) => SignIn()));
-              },
-            )
-          ]),
+          ),
       body: loading
           ? Loading()
           : Padding(

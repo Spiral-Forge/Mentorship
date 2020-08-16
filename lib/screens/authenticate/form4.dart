@@ -2,6 +2,7 @@ import 'package:dbapp/constants/colors.dart';
 import 'package:dbapp/constants/screenConstants.dart';
 import 'package:dbapp/screens/authenticate/signin.dart';
 import 'package:dbapp/screens/home/home.dart';
+import 'package:dbapp/screens/wrapper.dart';
 import 'package:dbapp/services/auth.dart';
 import 'package:dbapp/shared/styles.dart';
 import 'package:flutter/material.dart';
@@ -63,6 +64,16 @@ class _RegisterForm4State extends State<RegisterForm4> {
         loading = false;
       });
     }
+    else{
+      Navigator.pushAndRemoveUntil(
+      context,
+      MaterialPageRoute(
+        builder: (BuildContext context) => Wrapper(),
+      ),
+      (route) => false,
+    );
+      //Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> Wrapper()));
+    }
   }
 
   int _hostellerValue = -1;
@@ -88,18 +99,7 @@ class _RegisterForm4State extends State<RegisterForm4> {
           backgroundColor: AppColors.COLOR_TEAL_DARK,
           elevation: 0.0,
           title: Text("Register"),
-          actions: <Widget>[
-            FlatButton.icon(
-              icon: Icon(Icons.person),
-              label: Text('Sign In'),
-              onPressed: () {
-                Navigator.push(
-                    context,
-                    new MaterialPageRoute(
-                        builder: (BuildContext context) => SignIn()));
-              },
-            )
-          ]),
+          ),
       body: loading
           ? Loading()
           : Padding(

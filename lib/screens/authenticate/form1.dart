@@ -1,5 +1,6 @@
 import 'package:dbapp/constants/colors.dart';
 import 'package:dbapp/constants/screenConstants.dart';
+import 'package:dbapp/screens/authenticate/signin.dart';
 import 'package:dbapp/screens/home/home.dart';
 import 'package:dbapp/services/auth.dart';
 import 'package:dbapp/shared/styles.dart';

@@ -59,7 +59,8 @@ class _SignInState extends State<SignIn> with SingleTickerProviderStateMixin{
             icon:Icon(Icons.person,color: Colors.white,),
             label:Text('Register',style:TextStyle(color:Colors.white)),
             onPressed: (){
-              Navigator.push( context, new MaterialPageRoute( builder: (BuildContext context) => RegisterForm1()));
+              widget.toggleView();
+              //Navigator.pushReplacement( context, new MaterialPageRoute( builder: (BuildContext context) => RegisterForm1()));
             },
           )
         ],
