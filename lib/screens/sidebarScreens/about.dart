@@ -15,7 +15,7 @@ class About extends StatelessWidget {
             Center(
               child: new Container(
                 margin: EdgeInsets.symmetric(vertical:20.0,horizontal:10.0),
-                child: Text(SidebarConstants.aboutSoc,style: TextStyle(fontSize:20.0 ),),
+                child: Text(SidebarConstants.aboutSoc,style: TextStyle(fontSize:16.0 ),),
               ),
             ),
               new Mycard1(),
@@ -38,7 +38,7 @@ class Mycard1 extends StatelessWidget {
     return new Container(
       margin: const EdgeInsets.symmetric(
         vertical: 16.0,
-        horizontal: 24.0,
+        horizontal: 22.0,
       ),
       child: new Stack(
         children: <Widget>[
@@ -56,7 +56,7 @@ class Mycard2 extends StatelessWidget {
     return new Container(
       margin: const EdgeInsets.symmetric(
         vertical: 16.0,
-        horizontal: 24.0,
+        horizontal: 22.0,
       ),
       child: new Stack(
         children: <Widget>[
@@ -74,7 +74,7 @@ class Mycard3 extends StatelessWidget {
     return new Container(
       margin: const EdgeInsets.symmetric(
         vertical: 16.0,
-        horizontal: 24.0,
+        horizontal: 22.0,
       ),
       child: new Stack(
         children: <Widget>[
@@ -92,7 +92,7 @@ class Mycard4 extends StatelessWidget {
     return new Container(
       margin: const EdgeInsets.symmetric(
         vertical: 16.0,
-        horizontal: 24.0,
+        horizontal: 22.0,
       ),
       child: new Stack(
         children: <Widget>[
@@ -121,7 +121,7 @@ final thumbnail1 = new Container(
     padding: EdgeInsets.only(left:25.0),
     height: 124.0,
     margin: new EdgeInsets.only(left: 46.0),
-    child: Center(child: Text(SidebarConstants.founderUrvi,style: TextStyle(fontSize:20.0),)),
+    child: Center(child: Text(SidebarConstants.founderUrvi,style: TextStyle(fontSize:15.0),)),
     decoration: new BoxDecoration(
       color: AppColors.COLOR_TEAL_DARK,
       shape: BoxShape.rectangle,
@@ -156,7 +156,7 @@ final thumbnail1 = new Container(
      padding: EdgeInsets.only(left:25.0),
     height: 124.0,
     margin: new EdgeInsets.only(left: 46.0),
-    child: Center(child: Text(SidebarConstants.founderNitasha,style: TextStyle(fontSize:20.0),)),
+    child: Center(child: Text(SidebarConstants.founderNitasha,style: TextStyle(fontSize:15.0),)),
     decoration: new BoxDecoration(
       color: AppColors.COLOR_TEAL_DARK,
       shape: BoxShape.rectangle,
@@ -189,7 +189,7 @@ final thumbnail1 = new Container(
      padding: EdgeInsets.only(left:25.0),
     height: 124.0,
     margin: new EdgeInsets.only(left: 46.0),
-    child: Center(child: Text(SidebarConstants.founderOshin,style: TextStyle(fontSize:20.0),)),
+    child: Center(child: Text(SidebarConstants.founderOshin,style: TextStyle(fontSize:15.0),)),
     decoration: new BoxDecoration(
       color: AppColors.COLOR_TEAL_DARK,
       shape: BoxShape.rectangle,
@@ -222,7 +222,7 @@ final thumbnail1 = new Container(
      padding: EdgeInsets.only(left:25.0),
     height: 124.0,
     margin: new EdgeInsets.only(left: 46.0),
-    child: Center(child: Text(SidebarConstants.founderSuhani,style: TextStyle(fontSize:20.0),)),
+    child: Center(child: Text(SidebarConstants.founderSuhani,style: TextStyle(fontSize:15.0),)),
     decoration: new BoxDecoration(
       color: AppColors.COLOR_TEAL_DARK,
       shape: BoxShape.rectangle,

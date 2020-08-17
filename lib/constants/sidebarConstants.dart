@@ -46,11 +46,11 @@ class SidebarConstants{
     5:"adding new"
   };
 
-  static final String aboutSoc="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book";
-  static final String founderOshin="Oshin Saini \n Founder \n SOMe cool line she said";
-  static final String founderSuhani="Suhani Chawla \n Founder \n SOMe cool line she said";
-  static final String founderNitasha="Nitasha Dhingra \n Founder \n SOMe cool line she said";
-  static final String founderUrvi="Urvi Goel \n Founder \n SOMe cool line she said";
+  static final String aboutSoc='During our first year in IGDTUW, we often felt intimidated by our new surroundings, and found ourselves pondering upon questions like \n\n"Which society should I join?" "Which programming language to learn?" "Which books to refer?" "How to not miss-out on opportunities?" "HOW TO SURVIVE IGDTUW?"\n\nProtégé aims to answer all these questions and more by connecting students with their seniors who will mentor them in all aspects of college life!';
+  static final String founderOshin= '    Oshin Saini \n    oshinsaini18092000@gmail.com' ;
+  static final String founderSuhani='   Suhani Chawla \n   suhanichawla2000@gmail.com ';
+  static final String founderNitasha='   Nitasha Dhingra \n   nitashadhingra612@gmail.com ';
+  static final String founderUrvi='   Urvi Goel \n   urvigoel26@gmail.com';
    
 }
 
