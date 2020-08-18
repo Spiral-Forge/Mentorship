@@ -1,13 +1,18 @@
+import 'dart:async';
+import 'dart:math';
+import 'dart:io';
 import 'package:dbapp/constants/colors.dart';
 import 'package:dbapp/screens/home/home.dart';
 import 'package:dbapp/screens/profile/profile.dart';
 import 'package:dbapp/shared/loading.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
+// import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:multiselect_formfield/multiselect_formfield.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:dbapp/services/database.dart';
 import 'package:dbapp/services/storage.dart';
+import 'package:image_picker/image_picker.dart';
 
 
 
@@ -42,19 +47,111 @@ class EditProfilePageState extends State<EditProfilePage> {
   final Map<String, dynamic> userInfo;
   EditProfilePageState(this.userInfo);
 
+  File newDP;
+  Future getImage() async{
+    var tempImg = await ImagePicker.pickImage(source: ImageSource.gallery);
+    setState(() {
+      newDP = tempImg;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: new AppBar(
             title: new Text("Edit Profile"), backgroundColor: AppColors.COLOR_TEAL_DARK),
-        body: Card(
-          child: new Container(
-              padding: EdgeInsets.all(12),
-              child: new RegistrationForm(userInfo)),
-          margin: EdgeInsets.all(15),
-        ));
+        // body: newDP == null ? getChooseButton() : getUploadButton(),
+        body: new Column(
+          children: <Widget>[
+            // Container(
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  new Container(
+                    width: 150.0,
+                    height: 150.0,
+                    decoration: BoxDecoration(
+                      color: AppColors.PROTEGE_CYAN,
+                      image: DecorationImage(
+                        // image: userInfo["avatarNum"]!= null ? AssetImage("assets/images/avatars/av"+userInfo["avatarNum"].toString()+".jpg"):AssetImage("assets/images/avatars/av1.jpg"),
+                        image: newDP == null ? AssetImage("assets/images/avatars/av1.jpg") : uploadImage(),
+                        fit: BoxFit.cover,
+                      ),
+                       
+                      borderRadius: BorderRadius.all(Radius.circular(175.0)),
+
+                      boxShadow: [
+                        BoxShadow(
+                          blurRadius: 7.0,
+                          color: Colors.black,
+                        )
+                      ]
+                    ),    
+                  ),
+                ],
+
+              ),
+              
+            // ),
+            Card(
+              child: new Container(
+                  padding: EdgeInsets.all(12),
+                  child: new RegistrationForm(userInfo)
+              ),
+              margin: EdgeInsets.all(15),
+            ),
+          ],
+        ),
+          
+        floatingActionButton: new FloatingActionButton(
+          onPressed: getImage,
+          child: new Icon(
+            Icons.edit
+          )),
+    );
+  }
+
+  Widget uploadImage() {
+  return Container(
+    child: Column(
+      children: <Widget>[
+        Image.file(
+          newDP, 
+          width: 150.0,
+          height: 150.0,
+        ),
+        RaisedButton(
+          elevation: 7.0,
+          child: Text('Upload'),
+          onPressed: (){
+            final StorageReference firebaseStorageRef = FirebaseStorage.instance.ref().child('muimage.jpg');
+            final StorageUploadTask task = firebaseStorageRef.putFile(newDP);
+          },
+        )
+      ],
+    ),
+  );
   }
 }
+
+// Widget getChooseButton(){
+//   return new Stack(
+//     children: <Widget>[
+//       Container(
+//         alignment: 
+//         width: 150,
+//         height: 150,
+//         decoration: BoxDecoration(
+//           color: Colors.teal[500],
+//           image: DecorationImage(
+//                   image: NetworkImage,
+//           )
+//         ),
+//       )
+  
+//     ],
+//   )
+// }
 
 class RegistrationForm extends StatefulWidget {
   final Map<String, dynamic> userInfo;
@@ -195,7 +292,9 @@ class _RegistrationFormState extends State<RegistrationForm> {
       });
     }
   }
-
+  
+  
+  @override
   Widget build(BuildContext context) {
     return loading? Loading() : Form(
         key: _formKey,
@@ -203,6 +302,7 @@ class _RegistrationFormState extends State<RegistrationForm> {
             shrinkWrap: true,
             padding: EdgeInsets.all(10),
             children: <Widget>[
+              
               Text('Name'),
               new TextFormField(
                   initialValue: name,
@@ -484,3 +584,4 @@ class _RegistrationFormState extends State<RegistrationForm> {
             ]));
   }
 }
+
