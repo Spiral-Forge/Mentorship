@@ -125,11 +125,13 @@ class _SignInState extends State<SignIn> with SingleTickerProviderStateMixin {
                                       dynamic result =
                                           await _auth.signin(email, password);
                                       if (result == null) {
-                                        setState(() {
-                                          error =
-                                              "Either email or password is incorrect. Try again.";
-                                          loading = false;
-                                        });
+                                        if (mounted) {
+                                          setState(() {
+                                            error =
+                                                "Either email or password is incorrect. Try again.";
+                                            loading = false;
+                                          });
+                                        }
                                       }
                                     }
                                   },

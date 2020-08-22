@@ -26,7 +26,6 @@ class ResourceCategoryList extends StatefulWidget {
 
 //"assets/images/bg2.jpg"
 class _ResourceCategoryListState extends State<ResourceCategoryList> {
-  var _darkTheme = true;
   final _formKey = GlobalKey<FormState>();
   String post = '';
   TextEditingController titleController = new TextEditingController();
@@ -60,8 +59,6 @@ class _ResourceCategoryListState extends State<ResourceCategoryList> {
   Widget build(BuildContext context) {
     ThemeChanger _themeChanger = Provider.of<ThemeChanger>(context);
     // final _themeChanger = Provider.of<ThemeChanger>(context);
-    _darkTheme = (_themeChanger.getTheme() == darkTheme);
-    final AuthService _auth = AuthService();
     return new Scaffold(
         appBar: AppBar(
             title: Text("Resource Center"),
@@ -88,21 +85,29 @@ class _ResourceCategoryListState extends State<ResourceCategoryList> {
                                       overflow: Overflow.visible,
                                       children: <Widget>[
                                         Positioned(
-                                          right: -40.0,
-                                          top: -40.0,
+                                          right: -35.0,
+                                          top: -35.0,
                                           child: InkResponse(
                                             onTap: () {
                                               Navigator.of(context).pop();
                                             },
                                             child: CircleAvatar(
-                                              child: Icon(Icons.close),
-                                              backgroundColor: Colors.red,
+                                              child: Icon(
+                                                Icons.close,
+                                                size: 15,
+                                              ),
+                                              backgroundColor:
+                                                  AppColors.PROTEGE_GREY,
+                                              foregroundColor: Colors.white,
+                                              radius: 15,
                                             ),
                                           ),
                                         ),
                                         Form(
                                           child: Column(
                                               mainAxisSize: MainAxisSize.min,
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.center,
                                               children: <Widget>[
                                                 TextField(
                                                   controller: titleController,
@@ -150,7 +155,7 @@ class _ResourceCategoryListState extends State<ResourceCategoryList> {
                                                       value: selectedType,
                                                       isExpanded: false,
                                                       hint: Text(
-                                                        'Choose Resource Type',
+                                                        'Resource Category',
                                                         //style: TextStyle(color: Color(0xff11b719)),
                                                       ),
                                                     ),
@@ -163,7 +168,19 @@ class _ResourceCategoryListState extends State<ResourceCategoryList> {
                                                   padding:
                                                       const EdgeInsets.all(8.0),
                                                   child: RaisedButton(
-                                                    child: Text("Submitß"),
+                                                    color: AppColors
+                                                        .COLOR_TEAL_LIGHT,
+                                                    shape:
+                                                        RoundedRectangleBorder(
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        10.0),
+                                                            side: BorderSide(
+                                                              color: AppColors
+                                                                  .COLOR_TEAL_LIGHT,
+                                                            )),
+                                                    child: Text("Submit"),
                                                     onPressed: () async {
                                                       // if (_formKey.currentState.validate()) {
                                                       var result =
@@ -230,6 +247,7 @@ class _ResourceCategoryListState extends State<ResourceCategoryList> {
         body: SingleChildScrollView(
           child: Column(
             children: <Widget>[
+              SizedBox(height: 12),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
@@ -243,7 +261,7 @@ class _ResourceCategoryListState extends State<ResourceCategoryList> {
                                     fieldMap["Development"])));
                       },
                       child: ResourceCategoryTile(
-                          "Development", "assets/images/webDev.png")),
+                          "Development", "assets/images/development.png")),
                   GestureDetector(
                       onTap: () {
                         Navigator.push(
@@ -253,8 +271,7 @@ class _ResourceCategoryListState extends State<ResourceCategoryList> {
                                     "College Resources", fieldMap["College"])));
                       },
                       child: ResourceCategoryTile(
-                          "College assignments and papers",
-                          "assets/images/college.jpg"))
+                          "College Resources", "assets/images/book.jpg"))
                 ],
               ),
               Row(
@@ -270,7 +287,7 @@ class _ResourceCategoryListState extends State<ResourceCategoryList> {
                                     fieldMap["Machine Learning"])));
                       },
                       child: ResourceCategoryTile(
-                          "Machine Learning", "assets/images/ML.jpg")),
+                          "Machine Learning", "assets/images/ml.png")),
                   GestureDetector(
                       onTap: () {
                         Navigator.push(
@@ -281,7 +298,7 @@ class _ResourceCategoryListState extends State<ResourceCategoryList> {
                                     fieldMap["Scholarship"])));
                       },
                       child: ResourceCategoryTile(
-                          "Scholarships", "assets/images/scholarship.png"))
+                          "Scholarships", "assets/images/scholar.jpg"))
                 ],
               ),
               Row(
@@ -296,8 +313,8 @@ class _ResourceCategoryListState extends State<ResourceCategoryList> {
                                     "Competitive Coding resources",
                                     fieldMap["Competitive Coding"])));
                       },
-                      child: ResourceCategoryTile("Competitive Coding",
-                          "assets/images/compCoding.jpg")),
+                      child: ResourceCategoryTile(
+                          "Competitive Coding", "assets/images/code.jpg")),
                   GestureDetector(
                       onTap: () {
                         Navigator.push(
@@ -308,7 +325,7 @@ class _ResourceCategoryListState extends State<ResourceCategoryList> {
                                     fieldMap["Open-Source"])));
                       },
                       child: ResourceCategoryTile(
-                          "Open-Source", "assets/images/openSource.jpg"))
+                          "Open-Source", "assets/images/opensrc.png"))
                 ],
               )
             ],
