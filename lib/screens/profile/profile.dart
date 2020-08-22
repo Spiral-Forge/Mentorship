@@ -124,6 +124,7 @@ class _ProfileState extends State<Profile> {
 
   File newDP;
   String pathDP;
+  bool newDpFlag=false;
 
   uploadImg() async {}
 
@@ -156,17 +157,7 @@ class _ProfileState extends State<Profile> {
         ? "Hosteller: Yes"
         : "Hosteller: No";
 
-    Future getImage() async {
-      final PickedFile pickedFile =
-          await ImagePicker().getImage(source: ImageSource.gallery);
-      // final String pickedPath = getApplicationDocumentsDirectory().path;
-      // final PickedFile tempImg = await pickedFile.copy('$pickedPath/userDP.png');
-      setState(() {
-        newDP = File(pickedFile.path);
-        print("uploaded");
-        // newDP = tempImg;
-      });
-    }
+    
 
     Future uploadImg(context) async {
       var num = Random(25);
@@ -193,17 +184,32 @@ class _ProfileState extends State<Profile> {
       print("url");
       print(url);
       ProfileService updateUser = new ProfileService();
-      updateUser.updateDP(url);
+      await updateUser.updateDP(url);
       print("checkpt34");
-      StorageServices.saveProfileURL(url);
-      var userInfo = StorageServices.getUserInfo();
-      userInfo.then((updatedUser) {
+      await StorageServices.saveProfileURL(url);
+      StorageServices.getUserInfo()
+      .then((updatedUser) {
         print("now updated: ");
         print(updatedUser);
         setState(() {
           user = updatedUser;
+          newDpFlag=false;
         });
       });
+    }
+
+    Future getImage(context) async {
+      final PickedFile pickedFile =
+          await ImagePicker().getImage(source: ImageSource.gallery);
+      // final String pickedPath = getApplicationDocumentsDirectory().path;
+      // final PickedFile tempImg = await pickedFile.copy('$pickedPath/userDP.png');
+      setState(() {
+        newDP = File(pickedFile.path);
+        newDpFlag=true;
+        print("uploaded");
+        // newDP = tempImg;
+      });
+      //return;
     }
 
     return new Scaffold(
@@ -253,7 +259,7 @@ class _ProfileState extends State<Profile> {
                             child: SizedBox(
                               width: 150,
                               height: 150,
-                              child: user['photoURL'] != null
+                              child: newDpFlag ? Image.file(newDP) : user['photoURL'] != null
                                   ? Image.network(user['photoURL'],
                                       fit: BoxFit.fitWidth)
                                   : Image.asset(
@@ -266,8 +272,9 @@ class _ProfileState extends State<Profile> {
                         padding: EdgeInsets.fromLTRB(0, 125, 0, 0),
                         child: IconButton(
                           icon: Icon(Icons.edit, size: 25),
-                          onPressed: () {
-                            getImage();
+                          onPressed: () async{
+                            await getImage(context);
+                          
                           },
                         ),
                       ),
@@ -339,9 +346,7 @@ class _ProfileState extends State<Profile> {
                         heroTag: "btn2",
                         backgroundColor: Color.fromRGBO(0, 128, 128, 1),
                         onPressed: () {
-                          setState(() {
-                            uploadImg(context);
-                          });
+                          uploadImg(context);
                         },
                         icon: Icon(
                           Icons.save,

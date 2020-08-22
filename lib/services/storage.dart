@@ -33,7 +33,7 @@ class StorageServices {
     print(obj);
     var parsedObj = json.decode(obj);
     parsedObj['photoURL'] = url;
-    return await prefs.setString(sharedPreferenceUserInfoKey, parsedObj);
+    return await prefs.setString(sharedPreferenceUserInfoKey, json.encode(parsedObj));
   }
 
   //GETTING DATA
