@@ -123,33 +123,10 @@ class _ProfileState extends State<Profile> {
   }
 
   File newDP;
+  String pathDP;
 
-  uploadImg() async {
-    var num = Random(25);
-    final StorageReference firebaseStorageRef = FirebaseStorage.instance
-        .ref()
-        .child('dp/${num.nextInt(5000).toString()}.jpg');
-    final StorageUploadTask task = firebaseStorageRef.putFile(newDP);
+  uploadImg() async {}
 
-    final ref = FirebaseStorage.instance
-        .ref()
-        .child('path')
-        .child('to')
-        .child('the')
-        .child('image_filejpg');
-    ref.putFile(newDP);
-    var url = Uri.parse(await ref.getDownloadURL() as String);
-
-    // task.future.then((value) {
-    //   ProfileService.updateDP(value.downloadUrl.toString()).then((val) {
-    //     Navigator.of(context).pushReplacementNamed('/profile');
-    //   });
-    // }).catchError((e) {
-    //   print(e);
-    // });
-  }
-
-  ProfileService updateUser = new ProfileService();
   // Future<void> retrieveLostData() async {
   //   final LostData response = await ImagePicker().getLostData();
   //   if (response == null) {
@@ -191,16 +168,41 @@ class _ProfileState extends State<Profile> {
       });
     }
 
-    Future uploadImage(context) {
-      String fileName = basename(newDP.path);
-      StorageReference firebaseStorageRef =
-          FirebaseStorage.instance.ref().child(fileName);
-      StorageUploadTask task = firebaseStorageRef.putFile(newDP);
-      // StorageTaskSnapshot taskSnapshot = await uploadTask.onComplete;
+    Future uploadImg(context) async {
+      var num = Random(25);
+      final StorageReference firebaseStorageRef = FirebaseStorage.instance
+          .ref()
+          .child('dp/${num.nextInt(5000).toString()}.jpg');
+      final StorageUploadTask uploadTask = firebaseStorageRef.putFile(newDP);
+
+      final ref = FirebaseStorage.instance
+          .ref()
+          .child('path')
+          .child('to')
+          .child('the')
+          .child('image_filejpg');
+      ref.putFile(newDP);
+      var url = Uri.parse(await ref.getDownloadURL()).toString();
+      pathDP = url;
+      StorageTaskSnapshot taskSnapshot = await uploadTask.onComplete;
       setState(() {
         print("Profile Picture Changed Successfully");
         Scaffold.of(context).showSnackBar(
             SnackBar(content: Text('Profile Picture Changed Successfully')));
+      });
+      print("url");
+      print(url);
+      ProfileService updateUser = new ProfileService();
+      updateUser.updateDP(url);
+      print("checkpt34");
+      StorageServices.saveProfileURL(url);
+      var userInfo = StorageServices.getUserInfo();
+      userInfo.then((updatedUser) {
+        print("now updated: ");
+        print(updatedUser);
+        setState(() {
+          user = updatedUser;
+        });
       });
     }
 
@@ -217,24 +219,27 @@ class _ProfileState extends State<Profile> {
           child: ListView(shrinkWrap: true,
               // mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                Align(
-                  alignment: Alignment.topCenter,
-                  child: ClipPath(
-                    child: Column(
-                      children: <Widget>[
-                        Image.asset(
-                          "assets/images/bg2.jpg",
-                          width: MediaQuery.of(context).size.width,
-                        ),
-                      ],
-                    ),
-                    clipper: GetClipper(),
-                  ),
-                ),
+                // Align(
+                //   alignment: Alignment.topCenter,
+                //   child: ClipPath(
+                //     child: Column(
+                //       children: <Widget>[
+                //         Image.asset(
+                //           "assets/images/bg2.jpg",
+                //           width: MediaQuery.of(context).size.width,
+                //         ),
+                //       ],
+                //     ),
+                //     clipper: GetClipper(),
+                //   ),
+                // ),
                 // Positioned(
                 //   width: MediaQuery.of(context).size.width,
                 //   top: MediaQuery.of(context).size.height / 4.5,
                 //   child:
+                SizedBox(
+                  height: 15,
+                ),
                 Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -248,8 +253,9 @@ class _ProfileState extends State<Profile> {
                             child: SizedBox(
                               width: 150,
                               height: 150,
-                              child: newDP != null
-                                  ? Image.file(newDP, fit: BoxFit.fitWidth)
+                              child: user['photoURL'] != null
+                                  ? Image.network(user['photoURL'],
+                                      fit: BoxFit.fitWidth)
                                   : Image.asset(
                                       "assets/images/avatars/av1.jpg"),
                             ),
@@ -301,7 +307,8 @@ class _ProfileState extends State<Profile> {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
-                    FloatingActionButton.extended(
+                    new FloatingActionButton.extended(
+                        heroTag: "btn1",
                         backgroundColor: Color.fromRGBO(0, 128, 128, 1),
                         onPressed: () async {
                           //Navigator.of(context).pop();
@@ -312,6 +319,7 @@ class _ProfileState extends State<Profile> {
                                 builder: (context) => EditProfilePage(user)),
                           ).then((value) {
                             StorageServices.getUserInfo().then((value) {
+                              print("im here");
                               print(value);
                               setState(() {
                                 user = value;
@@ -327,10 +335,13 @@ class _ProfileState extends State<Profile> {
                           'Edit Profile',
                           style: TextStyle(color: Colors.white),
                         )),
-                    FloatingActionButton.extended(
+                    new FloatingActionButton.extended(
+                        heroTag: "btn2",
                         backgroundColor: Color.fromRGBO(0, 128, 128, 1),
                         onPressed: () {
-                          uploadImage(context);
+                          setState(() {
+                            uploadImg(context);
+                          });
                         },
                         icon: Icon(
                           Icons.save,

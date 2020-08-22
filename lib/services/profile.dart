@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dbapp/models/mentee.dart';
+import 'package:dbapp/services/database.dart';
 import 'dart:async';
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -16,34 +17,28 @@ class ProfileService {
     return await Firestore.instance.collection('Mentor').document(uid).get();
   }
 
-  updateDP(dpurl) {
-    var userInfo = new UserUpdateInfo();
-    userInfo.photoUrl = dpurl;
-    // FirebaseUser user = FirebaseUser.instance.currentUser();
-
-    // FirebaseUser.updateProfile(userInfo).then((value) {
-    // FirebaseAuth.instance.currentUser().then((user) {
-    // Firestore.instance
-    //     .collection('/users')
-    //     .where('uid', isEqualTo: user.uid)
-    //     .getDocuments()
-    //     .then((docs) {
-    //   Firestore.instance
-    //       .document('/users/${docs.documents[0].documentID}')
-    Firestore.instance.collection('users').document().setData({
-      // .updateData({
-      'photoURL': dpurl
-    }).then((val) {
-      print("dp added");
+  Future updateDP(url) async {
+    FirebaseUser currUser = await FirebaseAuth.instance.currentUser();
+    print("here");
+    print(url);
+    await Firestore.instance
+        .collection('/Users')
+        .where('email', isEqualTo: currUser.email)
+        .getDocuments()
+        .then((docs) async {
+      print("hello");
+      await Firestore.instance
+          .document('/Users/${docs.documents[0].documentID}')
+          .updateData({
+        'photoURL': url,
+      }).then((val) {
+        print("updated dp :)");
+      }).catchError((e) {
+        print(e);
+      });
     }).catchError((e) {
       print(e);
     });
-    //   });
-    // }).catchError((e) {
-    //   print(e);
-    // });
-    // }).catchError((e) {
-    //   print(e);
-    // });
+    print("checkpoint");
   }
 }

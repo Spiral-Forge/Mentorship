@@ -50,26 +50,40 @@ class _HomePageState extends State<HomePage> {
                 itemBuilder: (context, index) {
                   if (index == 0) {
                     return Container(
-                        padding: EdgeInsets.all(40.0),
-                        child: Container(
-                            child: Wrap(
+                        child: ListView(shrinkWrap: true, children: <Widget>[
+                      Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisSize: MainAxisSize.min,
                           children: <Widget>[
                             Container(
-                                width: 70.0,
-                                height: 70.0,
-                                decoration: new BoxDecoration(
-                                    //shape: BoxShape.circle,
-                                    image: new DecorationImage(
-                                        fit: BoxFit.fill,
-                                        image: new AssetImage(
-                                            'assets/images/logo.jpeg')))),
-                            Container(
-                                child: Text(ScreenConstants.homepageText)),
-                          ],
-                        )));
+                                child: Wrap(children: <Widget>[
+                              Container(
+                                  width: 150.0,
+                                  height: 150.0,
+                                  decoration: new BoxDecoration(
+                                      //shape: BoxShape.circle,
+                                      image: new DecorationImage(
+                                          fit: BoxFit.fill,
+                                          image: new AssetImage(
+                                              'assets/images/Protege no bg.png')))),
+                            ]))
+                          ]),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisSize: MainAxisSize.min,
+                        children: <Widget>[
+                          Container(
+                              child: Text("The Mentorship Society of IGDTUW")),
+                        ],
+                      ),
+                      SizedBox(height: 35),
+                    ]));
                   } else if (index == 1) {
                     return Center(
-                      child: Container(child: Text("OUR EVENTS")),
+                      child:
+                          Container(child: Text("UPCOMING EVENTS IN COLLEGE")),
                     );
                   } else {
                     return eventlist[index - 2];
