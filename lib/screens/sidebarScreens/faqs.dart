@@ -15,7 +15,7 @@ final List faqlist=SidebarConstants.faqQuestionAnswers;
                   return Center(
                     child: Container(
                       margin: EdgeInsets.symmetric(horizontal:20.0,vertical:20.0),
-                      child:Text("FAQS")
+                      // child:Text("FAQS")
                     ),
                   );
 
@@ -26,7 +26,7 @@ final List faqlist=SidebarConstants.faqQuestionAnswers;
                   margin: EdgeInsets.only(left:10.0,right:10.0),
                   color: AppColors.PROTEGE_GREY,
                   child: Center(
-                    child: Text(faqlist[index-1]) ,
+                    child: Text(faqlist[index-1],style: TextStyle(color: Colors.white),) ,
                   ),
                   );
 

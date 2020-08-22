@@ -5,24 +5,37 @@ import 'package:dbapp/shared/styles.dart';
 
 
 class Guidelines extends StatelessWidget {
-  final List guidelinelist=SidebarConstants.guidelines;
+  final List guidelineListMentors=SidebarConstants.guidelinesMentors;
+  final List guidelineListMentees=SidebarConstants.guidelinesMentees;
 
   Widget guidelineList(){
       return Center(
         child: Container(
             child:ListView.builder(
-            itemCount: guidelinelist.length+1,
+            itemCount: guidelineListMentors.length+1,
             itemBuilder: (context,index){
               if(index==0){
                 return Container(
-                  padding: EdgeInsets.all(40.0),
-                  child:Text("Guildelines for Mentors and Mentees",style: headingDecoration,)
+                  padding: EdgeInsets.fromLTRB(25, 25, 25, 15),
+                  child:Text("Guildelines for Mentors",style: headingDecoration,textAlign: TextAlign.center, )
+                );
+              }
+              else if(index<11){
+                return Container(
+                  padding: EdgeInsets.symmetric(horizontal:15.0,vertical:8.0),
+                  child:Text((index).toString()+". "+guidelineListMentors[index-1])
+                );
+              }
+              else if(index==11){
+                return Container(
+                  padding: EdgeInsets.fromLTRB(25, 25, 25, 15),
+                  child:Text("Guildelines for Mentees",style: headingDecoration,textAlign: TextAlign.center, )
                 );
               }
               else{
                 return Container(
-                  padding: EdgeInsets.symmetric(horizontal:20.0,vertical:20.0),
-                  child:Text((index).toString()+". "+guidelinelist[index-1])
+                  padding: EdgeInsets.symmetric(horizontal:15.0,vertical:8.0),
+                  child:Text((index-11).toString()+". "+guidelineListMentors[index-1])
                 );
               }
             }
@@ -30,10 +43,11 @@ class Guidelines extends StatelessWidget {
         )
       );
   }
+  
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
-      appBar: new AppBar(title: new Text("Guidelines"), backgroundColor: AppColors.COLOR_TEAL_LIGHT),
+      appBar: new AppBar(title: new Text("Code of Conduct"), backgroundColor: AppColors.COLOR_TEAL_LIGHT),
       body: guidelineList()
     );
   }
