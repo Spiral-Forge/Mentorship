@@ -75,15 +75,23 @@ class _HomePageState extends State<HomePage> {
                         mainAxisSize: MainAxisSize.min,
                         children: <Widget>[
                           Container(
-                              child: Text("The Mentorship Society of IGDTUW")),
+                              child: Text("The Mentorship Society of IGDTUW",
+                                  style: TextStyle(
+                                      fontFamily: 'GoogleSans',
+                                      fontWeight: FontWeight.w600,
+                                      fontSize: 15))),
                         ],
                       ),
                       SizedBox(height: 35),
                     ]));
                   } else if (index == 1) {
                     return Center(
-                      child:
-                          Container(child: Text("UPCOMING EVENTS IN COLLEGE")),
+                      child: Container(
+                          child: Text("UPCOMING EVENTS IN COLLEGE",
+                              style: TextStyle(
+                                  fontFamily: 'GoogleSans',
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 20))),
                     );
                   } else {
                     return eventlist[index - 2];
@@ -140,7 +148,7 @@ class _HomePageState extends State<HomePage> {
 
     return Scaffold(
         appBar: AppBar(
-          title: Text("Protege"),
+          title: Text("Protege", style: TextStyle(fontFamily: 'GoogleSans')),
           backgroundColor: AppColors.COLOR_TEAL_LIGHT,
           elevation:
               Theme.of(context).platform == TargetPlatform.iOS ? 0.0 : 4.0,
@@ -167,7 +175,8 @@ class _HomePageState extends State<HomePage> {
                                 ? 'Know your mentee'
                                 : 'Know your mentor'
                             : "",
-                        style: TextStyle(color: Colors.white),
+                        style: TextStyle(
+                            color: Colors.white, fontFamily: 'GoogleSans'),
                       ))
                 ]
               : <Widget>[
@@ -180,9 +189,11 @@ class _HomePageState extends State<HomePage> {
                       return fixedList.map((index) {
                         return PopupMenuItem<String>(
                           value: peerID[index],
-                          child: Text("View mentee " +
-                              (index + 1).toString() +
-                              " profile"),
+                          child: Text(
+                              "View mentee " +
+                                  (index + 1).toString() +
+                                  " profile",
+                              style: TextStyle(fontFamily: 'GoogleSans')),
                         );
                       }).toList();
                     },
@@ -235,38 +246,89 @@ class EventTile extends StatelessWidget {
                               )),
                     )),
                 Container(
-                  width: MediaQuery.of(context).size.width,
-                  child: ExpansionTile(
-                    // trailing: Icon(Icons.more),
-                    title: Center(child: Text(name)),
-                    subtitle: Center(
-                        child: Text("Date: " +
-                            date +
-                            "\nTime: " +
-                            time +
-                            "\nWhere: " +
-                            venue)),
-
-                    children: [
-                      Text(description),
-                      new Center(
-                          child: new RichText(
-                        text: new TextSpan(
-                          children: [
-                            new TextSpan(
-                              text: 'Register Here',
-                              style: new TextStyle(color: Colors.blue),
-                              recognizer: new TapGestureRecognizer()
-                                ..onTap = () {
-                                  launch(link);
-                                },
+                    width: MediaQuery.of(context).size.width,
+                    child: ExpansionTile(
+                      // trailing: Icon(Icons.more),
+                      title: Center(
+                          child: Text(name,
+                              style: TextStyle(
+                                  fontFamily: 'GoogleSans',
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: 15))),
+                      subtitle: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: <Widget>[
+                            Row(
+                              children: <Widget>[
+                                Align(
+                                  alignment: Alignment.center,
+                                  child: Icon(Icons.date_range, size: 14),
+                                ),
+                                Padding(
+                                    padding: EdgeInsets.fromLTRB(5, 0, 0, 0),
+                                    child: Text(date,
+                                        style: TextStyle(
+                                            fontFamily: 'GoogleSans',
+                                            fontSize: 14))),
+                              ],
                             ),
-                          ],
+                            Row(
+                              children: <Widget>[
+                                Align(
+                                  alignment: Alignment.center,
+                                  child: Icon(Icons.query_builder, size: 14),
+                                ),
+                                Padding(
+                                    padding: EdgeInsets.fromLTRB(5, 0, 0, 0),
+                                    child: Text(time,
+                                        style: TextStyle(
+                                            fontFamily: 'GoogleSans',
+                                            fontSize: 14))),
+                              ],
+                            ),
+                            Row(
+                              children: <Widget>[
+                                Align(
+                                  alignment: Alignment.center,
+                                  child: Icon(Icons.home, size: 14),
+                                ),
+                                Padding(
+                                    padding: EdgeInsets.fromLTRB(5, 0, 0, 0),
+                                    child: Text(venue,
+                                        style: TextStyle(
+                                            fontFamily: 'GoogleSans',
+                                            fontSize: 14))),
+                              ],
+                            ),
+                          ]),
+                      children: [
+                        Padding(
+                          padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
+                          child: Text(description,
+                              style: TextStyle(fontFamily: 'GoogleSans')),
                         ),
-                      ))
-                    ],
-                  ),
-                )
+                        new Padding(
+                            padding: EdgeInsets.fromLTRB(0, 5, 0, 10),
+                            child: new RichText(
+                              text: new TextSpan(
+                                children: [
+                                  new TextSpan(
+                                    text: 'Register Here',
+                                    style: new TextStyle(
+                                        color: Colors.blue,
+                                        fontFamily: 'GoogleSans'),
+                                    recognizer: new TapGestureRecognizer()
+                                      ..onTap = () {
+                                        launch(link);
+                                      },
+                                  ),
+                                ],
+                              ),
+                            ))
+                      ],
+                      // ],
+                    )),
               ],
             )));
   }
