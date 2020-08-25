@@ -17,7 +17,7 @@ class SidebarConstants {
     "Although we encourage mentors and mentees to have a friendly rather than a professional relationship, make sure to not overstep the boundaries (by messaging too often, calling during inappropriate time of the day, etc.)",
     "Feel free to address any kind of questions to your mentor. At the same time, keep in mind that your mentor may not have experience in all domains and she might need time to figure out how to help you in the best way possible.",
     "Let your mentor know what you want to achieve and make short-term and long-term plans with her.",
-    "Before asking for any resource from your mentor, check the resource center as you might find almost everything that you need there.",
+    "Do check the resource center for any resource that you’re looking for before approaching your mentor.",
     "Keep a regular check on the home for upcoming events. If you’re not sure whether you should attend an event, ask your mentor about it.",
     "For any feedback/suggestions/complaints about the app, fill out the feedback form.",
     "If you feel your mentor is not giving you satisfactory experience or is unable to give you appropriate time, send a feedback or contact the core team of Protégé directly.",
