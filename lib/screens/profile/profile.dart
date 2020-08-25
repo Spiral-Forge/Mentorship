@@ -341,7 +341,7 @@ class _ProfileState extends State<Profile> {
                     title: Text(
                         user["year"] == null
                             ? "null"
-                            : user["branch"].toString() + ", " + user["year"],
+                            : user["branch"].toString() + ", " + user["year"] + " year",
                         style:
                             TextStyle(fontFamily: 'GoogleSans', fontSize: 20)),
                     subtitle: Text(
@@ -373,7 +373,7 @@ class _ProfileState extends State<Profile> {
                             TextStyle(fontFamily: 'GoogleSans', fontSize: 18)),
                     subtitle: Text(
                         user["languages"] != null
-                            ? user["languages"].toString()
+                            ? user["languages"].toString().split('[')[1].split(']')[0]
                             : "null",
                         style:
                             TextStyle(fontFamily: 'GoogleSans', fontSize: 20)),
@@ -391,7 +391,7 @@ class _ProfileState extends State<Profile> {
                             TextStyle(fontFamily: 'GoogleSans', fontSize: 18)),
                     subtitle: Text(
                         user["domains"] != null
-                            ? user["domains"].toString()
+                            ? user["domains"].toString().split('[')[1].split(']')[0]
                             : "null",
                         style:
                             TextStyle(fontFamily: 'GoogleSans', fontSize: 20)),
@@ -403,7 +403,7 @@ class _ProfileState extends State<Profile> {
                   ),
                   Divider(),
                   ListTile(
-                    title: Text("LinkedIN",
+                    title: Text("LinkedIn Profile",
                         style:
                             TextStyle(fontFamily: 'GoogleSans', fontSize: 18)),
                     subtitle: Text(
@@ -420,7 +420,7 @@ class _ProfileState extends State<Profile> {
                   ),
                   ListTile(
                     title: Text(
-                      "Github",
+                      "Github Profile",
                       style: TextStyle(fontFamily: 'GoogleSans', fontSize: 18),
                     ),
                     subtitle: Text(

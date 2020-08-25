@@ -52,15 +52,10 @@ class EditProfilePageState extends State<EditProfilePage> {
           title: new Text("Edit Profile"),
           backgroundColor: AppColors.COLOR_TEAL_DARK),
       // body: newDP == null ? getChooseButton() : getUploadButton(),
-      body: new Column(
-        children: <Widget>[
-          Card(
-            child: new Container(
-                padding: EdgeInsets.all(12),
-                child: new RegistrationForm(userInfo)),
-            margin: EdgeInsets.all(15),
-          ),
-        ],
+      body: Card(
+        child: new Container(
+            padding: EdgeInsets.all(12), child: new RegistrationForm(userInfo)),
+        margin: EdgeInsets.all(15),
       ),
     );
   }
