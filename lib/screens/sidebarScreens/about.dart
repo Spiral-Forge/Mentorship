@@ -114,7 +114,10 @@ final card1 = new Container(
   child: Center(
       child: Text(
     SidebarConstants.founderUrvi,
-    style: TextStyle(fontSize: 15.0, fontFamily: 'GoogleSans'),
+    style: TextStyle(
+        fontSize: 15.0,
+        fontFamily: 'GoogleSans',
+        color: AppColors.PROTEGE_GREY),
   )),
   decoration: new BoxDecoration(
     color: AppColors.PROTEGE_CYAN,
@@ -149,7 +152,10 @@ final card2 = new Container(
   child: Center(
       child: Text(
     SidebarConstants.founderNitasha,
-    style: TextStyle(fontSize: 15.0, fontFamily: 'GoogleSans'),
+    style: TextStyle(
+        fontSize: 15.0,
+        fontFamily: 'GoogleSans',
+        color: AppColors.PROTEGE_GREY),
   )),
   decoration: new BoxDecoration(
     color: AppColors.PROTEGE_CYAN,
@@ -184,7 +190,10 @@ final card3 = new Container(
   child: Center(
       child: Text(
     SidebarConstants.founderOshin,
-    style: TextStyle(fontSize: 15.0, fontFamily: 'GoogleSans'),
+    style: TextStyle(
+        fontSize: 15.0,
+        fontFamily: 'GoogleSans',
+        color: AppColors.PROTEGE_GREY),
   )),
   decoration: new BoxDecoration(
     color: AppColors.PROTEGE_CYAN,
@@ -219,7 +228,10 @@ final card4 = new Container(
   child: Center(
       child: Text(
     SidebarConstants.founderSuhani,
-    style: TextStyle(fontSize: 15.0, fontFamily: 'GoogleSans'),
+    style: TextStyle(
+        fontSize: 15.0,
+        fontFamily: 'GoogleSans',
+        color: AppColors.PROTEGE_GREY),
   )),
   decoration: new BoxDecoration(
     color: AppColors.PROTEGE_CYAN,

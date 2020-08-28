@@ -34,8 +34,15 @@ class _myDrawerState extends State<myDrawer> {
     return new Drawer(
       child: new ListView(
         children: <Widget>[
+          Divider(
+            height: 5,
+            color: Colors.transparent,
+          ),
           new ListTile(
-              title: new Text("Code of Conduct"),
+              title: new Text(
+                "Code of Conduct",
+                style: TextStyle(fontFamily: 'GoogleSans', fontSize: 15),
+              ),
               trailing: new Icon(Icons.arrow_right),
               onTap: () {
                 Navigator.of(context).pop();
@@ -43,7 +50,10 @@ class _myDrawerState extends State<myDrawer> {
                     builder: (BuildContext context) => new Guidelines()));
               }),
           new ListTile(
-              title: new Text("About"),
+              title: new Text(
+                "About",
+                style: TextStyle(fontFamily: 'GoogleSans', fontSize: 15),
+              ),
               trailing: new Icon(Icons.arrow_right),
               onTap: () {
                 Navigator.of(context).pop();
@@ -51,7 +61,10 @@ class _myDrawerState extends State<myDrawer> {
                     builder: (BuildContext context) => new About()));
               }),
           new ListTile(
-              title: new Text("FAQs"),
+              title: new Text(
+                "FAQs",
+                style: TextStyle(fontFamily: 'GoogleSans', fontSize: 15),
+              ),
               trailing: new Icon(Icons.arrow_right),
               onTap: () {
                 Navigator.of(context).pop();
@@ -59,7 +72,10 @@ class _myDrawerState extends State<myDrawer> {
                     builder: (BuildContext context) => new FAQS()));
               }),
           new ListTile(
-              title: new Text("Contact us and feedback"),
+              title: new Text(
+                "Contact us and feedback",
+                style: TextStyle(fontFamily: 'GoogleSans', fontSize: 15),
+              ),
               trailing: new Icon(Icons.arrow_right),
               onTap: () {
                 Navigator.of(context).pop();
@@ -68,6 +84,10 @@ class _myDrawerState extends State<myDrawer> {
               }),
           new Divider(),
           new ListTile(
+            leading: Icon(
+              Icons.lightbulb_outline,
+              size: 25,
+            ),
             trailing: Transform.scale(
               scale: 1.4,
               child: Switch(
@@ -93,10 +113,16 @@ class _myDrawerState extends State<myDrawer> {
             //   Navigator.of(context).push(new MaterialPageRoute(builder: (BuildContext context) => new ThemeChanger(ThemeData.dark())));
             // }
           ),
-          new Divider(),
+          new Divider(
+            height: 431,
+            color: Colors.transparent,
+          ),
           new ListTile(
-              title: new Text("Logout"),
-              trailing: new Icon(Icons.people),
+              title: new Text(
+                "Logout",
+                style: TextStyle(fontFamily: 'GoogleSans', fontSize: 15),
+              ),
+              trailing: new Icon(Icons.call_made),
               onTap: () async {
                 await _auth.signOut();
               }),

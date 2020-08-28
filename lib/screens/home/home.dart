@@ -7,17 +7,15 @@ import 'package:dbapp/screens/profile/profile.dart';
 import 'package:dbapp/screens/chat/chat.dart';
 import 'package:dbapp/screens/home/homepage.dart';
 
-
-
 class Home extends StatefulWidget {
-
   @override
   _HomeState createState() => _HomeState();
 }
 
 class _HomeState extends State<Home> {
-  int _currentIndex=1;
-  static const TextStyle optionStyle = TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
+  int _currentIndex = 1;
+  static const TextStyle optionStyle =
+      TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
   final List<Widget> _children = <Widget>[
     Profile(),
     HomePage(),
@@ -30,36 +28,30 @@ class _HomeState extends State<Home> {
     });
   }
 
-  
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body:_children[_currentIndex],
-    bottomNavigationBar: BottomNavigationBar(
-      type: BottomNavigationBarType.fixed,
-      items: const <BottomNavigationBarItem>[
-        BottomNavigationBarItem(
-          icon: Icon(Icons.person),
-          title: Text('Profile'),
-        ),
-        BottomNavigationBarItem(
-          icon: Icon(Icons.home),
-          title: Text('Home'),
-        ),
-        BottomNavigationBarItem(
-          icon: Icon(Icons.chat),
-          title: Text('Resource Center'),
-        ),
-      ],
-      currentIndex: _currentIndex,
-      selectedItemColor: AppColors.COLOR_TEAL_LIGHT,
-      onTap: _onItemTapped,
-    ),
+      body: _children[_currentIndex],
+      bottomNavigationBar: BottomNavigationBar(
+        type: BottomNavigationBarType.fixed,
+        items: const <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            icon: Icon(Icons.person_pin),
+            title: Text('Profile'),
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            title: Text('Home'),
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.link),
+            title: Text('Resource Center'),
+          ),
+        ],
+        currentIndex: _currentIndex,
+        selectedItemColor: AppColors.COLOR_TEAL_LIGHT,
+        onTap: _onItemTapped,
+      ),
     );
   }
 }
-
-
-
-

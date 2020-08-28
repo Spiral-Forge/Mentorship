@@ -4,6 +4,7 @@ import 'package:dbapp/constants/colors.dart';
 import 'package:dbapp/constants/screenConstants.dart';
 import 'package:dbapp/screens/ResourceCenter/category.dart';
 import 'package:dbapp/screens/ResourceCenter/resourceList.dart';
+import 'package:hexcolor/hexcolor.dart';
 import 'package:dbapp/screens/authenticate/authenticate.dart';
 import 'package:dbapp/screens/sidebarScreens/about.dart';
 import 'package:dbapp/screens/sidebarScreens/faqs.dart';
