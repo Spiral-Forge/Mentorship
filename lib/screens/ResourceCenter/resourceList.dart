@@ -1,59 +1,63 @@
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dbapp/constants/colors.dart';
 import 'package:dbapp/screens/ResourceCenter/resource.dart';
 import 'package:dbapp/services/database.dart';
 import 'package:flutter/material.dart';
-
-
+import 'package:hexcolor/hexcolor.dart';
 
 class ResourceList extends StatefulWidget {
   final String resourceField;
   final String collectionName;
-  ResourceList(this.resourceField,this.collectionName);
+  ResourceList(this.resourceField, this.collectionName);
   @override
   _ResourceListState createState() => _ResourceListState();
 }
 
-
 class _ResourceListState extends State<ResourceList> {
   final _formKey = GlobalKey<FormState>();
-  List<DocumentSnapshot> resourcesList=[];
+  List<DocumentSnapshot> resourcesList = [];
 
   @override
-  void initState(){
-    DataBaseService().getCurrentCollectionData(widget.collectionName).then((value){
+  void initState() {
+    DataBaseService()
+        .getCurrentCollectionData(widget.collectionName)
+        .then((value) {
       print(value.documents[0].data.runtimeType);
       setState(() {
-        resourcesList=value.documents;
+        resourcesList = value.documents;
         //print(resourcesList.length);
       });
-      
     });
     super.initState();
   }
 
-  
-  Widget resourceList(){
-        return resourcesList.length==0 ? Center(child: Container(child: Text("No resources available yet"),),) : Center(
-          child: Container(
-              child:ListView.builder(
-              itemCount: resourcesList.length,
-              itemBuilder: (context,index){
-                return ResourceTile(resourcesList[index].data["Title"], resourcesList[index].data["Link"]);
-              }
-              ),
+  Widget resourceList() {
+    return resourcesList.length == 0
+        ? Center(
+            child: Container(
+              child: Text("No resources available yet"),
+            ),
           )
-        );
-    }
+        : Center(
+            child: Padding(
+                padding: EdgeInsets.fromLTRB(10, 20, 10, 0),
+                child: Container(
+                  child: ListView.builder(
+                      itemCount: resourcesList.length,
+                      itemBuilder: (context, index) {
+                        return ResourceTile(resourcesList[index].data["Title"],
+                            resourcesList[index].data["Link"]);
+                      }),
+                )));
+  }
+
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
-      appBar: new AppBar(
-        title: new Text(widget.resourceField), 
-        backgroundColor: AppColors.COLOR_TEAL_DARK
-      ),
-     body:  resourceList()
-    );
+        appBar: new AppBar(
+            title: new Text(widget.resourceField),
+            backgroundColor: AppColors.COLOR_TEAL_DARK),
+        backgroundColor: Hexcolor('#a7d8de'),
+        body: resourceList());
   }
 }

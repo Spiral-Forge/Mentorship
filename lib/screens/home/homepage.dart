@@ -7,6 +7,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:dbapp/services/auth.dart';
+import 'package:hexcolor/hexcolor.dart';
 import 'package:provider/provider.dart';
 import 'package:dbapp/screens/sidebarScreens/about.dart';
 import 'package:dbapp/screens/sidebarScreens/faqs.dart';
@@ -17,6 +18,8 @@ import 'package:dbapp/shared/loading.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import 'package:dbapp/screens/myDrawer.dart';
+
+import '../../constants/colors.dart';
 
 final myDrawer _drawer = new myDrawer();
 
@@ -79,19 +82,22 @@ class _HomePageState extends State<HomePage> {
                                   style: TextStyle(
                                       fontFamily: 'GoogleSans',
                                       fontWeight: FontWeight.w600,
-                                      fontSize: 15))),
+                                      fontSize: 15,
+                                      color: AppColors.PROTEGE_GREY))),
                         ],
                       ),
                       SizedBox(height: 35),
                     ]));
                   } else if (index == 1) {
                     return Center(
-                      child: Container(
+                      child: Padding(
+                          padding: EdgeInsets.fromLTRB(0, 0, 0, 20),
                           child: Text("UPCOMING EVENTS IN COLLEGE",
                               style: TextStyle(
                                   fontFamily: 'GoogleSans',
                                   fontWeight: FontWeight.bold,
-                                  fontSize: 20))),
+                                  fontSize: 20,
+                                  color: Colors.black))),
                     );
                   } else {
                     return eventlist[index - 2];
@@ -165,18 +171,18 @@ class _HomePageState extends State<HomePage> {
                       },
                       icon: postFlag == true
                           ? Icon(
-                              Icons.person,
+                              Icons.people,
                               color: Colors.white,
                             )
                           : Icon(null),
                       label: Text(
                         postFlag == true
-                            ? post == "Mentor"
-                                ? 'Know your mentee'
-                                : 'Know your mentor'
+                            ? post == "Mentor" ? 'Mentee' : 'Mentor'
                             : "",
                         style: TextStyle(
-                            color: Colors.white, fontFamily: 'GoogleSans'),
+                            color: Colors.white,
+                            fontFamily: 'GoogleSans',
+                            fontSize: 20),
                       ))
                 ]
               : <Widget>[
@@ -201,6 +207,8 @@ class _HomePageState extends State<HomePage> {
                 ],
         ),
         drawer: _drawer,
+        backgroundColor: Hexcolor('#e5e9e1'),
+        // backgroundColor: Hexcolor('#a7d8de'),
         body: eventList());
   }
 }
@@ -291,7 +299,7 @@ class EventTile extends StatelessWidget {
                               children: <Widget>[
                                 Align(
                                   alignment: Alignment.center,
-                                  child: Icon(Icons.home, size: 14),
+                                  child: Icon(Icons.location_on, size: 14),
                                 ),
                                 Padding(
                                     padding: EdgeInsets.fromLTRB(5, 0, 0, 0),

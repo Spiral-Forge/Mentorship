@@ -10,6 +10,7 @@ import 'package:dbapp/services/storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:hexcolor/hexcolor.dart';
 import 'package:dbapp/services/auth.dart';
 
 import 'package:firebase_auth/firebase_auth.dart';
@@ -166,6 +167,7 @@ class _ProfileState extends State<Profile> {
         actions: <Widget>[],
       ),
       drawer: _drawer,
+      // backgroundColor: Hexcolor('#a7d8de'),
       body: Builder(
         builder: (context) => Container(
           child: ListView(shrinkWrap: true, children: <Widget>[
@@ -313,6 +315,7 @@ class _ProfileState extends State<Profile> {
             // ),
 
             Card(
+              margin: EdgeInsets.fromLTRB(15, 0, 15, 0),
               child: Column(
                 children: [
                   ListTile(
@@ -341,7 +344,10 @@ class _ProfileState extends State<Profile> {
                     title: Text(
                         user["year"] == null
                             ? "null"
-                            : user["branch"].toString() + ", " + user["year"] + " year",
+                            : user["branch"].toString() +
+                                ", " +
+                                user["year"] +
+                                " year",
                         style:
                             TextStyle(fontFamily: 'GoogleSans', fontSize: 20)),
                     subtitle: Text(
@@ -362,9 +368,10 @@ class _ProfileState extends State<Profile> {
               ),
             ),
 
-            SizedBox(height: 5),
+            SizedBox(height: 10),
 
             Card(
+              margin: EdgeInsets.fromLTRB(15, 0, 15, 0),
               child: Column(
                 children: [
                   ListTile(
@@ -373,7 +380,10 @@ class _ProfileState extends State<Profile> {
                             TextStyle(fontFamily: 'GoogleSans', fontSize: 18)),
                     subtitle: Text(
                         user["languages"] != null
-                            ? user["languages"].toString().split('[')[1].split(']')[0]
+                            ? user["languages"]
+                                .toString()
+                                .split('[')[1]
+                                .split(']')[0]
                             : "null",
                         style:
                             TextStyle(fontFamily: 'GoogleSans', fontSize: 20)),
@@ -391,7 +401,10 @@ class _ProfileState extends State<Profile> {
                             TextStyle(fontFamily: 'GoogleSans', fontSize: 18)),
                     subtitle: Text(
                         user["domains"] != null
-                            ? user["domains"].toString().split('[')[1].split(']')[0]
+                            ? user["domains"]
+                                .toString()
+                                .split('[')[1]
+                                .split(']')[0]
                             : "null",
                         style:
                             TextStyle(fontFamily: 'GoogleSans', fontSize: 20)),
@@ -437,7 +450,8 @@ class _ProfileState extends State<Profile> {
                   ),
                 ],
               ),
-            )
+            ),
+            SizedBox(height: 25),
           ]),
         ),
       ),

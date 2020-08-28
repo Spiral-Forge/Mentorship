@@ -1,6 +1,3 @@
-import 'dart:async';
-import 'dart:math';
-import 'dart:io';
 import 'package:dbapp/constants/colors.dart';
 import 'package:dbapp/screens/home/home.dart';
 import 'package:dbapp/screens/profile/profile.dart';
@@ -12,7 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:multiselect_formfield/multiselect_formfield.dart';
 import 'package:dbapp/services/database.dart';
 import 'package:dbapp/services/storage.dart';
-import 'package:image_picker/image_picker.dart';
+import 'package:hexcolor/hexcolor.dart';
 
 String name = '';
 String phoneNo = '';
@@ -52,6 +49,7 @@ class EditProfilePageState extends State<EditProfilePage> {
           title: new Text("Edit Profile"),
           backgroundColor: AppColors.COLOR_TEAL_DARK),
       // body: newDP == null ? getChooseButton() : getUploadButton(),
+      backgroundColor: Hexcolor('#a7d8de'),
       body: Card(
         child: new Container(
             padding: EdgeInsets.all(12), child: new RegistrationForm(userInfo)),
