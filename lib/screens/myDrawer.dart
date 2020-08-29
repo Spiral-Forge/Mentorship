@@ -73,7 +73,7 @@ class _myDrawerState extends State<myDrawer> {
               }),
           new ListTile(
               title: new Text(
-                "Contact us and feedback",
+                "Send Feedback",
                 style: TextStyle(fontFamily: 'GoogleSans', fontSize: 15),
               ),
               trailing: new Icon(Icons.arrow_right),

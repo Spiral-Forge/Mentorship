@@ -171,7 +171,7 @@ class _RegistrationFormState extends State<RegistrationForm> {
       'languages': languages,
       'hosteller': hosteller,
       'post': userInfo['post'],
-      'photoUrl': userInfo['photoUrl']
+      'photoURL': userInfo['photoURL']
     };
     dynamic result = await DataBaseService(uid: user.uid).updateUserData(
         name,

@@ -9,7 +9,7 @@ import 'package:toast/toast.dart';
 import '../../services/auth.dart';
 
 enum FeedbackOption { login, suggestion, complaint, other }
-var feedbackopt = -1;
+var feedbackopt = 1;
 
 class MyFeedback extends StatefulWidget {
   @override

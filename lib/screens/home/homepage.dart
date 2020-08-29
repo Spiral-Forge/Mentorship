@@ -85,7 +85,7 @@ class _HomePageState extends State<HomePage> {
                                       fontFamily: 'GoogleSans',
                                       fontWeight: FontWeight.w600,
                                       fontSize: 15,
-                                      color: AppColors.PROTEGE_GREY))),
+                                      color: themeFlag ? Colors.white : AppColors.PROTEGE_GREY))),
                         ],
                       ),
                       SizedBox(height: 35),
@@ -99,7 +99,8 @@ class _HomePageState extends State<HomePage> {
                                   fontFamily: 'GoogleSans',
                                   fontWeight: FontWeight.bold,
                                   fontSize: 20,
-                                  color: Colors.black))),
+                                  color:themeFlag ? Colors.white: AppColors.PROTEGE_GREY
+                                  ))),
                     );
                   } else {
                     return eventlist[index - 2];
@@ -156,7 +157,7 @@ class _HomePageState extends State<HomePage> {
 
     return Scaffold(
         appBar: AppBar(
-          title: Text("Protege", style: TextStyle(fontFamily: 'GoogleSans')),
+          title: Text("Home", style: TextStyle(fontFamily: 'GoogleSans')),
           backgroundColor: AppColors.COLOR_TEAL_LIGHT,
           elevation:
               Theme.of(context).platform == TargetPlatform.iOS ? 0.0 : 4.0,
@@ -184,7 +185,7 @@ class _HomePageState extends State<HomePage> {
                         style: TextStyle(
                             color: Colors.white,
                             fontFamily: 'GoogleSans',
-                            fontSize: 20),
+                            fontSize: 16),
                       ))
                 ]
               : <Widget>[
@@ -237,7 +238,7 @@ class _HomePageState extends State<HomePage> {
             ),
             
             new ListTile(
-              title: new Text("Contact us and feedback"),
+              title: new Text("Send Feedback"),
               trailing: new Icon(Icons.arrow_right),
               onTap: () {
                 Navigator.of(context).pop();

@@ -171,7 +171,7 @@ class ChatScreenState extends State<ChatScreen> {
             ),
             
             new ListTile(
-              title: new Text("Contact us and feedback"),
+              title: new Text("Send Feedback"),
               trailing: new Icon(Icons.arrow_right),
               onTap: () {
                 Navigator.of(context).pop();
