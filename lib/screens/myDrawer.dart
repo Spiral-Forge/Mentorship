@@ -30,6 +30,7 @@ class _myDrawerState extends State<myDrawer> {
     _darkTheme = (_themeChanger.getTheme() == darkTheme);
     final AuthService _auth = AuthService();
     // final FirebaseAuth _authUser = FirebaseAuth.instance;
+    
 
     return new Drawer(
       child: new ListView(
@@ -92,7 +93,9 @@ class _myDrawerState extends State<myDrawer> {
               scale: 1.4,
               child: Switch(
                 value: _darkTheme,
-                onChanged: (val) {
+                onChanged: (val) async {
+                  var darkModeFlag=await StorageServices.getDarkMode();
+                  await StorageServices.saveDarkMode(!darkModeFlag);
                   setState(() {
                     _darkTheme = val;
                   });

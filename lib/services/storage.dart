@@ -6,6 +6,7 @@ class StorageServices {
   static String sharedPreferenceUserInfoKey = "USERDATA";
   static String sharedPreferenceUserID = "USERIDKEY";
   static String sharedPreferncePostKey = "USERPOST";
+  static String sharedPrefernceDarkModeKey = "DARKMODE";
 
   //clearing data
   static Future<void> clearData() async {
@@ -20,6 +21,12 @@ class StorageServices {
     return await prefs.setString(
         sharedPreferenceUserInfoKey, json.encode(userMap));
   }
+  static Future<bool> saveDarkMode(bool darkMode) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    return await prefs.setBool(sharedPrefernceDarkModeKey,darkMode);
+
+  }
+  
 
   static Future<bool> saveUserID(String id) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -40,6 +47,10 @@ class StorageServices {
   static Future<String> getUserPost() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     return prefs.getString(sharedPreferncePostKey);
+  }
+  static Future<bool> getDarkMode() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    return prefs.getBool(sharedPrefernceDarkModeKey);
   }
 
   static Future<Map<String, dynamic>> getUserInfo() async {

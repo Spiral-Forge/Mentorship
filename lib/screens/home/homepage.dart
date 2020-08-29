@@ -3,6 +3,7 @@ import 'package:dbapp/blocs/values.dart';
 import 'package:dbapp/constants/colors.dart';
 import 'package:dbapp/constants/screenConstants.dart';
 import 'package:dbapp/screens/profile/peerProfile.dart';
+import 'package:dbapp/services/storage.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -85,7 +86,7 @@ class _HomePageState extends State<HomePage> {
                                       fontFamily: 'GoogleSans',
                                       fontWeight: FontWeight.w600,
                                       fontSize: 15,
-                                      color: themeFlag ? Colors.white : AppColors.PROTEGE_GREY))),
+                                      color: AppColors.PROTEGE_GREY))),
                         ],
                       ),
                       SizedBox(height: 35),
@@ -99,7 +100,6 @@ class _HomePageState extends State<HomePage> {
                                   fontFamily: 'GoogleSans',
                                   fontWeight: FontWeight.bold,
                                   fontSize: 20,
-                                  color:themeFlag ? Colors.white: AppColors.PROTEGE_GREY
                                   ))),
                     );
                   } else {
@@ -111,6 +111,10 @@ class _HomePageState extends State<HomePage> {
 
   void initState() {
     super.initState();
+    StorageServices.getDarkMode().then((isDarkMode){
+      print("is dark mode is ");
+      print(isDarkMode);
+    });
     DataBaseService().getEvents().then((val) {
       print(val.documents[0].data);
       List<EventTile> templist = [];
@@ -209,82 +213,7 @@ class _HomePageState extends State<HomePage> {
                   )
                 ],
         ),
-        drawer: new Drawer(
-        child: new ListView(
-          children: <Widget>[
-            new ListTile(
-              title: new Text("Code of Conduct"),
-              trailing: new Icon(Icons.arrow_right),
-              onTap: () {
-                Navigator.of(context).pop();
-                Navigator.of(context).push(new MaterialPageRoute(builder: (BuildContext context) => new Guidelines()));
-              }
-            ),
-            new ListTile(
-              title: new Text("About"),
-              trailing: new Icon(Icons.arrow_right),
-              onTap: () {
-                Navigator.of(context).pop();
-                Navigator.of(context).push(new MaterialPageRoute(builder: (BuildContext context) => new About()));
-              }
-            ),
-            new ListTile(
-              title: new Text("FAQs"),
-              trailing: new Icon(Icons.arrow_right),
-              onTap: () {
-                Navigator.of(context).pop();
-                Navigator.of(context).push(new MaterialPageRoute(builder: (BuildContext context) => new FAQS()));
-              }
-            ),
-            
-            new ListTile(
-              title: new Text("Send Feedback"),
-              trailing: new Icon(Icons.arrow_right),
-              onTap: () {
-                Navigator.of(context).pop();
-                Navigator.of(context).push(new MaterialPageRoute(builder: (BuildContext context) => new MyFeedback()));
-              }
-            ),
-             
-            new Divider(),
-            new ListTile(
-              trailing: Transform.scale(
-                scale: 1.4,
-                child: Switch(
-                  value: _darkTheme,
-                  onChanged: (val) {
-                    setState(() {
-                      _darkTheme = val;
-                      themeFlag=!themeFlag;
-                    });
-                    onThemeChanged(val, _themeChanger);
-                  },
-                ),
-              ),
-              // leading: new IconButton(
-              //             onPressed: () => _themeChanger.setTheme(Theme.dark()),
-              //             icon: Icon(
-              //               Icons.brightness_3
-              //             ),
-              //             color: AppColors.PROTEGE_GREY,
-              //           ),
-              // title: new Text("Change Theme"),
-              // onTap: () {
-              //   Navigator.of(context).pop();
-              //   Navigator.of(context).push(new MaterialPageRoute(builder: (BuildContext context) => new ThemeChanger(ThemeData.dark())));
-              // }
-            ),           
-            new Divider(),
-            new ListTile(
-              title: new Text("Logout"),
-              trailing: new Icon(Icons.people),
-              onTap: () async {
-                await _auth.signOut();
-              }
-            ),
-          ],
-        ),
-      ),
+        drawer: _drawer,
         body: eventList());
   }
 }
