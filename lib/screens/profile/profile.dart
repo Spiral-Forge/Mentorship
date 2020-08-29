@@ -420,11 +420,16 @@ class _ProfileState extends State<Profile> {
                         style:
                             TextStyle(fontFamily: 'GoogleSans', fontSize: 18)),
                     subtitle: Text(
-                        user["linkedInURL"].length == 0
-                            ? " - "
-                            : user["linkedInURL"],
-                        style:
-                            TextStyle(fontFamily: 'GoogleSans', fontSize: 18)),
+                      user["linkedInURL"]==null || user["linkedInURL"].length == 0
+                          ? " - "
+                          : user["linkedInURL"],
+                      style: GoogleFonts.lato(
+                        textStyle: TextStyle(
+                          //color: AppColors.PROTEGE_GREY,
+                          fontSize: 20,
+                        ),
+                      ),
+                    ),
                     // isThreeLine: true,
                     leading: Icon(
                       Icons.code,
@@ -437,7 +442,7 @@ class _ProfileState extends State<Profile> {
                       style: TextStyle(fontFamily: 'GoogleSans', fontSize: 18),
                     ),
                     subtitle: Text(
-                        user["githubURL"].length == 0
+                        user["githubURL"]==null || user["githubURL"].length == 0
                             ? " - "
                             : user["githubURL"],
                         style:

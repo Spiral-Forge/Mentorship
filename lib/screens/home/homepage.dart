@@ -29,6 +29,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  var themeFlag=false;
   final FirebaseAuth _authUser = FirebaseAuth.instance;
   final AuthService _auth = AuthService();
   bool loading = true;
@@ -68,7 +69,8 @@ class _HomePageState extends State<HomePage> {
                                       //shape: BoxShape.circle,
                                       image: new DecorationImage(
                                           fit: BoxFit.fill,
-                                          image: new AssetImage(
+                                          image: themeFlag ? new AssetImage(
+                                              'assets/images/book.jpg'): new AssetImage(
                                               'assets/images/Protege no bg.png')))),
                             ]))
                           ]),
@@ -206,9 +208,82 @@ class _HomePageState extends State<HomePage> {
                   )
                 ],
         ),
-        drawer: _drawer,
-        backgroundColor: Hexcolor('#e5e9e1'),
-        // backgroundColor: Hexcolor('#a7d8de'),
+        drawer: new Drawer(
+        child: new ListView(
+          children: <Widget>[
+            new ListTile(
+              title: new Text("Code of Conduct"),
+              trailing: new Icon(Icons.arrow_right),
+              onTap: () {
+                Navigator.of(context).pop();
+                Navigator.of(context).push(new MaterialPageRoute(builder: (BuildContext context) => new Guidelines()));
+              }
+            ),
+            new ListTile(
+              title: new Text("About"),
+              trailing: new Icon(Icons.arrow_right),
+              onTap: () {
+                Navigator.of(context).pop();
+                Navigator.of(context).push(new MaterialPageRoute(builder: (BuildContext context) => new About()));
+              }
+            ),
+            new ListTile(
+              title: new Text("FAQs"),
+              trailing: new Icon(Icons.arrow_right),
+              onTap: () {
+                Navigator.of(context).pop();
+                Navigator.of(context).push(new MaterialPageRoute(builder: (BuildContext context) => new FAQS()));
+              }
+            ),
+            
+            new ListTile(
+              title: new Text("Contact us and feedback"),
+              trailing: new Icon(Icons.arrow_right),
+              onTap: () {
+                Navigator.of(context).pop();
+                Navigator.of(context).push(new MaterialPageRoute(builder: (BuildContext context) => new MyFeedback()));
+              }
+            ),
+             
+            new Divider(),
+            new ListTile(
+              trailing: Transform.scale(
+                scale: 1.4,
+                child: Switch(
+                  value: _darkTheme,
+                  onChanged: (val) {
+                    setState(() {
+                      _darkTheme = val;
+                      themeFlag=!themeFlag;
+                    });
+                    onThemeChanged(val, _themeChanger);
+                  },
+                ),
+              ),
+              // leading: new IconButton(
+              //             onPressed: () => _themeChanger.setTheme(Theme.dark()),
+              //             icon: Icon(
+              //               Icons.brightness_3
+              //             ),
+              //             color: AppColors.PROTEGE_GREY,
+              //           ),
+              // title: new Text("Change Theme"),
+              // onTap: () {
+              //   Navigator.of(context).pop();
+              //   Navigator.of(context).push(new MaterialPageRoute(builder: (BuildContext context) => new ThemeChanger(ThemeData.dark())));
+              // }
+            ),           
+            new Divider(),
+            new ListTile(
+              title: new Text("Logout"),
+              trailing: new Icon(Icons.people),
+              onTap: () async {
+                await _auth.signOut();
+              }
+            ),
+          ],
+        ),
+      ),
         body: eventList());
   }
 }
