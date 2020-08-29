@@ -105,19 +105,21 @@ class _MyFeedbackState extends State<MyFeedback> {
           backgroundColor: AppColors.COLOR_TEAL_LIGHT),
       body: ListView(
         shrinkWrap: true,
-        padding: EdgeInsets.all(16.0),
+        padding: EdgeInsets.fromLTRB(32, 32, 32, 32),
         children: <Widget>[
           SizedBox(
             height: 10.0,
           ),
           Text(
-            "Select type of feedback",
+            "Select type of feedback:",
             style: TextStyle(
               //color: Colors.black,
+              fontFamily: 'GoogleSans',
+              fontStyle: FontStyle.italic,
               fontSize: 25,
             ),
           ),
-          SizedBox(height: 25.0),
+          SizedBox(height: 20.0),
           BuildCheckBox(),
           SizedBox(height: 20.0),
           buildFeedbackForm(),
@@ -135,9 +137,9 @@ class _MyFeedbackState extends State<MyFeedback> {
               child: Text(
                 "SUBMIT",
                 style: TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
-                ),
+                    color: Colors.white,
+                    fontFamily: 'GoogleSans',
+                    fontSize: 20),
               ),
             ))
           ])
@@ -156,9 +158,10 @@ class _MyFeedbackState extends State<MyFeedback> {
             decoration: InputDecoration(
                 hintText: "Please breifly describe the issue",
                 hintStyle: TextStyle(
-                  fontSize: 13.0,
-                  color: Color(0xffc5c5c5),
-                ),
+                    fontSize: 18.0,
+                    color: Color(0xffc5c5c5),
+                    fontStyle: FontStyle.italic,
+                    fontFamily: 'GoogleSans'),
                 border: OutlineInputBorder(
                   borderSide: BorderSide(color: Color(0xffe5e5e5)),
                 )),
@@ -181,7 +184,8 @@ class _BuildCheckBoxState extends State<BuildCheckBox> {
     return Column(
       children: <Widget>[
         ListTile(
-          title: const Text('Login Problem'),
+          title: const Text('Login Problem',
+              style: TextStyle(fontFamily: 'GoogleSans', fontSize: 20)),
           leading: Radio(
             value: FeedbackOption.login,
             groupValue: _character,
@@ -194,7 +198,10 @@ class _BuildCheckBoxState extends State<BuildCheckBox> {
           ),
         ),
         ListTile(
-          title: const Text('Suggestions'),
+          title: const Text(
+            'Suggestions',
+            style: TextStyle(fontFamily: 'GoogleSans', fontSize: 20),
+          ),
           leading: Radio(
             value: FeedbackOption.suggestion,
             groupValue: _character,
@@ -207,7 +214,8 @@ class _BuildCheckBoxState extends State<BuildCheckBox> {
           ),
         ),
         ListTile(
-          title: const Text('Complaints'),
+          title: const Text('Complaints',
+              style: TextStyle(fontFamily: 'GoogleSans', fontSize: 20)),
           leading: Radio(
             value: FeedbackOption.complaint,
             groupValue: _character,
@@ -220,7 +228,8 @@ class _BuildCheckBoxState extends State<BuildCheckBox> {
           ),
         ),
         ListTile(
-          title: const Text('Other issues'),
+          title: const Text('Other issues',
+              style: TextStyle(fontFamily: 'GoogleSans', fontSize: 20)),
           leading: Radio(
             value: FeedbackOption.other,
             groupValue: _character,

@@ -9,26 +9,19 @@ import '../../constants/colors.dart';
 class FAQS extends StatelessWidget {
   final List faqlist = SidebarConstants.faqQuestionAnswers;
   Widget faqList() {
-    return Center(
-        child: Container(
+    return Expanded(
+        child: SizedBox(
+      height: 120.0,
       child: ListView.builder(
           itemCount: faqlist.length + 1,
           itemBuilder: (context, index) {
             if (index == 0) {
-              return Center(
-                child: Container(
-                    margin:
-                        EdgeInsets.symmetric(horizontal: 20.0, vertical: 20.0),
-                    child: Text(
-                      "Here are some Frequently Asked questions",
-                      style: TextStyle(fontFamily: 'GoogleSans', fontSize: 19),
-                    )),
-              );
+              return Center(child: Container());
             } else if ((index - 1) % 2 == 0) {
               return Container(
                 margin: EdgeInsets.fromLTRB(20, 0, 20, 20),
                 decoration: BoxDecoration(
-                    color: AppColors.PROTEGE_CYAN,
+                    color: Hexcolor('#dacbc8'),
                     borderRadius: BorderRadius.circular(15)),
                 child: Column(children: <Widget>[
                   Padding(
@@ -133,12 +126,46 @@ class FAQS extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
-        appBar: new AppBar(
-            title: new Text(
-              "FAQs",
-              style: TextStyle(fontFamily: 'GoogleSans'),
-            ),
-            backgroundColor: AppColors.COLOR_TEAL_LIGHT),
-        body: faqList());
+        // appBar: new AppBar(
+        //     title: new Text(
+        //       "FAQs",
+        //       style: TextStyle(fontFamily: 'GoogleSans'),
+        //     ),
+        //     backgroundColor: AppColors.COLOR_TEAL_LIGHT),
+        body: Column(children: [
+      Expanded(
+          child: Container(
+              // decoration: BoxDecoration(
+              //     color: Colors.white,
+              //     borderRadius: BorderRadius.only(
+              //         bottomLeft: Radius.circular(100))),
+              child: Padding(
+                  padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      SizedBox(height: 32),
+                      Padding(
+                        padding: EdgeInsets.fromLTRB(32, 32, 0, 0),
+                        child: IconButton(
+                          icon: Icon(Icons.arrow_back),
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                          },
+                        ),
+                      ),
+                      SizedBox(height: 25),
+                      Padding(
+                        padding: EdgeInsets.fromLTRB(32, 0, 0, 0),
+                        child: Text("Frequently Asked Questions",
+                            style: TextStyle(
+                                fontFamily: 'GoogleSans',
+                                fontWeight: FontWeight.bold,
+                                fontSize: 32)),
+                      ),
+                      faqList()
+                    ],
+                  ))))
+    ]));
   }
 }

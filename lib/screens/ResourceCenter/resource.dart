@@ -25,7 +25,9 @@ class ResourceTile extends StatelessWidget {
                       title: Center(
                           child: Text(resourceName,
                               style: TextStyle(
-                                  fontSize: 20, fontFamily: 'GoogleSans'))),
+                                  fontSize: 20,
+                                  fontFamily: 'GoogleSans',
+                                  color: Colors.black))),
                       //subtitle: Center(child: Text("link here")),
                       children: <Widget>[
                         new Center(

@@ -6,23 +6,45 @@ class About extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
-        appBar: new AppBar(
-            title:
-                new Text("About", style: TextStyle(fontFamily: 'GoogleSans')),
-            backgroundColor: AppColors.COLOR_TEAL_LIGHT),
+        // appBar: new AppBar(
+        //     title:
+        //         new Text("About", style: TextStyle(fontFamily: 'GoogleSans')),
+        //     backgroundColor: AppColors.COLOR_TEAL_LIGHT),
         body: SingleChildScrollView(
-          scrollDirection: Axis.vertical,
+      scrollDirection: Axis.vertical,
+      child: Padding(
+          padding: EdgeInsets.fromLTRB(20, 20, 20, 0),
           child: new Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              Padding(
-                padding: EdgeInsets.fromLTRB(20, 20, 20, 0),
-                child: new Container(
-                  margin:
-                      EdgeInsets.symmetric(vertical: 20.0, horizontal: 10.0),
-                  child: Text(
-                    SidebarConstants.aboutSoc,
-                    style: TextStyle(fontSize: 16.0, fontFamily: 'GoogleSans'),
-                  ),
+              SizedBox(height: 32),
+              // Row(
+              //   children: [
+              IconButton(
+                icon: Icon(Icons.arrow_back),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+              SizedBox(height: 25),
+              Text("Our Vision",
+                  style: TextStyle(
+                      fontFamily: 'GoogleSans',
+                      fontWeight: FontWeight.bold,
+                      fontSize: 32)),
+              // ],
+              // ),
+
+              // SizedBox(height: 15),
+              // Padding(
+              //   padding: EdgeInsets.fromLTRB(20, 20, 20, 0),
+              //   child: new
+              // ),
+              new Container(
+                margin: EdgeInsets.symmetric(vertical: 20.0, horizontal: 10.0),
+                child: Text(
+                  SidebarConstants.aboutSoc,
+                  style: TextStyle(fontSize: 16.0, fontFamily: 'GoogleSans'),
                 ),
               ),
               new Mycard1(),
@@ -30,8 +52,8 @@ class About extends StatelessWidget {
               new Mycard3(),
               new Mycard4(),
             ],
-          ),
-        ));
+          )),
+    ));
   }
 }
 

@@ -216,16 +216,32 @@ class _ProfileState extends State<Profile> {
                       ),
                     ),
                   ),
-                  Padding(
-                    padding: EdgeInsets.fromLTRB(0, 125, 0, 0),
-                    child: IconButton(
-                      icon: Icon(Icons.edit, size: 25),
-                      onPressed: () async {
-                        await getImage(context);
-                      },
-                    ),
-                  ),
                 ]),
+            Align(
+                alignment: Alignment.center,
+                heightFactor: 0.2,
+                // widthFactor: 5,
+                child: Container(
+                  //   top: MediaQuery.of(context).size.height / 4.5,
+                  // padding: EdgeInsets.all(padExtend),
+                  height: 30,
+                  width: 30,
+                  decoration: BoxDecoration(
+                      color: AppColors.PROTEGE_GREY,
+                      borderRadius: BorderRadius.circular(50)),
+                  child: IconButton(
+                    icon: Icon(
+                      Icons.edit,
+                      size: 15,
+                      color: Colors.white,
+                    ),
+                    alignment: Alignment.center,
+                    onPressed: () async {
+                      await getImage(context);
+                    },
+                  ),
+                )),
+            SizedBox(height: 25),
             Align(
               alignment: Alignment.center,
               child: Text(user["name"] != null ? user["name"] : "null",
