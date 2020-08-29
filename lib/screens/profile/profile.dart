@@ -10,6 +10,7 @@ import 'package:dbapp/services/storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:hexcolor/hexcolor.dart';
 import 'package:dbapp/services/auth.dart';
 
 import 'package:firebase_auth/firebase_auth.dart';
@@ -119,8 +120,12 @@ class _ProfileState extends State<Profile> {
       if (mounted) {
         setState(() {
           print("Profile Picture Changed Successfully");
-          Scaffold.of(context).showSnackBar(
-              SnackBar(content: Text('Profile Picture Changed Successfully')));
+          Scaffold.of(context).showSnackBar(SnackBar(
+              content: Text('Profile Picture Changed Successfully',
+                  style: TextStyle(
+                    fontFamily: 'GoogleSans',
+                    fontStyle: FontStyle.italic,
+                  ))));
         });
       }
 
@@ -153,12 +158,16 @@ class _ProfileState extends State<Profile> {
 
     return new Scaffold(
       appBar: AppBar(
-        title: Text("Your Profile"),
+        title: Text("Your Profile",
+            style: TextStyle(
+              fontFamily: 'GoogleSans',
+            )),
         backgroundColor: AppColors.COLOR_TEAL_LIGHT,
         elevation: 0.0,
         actions: <Widget>[],
       ),
       drawer: _drawer,
+      // backgroundColor: Hexcolor('#a7d8de'),
       body: Builder(
         builder: (context) => Container(
           child: ListView(shrinkWrap: true, children: <Widget>[
@@ -219,28 +228,19 @@ class _ProfileState extends State<Profile> {
                 ]),
             Align(
               alignment: Alignment.center,
-              child: Text(
-                user["name"] != null ? user["name"] : "null",
-                style: GoogleFonts.lato(
-                  textStyle: TextStyle(
-                    // color: AppColors.PROTEGE_GREY,
-                    // fontFamily: GoogleFonts,
-                    fontSize: 28,
-                  ),
-                ),
-              ),
+              child: Text(user["name"] != null ? user["name"] : "null",
+                  style: TextStyle(fontFamily: 'GoogleSans', fontSize: 28)),
             ),
             // SizedBox(height: 100),
             Align(
               alignment: Alignment.center,
               child: Text(
                 user["post"] != null ? user["post"] : "Null",
-                style: GoogleFonts.lato(
-                  textStyle: TextStyle(
-                    fontSize: 20,
-                    color: AppColors.PROTEGE_CYAN,
-                    fontStyle: FontStyle.italic,
-                  ),
+                style: TextStyle(
+                  fontSize: 20,
+                  fontFamily: 'GoogleSans',
+                  color: AppColors.PROTEGE_CYAN,
+                  fontStyle: FontStyle.italic,
                 ),
               ),
             ),
@@ -274,10 +274,11 @@ class _ProfileState extends State<Profile> {
                       Icons.person,
                       color: Colors.white,
                     ),
-                    label: Text(
-                      'Edit Profile',
-                      style: TextStyle(color: Colors.white),
-                    )),
+                    label: Text('Edit Profile',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontFamily: 'GoogleSans',
+                        ))),
                 new FloatingActionButton.extended(
                     heroTag: "btn2",
                     backgroundColor: AppColors.PROTEGE_GREY,
@@ -290,7 +291,8 @@ class _ProfileState extends State<Profile> {
                     ),
                     label: Text(
                       'Save DP',
-                      style: TextStyle(color: Colors.white),
+                      style: TextStyle(
+                          color: Colors.white, fontFamily: 'GoogleSans'),
                     )),
               ],
             ),
@@ -313,36 +315,25 @@ class _ProfileState extends State<Profile> {
             // ),
 
             Card(
+              margin: EdgeInsets.fromLTRB(15, 0, 15, 0),
               child: Column(
                 children: [
                   ListTile(
                     title: Text(
-                      user["contact"] != null
-                          ? user["contact"].toString()
-                          : "null",
-                      style: GoogleFonts.lato(
-                        textStyle: TextStyle(
-                          // color: AppColors.PROTEGE_GREY,
-                          fontSize: 20,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                    ),
+                        user["contact"] != null
+                            ? user["contact"].toString()
+                            : "null",
+                        style:
+                            TextStyle(fontFamily: 'GoogleSans', fontSize: 20)),
                     leading: Icon(
                       Icons.phone,
                       color: AppColors.COLOR_TEAL_LIGHT,
                     ),
                   ),
                   ListTile(
-                    title: Text(
-                      user["email"] == null ? "null" : user["email"],
-                      style: GoogleFonts.lato(
-                        textStyle: TextStyle(
-                          //color: AppColors.PROTEGE_GREY,
-                          fontSize: 20,
-                        ),
-                      ),
-                    ),
+                    title: Text(user["email"] == null ? "null" : user["email"],
+                        style:
+                            TextStyle(fontFamily: 'GoogleSans', fontSize: 20)),
                     leading: Icon(
                       Icons.mail,
                       color: AppColors.COLOR_TEAL_LIGHT,
@@ -351,29 +342,22 @@ class _ProfileState extends State<Profile> {
                   Divider(),
                   ListTile(
                     title: Text(
-                      user["year"] == null
-                          ? "null"
-                          : user["branch"].toString() + ", " + user["year"],
-                      style: GoogleFonts.lato(
-                        textStyle: TextStyle(
-                          // color: AppColors.PROTEGE_GREY,
-                          fontSize: 20,
-                        ),
-                      ),
-                    ),
+                        user["year"] == null
+                            ? "null"
+                            : user["branch"].toString() +
+                                ", " +
+                                user["year"] +
+                                " year",
+                        style:
+                            TextStyle(fontFamily: 'GoogleSans', fontSize: 20)),
                     subtitle: Text(
-                      user["rollNo"] == null
-                          ? "null"
-                          : user["rollNo"].toString() +
-                              "                                                    " +
-                              hostel,
-                      style: GoogleFonts.lato(
-                        textStyle: TextStyle(
-                          // color: AppColors.PROTEGE_GREY,
-                          fontSize: 20,
-                        ),
-                      ),
-                    ),
+                        user["rollNo"] == null
+                            ? "null"
+                            : user["rollNo"].toString() +
+                                "                                                    " +
+                                hostel,
+                        style:
+                            TextStyle(fontFamily: 'GoogleSans', fontSize: 20)),
                     isThreeLine: true,
                     leading: Icon(
                       Icons.school,
@@ -384,24 +368,26 @@ class _ProfileState extends State<Profile> {
               ),
             ),
 
-            SizedBox(height: 5),
+            SizedBox(height: 10),
 
             Card(
+              margin: EdgeInsets.fromLTRB(15, 0, 15, 0),
               child: Column(
                 children: [
                   ListTile(
-                    title: Text("Languages"),
+                    title: Text("Languages",
+                        style:
+                            TextStyle(fontFamily: 'GoogleSans', fontSize: 18)),
                     subtitle: Text(
-                      user["languages"] != null
-                          ? user["languages"].toString()
-                          : "null",
-                      style: GoogleFonts.lato(
-                        textStyle: TextStyle(
-                          //color: AppColors.PROTEGE_GREY,
-                          fontSize: 20,
-                        ),
-                      ),
-                    ),
+                        user["languages"] != null
+                            ? user["languages"]
+                                .toString()
+                                .split('[')[1]
+                                .split(']')[0]
+                            : "null",
+                        style:
+                            TextStyle(fontFamily: 'GoogleSans', fontSize: 20)),
+
                     // isThreeLine: true,
                     leading: Icon(
                       Icons.code,
@@ -410,18 +396,18 @@ class _ProfileState extends State<Profile> {
                   ),
                   Divider(),
                   ListTile(
-                    title: Text("Domains"),
+                    title: Text("Domains",
+                        style:
+                            TextStyle(fontFamily: 'GoogleSans', fontSize: 18)),
                     subtitle: Text(
-                      user["domains"] != null
-                          ? user["domains"].toString()
-                          : "null",
-                      style: GoogleFonts.lato(
-                        textStyle: TextStyle(
-                          //color: AppColors.PROTEGE_GREY,
-                          fontSize: 20,
-                        ),
-                      ),
-                    ),
+                        user["domains"] != null
+                            ? user["domains"]
+                                .toString()
+                                .split('[')[1]
+                                .split(']')[0]
+                            : "null",
+                        style:
+                            TextStyle(fontFamily: 'GoogleSans', fontSize: 20)),
                     // isThreeLine: true,
                     leading: Icon(
                       Icons.code,
@@ -430,7 +416,9 @@ class _ProfileState extends State<Profile> {
                   ),
                   Divider(),
                   ListTile(
-                    title: Text("LinkedIN"),
+                    title: Text("LinkedIn Profile",
+                        style:
+                            TextStyle(fontFamily: 'GoogleSans', fontSize: 18)),
                     subtitle: Text(
                       user["linkedInURL"]==null || user["linkedInURL"].length == 0
                           ? " - "
@@ -449,16 +437,16 @@ class _ProfileState extends State<Profile> {
                     ),
                   ),
                   ListTile(
-                    title: Text("Github"),
-                    subtitle: Text(
-                      user["githubURL"]==null || user["githubURL"].length == 0 ? " - " : user["githubURL"],
-                      style: GoogleFonts.lato(
-                        textStyle: TextStyle(
-                          //color: AppColors.PROTEGE_GREY,
-                          fontSize: 20,
-                        ),
-                      ),
+                    title: Text(
+                      "Github Profile",
+                      style: TextStyle(fontFamily: 'GoogleSans', fontSize: 18),
                     ),
+                    subtitle: Text(
+                        user["githubURL"]==null || user["githubURL"].length == 0
+                            ? " - "
+                            : user["githubURL"],
+                        style:
+                            TextStyle(fontFamily: 'GoogleSans', fontSize: 18)),
                     // isThreeLine: true,
                     leading: Icon(
                       Icons.code,
@@ -467,7 +455,8 @@ class _ProfileState extends State<Profile> {
                   ),
                 ],
               ),
-            )
+            ),
+            SizedBox(height: 25),
           ]),
         ),
       ),
