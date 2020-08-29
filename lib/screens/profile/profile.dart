@@ -432,7 +432,7 @@ class _ProfileState extends State<Profile> {
                   ListTile(
                     title: Text("LinkedIN"),
                     subtitle: Text(
-                      user["linkedInURL"].length == 0
+                      user["linkedInURL"]==null || user["linkedInURL"].length == 0
                           ? " - "
                           : user["linkedInURL"],
                       style: GoogleFonts.lato(
@@ -451,7 +451,7 @@ class _ProfileState extends State<Profile> {
                   ListTile(
                     title: Text("Github"),
                     subtitle: Text(
-                      user["githubURL"].length == 0 ? " - " : user["githubURL"],
+                      user["githubURL"]==null || user["githubURL"].length == 0 ? " - " : user["githubURL"],
                       style: GoogleFonts.lato(
                         textStyle: TextStyle(
                           //color: AppColors.PROTEGE_GREY,
