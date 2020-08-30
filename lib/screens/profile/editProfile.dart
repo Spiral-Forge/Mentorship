@@ -1,10 +1,6 @@
 import 'package:dbapp/constants/colors.dart';
-import 'package:dbapp/screens/home/home.dart';
-import 'package:dbapp/screens/profile/profile.dart';
 import 'package:dbapp/shared/loading.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_storage/firebase_storage.dart';
-// import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:multiselect_formfield/multiselect_formfield.dart';
 import 'package:dbapp/services/database.dart';
@@ -49,7 +45,7 @@ class EditProfilePageState extends State<EditProfilePage> {
           title: new Text("Edit Profile"),
           backgroundColor: AppColors.COLOR_TEAL_DARK),
       // body: newDP == null ? getChooseButton() : getUploadButton(),
-      backgroundColor: Hexcolor('#a7d8de'),
+      backgroundColor: Colors.blueGrey[50],
       body: Card(
         child: new Container(
             padding: EdgeInsets.all(12), child: new RegistrationForm(userInfo)),
@@ -223,7 +219,7 @@ class _RegistrationFormState extends State<RegistrationForm> {
                             borderSide: BorderSide(color: Colors.grey),
                           ),
                           focusedBorder: UnderlineInputBorder(
-                            borderSide: BorderSide(color: Colors.blue),
+                            borderSide: BorderSide(color: Colors.black),
                           ),
                           border: UnderlineInputBorder()),
                       validator: (value) {
@@ -249,7 +245,7 @@ class _RegistrationFormState extends State<RegistrationForm> {
                           borderSide: BorderSide(color: Colors.grey),
                         ),
                         focusedBorder: UnderlineInputBorder(
-                          borderSide: BorderSide(color: Colors.blue),
+                          borderSide: BorderSide(color: Colors.black),
                         ),
                         border: UnderlineInputBorder(),
                       ),
@@ -306,7 +302,7 @@ class _RegistrationFormState extends State<RegistrationForm> {
                           borderSide: BorderSide(color: Colors.grey),
                         ),
                         focusedBorder: UnderlineInputBorder(
-                          borderSide: BorderSide(color: Colors.blue),
+                          borderSide: BorderSide(color: Colors.black),
                         ),
                         border: UnderlineInputBorder()),
                     validator: (value) {
@@ -334,7 +330,7 @@ class _RegistrationFormState extends State<RegistrationForm> {
                           borderSide: BorderSide(color: Colors.grey),
                         ),
                         focusedBorder: UnderlineInputBorder(
-                          borderSide: BorderSide(color: Colors.blue),
+                          borderSide: BorderSide(color: Colors.black),
                         ),
                         border: UnderlineInputBorder(),
                       ),
@@ -354,7 +350,7 @@ class _RegistrationFormState extends State<RegistrationForm> {
                           borderSide: BorderSide(color: Colors.grey),
                         ),
                         focusedBorder: UnderlineInputBorder(
-                          borderSide: BorderSide(color: Colors.blue),
+                          borderSide: BorderSide(color: Colors.black),
                         ),
                         border: UnderlineInputBorder(),
                       ),
@@ -471,6 +467,7 @@ class _RegistrationFormState extends State<RegistrationForm> {
                         value: 0,
                         groupValue: _hostellerValue,
                         onChanged: _handleHostellerValue),
+                        
                     new Text('Yes'),
                     new Radio(
                         value: 1,
@@ -479,9 +476,15 @@ class _RegistrationFormState extends State<RegistrationForm> {
                     new Text('No'),
                   ]),
                   new Container(
-                      padding: const EdgeInsets.only(left: 175.0, top: 20.0),
-                      child: new RaisedButton(
-                        child: const Text('Save'),
+                    padding: const EdgeInsets.only(left: 175.0, top: 20.0),
+                    child: RaisedButton(
+                        color: AppColors.COLOR_TEAL_LIGHT,
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10.0),
+                            side: BorderSide(
+                              color: AppColors.COLOR_TEAL_LIGHT,
+                            )),
+                        child: Text("Save"),
                         onPressed: () async {
                           if (_formKey.currentState.validate()) {
                             await updateData();
@@ -489,8 +492,8 @@ class _RegistrationFormState extends State<RegistrationForm> {
                             Navigator.of(context).pop();
                             //Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> Home(0)));
                           }
-                        },
-                      )),
+                        }),
+                  ),
                 ]));
   }
 }

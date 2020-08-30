@@ -41,7 +41,7 @@ class _RegisterForm3State extends State<RegisterForm3> {
   final _formKey3 = GlobalKey<FormState>();
 
   //form fields
- bool loading = false;
+  bool loading = false;
 
   List<ListItem> _dropdownBranch = [
     ListItem(1, "CSE-1"),
@@ -73,9 +73,9 @@ class _RegisterForm3State extends State<RegisterForm3> {
     _dropdownBranchItems = buildDropDownMenuItems(_dropdownBranch);
     _selectedBranch = _dropdownBranch[0];
     branch = _selectedBranch.name;
-    rollNo='';
-    linkedinURL='';
-    githubURL='';
+    rollNo = '';
+    linkedinURL = '';
+    githubURL = '';
   }
 
   List<DropdownMenuItem<ListItem>> buildDropDownMenuItems(List listItems) {
@@ -94,12 +94,12 @@ class _RegisterForm3State extends State<RegisterForm3> {
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
-      backgroundColor: AppColors.PROTEGE_CYAN,
+      backgroundColor: Colors.grey[50],
       appBar: AppBar(
-          backgroundColor: AppColors.COLOR_TEAL_DARK,
-          elevation: 0.0,
-          title: Text("Register"),
-          ),
+        backgroundColor: AppColors.COLOR_TEAL_DARK,
+        elevation: 0.0,
+        title: Text("Register"),
+      ),
       body: loading
           ? Loading()
           : Padding(
@@ -207,12 +207,16 @@ class _RegisterForm3State extends State<RegisterForm3> {
                                 setState(() => githubURL = val);
                               }),
                           new Container(
-                              padding:
-                                  const EdgeInsets.only(left: 175.0, top: 40.0),
-                              child: new RaisedButton(
-                                child: const Text('Next'),
+                            padding:
+                                const EdgeInsets.only(left: 175.0, top: 40.0),
+                            child: RaisedButton(
+                                color: AppColors.COLOR_TEAL_LIGHT,
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(8.0),
+                                    side: BorderSide(
+                                        color: AppColors.COLOR_TEAL_LIGHT)),
+                                child: Text("Next"),
                                 onPressed: () {
-                                  // It returns true if the form is valid, otherwise returns false
                                   if (_formKey3.currentState.validate()) {
                                     setState(() {
                                       userMap['year'] = year;
@@ -222,13 +226,17 @@ class _RegisterForm3State extends State<RegisterForm3> {
                                       userMap['githubURL'] = githubURL;
                                     });
                                     print(userMap);
-                                    Navigator.push( context, MaterialPageRoute( builder: (context) => RegisterForm4(userMap)));
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                RegisterForm4(userMap)));
                                     // If the form is valid, display a Snackbar.
                                     // Scaffold.of(context).showSnackBar(
                                     //     SnackBar(content: Text('Data is in processing.')));
                                   }
-                                },
-                              )),
+                                }),
+                          ),
                         ],
                       ),
                     )),

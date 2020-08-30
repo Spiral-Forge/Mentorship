@@ -1,11 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dbapp/constants/colors.dart';
 import 'package:dbapp/screens/ResourceCenter/resource.dart';
-import 'package:dbapp/screens/ResourceCenter/resourcesCategoryList.dart';
-import 'package:dbapp/screens/home/homepage.dart';
 import 'package:dbapp/services/database.dart';
 import 'package:flutter/material.dart';
-import 'package:hexcolor/hexcolor.dart';
 
 class ResourceList extends StatefulWidget {
   final String resourceField;

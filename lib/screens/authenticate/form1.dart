@@ -1,13 +1,7 @@
 import 'package:dbapp/constants/colors.dart';
-import 'package:dbapp/constants/screenConstants.dart';
-import 'package:dbapp/screens/authenticate/signin.dart';
-import 'package:dbapp/screens/home/home.dart';
 import 'package:dbapp/services/auth.dart';
-import 'package:dbapp/shared/styles.dart';
 import 'package:flutter/material.dart';
 import 'package:dbapp/shared/loading.dart';
-import 'package:flutter/services.dart';
-import 'package:multiselect_formfield/multiselect_formfield.dart';
 import 'package:dbapp/screens/authenticate/form2.dart';
 
 int _radioValue = -1;
@@ -48,29 +42,6 @@ class _RegisterForm1State extends State<RegisterForm1> {
   String error = '';
   bool loading = false;
 
-  // void saveData() async {
-  //   dynamic result = await _auth.register(
-  //       name,
-  //       phoneNo,
-  //       email,
-  //       password,
-  //       year,
-  //       branch,
-  //       rollNo,
-  //       linkedInURL,
-  //       githubURL,
-  //       domains,
-  //       languages,
-  //       hosteller,
-  //       post);
-  //   if (result == null) {
-  //     setState(() {
-  //       error = 'some error message';
-  //       loading = false;
-  //     });
-  //   }
-  // }
-
   void _handleRadioValueChange(int value) {
     setState(() {
       _radioValue = value;
@@ -104,15 +75,15 @@ class _RegisterForm1State extends State<RegisterForm1> {
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
-      backgroundColor: AppColors.PROTEGE_CYAN,
+      backgroundColor: Colors.grey[50],
       appBar: AppBar(
           backgroundColor: AppColors.COLOR_TEAL_DARK,
           elevation: 0.0,
           title: Text("Register"),
           actions: <Widget>[
             FlatButton.icon(
-              icon: Icon(Icons.person),
-              label: Text('Sign In'),
+              icon: Icon(Icons.person, color: Colors.white),
+              label: Text('Sign In', style: TextStyle(color: Colors.white)),
               onPressed: () {
                 widget.toggleView();
               },
@@ -149,11 +120,17 @@ class _RegisterForm1State extends State<RegisterForm1> {
                             ],
                           ),
                           new Container(
-                              padding:
-                                  const EdgeInsets.only(left: 175.0, top: 20.0),
-                              child: new RaisedButton(
-                                child: const Text('Next'),
-                                onPressed: () {
+                            padding:
+                                const EdgeInsets.only(left: 175.0, top: 20.0),
+                            child: RaisedButton(
+                                color: AppColors.COLOR_TEAL_LIGHT,
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(8.0),
+                                    side: BorderSide(
+                                      color: AppColors.COLOR_TEAL_LIGHT
+                                    )),
+                                child: Text("Next"),
+                                onPressed: () async {
                                   print(_radioValue);
                                   // It returns true if the form is valid, otherwise returns false
                                   if (_formKey1.currentState.validate() &&
@@ -174,8 +151,8 @@ class _RegisterForm1State extends State<RegisterForm1> {
                                     Scaffold.of(context).showSnackBar(
                                         SnackBar(content: Text('Error')));
                                   }
-                                },
-                              )),
+                                }),
+                          )
                         ],
                       ),
                     )),

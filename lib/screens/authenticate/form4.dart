@@ -94,7 +94,7 @@ class _RegisterForm4State extends State<RegisterForm4> {
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
-      backgroundColor: AppColors.PROTEGE_CYAN,
+      backgroundColor: Colors.grey[50],
       appBar: AppBar(
           backgroundColor: AppColors.COLOR_TEAL_DARK,
           elevation: 0.0,
@@ -186,11 +186,15 @@ class _RegisterForm4State extends State<RegisterForm4> {
             ]),
             new Container(
                 padding: const EdgeInsets.only(left: 175.0, top: 20.0),
-                child: new RaisedButton(
-                  child: const Text('Submit'),
-                  onPressed: () {
-                    // It returns true if the form is valid, otherwise returns false
-                    if (_formKey4.currentState.validate() &&
+                child: RaisedButton(
+                                color: AppColors.COLOR_TEAL_LIGHT,
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(8.0),
+                                    side: BorderSide(
+                                        color: AppColors.COLOR_TEAL_LIGHT)),
+                                child: Text("Next"),
+                                onPressed: () {
+                                  if (_formKey4.currentState.validate() &&
                         _hostellerValue != -1) {
                       setState(() {
                         userMap['domains']=domains;
@@ -203,8 +207,8 @@ class _RegisterForm4State extends State<RegisterForm4> {
                       // Scaffold.of(context).showSnackBar(
                       //     SnackBar(content: Text('Data is in processing.')));
                     }
-                  },
-                )),
+                                }),
+                ),
           ],
         ),
       ),

@@ -334,18 +334,22 @@ class _ProfileState extends State<Profile> {
               margin: EdgeInsets.fromLTRB(15, 0, 15, 0),
               child: Column(
                 children: [
-                  ListTile(
-                    title: Text(
-                        user["contact"] != null
-                            ? user["contact"].toString()
-                            : "null",
-                        style:
-                            TextStyle(fontFamily: 'GoogleSans', fontSize: 20)),
-                    leading: Icon(
-                      Icons.phone,
-                      color: AppColors.COLOR_TEAL_LIGHT,
+                  Padding(
+                    padding: const EdgeInsets.only(top: 8.0),
+                    child: ListTile(
+                      title: Text(
+                          user["contact"] != null
+                              ? user["contact"].toString()
+                              : "null",
+                          style:
+                              TextStyle(fontFamily: 'GoogleSans', fontSize: 20)),
+                      leading: Icon(
+                        Icons.phone,
+                        color: AppColors.COLOR_TEAL_LIGHT,
+                      ),
                     ),
                   ),
+                  Divider(),
                   ListTile(
                     title: Text(user["email"] == null ? "null" : user["email"],
                         style:
@@ -356,28 +360,31 @@ class _ProfileState extends State<Profile> {
                     ),
                   ),
                   Divider(),
-                  ListTile(
-                    title: Text(
-                        user["year"] == null
-                            ? "null"
-                            : user["branch"].toString() +
-                                ", " +
-                                user["year"] +
-                                " year",
-                        style:
-                            TextStyle(fontFamily: 'GoogleSans', fontSize: 20)),
-                    subtitle: Text(
-                        user["rollNo"] == null
-                            ? "null"
-                            : user["rollNo"].toString() +
-                                "                                                    " +
-                                hostel,
-                        style:
-                            TextStyle(fontFamily: 'GoogleSans', fontSize: 20)),
-                    isThreeLine: true,
-                    leading: Icon(
-                      Icons.school,
-                      color: AppColors.COLOR_TEAL_LIGHT,
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: 6.0),
+                    child: ListTile(
+                      title: Text(
+                          user["year"] == null
+                              ? "null"
+                              : user["branch"].toString() +
+                                  ", " +
+                                  user["year"] +
+                                  " year",
+                          style:
+                              TextStyle(fontFamily: 'GoogleSans', fontSize: 20)),
+                      subtitle: Text(
+                          user["rollNo"] == null
+                              ? "null"
+                              : user["rollNo"].toString() +
+                                  "                                                    " +
+                                  hostel,
+                          style:
+                              TextStyle(fontFamily: 'GoogleSans', fontSize: 20)),
+                      isThreeLine: true,
+                      leading: Icon(
+                        Icons.school,
+                        color: AppColors.COLOR_TEAL_LIGHT,
+                      ),
                     ),
                   ),
                 ],
@@ -390,24 +397,27 @@ class _ProfileState extends State<Profile> {
               margin: EdgeInsets.fromLTRB(15, 0, 15, 0),
               child: Column(
                 children: [
-                  ListTile(
-                    title: Text("Languages",
-                        style:
-                            TextStyle(fontFamily: 'GoogleSans', fontSize: 18)),
-                    subtitle: Text(
-                        user["languages"] != null
-                            ? user["languages"]
-                                .toString()
-                                .split('[')[1]
-                                .split(']')[0]
-                            : "null",
-                        style:
-                            TextStyle(fontFamily: 'GoogleSans', fontSize: 20)),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 5.0),
+                    child: ListTile(
+                      title: Text("Languages",
+                          style:
+                              TextStyle(fontFamily: 'GoogleSans', fontSize: 18)),
+                      subtitle: Text(
+                          user["languages"] != null
+                              ? user["languages"]
+                                  .toString()
+                                  .split('[')[1]
+                                  .split(']')[0]
+                              : "null",
+                          style:
+                              TextStyle(fontFamily: 'GoogleSans', fontSize: 20)),
 
-                    // isThreeLine: true,
-                    leading: Icon(
-                      Icons.code,
-                      color: AppColors.COLOR_TEAL_LIGHT,
+                      // isThreeLine: true,
+                      leading: Icon(
+                        Icons.code,
+                        color: AppColors.COLOR_TEAL_LIGHT,
+                      ),
                     ),
                   ),
                   Divider(),
@@ -452,21 +462,25 @@ class _ProfileState extends State<Profile> {
                       color: AppColors.COLOR_TEAL_LIGHT,
                     ),
                   ),
-                  ListTile(
-                    title: Text(
-                      "Github Profile",
-                      style: TextStyle(fontFamily: 'GoogleSans', fontSize: 18),
-                    ),
-                    subtitle: Text(
-                        user["githubURL"]==null || user["githubURL"].length == 0
-                            ? " - "
-                            : user["githubURL"],
-                        style:
-                            TextStyle(fontFamily: 'GoogleSans', fontSize: 18)),
-                    // isThreeLine: true,
-                    leading: Icon(
-                      Icons.code,
-                      color: AppColors.COLOR_TEAL_LIGHT,
+                  Divider(),
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: 5),
+                    child: ListTile(
+                      title: Text(
+                        "Github Profile",
+                        style: TextStyle(fontFamily: 'GoogleSans', fontSize: 18),
+                      ),
+                      subtitle: Text(
+                          user["githubURL"]==null || user["githubURL"].length == 0
+                              ? " - "
+                              : user["githubURL"],
+                          style:
+                              TextStyle(fontFamily: 'GoogleSans', fontSize: 18)),
+                      // isThreeLine: true,
+                      leading: Icon(
+                        Icons.code,
+                        color: AppColors.COLOR_TEAL_LIGHT,
+                      ),
                     ),
                   ),
                 ],

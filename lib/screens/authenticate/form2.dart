@@ -73,12 +73,12 @@ class _RegisterForm2State extends State<RegisterForm2> {
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
-      backgroundColor: AppColors.PROTEGE_CYAN,
+      backgroundColor: Colors.grey[50],
       appBar: AppBar(
-          backgroundColor: AppColors.COLOR_TEAL_DARK,
-          elevation: 0.0,
-          title: Text("Register"),
-         ),
+        backgroundColor: AppColors.COLOR_TEAL_DARK,
+        elevation: 0.0,
+        title: Text("Register"),
+      ),
       body: loading
           ? Loading()
           : Padding(
@@ -206,12 +206,16 @@ class _RegisterForm2State extends State<RegisterForm2> {
                                 setState(() => password = val);
                               }),
                           new Container(
-                              padding:
-                                  const EdgeInsets.only(left: 175.0, top: 40.0),
-                              child: new RaisedButton(
-                                child: const Text('Next'),
-                                onPressed: () {
-                                  // It returns true if the form is valid, otherwise returns false
+                            padding:
+                                const EdgeInsets.only(left: 175.0, top: 40.0),
+                            child: RaisedButton(
+                                color: AppColors.COLOR_TEAL_LIGHT,
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(8.0),
+                                    side: BorderSide(
+                                        color: AppColors.COLOR_TEAL_LIGHT)),
+                                child: Text("Next"),
+                                onPressed: () async {
                                   if (_formKey2.currentState.validate()) {
                                     setState(() {
                                       userMap['name'] = name;
@@ -229,8 +233,8 @@ class _RegisterForm2State extends State<RegisterForm2> {
                                     // Scaffold.of(context).showSnackBar(
                                     //     SnackBar(content: Text('Data is in processing.')));
                                   }
-                                },
-                              )),
+                                }),
+                          ),
                         ],
                       ),
                     )),
