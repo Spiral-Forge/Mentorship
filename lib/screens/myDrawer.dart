@@ -21,16 +21,31 @@ class myDrawer extends StatefulWidget {
 }
 
 class _myDrawerState extends State<myDrawer> {
-  var _darkTheme = true;
+
+  
+  var dark=false;
+
+  void initState(){
+    super.initState();
+     print("printing dark mode");
+     asyncmode();
+    
+  }
+  asyncmode()async {
+    var val= await StorageServices.getDarkMode();
+    if(val){
+      dark=true;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
-    ThemeChanger _themeChanger = Provider.of<ThemeChanger>(context);
+   // ThemeChanger _themeChanger = Provider.of<ThemeChanger>(context);
     // final _themeChanger = Provider.of<ThemeChanger>(context);
-    _darkTheme = (_themeChanger.getTheme() == darkTheme);
+
     final AuthService _auth = AuthService();
     // final FirebaseAuth _authUser = FirebaseAuth.instance;
-    
+   
 
     return new Drawer(
       child: new ListView(
@@ -84,37 +99,43 @@ class _myDrawerState extends State<myDrawer> {
                     builder: (BuildContext context) => new MyFeedback()));
               }),
           new Divider(),
-          new ListTile(
-            leading: Icon(
-              Icons.lightbulb_outline,
-              size: 25,
-            ),
-            trailing: Transform.scale(
-              scale: 1.4,
-              child: Switch(
-                value: _darkTheme,
-                onChanged: (val) async {
-                  var darkModeFlag=await StorageServices.getDarkMode();
-                  await StorageServices.saveDarkMode(!darkModeFlag);
-                  setState(() {
-                    _darkTheme = val;
-                  });
-                  onThemeChanged(val, _themeChanger);
-                },
+          Consumer<ThemeNotifier>(
+            builder: (context,notifier,child){
+                 return new ListTile(
+              leading: Icon(
+                Icons.lightbulb_outline,
+                size: 25,
               ),
-            ),
-            // leading: new IconButton(
-            //             onPressed: () => _themeChanger.setTheme(Theme.dark()),
-            //             icon: Icon(
-            //               Icons.brightness_3
-            //             ),
-            //             color: AppColors.PROTEGE_GREY,
-            //           ),
-            // title: new Text("Change Theme"),
-            // onTap: () {
-            //   Navigator.of(context).pop();
-            //   Navigator.of(context).push(new MaterialPageRoute(builder: (BuildContext context) => new ThemeChanger(ThemeData.dark())));
-            // }
+              trailing: Transform.scale(
+                scale: 1.4,
+                child: Switch(
+                  value: dark,
+                  onChanged: (val) async {
+                    
+                    notifier.toggleTheme();
+                    // var darkModeFlag=await StorageServices.getDarkMode();
+                    // await StorageServices.saveDarkMode(!darkModeFlag);
+                    // setState(() {
+                    //   dark = val;
+                    // });
+                    // onThemeChanged(val, _themeChanger);
+                  },
+                ),
+              ),
+              // leading: new IconButton(
+              //             onPressed: () => _themeChanger.setTheme(Theme.dark()),
+              //             icon: Icon(
+              //               Icons.brightness_3
+              //             ),
+              //             color: AppColors.PROTEGE_GREY,
+              //           ),
+              // title: new Text("Change Theme"),
+              // onTap: () {
+              //   Navigator.of(context).pop();
+              //   Navigator.of(context).push(new MaterialPageRoute(builder: (BuildContext context) => new ThemeChanger(ThemeData.dark())));
+              // }
+            );
+            }
           ),
           new Divider(
             height: 431,

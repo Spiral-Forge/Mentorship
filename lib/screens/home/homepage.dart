@@ -151,13 +151,13 @@ class _HomePageState extends State<HomePage> {
     // });
   }
 
-  var _darkTheme = true;
+  //var _darkTheme = true;
 
   @override
   Widget build(BuildContext context) {
-    ThemeChanger _themeChanger = Provider.of<ThemeChanger>(context);
-    // final _themeChanger = Provider.of<ThemeChanger>(context);
-    _darkTheme = (_themeChanger.getTheme() == darkTheme);
+    // ThemeChanger _themeChanger = Provider.of<ThemeChanger>(context);
+    // // final _themeChanger = Provider.of<ThemeChanger>(context);
+    // _darkTheme = (_themeChanger.getTheme() == darkTheme);
 
     return Scaffold(
         appBar: AppBar(

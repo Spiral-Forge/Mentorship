@@ -51,7 +51,7 @@ class _ResourceCategoryListState extends State<ResourceCategoryList> {
 
   @override
   Widget build(BuildContext context) {
-    ThemeChanger _themeChanger = Provider.of<ThemeChanger>(context);
+    // ThemeChanger _themeChanger = Provider.of<ThemeChanger>(context);
     // final _themeChanger = Provider.of<ThemeChanger>(context);
     return new Scaffold(
         appBar: AppBar(

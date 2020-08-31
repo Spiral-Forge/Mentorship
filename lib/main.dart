@@ -1,5 +1,6 @@
 import 'package:dbapp/screens/wrapper.dart';
 import 'package:dbapp/services/auth.dart';
+import 'package:dbapp/services/storage.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -10,42 +11,98 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:dbapp/models/user.dart';
 
+import 'blocs/values.dart';
 
-void main() => runApp(
-  ChangeNotifierProvider<ThemeChanger>(
-    create: (_) => ThemeChanger(ThemeData.light()),
-    child: MyApp(),
-  )
-);
 
-class MyApp extends StatelessWidget {
+void main() {
+ 
+  runApp( MyApp());
+  // ChangeNotifierProvider<ThemeChanger>(
+  //   create: (_) {
+  //     return ThemeChanger(ThemeData.light());
+  //   },
+  //   child: MyApp(),
+  // ));
+}
+
+class MyApp extends StatefulWidget {
   // This widget is the root of your application.
   @override
-  Widget build(BuildContext context) {
-    final _themeChanger = Provider.of<ThemeChanger>(context);
-    return StreamProvider<FirebaseUser>.value(
-      value:AuthService().user,
-      child: MaterialApp(
-        debugShowCheckedModeBanner: false,
-        theme: _themeChanger.getTheme(),
-        home:Wrapper(),
-      ),
-    );
+  _MyAppState createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  
+  var dark=false;
+
+  void initState(){
+    super.initState();
+     print("printing dark mode");
+     asyncmode();
     
   }
-}
+  asyncmode()async {
+    var val= await StorageServices.getDarkMode();
+    if(val){
+      dark=true;
 
+    }
+  }
+    
 
-class MaterialAppWithTheme extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final theme = Provider.of<ThemeChanger>(context);
-    return MaterialApp(
-      //home: HomePage(),
-      theme: theme.getTheme(),
+    // final _themeChanger = Provider.of<ThemeChanger>(context);
+
+    // var mytheme=_themeChanger.getTheme();
+    
+    return StreamProvider<FirebaseUser>.value(
+      value:AuthService().user,
+          child: ChangeNotifierProvider(
+        create: (_) => ThemeNotifier(),
+            child: Consumer<ThemeNotifier>(
+              builder: (context, ThemeNotifier notifier, child) {
+
+                return MaterialApp(
+                debugShowCheckedModeBanner: false,
+                theme: notifier.darkTheme ? darkTheme : lightTheme,
+                home:Wrapper(),
+              );
+              } ,
+            ),
+      ),
     );
+        
+    // StreamProvider<FirebaseUser>.value(
+    //   value:AuthService().user,
+    //     child: ChangeNotifierProvider(
+    //     create: (_)=>ThemeNotifier(),
+    //       child: Consumer<ThemeNotifier>(
+    //         builder: (context,ThemeNotifier notifier, child) {
+    //            return MaterialApp(
+    //           debugShowCheckedModeBanner: false,
+    //           theme: notifier.darkTheme ? darkTheme : lightTheme,
+    //           home:Wrapper(),
+    //       );
+    //       }) ,
+    //       ),
+    // );
   }
 }
+    
+
+
+
+// class MaterialAppWithTheme extends StatelessWidget {
+//   @override
+//   Widget build(BuildContext context) {
+//     final theme = Provider.of<ThemeChanger>(context);
+//     return MaterialApp(
+//       //home: HomePage(),
+//       theme: mytheme,
+//     );
+//   }
+// }
 
 // final ThemeData kIOSTheme = new ThemeData(
 //   primarySwatch: Colors.teal,
