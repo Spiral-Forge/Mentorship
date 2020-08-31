@@ -44,6 +44,9 @@ class _HomePageState extends State<HomePage> {
 
   List<EventTile> eventlist = [];
   Widget eventList() {
+    ThemeNotifier _themeNotifier = Provider.of<ThemeNotifier>(context);
+    print("printing theme notifier");
+    var themeFlag=_themeNotifier.darkTheme;
     return loading
         ? Loading()
         : Center(
@@ -111,10 +114,10 @@ class _HomePageState extends State<HomePage> {
 
   void initState() {
     super.initState();
-    StorageServices.getDarkMode().then((isDarkMode){
-      print("is dark mode is ");
-      print(isDarkMode);
-    });
+    // StorageServices.getDarkMode().then((isDarkMode){
+    //   print("is dark mode is ");
+    //   print(isDarkMode);
+    // });
     DataBaseService().getEvents().then((val) {
       print(val.documents[0].data);
       List<EventTile> templist = [];
@@ -155,9 +158,7 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    // ThemeNotifier _themeNotifier = Provider.of<ThemeNotifier>(context);
-    // print("printing theme notifier");
-    // print(_themeNotifier.darkTheme);
+    
     // // final _themeChanger = Provider.of<ThemeChanger>(context);
     // _darkTheme = (_themeChanger.getTheme() == darkTheme);
 
