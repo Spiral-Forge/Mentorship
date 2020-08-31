@@ -32,29 +32,9 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  
-  var dark=false;
-
-  void initState(){
-    super.initState();
-     print("printing dark mode");
-     asyncmode();
     
-  }
-  asyncmode()async {
-    var val= await StorageServices.getDarkMode();
-    if(val){
-      dark=true;
-
-    }
-  }
-    
-
   @override
   Widget build(BuildContext context) {
-    // final _themeChanger = Provider.of<ThemeChanger>(context);
-
-    // var mytheme=_themeChanger.getTheme();
     
     return StreamProvider<FirebaseUser>.value(
       value:AuthService().user,

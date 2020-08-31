@@ -155,7 +155,9 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    // ThemeChanger _themeChanger = Provider.of<ThemeChanger>(context);
+    // ThemeNotifier _themeNotifier = Provider.of<ThemeNotifier>(context);
+    // print("printing theme notifier");
+    // print(_themeNotifier.darkTheme);
     // // final _themeChanger = Provider.of<ThemeChanger>(context);
     // _darkTheme = (_themeChanger.getTheme() == darkTheme);
 

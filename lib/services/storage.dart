@@ -22,6 +22,7 @@ class StorageServices {
         sharedPreferenceUserInfoKey, json.encode(userMap));
   }
   static Future<bool> saveDarkMode(bool darkMode) async {
+    print("coming inside storage stuff");
     SharedPreferences prefs = await SharedPreferences.getInstance();
     return await prefs.setBool(sharedPrefernceDarkModeKey,darkMode);
 

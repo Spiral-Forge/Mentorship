@@ -90,7 +90,6 @@ class AuthService {
       };
       print("coming here");
       await StorageServices.saveUserInfo(userlist);
-      await StorageServices.saveDarkMode(false);
       print("saved info");
       return user;
     } catch (e) {

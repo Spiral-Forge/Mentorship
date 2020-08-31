@@ -23,20 +23,20 @@ class myDrawer extends StatefulWidget {
 class _myDrawerState extends State<myDrawer> {
 
   
-  var dark=false;
+  // var dark=false;
 
-  void initState(){
-    super.initState();
-     print("printing dark mode");
-     asyncmode();
+  // void initState(){
+  //   super.initState();
+  //    print("printing dark mode");
+  //    asyncmode();
     
-  }
-  asyncmode()async {
-    var val= await StorageServices.getDarkMode();
-    if(val){
-      dark=true;
-    }
-  }
+  // }
+  // asyncmode()async {
+  //   var val= await StorageServices.getDarkMode();
+  //   if(val){
+  //     dark=true;
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -109,7 +109,7 @@ class _myDrawerState extends State<myDrawer> {
               trailing: Transform.scale(
                 scale: 1.4,
                 child: Switch(
-                  value: dark,
+                  value: notifier.darkTheme,
                   onChanged: (val) async {
                     
                     notifier.toggleTheme();
