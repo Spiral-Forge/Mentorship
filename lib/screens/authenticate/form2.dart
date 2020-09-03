@@ -75,7 +75,7 @@ class _RegisterForm2State extends State<RegisterForm2> {
     return new Scaffold(
       backgroundColor: Colors.grey[50],
       appBar: AppBar(
-        backgroundColor: AppColors.COLOR_TEAL_DARK,
+        backgroundColor: AppColors.COLOR_TEAL_LIGHT,
         elevation: 0.0,
         title: Text("Register"),
       ),
@@ -92,13 +92,24 @@ class _RegisterForm2State extends State<RegisterForm2> {
                       child: ListView(
                         shrinkWrap: true,
                         children: <Widget>[
+                          new Divider(height: 35.0, color: Colors.transparent),
+                          new Text(
+                            'Create your account',
+                            style: TextStyle(
+                              fontFamily: 'GoogleSans',
+                              fontSize: 25,
+                              fontWeight: FontWeight.w600,
+                            ),
+                            textAlign: TextAlign.center,
+                          ),
+                          new Divider(height: 35.0, color: Colors.transparent),
                           new TextFormField(
                               keyboardType: TextInputType.text,
                               style: TextStyle(color: Colors.grey),
                               decoration: const InputDecoration(
                                 labelStyle: TextStyle(
-                                  color: Colors.grey,
-                                ),
+                                    color: Colors.grey,
+                                    fontFamily: 'GoogleSans'),
                                 enabledBorder: UnderlineInputBorder(
                                   borderSide: BorderSide(color: Colors.grey),
                                 ),
@@ -126,6 +137,7 @@ class _RegisterForm2State extends State<RegisterForm2> {
                               decoration: const InputDecoration(
                                   labelStyle: TextStyle(
                                     color: Colors.grey,
+                                    fontFamily: 'GoogleSans',
                                   ),
                                   enabledBorder: UnderlineInputBorder(
                                     borderSide: BorderSide(color: Colors.grey),
@@ -154,8 +166,8 @@ class _RegisterForm2State extends State<RegisterForm2> {
                               style: TextStyle(color: Colors.grey),
                               decoration: const InputDecoration(
                                 labelStyle: TextStyle(
-                                  color: Colors.grey,
-                                ),
+                                    color: Colors.grey,
+                                    fontFamily: 'GoogleSans'),
                                 enabledBorder: UnderlineInputBorder(
                                   borderSide: BorderSide(color: Colors.grey),
                                 ),
@@ -181,8 +193,8 @@ class _RegisterForm2State extends State<RegisterForm2> {
                               style: TextStyle(color: Colors.grey),
                               decoration: const InputDecoration(
                                 labelStyle: TextStyle(
-                                  color: Colors.grey,
-                                ),
+                                    color: Colors.grey,
+                                    fontFamily: 'GoogleSans'),
                                 enabledBorder: UnderlineInputBorder(
                                   borderSide: BorderSide(color: Colors.grey),
                                 ),
@@ -205,16 +217,23 @@ class _RegisterForm2State extends State<RegisterForm2> {
                               onChanged: (val) {
                                 setState(() => password = val);
                               }),
+                          new Divider(height: 35.0, color: Colors.transparent),
                           new Container(
-                            padding:
-                                const EdgeInsets.only(left: 175.0, top: 40.0),
+                            padding: EdgeInsets.fromLTRB(120, 5, 120, 5),
                             child: RaisedButton(
                                 color: AppColors.COLOR_TEAL_LIGHT,
                                 shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(8.0),
+                                    borderRadius: BorderRadius.circular(10.0),
                                     side: BorderSide(
-                                        color: AppColors.COLOR_TEAL_LIGHT)),
-                                child: Text("Next"),
+                                      color: AppColors.COLOR_TEAL_LIGHT,
+                                    )),
+                                child: Text("Next",
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 17,
+                                        fontWeight: FontWeight.w600,
+                                        fontFamily: 'GoogleSans'),
+                                    textAlign: TextAlign.center),
                                 onPressed: () async {
                                   if (_formKey2.currentState.validate()) {
                                     setState(() {
@@ -235,6 +254,7 @@ class _RegisterForm2State extends State<RegisterForm2> {
                                   }
                                 }),
                           ),
+                          new Divider(height: 18.0, color: Colors.transparent),
                         ],
                       ),
                     )),

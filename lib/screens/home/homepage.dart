@@ -30,7 +30,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  var themeFlag=false;
+  var themeFlag = false;
   final FirebaseAuth _authUser = FirebaseAuth.instance;
   final AuthService _auth = AuthService();
   bool loading = true;
@@ -46,7 +46,7 @@ class _HomePageState extends State<HomePage> {
   Widget eventList() {
     ThemeNotifier _themeNotifier = Provider.of<ThemeNotifier>(context);
     print("printing theme notifier");
-    var themeFlag=_themeNotifier.darkTheme;
+    var themeFlag = _themeNotifier.darkTheme;
     return loading
         ? Loading()
         : Center(
@@ -73,9 +73,11 @@ class _HomePageState extends State<HomePage> {
                                       //shape: BoxShape.circle,
                                       image: new DecorationImage(
                                           fit: BoxFit.fill,
-                                          image: themeFlag ? new AssetImage(
-                                              'assets/images/book.jpg'): new AssetImage(
-                                              'assets/images/Protege no bg.png')))),
+                                          image: themeFlag
+                                              ? new AssetImage(
+                                                  'assets/images/book.jpg')
+                                              : new AssetImage(
+                                                  'assets/images/Protege no bg.png')))),
                             ]))
                           ]),
                       Row(
@@ -100,10 +102,10 @@ class _HomePageState extends State<HomePage> {
                           padding: EdgeInsets.fromLTRB(0, 0, 0, 20),
                           child: Text("UPCOMING EVENTS IN COLLEGE",
                               style: TextStyle(
-                                  fontFamily: 'GoogleSans',
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 20,
-                                  ))),
+                                fontFamily: 'GoogleSans',
+                                fontWeight: FontWeight.bold,
+                                fontSize: 20,
+                              ))),
                     );
                   } else {
                     return eventlist[index - 2];
@@ -158,7 +160,6 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    
     // // final _themeChanger = Provider.of<ThemeChanger>(context);
     // _darkTheme = (_themeChanger.getTheme() == darkTheme);
 
@@ -257,7 +258,7 @@ class EventTile extends StatelessWidget {
                       height: 210.0,
                       decoration: BoxDecoration(
                           image: DecorationImage(
-                              fit: BoxFit.fill, image: NetworkImage(url)
+                              fit: BoxFit.scaleDown, image: NetworkImage(url)
                               //AssetImage("assets/images/bg2.jpg")
                               )),
                     )),

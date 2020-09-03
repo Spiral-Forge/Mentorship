@@ -21,15 +21,13 @@ class myDrawer extends StatefulWidget {
 }
 
 class _myDrawerState extends State<myDrawer> {
-
-  
   // var dark=false;
 
   // void initState(){
   //   super.initState();
   //    print("printing dark mode");
   //    asyncmode();
-    
+
   // }
   // asyncmode()async {
   //   var val= await StorageServices.getDarkMode();
@@ -40,12 +38,11 @@ class _myDrawerState extends State<myDrawer> {
 
   @override
   Widget build(BuildContext context) {
-   // ThemeChanger _themeChanger = Provider.of<ThemeChanger>(context);
+    // ThemeChanger _themeChanger = Provider.of<ThemeChanger>(context);
     // final _themeChanger = Provider.of<ThemeChanger>(context);
 
     final AuthService _auth = AuthService();
     // final FirebaseAuth _authUser = FirebaseAuth.instance;
-   
 
     return new Drawer(
       child: new ListView(
@@ -89,7 +86,7 @@ class _myDrawerState extends State<myDrawer> {
               }),
           new ListTile(
               title: new Text(
-                "Send Feedback",
+                "Help Center",
                 style: TextStyle(fontFamily: 'GoogleSans', fontSize: 15),
               ),
               trailing: new Icon(Icons.arrow_right),
@@ -99,48 +96,45 @@ class _myDrawerState extends State<myDrawer> {
                     builder: (BuildContext context) => new MyFeedback()));
               }),
           new Divider(),
-          Consumer<ThemeNotifier>(
-            builder: (context,notifier,child){
-                 return new ListTile(
-              leading: Icon(
-                Icons.lightbulb_outline,
-                size: 25,
-              ),
-              trailing: Transform.scale(
-                scale: 1.4,
-                child: Switch(
-                  value: notifier.darkTheme,
-                  onChanged: (val) async {
-                    
-                    notifier.toggleTheme();
-                    // var darkModeFlag=await StorageServices.getDarkMode();
-                    // await StorageServices.saveDarkMode(!darkModeFlag);
-                    // setState(() {
-                    //   dark = val;
-                    // });
-                    // onThemeChanged(val, _themeChanger);
-                  },
+          Consumer<ThemeNotifier>(builder: (context, notifier, child) {
+            return Align(
+              alignment: Alignment.bottomRight,
+              child: new ListTile(
+                leading: Icon(
+                  Icons.lightbulb_outline,
+                  size: 25,
                 ),
+                trailing: Transform.scale(
+                  scale: 1.4,
+                  child: Switch(
+                    value: notifier.darkTheme,
+                    onChanged: (val) async {
+                      notifier.toggleTheme();
+                      // var darkModeFlag=await StorageServices.getDarkMode();
+                      // await StorageServices.saveDarkMode(!darkModeFlag);
+                      // setState(() {
+                      //   dark = val;
+                      // });
+                      // onThemeChanged(val, _themeChanger);
+                    },
+                  ),
+                ),
+                // leading: new IconButton(
+                //             onPressed: () => _themeChanger.setTheme(Theme.dark()),
+                //             icon: Icon(
+                //               Icons.brightness_3
+                //             ),
+                //             color: AppColors.PROTEGE_GREY,
+                //           ),
+                // title: new Text("Change Theme"),
+                // onTap: () {
+                //   Navigator.of(context).pop();
+                //   Navigator.of(context).push(new MaterialPageRoute(builder: (BuildContext context) => new ThemeChanger(ThemeData.dark())));
+                // }
               ),
-              // leading: new IconButton(
-              //             onPressed: () => _themeChanger.setTheme(Theme.dark()),
-              //             icon: Icon(
-              //               Icons.brightness_3
-              //             ),
-              //             color: AppColors.PROTEGE_GREY,
-              //           ),
-              // title: new Text("Change Theme"),
-              // onTap: () {
-              //   Navigator.of(context).pop();
-              //   Navigator.of(context).push(new MaterialPageRoute(builder: (BuildContext context) => new ThemeChanger(ThemeData.dark())));
-              // }
             );
-            }
-          ),
-          new Divider(
-            height: 431,
-            color: Colors.transparent,
-          ),
+          }),
+          Divider(),
           new ListTile(
               title: new Text(
                 "Logout",
@@ -150,6 +144,7 @@ class _myDrawerState extends State<myDrawer> {
               onTap: () async {
                 await _auth.signOut();
               }),
+          new Divider(),
         ],
       ),
     );

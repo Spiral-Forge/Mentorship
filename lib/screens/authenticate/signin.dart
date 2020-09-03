@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:dbapp/shared/loading.dart';
 import 'package:flutter/rendering.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:hexcolor/hexcolor.dart';
 import 'package:toast/toast.dart';
 
 class SignIn extends StatefulWidget {
@@ -43,7 +44,7 @@ class _SignInState extends State<SignIn> with SingleTickerProviderStateMixin {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          backgroundColor: AppColors.COLOR_TEAL_DARK,
+          backgroundColor: AppColors.COLOR_TEAL_LIGHT,
           elevation: 0.0,
           title: Text("Sign In"),
           actions: <Widget>[
@@ -78,6 +79,7 @@ class _SignInState extends State<SignIn> with SingleTickerProviderStateMixin {
                                     fit: BoxFit.fill,
                                     image: new AssetImage(
                                         'assets/images/Protege no bg.png')))),
+                        new Divider(height: 35.0, color: Colors.transparent),
                         Form(
                           key: _formKey,
                           child: Column(
@@ -85,59 +87,37 @@ class _SignInState extends State<SignIn> with SingleTickerProviderStateMixin {
                               SizedBox(height: 20.0),
                               TextFormField(
                                   decoration: textInputDecorations.copyWith(
-                                    labelText: "Enter Email",
-                                  ),
+                                      labelText: "Enter Email",
+                                      labelStyle: TextStyle(
+                                        fontFamily: 'GoogleSans',
+                                      ),
+                                      focusedBorder: OutlineInputBorder(
+                                          borderRadius: BorderRadius.all(
+                                              Radius.circular(8)),
+                                          borderSide: BorderSide(
+                                              color: Hexcolor('#d6a495')))),
                                   validator: (val) =>
                                       val.isEmpty ? 'Enter an email' : null,
                                   onChanged: (val) {
                                     setState(() => email = val);
                                   }),
                               SizedBox(height: 20.0),
-                              TextFormField(
+                              TextField(
                                   decoration: textInputDecorations.copyWith(
-                                    labelText: "Enter Password",
-                                  ),
+                                      labelText: "Enter Password",
+                                      labelStyle: TextStyle(
+                                        fontFamily: 'GoogleSans',
+                                      ),
+                                      focusedBorder: OutlineInputBorder(
+                                          borderRadius: BorderRadius.all(
+                                              Radius.circular(8)),
+                                          borderSide: BorderSide(
+                                              color: Hexcolor('#d6a495')))),
                                   obscureText: true,
                                   onChanged: (val) {
                                     setState(() => password = val);
                                   }),
-                              SizedBox(height: 25.0),
-                              Container(
-                                width: 150,
-                                height: 50,
-                                child: RaisedButton(
-                                  shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(18.0),
-                                      side: BorderSide(
-                                          color: const Color(0xFF565656))),
-                                  color: AppColors.PROTEGE_GREY,
-                                  child: Text(
-                                    'Sign In',
-                                    style: GoogleFonts.lato(
-                                        textStyle: TextStyle(
-                                            color: Colors.white, fontSize: 20)),
-                                  ),
-                                  onPressed: () async {
-                                    if (_formKey.currentState.validate()) {
-                                      setState(() {
-                                        loading = true;
-                                      });
-                                      dynamic result =
-                                          await _auth.signin(email, password);
-                                      if (result == null) {
-                                        if (mounted) {
-                                          setState(() {
-                                            error =
-                                                "Either email or password is incorrect. Try again.";
-                                            loading = false;
-                                          });
-                                        }
-                                      }
-                                    }
-                                  },
-                                ),
-                              ),
-                              SizedBox(height: 20.0),
+                              SizedBox(height: 10),
                               GestureDetector(
                                 onTap: () {
                                   showDialog(
@@ -151,14 +131,13 @@ class _SignInState extends State<SignIn> with SingleTickerProviderStateMixin {
                                                     Radius.circular(20.0))),
                                             contentPadding:
                                                 EdgeInsets.all(15.0),
-                                            title: Text('Enter your email',
-                                                style: GoogleFonts.lato(
-                                                  textStyle: TextStyle(
-                                                      // color: AppColors.PROTEGE_GREY,
-                                                      fontSize: 20,
-                                                      fontWeight:
-                                                          FontWeight.bold),
-                                                )),
+                                            title: Text(
+                                              'Enter your email',
+                                              style: TextStyle(
+                                                  // color: AppColors.PROTEGE_GREY,
+                                                  fontSize: 20,
+                                                  fontWeight: FontWeight.bold),
+                                            ),
                                             content: TextField(
                                               controller:
                                                   resetPasswordController,
@@ -167,7 +146,7 @@ class _SignInState extends State<SignIn> with SingleTickerProviderStateMixin {
                                             ),
                                             actions: <Widget>[
                                               new FlatButton(
-                                                child: new Text('CANCEL',
+                                                child: new Text('Cancel',
                                                     style: GoogleFonts.lato(
                                                       textStyle: TextStyle(
                                                           // color: AppColors.PROTEGE_GREY,
@@ -233,11 +212,58 @@ class _SignInState extends State<SignIn> with SingleTickerProviderStateMixin {
                                         );
                                       });
                                 },
-                                child: Text("Forgot password? Reset here",
-                                    style: TextStyle(
-                                        color: AppColors.PROTEGE_GREY,
-                                        fontSize: 19.0)),
+                                child: Container(
+                                  alignment: Alignment.bottomRight,
+                                  child: Text("Forgot password?",
+                                      style: TextStyle(
+                                          color: Hexcolor('#d6a495'),
+                                          // color: AppColors.PROTEGE_GREY,
+                                          fontSize: 15.0,
+                                          decoration:
+                                              TextDecoration.underline)),
+                                ),
                               ),
+                              SizedBox(height: 45.0),
+                              Container(
+                                margin: EdgeInsets.symmetric(horizontal: 50),
+                                child: MaterialButton(
+                                  minWidth: double.infinity,
+                                  height: 48,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(50.0),
+                                    // side: BorderSide(
+                                    //     color: const Color(0xFF565656))
+                                  ),
+                                  color: AppColors.COLOR_TEAL_LIGHT,
+                                  child: Text(
+                                    'LOGIN',
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 17,
+                                        fontWeight: FontWeight.w600,
+                                        fontFamily: 'GoogleSans'),
+                                  ),
+                                  onPressed: () async {
+                                    if (_formKey.currentState.validate()) {
+                                      setState(() {
+                                        loading = true;
+                                      });
+                                      dynamic result =
+                                          await _auth.signin(email, password);
+                                      if (result == null) {
+                                        if (mounted) {
+                                          setState(() {
+                                            error =
+                                                "Either email or password is incorrect. Try again.";
+                                            loading = false;
+                                          });
+                                        }
+                                      }
+                                    }
+                                  },
+                                ),
+                              ),
+                              SizedBox(height: 20.0),
                               SizedBox(height: 20.0),
                               Text(error,
                                   style: TextStyle(

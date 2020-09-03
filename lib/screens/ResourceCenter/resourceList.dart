@@ -3,6 +3,7 @@ import 'package:dbapp/constants/colors.dart';
 import 'package:dbapp/screens/ResourceCenter/resource.dart';
 import 'package:dbapp/services/database.dart';
 import 'package:flutter/material.dart';
+import 'package:hexcolor/hexcolor.dart';
 
 class ResourceList extends StatefulWidget {
   final String resourceField;
@@ -79,6 +80,7 @@ class _ResourceListState extends State<ResourceList> {
         //     title: new Text(widget.resourceField),
         //     backgroundColor: AppColors.COLOR_TEAL_LIGHT),
         backgroundColor: AppColors.COLOR_TEAL_LIGHT,
+        // backgroundColor: Hexcolor("#d6a495"),
         body: Column(
           children: <Widget>[
             Expanded(

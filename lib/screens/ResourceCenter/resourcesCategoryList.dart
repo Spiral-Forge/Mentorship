@@ -321,7 +321,8 @@ class _ResourceCategoryListState extends State<ResourceCategoryList> {
                       child: ResourceCategoryTile(
                           "Open-Source", "assets/images/opensrc.png"))
                 ],
-              )
+              ),
+              SizedBox(height: 12),
             ],
           ),
         ));

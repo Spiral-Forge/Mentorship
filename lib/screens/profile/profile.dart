@@ -11,9 +11,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hexcolor/hexcolor.dart';
-import 'package:dbapp/services/auth.dart';
-
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path/path.dart';
@@ -31,18 +28,6 @@ class Profile extends StatefulWidget {
 class _ProfileState extends State<Profile> {
   int randomNum = Random().nextInt(4) + 1;
 
-  // String name='';
-  // String email='';
-  // int year;
-  // String branch='';
-  // int roll;
-  // int contact;
-  // String linked;
-  // String git;
-  // List languages=[];
-  // List domains=[];
-  // bool hostel=false;
-  // bool mentor;
   bool loading = true;
   Map<String, dynamic> user = {};
 
@@ -70,52 +55,23 @@ class _ProfileState extends State<Profile> {
   File newDP;
   String pathDP;
   bool newDpFlag = false;
-
-  uploadImg() async {}
-
-  // Future<void> retrieveLostData() async {
-  //   final LostData response = await ImagePicker().getLostData();
-  //   if (response == null) {
-  //     return;
-  //   }
-  //   if (response.file != null) {
-  //     setState(() {
-  //       if (response.type == RetrieveType.video) {
-  //         _handleVideo(response.file);
-  //       } else {
-  //         _handleImage(response.file);
-  //       }
-  //     });
-  //   } else {
-  //     _handleError(response.exception);
-  //   }
-  // }
+  bool inprocess = false;
 
   @override
   Widget build(BuildContext context) {
     //print("user");
-    //print(user);
+    print(user);
 
     String hostel = user["hostel"] != null && user["hostel"] == true
         ? "Hosteller: Yes"
         : "Hosteller: No";
 
     Future uploadImg(context) async {
-      var num = Random(25);
-      final StorageReference firebaseStorageRef = FirebaseStorage.instance
-          .ref()
-          .child('dp/${num.nextInt(5000).toString()}.jpg');
-      final StorageUploadTask uploadTask = firebaseStorageRef.putFile(newDP);
+      String fileName = basename(newDP.path);
+      final StorageReference ref =
+          FirebaseStorage.instance.ref().child(fileName);
+      final StorageUploadTask uploadTask = ref.putFile(newDP);
 
-      final ref = FirebaseStorage.instance
-          .ref()
-          .child('path')
-          .child('to')
-          .child('the')
-          .child('image_filejpg');
-      ref.putFile(newDP);
-      var url = Uri.parse(await ref.getDownloadURL()).toString();
-      pathDP = url;
       StorageTaskSnapshot taskSnapshot = await uploadTask.onComplete;
       if (mounted) {
         setState(() {
@@ -128,7 +84,8 @@ class _ProfileState extends State<Profile> {
                   ))));
         });
       }
-
+      var url = Uri.parse(await ref.getDownloadURL()).toString();
+      pathDP = url;
       print("url");
       print(url);
       ProfileService updateUser = new ProfileService();
@@ -146,14 +103,44 @@ class _ProfileState extends State<Profile> {
     }
 
     Future getImage(context) async {
+      this.setState(() {
+        inprocess = true;
+      });
+
       final PickedFile pickedFile =
           await ImagePicker().getImage(source: ImageSource.gallery);
-
-      setState(() {
-        newDP = File(pickedFile.path);
-        newDpFlag = true;
-        print("uploaded");
-      });
+      if (pickedFile != null) {
+        File resized = await ImageCropper.cropImage(
+          sourcePath: pickedFile.path,
+          aspectRatio: CropAspectRatio(ratioX: 1, ratioY: 1),
+          compressQuality: 100,
+          maxHeight: 150,
+          maxWidth: 150,
+          compressFormat: ImageCompressFormat.jpg,
+          // iosUiSettings: ,
+          // androidUiSettings: AndroidUiSettings(
+          //     toolbarColor: AppColors.COLOR_TEAL_LIGHT,
+          //     toolbarTitle: "Crop",
+          //     statusBarColor: AppColors.COLOR_TEAL_LIGHT,
+          //     backgroundColor: Colors.white)
+        );
+        if (resized != null) {
+          this.setState(() {
+            newDP = resized;
+            newDpFlag = true;
+            inprocess = false;
+            print("put");
+          });
+        } else {
+          this.setState(() {
+            inprocess = false;
+          });
+        }
+      } else {
+        this.setState(() {
+          inprocess = false;
+        });
+      }
     }
 
     return new Scaffold(
@@ -171,76 +158,81 @@ class _ProfileState extends State<Profile> {
       body: Builder(
         builder: (context) => Container(
           child: ListView(shrinkWrap: true, children: <Widget>[
-            // Align(
-            //   alignment: Alignment.topCenter,
-            //   child: ClipPath(
-            //     child: Column(
-            //       children: <Widget>[
-            //         Image.asset(
-            //           "assets/images/bg2.jpg",
-            //           width: MediaQuery.of(context).size.width,
-            //         ),
-            //       ],
-            //     ),
-            //     clipper: GetClipper(),
-            //   ),
-            // ),
-            // Positioned(
-            //   width: MediaQuery.of(context).size.width,
-            //   top: MediaQuery.of(context).size.height / 4.5,
-            //   child:
-            SizedBox(
-              height: 25,
-            ),
-            Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisSize: MainAxisSize.min,
-                children: <Widget>[
-                  Align(
-                    alignment: Alignment.center,
-                    child: CircleAvatar(
-                      radius: 75,
-                      child: ClipOval(
-                        child: SizedBox(
-                          width: 150,
-                          height: 150,
-                          child: newDpFlag
-                              ? Image.file(newDP)
-                              : user['photoURL'] != null
-                                  ? Image.network(user['photoURL'],
-                                      fit: BoxFit.fitWidth)
-                                  : Image.asset(
-                                      "assets/images/avatars/av1.jpg"),
+            Stack(children: [
+              Align(
+                alignment: Alignment.topCenter,
+                child: ClipPath(
+                  child: Column(
+                    children: <Widget>[
+                      Image.asset(
+                        "assets/images/bg2.jpg",
+                        width: MediaQuery.of(context).size.width,
+                      ),
+                    ],
+                  ),
+                  clipper: GetClipper(),
+                ),
+              ),
+              Positioned(
+                width: MediaQuery.of(context).size.width,
+                top: MediaQuery.of(context).size.height / 8.3,
+                child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisSize: MainAxisSize.min,
+                    children: <Widget>[
+                      Align(
+                        alignment: Alignment.center,
+                        child: CircleAvatar(
+                          radius: 75,
+                          child: ClipOval(
+                            child: SizedBox(
+                              width: 150,
+                              height: 150,
+                              child: newDpFlag
+                                  ? Image.file(newDP)
+                                  : user['photoURL'] != null
+                                      ? Image.network(user['photoURL'],
+                                          fit: BoxFit.scaleDown)
+                                      : Image.asset(
+                                          "assets/images/avatars/av1.jpg"),
+                            ),
+                          ),
                         ),
                       ),
+                    ]),
+              ),
+              Positioned(
+                  // width: MediaQuery.of(context).size.width,
+                  top: MediaQuery.of(context).size.height / 3.6,
+                  left: MediaQuery.of(context).size.width / 2.15,
+                  // widthFactor: 5,
+                  child: Container(
+                    //   top: MediaQuery.of(context).size.height / 4.5,
+                    // padding: EdgeInsets.all(padExtend),
+                    height: 30,
+                    width: 30,
+                    decoration: BoxDecoration(
+                        color: AppColors.PROTEGE_GREY,
+                        borderRadius: BorderRadius.circular(50)),
+                    child: IconButton(
+                      icon: Icon(
+                        Icons.edit,
+                        size: 15,
+                        color: Colors.white,
+                      ),
+                      alignment: Alignment.center,
+                      onPressed: () async {
+                        await getImage(context);
+                      },
                     ),
-                  ),
-                ]),
-            Align(
-                alignment: Alignment.center,
-                heightFactor: 0.2,
-                // widthFactor: 5,
-                child: Container(
-                  //   top: MediaQuery.of(context).size.height / 4.5,
-                  // padding: EdgeInsets.all(padExtend),
-                  height: 30,
-                  width: 30,
-                  decoration: BoxDecoration(
-                      color: AppColors.PROTEGE_GREY,
-                      borderRadius: BorderRadius.circular(50)),
-                  child: IconButton(
-                    icon: Icon(
-                      Icons.edit,
-                      size: 15,
-                      color: Colors.white,
-                    ),
-                    alignment: Alignment.center,
-                    onPressed: () async {
-                      await getImage(context);
-                    },
-                  ),
-                )),
+                  )),
+            ]),
+
+            SizedBox(
+              height: 0,
+            ),
+
             SizedBox(height: 25),
             Align(
               alignment: Alignment.center,
@@ -255,7 +247,8 @@ class _ProfileState extends State<Profile> {
                 style: TextStyle(
                   fontSize: 20,
                   fontFamily: 'GoogleSans',
-                  color: AppColors.PROTEGE_CYAN,
+                  // color: AppColors.COLOR_TEAL_LIGHT,
+                  color: Hexcolor('#d89279'),
                   fontStyle: FontStyle.italic,
                 ),
               ),
@@ -341,11 +334,12 @@ class _ProfileState extends State<Profile> {
                           user["contact"] != null
                               ? user["contact"].toString()
                               : "null",
-                          style:
-                              TextStyle(fontFamily: 'GoogleSans', fontSize: 20)),
+                          style: TextStyle(
+                              fontFamily: 'GoogleSans', fontSize: 20)),
                       leading: Icon(
                         Icons.phone,
                         color: AppColors.COLOR_TEAL_LIGHT,
+                        // color: Hexcolor('#d89279'),
                       ),
                     ),
                   ),
@@ -357,6 +351,7 @@ class _ProfileState extends State<Profile> {
                     leading: Icon(
                       Icons.mail,
                       color: AppColors.COLOR_TEAL_LIGHT,
+                      // color: Hexcolor('#d89279'),
                     ),
                   ),
                   Divider(),
@@ -370,20 +365,21 @@ class _ProfileState extends State<Profile> {
                                   ", " +
                                   user["year"] +
                                   " year",
-                          style:
-                              TextStyle(fontFamily: 'GoogleSans', fontSize: 20)),
+                          style: TextStyle(
+                              fontFamily: 'GoogleSans', fontSize: 20)),
                       subtitle: Text(
                           user["rollNo"] == null
                               ? "null"
                               : user["rollNo"].toString() +
                                   "                                                    " +
                                   hostel,
-                          style:
-                              TextStyle(fontFamily: 'GoogleSans', fontSize: 20)),
+                          style: TextStyle(
+                              fontFamily: 'GoogleSans', fontSize: 20)),
                       isThreeLine: true,
                       leading: Icon(
                         Icons.school,
                         color: AppColors.COLOR_TEAL_LIGHT,
+                        // color: Hexcolor('#d89279'),
                       ),
                     ),
                   ),
@@ -401,8 +397,8 @@ class _ProfileState extends State<Profile> {
                     padding: const EdgeInsets.only(top: 5.0),
                     child: ListTile(
                       title: Text("Languages",
-                          style:
-                              TextStyle(fontFamily: 'GoogleSans', fontSize: 18)),
+                          style: TextStyle(
+                              fontFamily: 'GoogleSans', fontSize: 18)),
                       subtitle: Text(
                           user["languages"] != null
                               ? user["languages"]
@@ -410,13 +406,14 @@ class _ProfileState extends State<Profile> {
                                   .split('[')[1]
                                   .split(']')[0]
                               : "null",
-                          style:
-                              TextStyle(fontFamily: 'GoogleSans', fontSize: 20)),
+                          style: TextStyle(
+                              fontFamily: 'GoogleSans', fontSize: 20)),
 
                       // isThreeLine: true,
                       leading: Icon(
                         Icons.code,
                         color: AppColors.COLOR_TEAL_LIGHT,
+                        // color: Hexcolor('#d89279'),
                       ),
                     ),
                   ),
@@ -438,6 +435,7 @@ class _ProfileState extends State<Profile> {
                     leading: Icon(
                       Icons.code,
                       color: AppColors.COLOR_TEAL_LIGHT,
+                      // color: Hexcolor('#d89279'),
                     ),
                   ),
                   Divider(),
@@ -446,7 +444,8 @@ class _ProfileState extends State<Profile> {
                         style:
                             TextStyle(fontFamily: 'GoogleSans', fontSize: 18)),
                     subtitle: Text(
-                      user["linkedInURL"]==null || user["linkedInURL"].length == 0
+                      user["linkedInURL"] == null ||
+                              user["linkedInURL"].length == 0
                           ? " - "
                           : user["linkedInURL"],
                       style: GoogleFonts.lato(
@@ -468,14 +467,16 @@ class _ProfileState extends State<Profile> {
                     child: ListTile(
                       title: Text(
                         "Github Profile",
-                        style: TextStyle(fontFamily: 'GoogleSans', fontSize: 18),
+                        style:
+                            TextStyle(fontFamily: 'GoogleSans', fontSize: 18),
                       ),
                       subtitle: Text(
-                          user["githubURL"]==null || user["githubURL"].length == 0
+                          user["githubURL"] == null ||
+                                  user["githubURL"].length == 0
                               ? " - "
                               : user["githubURL"],
-                          style:
-                              TextStyle(fontFamily: 'GoogleSans', fontSize: 18)),
+                          style: TextStyle(
+                              fontFamily: 'GoogleSans', fontSize: 18)),
                       // isThreeLine: true,
                       leading: Icon(
                         Icons.code,

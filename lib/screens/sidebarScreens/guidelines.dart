@@ -1,6 +1,7 @@
 import 'package:dbapp/constants/colors.dart';
 import 'package:dbapp/constants/sidebarConstants.dart';
 import 'package:flutter/material.dart';
+import 'package:hexcolor/hexcolor.dart';
 import 'package:dbapp/shared/styles.dart';
 
 class Guidelines extends StatelessWidget {
@@ -20,6 +21,7 @@ class Guidelines extends StatelessWidget {
                       style: TextStyle(
                           fontFamily: 'GoogleSans',
                           fontWeight: FontWeight.bold,
+                          color: Hexcolor('#d89279'),
                           fontSize: 25)));
             } else if (index < 11) {
               return Container(
@@ -36,6 +38,7 @@ class Guidelines extends StatelessWidget {
                       style: TextStyle(
                           fontFamily: 'GoogleSans',
                           fontWeight: FontWeight.bold,
+                          color: Hexcolor('#d89279'),
                           fontSize: 25)));
             } else {
               return Container(

@@ -1,5 +1,6 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:hexcolor/hexcolor.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class ResourceTile extends StatelessWidget {
@@ -19,7 +20,11 @@ class ResourceTile extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
                 Container(
+                  // color: Hexcolor('#eae8e0'),
                   width: MediaQuery.of(context).size.width,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(8),
+                      color: Hexcolor('eae8e0')),
                   child: ExpansionTile(
                       // trailing: Icon(Icons.more),
                       title: Center(

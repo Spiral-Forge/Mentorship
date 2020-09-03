@@ -13,8 +13,7 @@ import 'package:dbapp/screens/authenticate/form4.dart';
 String year = '';
 String branch = '';
 String rollNo = '';
-String linkedinURL = '';
-String githubURL = '';
+bool hosteller;
 
 class ListItem {
   int value;
@@ -65,6 +64,16 @@ class _RegisterForm3State extends State<RegisterForm3> {
   List<DropdownMenuItem<ListItem>> _dropdownYearItems;
   ListItem _selectedYear;
 
+  int _hostellerValue = -1;
+  void _handleHostellerValue(int value) {
+    setState(() {
+      _hostellerValue = value;
+      hosteller = _hostellerValue == 0;
+      print(hosteller);
+      print(_hostellerValue);
+    });
+  }
+
   void initState() {
     super.initState();
     _dropdownYearItems = buildDropDownMenuItems(_dropdownYear);
@@ -74,8 +83,6 @@ class _RegisterForm3State extends State<RegisterForm3> {
     _selectedBranch = _dropdownBranch[0];
     branch = _selectedBranch.name;
     rollNo = '';
-    linkedinURL = '';
-    githubURL = '';
   }
 
   List<DropdownMenuItem<ListItem>> buildDropDownMenuItems(List listItems) {
@@ -96,14 +103,14 @@ class _RegisterForm3State extends State<RegisterForm3> {
     return new Scaffold(
       backgroundColor: Colors.grey[50],
       appBar: AppBar(
-        backgroundColor: AppColors.COLOR_TEAL_DARK,
+        backgroundColor: AppColors.COLOR_TEAL_LIGHT,
         elevation: 0.0,
         title: Text("Register"),
       ),
       body: loading
           ? Loading()
           : Padding(
-              padding: EdgeInsets.all(8.0),
+              padding: EdgeInsets.all(18.0),
               child: Card(
                 margin: EdgeInsets.all(8),
                 child: new Container(
@@ -113,7 +120,24 @@ class _RegisterForm3State extends State<RegisterForm3> {
                       child: ListView(
                         shrinkWrap: true,
                         children: <Widget>[
-                          Text("Select your branch"),
+                          new Divider(height: 35.0, color: Colors.transparent),
+                          new Text(
+                            'College info',
+                            style: TextStyle(
+                              fontFamily: 'GoogleSans',
+                              fontSize: 25,
+                              fontWeight: FontWeight.w600,
+                            ),
+                            textAlign: TextAlign.center,
+                          ),
+                          new Divider(height: 35.0, color: Colors.transparent),
+                          Text(
+                            "Select your branch",
+                            style: TextStyle(
+                              fontFamily: 'GoogleSans',
+                              fontSize: 13,
+                            ),
+                          ),
                           DropdownButton<ListItem>(
                               value: _selectedBranch,
                               items: _dropdownBranchItems,
@@ -124,7 +148,13 @@ class _RegisterForm3State extends State<RegisterForm3> {
                                 });
                               }),
                           new Divider(height: 10, color: Colors.transparent),
-                          Text("Select your year"),
+                          Text(
+                            "Select your year",
+                            style: TextStyle(
+                              fontFamily: 'GoogleSans',
+                              fontSize: 13,
+                            ),
+                          ),
                           DropdownButton<ListItem>(
                               value: _selectedYear,
                               items: _dropdownYearItems,
@@ -138,7 +168,13 @@ class _RegisterForm3State extends State<RegisterForm3> {
                             height: 10,
                             color: Colors.transparent,
                           ),
-                          Text('Enter your Roll Number'),
+                          Text(
+                            'Enter your Roll Number',
+                            style: TextStyle(
+                              fontFamily: 'GoogleSans',
+                              fontSize: 13,
+                            ),
+                          ),
                           TextFormField(
                             keyboardType: TextInputType.number,
                             style: TextStyle(color: Colors.grey),
@@ -163,67 +199,64 @@ class _RegisterForm3State extends State<RegisterForm3> {
                             },
                           ),
                           new Divider(height: 10, color: Colors.transparent),
-                          Text('Enter your Linkedin Profile URL'),
-                          TextFormField(
-                              style: TextStyle(color: Colors.grey),
-                              decoration: const InputDecoration(
-                                enabledBorder: UnderlineInputBorder(
-                                  borderSide: BorderSide(color: Colors.grey),
-                                ),
-                                focusedBorder: UnderlineInputBorder(
-                                  borderSide: BorderSide(color: Colors.blue),
-                                ),
-                                border: UnderlineInputBorder(),
+                          new Text(
+                            userMap['post'] == 'Mentor'
+                                ? "Are you a hosteller?"
+                                : "Do you want your mentor to be a hosteller?",
+                            style: TextStyle(
+                              fontFamily: 'GoogleSans',
+                              fontSize: 13,
+                            ),
+                          ),
+                          new Row(children: <Widget>[
+                            new Radio(
+                                value: 0,
+                                groupValue: _hostellerValue,
+                                onChanged: _handleHostellerValue),
+                            new Text(
+                              'Yes',
+                              style: TextStyle(
+                                fontFamily: 'GoogleSans',
+                                fontSize: 16,
                               ),
-                              // validator: (val) {
-                              //   if (val.length == 0) {
-                              //     return 'Required';
-                              //   }
-                              //   return '';
-                              // },
-                              onChanged: (val) {
-                                setState(() => linkedinURL = val);
-                              }),
-                          new Divider(height: 10, color: Colors.transparent),
-                          Text('Enter your GitHub Profile URL'),
-                          TextFormField(
-                              style: TextStyle(color: Colors.grey),
-                              decoration: const InputDecoration(
-                                enabledBorder: UnderlineInputBorder(
-                                  borderSide: BorderSide(color: Colors.grey),
-                                ),
-                                focusedBorder: UnderlineInputBorder(
-                                  borderSide: BorderSide(color: Colors.blue),
-                                ),
-                                border: UnderlineInputBorder(),
+                            ),
+                            new Radio(
+                                value: 1,
+                                groupValue: _hostellerValue,
+                                onChanged: _handleHostellerValue),
+                            new Text(
+                              'No',
+                              style: TextStyle(
+                                fontFamily: 'GoogleSans',
+                                fontSize: 16,
                               ),
-                              // validator: (val) {
-                              //   if (val.length == 0) {
-                              //     return 'Required';
-                              //   }
-                              //   return '';
-                              // },
-                              onChanged: (val) {
-                                setState(() => githubURL = val);
-                              }),
+                            ),
+                          ]),
+                          new Divider(height: 35.0, color: Colors.transparent),
                           new Container(
-                            padding:
-                                const EdgeInsets.only(left: 175.0, top: 40.0),
+                            padding: EdgeInsets.fromLTRB(120, 5, 120, 5),
                             child: RaisedButton(
                                 color: AppColors.COLOR_TEAL_LIGHT,
                                 shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(8.0),
+                                    borderRadius: BorderRadius.circular(10.0),
                                     side: BorderSide(
-                                        color: AppColors.COLOR_TEAL_LIGHT)),
-                                child: Text("Next"),
+                                      color: AppColors.COLOR_TEAL_LIGHT,
+                                    )),
+                                child: Text("Next",
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 17,
+                                        fontWeight: FontWeight.w600,
+                                        fontFamily: 'GoogleSans'),
+                                    textAlign: TextAlign.center),
                                 onPressed: () {
-                                  if (_formKey3.currentState.validate()) {
+                                  if (_formKey3.currentState.validate() &&
+                                      _hostellerValue != -1) {
                                     setState(() {
                                       userMap['year'] = year;
                                       userMap['branch'] = branch;
                                       userMap['rollNo'] = rollNo;
-                                      userMap['linkedInURL'] = linkedinURL;
-                                      userMap['githubURL'] = githubURL;
+                                      userMap['hosteller'] = hosteller;
                                     });
                                     print(userMap);
                                     Navigator.push(
@@ -237,6 +270,7 @@ class _RegisterForm3State extends State<RegisterForm3> {
                                   }
                                 }),
                           ),
+                          new Divider(height: 18.0, color: Colors.transparent),
                         ],
                       ),
                     )),

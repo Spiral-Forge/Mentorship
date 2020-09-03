@@ -32,7 +32,7 @@ class ResourceCategoryTile extends StatelessWidget {
                     title: Center(
                         child: Text(
                       categoryName,
-                      style: TextStyle(fontSize: 20),
+                      style: TextStyle(fontSize: 18, fontFamily: 'GoogleSans'),
                       textAlign: TextAlign.center,
                     )),
                     //subtitle: Center(child: Text(categoryName,style: TextStyle(fontSize: 20),)),

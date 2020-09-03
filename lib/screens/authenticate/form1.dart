@@ -29,6 +29,8 @@ class RegisterForm1 extends StatefulWidget {
   //taken from parent props:
   final Function toggleView;
   RegisterForm1({this.toggleView});
+  AnimationController _iconAnimationController;
+  Animation<double> _iconAnimation;
   @override
   _RegisterForm1State createState() => _RegisterForm1State();
 }
@@ -77,7 +79,7 @@ class _RegisterForm1State extends State<RegisterForm1> {
     return new Scaffold(
       backgroundColor: Colors.grey[50],
       appBar: AppBar(
-          backgroundColor: AppColors.COLOR_TEAL_DARK,
+          backgroundColor: AppColors.COLOR_TEAL_LIGHT,
           elevation: 0.0,
           title: Text("Register"),
           actions: <Widget>[
@@ -92,7 +94,7 @@ class _RegisterForm1State extends State<RegisterForm1> {
       body: loading
           ? Loading()
           : Padding(
-              padding: EdgeInsets.all(8.0),
+              padding: EdgeInsets.all(8),
               child: Card(
                 margin: EdgeInsets.all(8),
                 child: new Container(
@@ -102,56 +104,96 @@ class _RegisterForm1State extends State<RegisterForm1> {
                       child: ListView(
                         shrinkWrap: true,
                         children: <Widget>[
+                          new Divider(height: 35.0, color: Colors.transparent),
+                          Container(
+                              width: 20,
+                              height: 150,
+                              decoration: new BoxDecoration(
+                                  //shape: BoxShape.circle,
+                                  image: new DecorationImage(
+                                      // fit: BoxFit.fill,
+                                      image: new AssetImage(
+                                          'assets/images/Protege no bg.png')))),
+                          new Divider(height: 35.0, color: Colors.transparent),
                           new Text(
-                              'Do you want to register as a mentor or a mentee?'),
-                          new Divider(height: 5.0, color: Colors.transparent),
-                          new Row(
-                            children: <Widget>[
-                              new Radio(
-                                  value: 0,
-                                  groupValue: _radioValue,
-                                  onChanged: _handleRadioValueChange),
-                              new Text('Mentor'),
-                              new Radio(
-                                  value: 1,
-                                  groupValue: _radioValue,
-                                  onChanged: _handleRadioValueChange),
-                              new Text('Mentee'),
-                            ],
+                            'Hey,' + '\n' + 'register yourself as',
+                            style: TextStyle(
+                              fontFamily: 'GoogleSans',
+                              fontSize: 32,
+                              fontWeight: FontWeight.w600,
+                            ),
+                            textAlign: TextAlign.center,
                           ),
-                          new Container(
-                            padding:
-                                const EdgeInsets.only(left: 175.0, top: 20.0),
-                            child: RaisedButton(
-                                color: AppColors.COLOR_TEAL_LIGHT,
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(8.0),
-                                    side: BorderSide(
-                                      color: AppColors.COLOR_TEAL_LIGHT
-                                    )),
-                                child: Text("Next"),
-                                onPressed: () async {
-                                  print(_radioValue);
-                                  // It returns true if the form is valid, otherwise returns false
-                                  if (_formKey1.currentState.validate() &&
-                                      _radioValue != -1) {
-                                    setState(() {
-                                      userMap['post'] = post;
-                                      print(userMap);
-                                    });
-                                    Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                RegisterForm2(userMap)));
-                                    // If the form is valid, display a Snackbar.
-                                    // Scaffold.of(context).showSnackBar(
-                                    //     SnackBar(content: Text('Data is in processing.')));
-                                  } else {
-                                    Scaffold.of(context).showSnackBar(
-                                        SnackBar(content: Text('Error')));
-                                  }
-                                }),
+                          new Divider(height: 55.0, color: Colors.transparent),
+                          Column(
+                            children: <Widget>[
+                              Container(
+                                  // height: 40,
+                                  padding: EdgeInsets.symmetric(horizontal: 55),
+                                  child: Material(
+                                      borderRadius: BorderRadius.circular(20),
+                                      color: AppColors.COLOR_TEAL_LIGHT,
+                                      child: GestureDetector(
+                                          onTap: () {
+                                            setState(() {
+                                              // _handleRadioValueChange(0);
+                                              userMap['post'] = 'Mentor';
+                                              print(userMap);
+                                            });
+                                            Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        RegisterForm2(
+                                                            userMap)));
+                                          },
+                                          child: Container(
+                                            height: 40,
+                                            alignment: Alignment.center,
+                                            child: Text('Mentor',
+                                                style: TextStyle(
+                                                    color: Colors.white,
+                                                    fontSize: 17,
+                                                    fontWeight: FontWeight.w600,
+                                                    fontFamily: 'GoogleSans'),
+                                                textAlign: TextAlign.center),
+                                          )))),
+                              SizedBox(height: 10),
+                              Container(
+                                  padding: EdgeInsets.symmetric(horizontal: 55),
+                                  // padding: EdgeInsets.fromLTRB(18, 5, 18, 5),
+                                  // height: 40,
+                                  child: Material(
+                                      borderRadius: BorderRadius.circular(20),
+                                      color: AppColors.COLOR_TEAL_LIGHT,
+                                      child: GestureDetector(
+                                          onTap: () {
+                                            setState(() {
+                                              // _handleRadioValueChange(1);
+                                              userMap['post'] = 'Mentee';
+                                              print(userMap);
+                                            });
+                                            Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        RegisterForm2(
+                                                            userMap)));
+                                          },
+                                          child: Container(
+                                            height: 40,
+                                            alignment: Alignment.center,
+                                            child: Text('Mentee',
+                                                style: TextStyle(
+                                                    color: Colors.white,
+                                                    fontSize: 17,
+                                                    fontWeight: FontWeight.w600,
+                                                    fontFamily: 'GoogleSans'),
+                                                textAlign: TextAlign.center),
+                                          )))),
+                              new Divider(
+                                  height: 35.0, color: Colors.transparent),
+                            ],
                           )
                         ],
                       ),
