@@ -1,3 +1,5 @@
+// import 'dart:js';
+
 import 'package:dbapp/constants/colors.dart';
 import 'package:dbapp/constants/sidebarConstants.dart';
 import 'package:flutter/material.dart';
@@ -10,51 +12,151 @@ class About extends StatelessWidget {
         //     title:
         //         new Text("About", style: TextStyle(fontFamily: 'GoogleSans')),
         //     backgroundColor: AppColors.COLOR_TEAL_LIGHT),
+        backgroundColor: Colors.white,
         body: SingleChildScrollView(
-      scrollDirection: Axis.vertical,
-      child: Padding(
-          padding: EdgeInsets.fromLTRB(20, 20, 20, 0),
-          child: new Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              SizedBox(height: 32),
-              // Row(
-              //   children: [
-              IconButton(
-                icon: Icon(Icons.arrow_back),
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-              ),
-              SizedBox(height: 25),
-              Text("Our Vision",
-                  style: TextStyle(
-                      fontFamily: 'GoogleSans',
-                      fontWeight: FontWeight.bold,
-                      fontSize: 32)),
-              // ],
-              // ),
+            scrollDirection: Axis.vertical,
+            child: Padding(
+                padding: EdgeInsets.fromLTRB(20, 20, 20, 0),
+                child: new Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    SizedBox(height: 32),
+                    // Row(
+                    //   children: [
+                    IconButton(
+                      icon: Icon(Icons.arrow_back),
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                    ),
+                    SizedBox(height: 25),
+                    Text("Our Vision",
+                        style: TextStyle(
+                            fontFamily: 'GoogleSans',
+                            fontWeight: FontWeight.bold,
+                            fontSize: 32)),
+                    // SizedBox(height: 8),
+                    new Container(
+                      margin: EdgeInsets.symmetric(
+                          vertical: 20.0, horizontal: 10.0),
+                      child: Text(
+                        SidebarConstants.aboutSoc,
+                        style:
+                            TextStyle(fontSize: 16.0, fontFamily: 'GoogleSans'),
+                      ),
+                    ),
+                    // new Mycard1(),
+                    // new Mycard2(),
+                    // new Mycard3(),
+                    // new Mycard4(),
 
-              // SizedBox(height: 15),
-              // Padding(
-              //   padding: EdgeInsets.fromLTRB(20, 20, 20, 0),
-              //   child: new
-              // ),
-              new Container(
-                margin: EdgeInsets.symmetric(vertical: 20.0, horizontal: 10.0),
-                child: Text(
-                  SidebarConstants.aboutSoc,
-                  style: TextStyle(fontSize: 16.0, fontFamily: 'GoogleSans'),
-                ),
-              ),
-              new Mycard1(),
-              new Mycard2(),
-              new Mycard3(),
-              new Mycard4(),
-            ],
-          )),
-    ));
+                    Row(
+                      children: [
+                        _buildCard(context, "Nitasha Dhingra",
+                            "assets/images/bg2.jpg", "url", 1),
+                        _buildCard(context, "Nitasha Dhingra",
+                            "assets/images/bg2.jpg", "url", 2),
+                      ],
+                    ),
+                    Row(
+                      children: [
+                        _buildCard(context, "Nitasha Dhingra",
+                            "assets/images/bg2.jpg", "url", 3),
+                        _buildCard(context, "Nitasha Dhingra",
+                            "assets/images/bg2.jpg", "url", 4),
+                      ],
+                    ),
+                    SizedBox(
+                      height: 8,
+                    )
+                  ],
+                ))));
   }
+}
+
+Widget _buildCard(
+    BuildContext context, String name, String img, String link, int index) {
+  return Container(
+    width: MediaQuery.of(context).size.width / 2.22,
+    child: Card(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(10),
+      ),
+      elevation: 0,
+      child: Column(
+        children: <Widget>[
+          SizedBox(
+            height: 23,
+          ),
+          Align(
+              alignment: Alignment.center,
+              child: Container(
+                height: 80,
+                width: 80,
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(50),
+                    color: Colors.black12,
+                    image: DecorationImage(
+                      image: new AssetImage(img),
+                    )),
+              )),
+          SizedBox(
+            height: 8,
+          ),
+          Align(
+            alignment: Alignment.center,
+            child: Text(
+              name,
+              style: TextStyle(
+                  fontFamily: 'GoogleSans',
+                  fontWeight: FontWeight.bold,
+                  color: Colors.cyan,
+                  fontSize: 18),
+            ),
+          ),
+          SizedBox(
+            height: 8,
+          ),
+          Align(
+            alignment: Alignment.center,
+            child: Text(
+              "this is my vision",
+              style: TextStyle(
+                  fontFamily: 'GoogleSans',
+                  fontStyle: FontStyle.italic,
+                  color: AppColors.PROTEGE_GREY,
+                  fontSize: 12),
+            ),
+          ),
+          Align(
+              alignment: Alignment.bottomCenter,
+              child: FlatButton(
+                onPressed: () => link,
+                // padding: EdgeInsets.fromLTRB(20, 35, 20, 14),
+                child: Container(
+                  width: 80,
+                  height: 30,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.all(Radius.circular(10)),
+                      color: Colors.white),
+                  child: Center(
+                      child: Text(
+                    "Connect",
+                    style: TextStyle(
+                        fontFamily: 'GoogleSans',
+                        fontWeight: FontWeight.w200,
+                        fontSize: 14,
+                        color: Colors.grey),
+                  )),
+                ),
+              ))
+        ],
+      ),
+      // margin: index.isEven
+      //     ? EdgeInsets.fromLTRB(10, 0, 25, 10)
+      //     : EdgeInsets.fromLTRB(25, 0, 10, 10),
+    ),
+  );
 }
 
 class Mycard1 extends StatelessWidget {
