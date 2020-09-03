@@ -58,67 +58,92 @@ class DataBaseService {
         .get();
   }
 
+  getConversationMessages(String chatRoomID)async {
+    return await Firestore.instance.collection("ChatRoom")
+    .document(chatRoomID)
+    .collection("chats")
+    .orderBy("time",descending: false)
+    .snapshots();
+  }
+
+  createChatRoom(String chatRoomID,chatRoomMap){
+    Firestore.instance.collection("ChatRoom").document(chatRoomID)
+      .setData(chatRoomMap).catchError((e){
+        print(e.toString());
+      });
+  }
+
+  addConversationMessage(String chatRoomID,messageMap){
+    Firestore.instance.collection("ChatRoom")
+    .document(chatRoomID)
+    .collection("chats")
+    .add(messageMap)
+    .catchError((e){
+      print(e.toString());
+    });
+  }
+
   getPeerData(String peerID) async {
     return await Firestore.instance.collection("Users").document(peerID).get();
   }
 
-  Future<bool> addChatRoom(chatRoom, chatRoomId) {
-    Firestore.instance
-        .collection("MentorMentee")
-        .document(chatRoomId)
-        .setData(chatRoom)
-        .catchError((e) {
-      print(e);
-    });
-  }
+  // Future<bool> addChatRoom(chatRoom, chatRoomId) {
+  //   Firestore.instance
+  //       .collection("MentorMentee")
+  //       .document(chatRoomId)
+  //       .setData(chatRoom)
+  //       .catchError((e) {
+  //     print(e);
+  //   });
+  // }
 
-  Future getUserName(id) async {
-    DocumentSnapshot snapshot =
-        await Firestore.instance.collection("Mentor").document(id).get();
-    return snapshot.data["name"];
-  }
+  // Future getUserName(id) async {
+  //   DocumentSnapshot snapshot =
+  //       await Firestore.instance.collection("Mentor").document(id).get();
+  //   return snapshot.data["name"];
+  // }
 
-  Future getMyName(id) async {
-    DocumentSnapshot snapshot =
-        await Firestore.instance.collection("Mentee").document(id).get();
-    return snapshot.data["name"];
-  }
+  // Future getMyName(id) async {
+  //   DocumentSnapshot snapshot =
+  //       await Firestore.instance.collection("Mentee").document(id).get();
+  //   return snapshot.data["name"];
+  // }
 
-  Future<void> addMessage(String chatRoomId, chatMessageMap) {
-    Firestore.instance
-        .collection("MentorMentee")
-        .document(chatRoomId)
-        .collection("chats")
-        .add(chatMessageMap)
-        .catchError((e) {
-      print("Error in add message");
-    });
-  }
+  // Future<void> addMessage(String chatRoomId, chatMessageMap) {
+  //   Firestore.instance
+  //       .collection("MentorMentee")
+  //       .document(chatRoomId)
+  //       .collection("chats")
+  //       .add(chatMessageMap)
+  //       .catchError((e) {
+  //     print("Error in add message");
+  //   });
+  // }
 
-  getChats(String chatRoomId) {
-    print("wwere inside getchats");
-    print(chatRoomId);
-    // return await Firestore.instance
-    //     .collection("MentorMentee")
-    //     .document(chatRoomId)
-    //     .collection("chats")
-    //     .snapshots();
-    //     //.map(_chatListFromSnapshot);
-    //     // print("inside get chats");
-    //     // print(variable);
-    //     // return variable;
-    var document = Firestore.instance
-        .collection('MentorMentee')
-        .document(chatRoomId)
-        .collection("chats");
-    return document.getDocuments();
+  // getChats(String chatRoomId) {
+  //   print("wwere inside getchats");
+  //   print(chatRoomId);
+  //   // return await Firestore.instance
+  //   //     .collection("MentorMentee")
+  //   //     .document(chatRoomId)
+  //   //     .collection("chats")
+  //   //     .snapshots();
+  //   //     //.map(_chatListFromSnapshot);
+  //   //     // print("inside get chats");
+  //   //     // print(variable);
+  //   //     // return variable;
+  //   var document = Firestore.instance
+  //       .collection('MentorMentee')
+  //       .document(chatRoomId)
+  //       .collection("chats");
+  //   return document.getDocuments();
 
-    // await document.get().then((val){
-    //   print("yoyo");
-    //   print(val.data["chats"]);
-    // });
-    //document.get();
-  }
+  //   // await document.get().then((val){
+  //   //   print("yoyo");
+  //   //   print(val.data["chats"]);
+  //   // });
+  //   //document.get();
+  // }
 
   Future<DocumentReference> addFeedback(feedbackMap) async {
     return await Firestore.instance

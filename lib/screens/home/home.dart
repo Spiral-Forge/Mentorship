@@ -1,6 +1,7 @@
 import 'package:dbapp/constants/colors.dart';
 import 'package:dbapp/screens/ResourceCenter/resourceList.dart';
 import 'package:dbapp/screens/ResourceCenter/resourcesCategoryList.dart';
+import 'package:dbapp/screens/chat/chatRoomScreen.dart';
 import 'package:dbapp/services/auth.dart';
 import 'package:flutter/material.dart';
 import 'package:dbapp/screens/profile/profile.dart';
@@ -19,6 +20,7 @@ class _HomeState extends State<Home> {
   final List<Widget> _children = <Widget>[
     Profile(),
     HomePage(),
+    //ConversationScreen()
     ResourceCategoryList()
   ];
 

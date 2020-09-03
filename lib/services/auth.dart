@@ -24,7 +24,10 @@ class AuthService {
       FirebaseUser user = result.user;
       DataBaseService(uid: user.uid).getUserData().then((userdata) async {
         Map<String, dynamic> userMap = userdata.data;
+        userMap["id"]=userdata.documentID;
         userMap["avatarNum"] = Random().nextInt(4) + 1;
+        print("printing user map");
+        print(userMap);
         await StorageServices.saveUserInfo(userMap);
         return user;
       });
@@ -55,7 +58,8 @@ class AuthService {
         password: password,
       );
       FirebaseUser user = result.user;
-
+      print("printing uid at time of isgnup");
+      print(user.uid);
       //%%%%%
       await DataBaseService(uid: user.uid).updateUserData(
           name,
