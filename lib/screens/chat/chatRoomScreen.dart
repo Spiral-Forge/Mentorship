@@ -5,8 +5,10 @@ import 'package:dbapp/services/storage.dart';
 import 'package:flutter/material.dart';
 
 class ConversationScreen extends StatefulWidget {
-  // final String chatRoomID;
-  // ConversationScreen(this.chatRoomID);
+  //final String chatRoomID;
+  final String userID;
+  final String peerID;
+  ConversationScreen(this.userID,this.peerID);
   @override
   _ConversationScreenState createState() => _ConversationScreenState();
 }
@@ -25,12 +27,12 @@ class _ConversationScreenState extends State<ConversationScreen> {
   }
 
   void initialise() async{
-    var user=await StorageServices.getUserInfo();
-    print("user coming here from local storage");
-    print(user);
-    List<String> users=[user["id"],user["peerID"][0]];
-    print(users);
-    String chatRoomID=getChatRoomId(user["id"],user["peerID"][0]);
+    // var user=await StorageServices.getUserInfo();
+    // print("user coming here from local storage");
+    // print(user);
+    List<String> users=[widget.userID,widget.peerID];
+    //print(users);
+    String chatRoomID=getChatRoomId(widget.userID,widget.peerID);
     setState(() {
       chatRoomId=chatRoomID;
     });
