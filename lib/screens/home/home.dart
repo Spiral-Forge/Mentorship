@@ -23,7 +23,7 @@ class _HomeState extends State<Home> {
     HomePage(),
     /**comment out chatscreenhandler and uncomment resource category list to get resource center on bottom nav */
     ChatScreenHandler(),
-    //ResourceCategoryList()
+    ResourceCategoryList()
   ];
 
   void _onItemTapped(int index) {
