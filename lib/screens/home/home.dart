@@ -48,9 +48,13 @@ class _HomeState extends State<Home> {
             title: Text('Home'),
           ),
           BottomNavigationBarItem(
+            icon: Icon(Icons.chat),
+            title: Text('Chat'),
+          ),
+          BottomNavigationBarItem(
             icon: Icon(Icons.link),
             title: Text('Resource Center'),
-          ),
+          )
         ],
         currentIndex: _currentIndex,
         selectedItemColor: AppColors.COLOR_TEAL_LIGHT,
