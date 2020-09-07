@@ -8,7 +8,8 @@ class ConversationScreen extends StatefulWidget {
   //final String chatRoomID;
   final String userID;
   final String peerID;
-  ConversationScreen(this.userID,this.peerID);
+  final String peerName;
+  ConversationScreen(this.userID,this.peerID,this.peerName);
   @override
   _ConversationScreenState createState() => _ConversationScreenState();
 }
@@ -73,7 +74,7 @@ class _ConversationScreenState extends State<ConversationScreen> {
     if(messageController.text.isNotEmpty){
       Map<String, dynamic> messageMap={
       "message":messageController.text,
-      "sentBy": "B33tvRk2bSfDJuiJhd7R2M4XpYR2",
+      "sentBy": widget.userID,
       "time":DateTime.now().millisecondsSinceEpoch
       };
       databaseMethods.addConversationMessage(chatRoomId, messageMap);
@@ -86,7 +87,7 @@ class _ConversationScreenState extends State<ConversationScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: new AppBar(
-            title: new Text("Code of Conduct"),
+            title: new Text(widget.peerName),
             backgroundColor: AppColors.COLOR_TEAL_LIGHT),
       body: Container(
         child: Stack(
@@ -160,11 +161,11 @@ class MessageTile extends StatelessWidget {
             decoration: BoxDecoration(
               gradient: LinearGradient(
                 colors: isSentByMe ?  [
-                   const Color(0xff007EF4),
-                   const Color(0xff2A75BC)
+                   const Color(0xff96ECE7),
+                   const Color(0xff96ECE7)
                 ]:[
-                  const Color(0X1AFFFFFF),
-                  const Color(0x1AFFFFFF)
+                  const Color(0xff565656),
+                  const Color(0xff565656)
                 ]
               )
             ),

@@ -28,9 +28,10 @@ class _ChatScreenHandlerState extends State<ChatScreenHandler> {
   Widget build(BuildContext context) {
      if(user==null || user["peerID"].length==0){
       return EmptyChat();
-    }else if(user["peerID"].length==1){
-      return ConversationScreen(user["id"],user["peerID"][0]);
     }
+    // else if(user["peerID"].length==1){
+    //   return ConversationScreen(user["id"],user["peerID"][0]);
+    // }
     else{
       return ChatRoomList(user["id"],user["peerID"]);
     }

@@ -195,7 +195,14 @@ class DataBaseService {
   Future<dynamic> getUserFromID(String userID) async{
     dynamic doc=await Firestore.instance.collection("Users").document(userID).get();
     //print("doc is what?")
-    return await doc.data["name"];
+
+    var data=await doc.data;
+    //print(doc.data);
+    Map<String,String> rv={
+      "name":data["name"],
+      "profilePic":data["photoURL"]
+    };
+    return rv;
   }
 }
 

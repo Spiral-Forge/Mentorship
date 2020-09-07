@@ -1,4 +1,6 @@
+import 'package:dbapp/constants/colors.dart';
 import 'package:dbapp/screens/chat/chatRoomScreen.dart';
+import 'package:dbapp/screens/myDrawer.dart';
 import 'package:dbapp/services/database.dart';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
@@ -19,22 +21,6 @@ class _ChatRoomListState extends State<ChatRoomList> {
   // }
 
   Widget roomList(){
-    // return ListBuilder(
-    //   stream: chatRoomsStream,
-    //   builder: (context,snapshot){
-    //     return snapshot.hasData ? ListView.builder(
-    //       itemCount: snapshot.data.documents.length,
-    //       itemBuilder: (context,index){
-    //         return ChatRoomTile(snapshot.data.documents[index].data["chatRoomID"]
-    //         .toString().replaceAll("_", "")
-    //         .replaceAll(Constants.myID, ""),
-    //         snapshot.data.documents[index].data["chatRoomID"]
-    //         );
-    //       }
-    //       ): Container();
-    //   },
-    //   );
-
       return ListView.builder(
           itemCount: widget.peerList.length,
           itemBuilder: (context, index) {
@@ -48,10 +34,14 @@ class _ChatRoomListState extends State<ChatRoomList> {
 
   @override
   Widget build(BuildContext context) {
+    final myDrawer _drawer = new myDrawer();
     return Scaffold(
       appBar: AppBar(
         title: Text("Chat Room"),
+        backgroundColor: AppColors.COLOR_TEAL_LIGHT
       ),
+      drawer: _drawer,
+      
       body:roomList()
     );
   }
@@ -71,6 +61,7 @@ class ChatRoomTile extends StatefulWidget {
 class _ChatRoomTileState extends State<ChatRoomTile> {
   DataBaseService databaseMethods=new DataBaseService();
   String username="";
+  String profPic="";
   @override
   void initState(){
     getNames();
@@ -82,7 +73,8 @@ class _ChatRoomTileState extends State<ChatRoomTile> {
       print("val is what?");
       print(val);
       setState(() {
-        username=val;
+        username=val["name"];
+        profPic=val["profilePic"];
       });
     });
     //print(username);
@@ -94,27 +86,38 @@ class _ChatRoomTileState extends State<ChatRoomTile> {
     return username.length ==0 ? Container() : GestureDetector(
       onTap: (){
           Navigator.push(context, MaterialPageRoute(
-              builder: (context)=>ConversationScreen(widget.userID,widget.peerID)
+              builder: (context)=>ConversationScreen(widget.userID,widget.peerID,username)
             ));
         },
-          child: Container(
+          child: Row(
+            children: <Widget>[
+              Container(
          padding: EdgeInsets.symmetric(horizontal:24,vertical:16),
         child:Row(children: <Widget>[
-          Container(
-            height:40,
-            width:40,
-            alignment: Alignment.center,
-            decoration: BoxDecoration(
-              color:Colors.blue,
-              borderRadius: BorderRadius.circular(40)
-            ),
-          ),
-          SizedBox(
-            width: 8,
-          ),
-          Text(username)
+              Container(
+                height:60,
+                width:60,
+                alignment: Alignment.center,
+                decoration: BoxDecoration(
+                  color:AppColors.PROTEGE_CYAN,
+                  borderRadius: BorderRadius.circular(40),
+                  image: DecorationImage(
+                      image: profPic!=null ? NetworkImage(profPic) : AssetImage("assets/images/avatars/av1.jpg"),
+                  ))
+              ),
+              SizedBox(
+                width: 8,
+              ),
+              Text(username,
+              style: TextStyle(
+                            fontFamily: 'GoogleSans',
+                            fontSize: 25,
+                          )
+              )
         ],)
       ),
+            ],
+          ),
     );
   }
 }
