@@ -64,7 +64,7 @@ class _ConversationScreenState extends State<ConversationScreen> {
         return snapshot.hasData ? ListView.builder(
           itemCount: snapshot.data.documents.length,
           itemBuilder: (context,index){
-            return MessageTile(snapshot.data.documents[index].data["message"],snapshot.data.documents[index].data["sentBy"]=="B33tvRk2bSfDJuiJhd7R2M4XpYR2");
+            return MessageTile(snapshot.data.documents[index].data["message"],snapshot.data.documents[index].data["sentBy"]==widget.userID);
           }
           ): Container();
       },
