@@ -165,7 +165,7 @@ class _ProfileState extends State<Profile> {
                   child: Column(
                     children: <Widget>[
                       Image.asset(
-                        "assets/images/bg2.jpg",
+                        "assets/images/avatars/av1.jpg",
                         width: MediaQuery.of(context).size.width,
                       ),
                     ],
