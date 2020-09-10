@@ -40,7 +40,7 @@ class FAQS extends StatelessWidget {
                         faqlist[index - 1],
                         // overflow: TextOverflow.ellipsis,
                         style: TextStyle(
-                            color: Colors.pink,
+                            color: AppColors.PROTEGE_GREY,
                             fontFamily: 'GoogleSans',
                             fontSize: 18,
                             fontStyle: FontStyle.italic),
