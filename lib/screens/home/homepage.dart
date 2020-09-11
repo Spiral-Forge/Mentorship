@@ -161,73 +161,109 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    final GlobalKey<ScaffoldState> _scaffoldKey =
+        new GlobalKey<ScaffoldState>();
     // // final _themeChanger = Provider.of<ThemeChanger>(context);
     // _darkTheme = (_themeChanger.getTheme() == darkTheme);
 
     return Scaffold(
-        appBar: AppBar(
-          title: Text("Home", style: TextStyle(fontFamily: 'GoogleSans')),
-          backgroundColor: AppColors.COLOR_TEAL_LIGHT,
-          elevation:
-              Theme.of(context).platform == TargetPlatform.iOS ? 0.0 : 4.0,
-          actions: peerID.length <= 1
-              ? <Widget>[
-                  FlatButton.icon(
-                      onPressed: () async {
-                        //add navigation to edit profile page
-                        if(peerID!=null || peerID.length==0){
-                             Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => UnaddedProfile(post)));
-                        } else{
-                           Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => PeerProfile(
-                                    peerID.length == 0 ? null : peerID[0])));
-                        }
+        // appBar: AppBar(
+        //   title: Text("Home", style: TextStyle(fontFamily: 'GoogleSans')),
+        //   backgroundColor: AppColors.COLOR_TEAL_LIGHT,
+        //   elevation:
+        //       Theme.of(context).platform == TargetPlatform.iOS ? 0.0 : 4.0,
+        //   actions: peerID.length <= 1
+        //       ? <Widget>[
+        //           FlatButton.icon(
+        //               onPressed: () async {
+        //                 //add navigation to edit profile page
+        //                 if(peerID!=null || peerID.length==0){
+        //                      Navigator.push(
+        //                     context,
+        //                     MaterialPageRoute(
+        //                         builder: (context) => UnaddedProfile(post)));
+        //                 } else{
+        //                    Navigator.push(
+        //                     context,
+        //                     MaterialPageRoute(
+        //                         builder: (context) => PeerProfile(
+        //                             peerID.length == 0 ? null : peerID[0])));
+        //                 }
 
-                      },
-                      icon: postFlag == true
-                          ? Icon(
-                              Icons.people,
-                              color: Colors.white,
-                            )
-                          : Icon(null),
-                      label: Text(
-                        postFlag == true
-                            ? post == "Mentor" ? 'Mentee' : 'Mentor'
-                            : "",
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontFamily: 'GoogleSans',
-                            fontSize: 16),
-                      ))
-                ]
-              : <Widget>[
-                  PopupMenuButton<String>(
-                    onSelected: (value) => Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => PeerProfile(value))),
-                    itemBuilder: (BuildContext context) {
-                      return fixedList.map((index) {
-                        return PopupMenuItem<String>(
-                          value: peerID[index],
-                          child: Text(
-                              "View mentee " +
-                                  (index + 1).toString() +
-                                  " profile",
-                              style: TextStyle(fontFamily: 'GoogleSans')),
-                        );
-                      }).toList();
-                    },
-                  )
-                ],
-        ),
+        //               },
+        //               icon: postFlag == true
+        //                   ? Icon(
+        //                       Icons.people,
+        //                       color: Colors.white,
+        //                     )
+        //                   : Icon(null),
+        //               label: Text(
+        //                 postFlag == true
+        //                     ? post == "Mentor" ? 'Mentee' : 'Mentor'
+        //                     : "",
+        //                 style: TextStyle(
+        //                     color: Colors.white,
+        //                     fontFamily: 'GoogleSans',
+        //                     fontSize: 16),
+        //               ))
+        //         ]
+        //       : <Widget>[
+        //           PopupMenuButton<String>(
+        //             onSelected: (value) => Navigator.push(
+        //                 context,
+        //                 MaterialPageRoute(
+        //                     builder: (context) => PeerProfile(value))),
+        //             itemBuilder: (BuildContext context) {
+        //               return fixedList.map((index) {
+        //                 return PopupMenuItem<String>(
+        //                   value: peerID[index],
+        //                   child: Text(
+        //                       "View mentee " +
+        //                           (index + 1).toString() +
+        //                           " profile",
+        //                       style: TextStyle(fontFamily: 'GoogleSans')),
+        //                 );
+        //               }).toList();
+        //             },
+        //           )
+        //         ],
+        // ),
+        key: _scaffoldKey,
         drawer: _drawer,
-        body: eventList());
+        body: Column(children: [
+        Expanded(
+            child: Container(
+                child: Padding(
+                    padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
+                    child: Column(
+                        // mainAxisAlignment: MainAxisAlignment.center,
+                        // crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.fromLTRB(15.0, 42, 0, 0),
+                            child: Row(children: [
+                              IconButton(
+                                  icon: Icon(Icons.menu),
+                                  onPressed: () {
+                                    _scaffoldKey.currentState.openDrawer();
+                                  }),
+                              Text(
+                                "Home",
+                                style: TextStyle(
+                                    fontFamily: 'GoogleSans', fontSize: 23),
+                              )
+                            ]),
+                          ),
+                          Expanded(
+                            child:eventList()
+                            )
+                           
+                        ])
+                        )
+                        )
+                        )
+        ])
+    );
   }
 }
 
