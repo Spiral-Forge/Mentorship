@@ -1,9 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:dbapp/blocs/values.dart';
 import 'package:dbapp/constants/colors.dart';
 import 'package:dbapp/screens/ResourceCenter/resource.dart';
 import 'package:dbapp/services/database.dart';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:provider/provider.dart';
 
 class ResourceList extends StatefulWidget {
   final String resourceField;
@@ -75,6 +77,8 @@ class _ResourceListState extends State<ResourceList> {
 
   @override
   Widget build(BuildContext context) {
+    ThemeNotifier _themeNotifier = Provider.of<ThemeNotifier>(context);
+    var themeFlag = _themeNotifier.darkTheme;
     return new Scaffold(
         // appBar: new AppBar(
         //     title: new Text(widget.resourceField),
@@ -87,7 +91,7 @@ class _ResourceListState extends State<ResourceList> {
                 flex: 7,
                 child: Container(
                     decoration: BoxDecoration(
-                        color: Colors.white,
+                        color:themeFlag?Color(0xFF303030):Colors.white,
                         borderRadius: BorderRadius.only(
                             bottomLeft: Radius.circular(100))),
                     child: Padding(
