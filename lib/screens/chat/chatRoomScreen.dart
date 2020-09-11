@@ -1,8 +1,10 @@
 // import 'package:chatApp/common/widgets.dart';
+import 'package:dbapp/blocs/values.dart';
 import 'package:dbapp/constants/colors.dart';
 import 'package:dbapp/services/database.dart';
 import 'package:dbapp/services/storage.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class ConversationScreen extends StatefulWidget {
   //final String chatRoomID;
@@ -62,6 +64,8 @@ class _ConversationScreenState extends State<ConversationScreen> {
       stream: chatMessageStream,
       builder: (context,snapshot){
         return snapshot.hasData ? ListView.builder(
+          reverse: true,
+          shrinkWrap: true,
           itemCount: snapshot.data.documents.length,
           itemBuilder: (context,index){
             return MessageTile(snapshot.data.documents[index].data["message"],snapshot.data.documents[index].data["sentBy"]==widget.userID);
@@ -85,6 +89,10 @@ class _ConversationScreenState extends State<ConversationScreen> {
 
   @override
   Widget build(BuildContext context) {
+
+    ThemeNotifier _themeNotifier = Provider.of<ThemeNotifier>(context);
+    var themeFlag=_themeNotifier.darkTheme;
+
     return Scaffold(
       appBar: new AppBar(
             title: new Text(widget.peerName),
@@ -92,23 +100,27 @@ class _ConversationScreenState extends State<ConversationScreen> {
       body: Container(
         child: Stack(
           children: <Widget>[
-            ChatMessageList(),
+            Padding(
+              padding: const EdgeInsets.only(bottom: 72, top: 8),
+              child: ChatMessageList(),
+            ),
             Container(
               alignment: Alignment.bottomCenter,
               child: Container(
-                color:Color(0X54FFFFFF),
-                padding: EdgeInsets.symmetric(horizontal:24,vertical:16),
+                color: themeFlag? Colors.grey[700]: Colors.transparent,
+                padding: EdgeInsets.symmetric(horizontal:24,vertical:8),
                 child: Row(children: <Widget>[
                   Expanded(
                       child: TextField(
                         controller:messageController,
                         style: TextStyle(
-                          color: Colors.black
+                          color: themeFlag? Colors.white : Colors.black
                         ),
                         decoration: InputDecoration(
                           hintText: "Enter message..",
                           hintStyle: TextStyle(
-                            color: Colors.black
+                            color: themeFlag? Colors.white : Colors.black87,
+                            fontFamily: 'GoogleSans'
                             ),
                           border: InputBorder.none
                         ),
@@ -121,17 +133,17 @@ class _ConversationScreenState extends State<ConversationScreen> {
                     child: Container(
                       height: 40,
                       width: 40,
-                      margin: EdgeInsets.symmetric(horizontal: 10),
+                      margin: EdgeInsets.symmetric(horizontal: 5),
                       decoration: BoxDecoration(
-                        gradient: LinearGradient(
-                          colors: [
-                            const Color(0x36FFFFFF),
-                            const Color(0x0FFFFFFF)
-                          ]
-                          ),
+                        // gradient: LinearGradient(
+                        //   colors: [
+                        //     const Color(0x0FFFFFFF),
+                        //     const Color(0x0FFFFFFF)
+                        //   ]
+                        //   ),
                           borderRadius: BorderRadius.circular(40)
                       ),
-                      padding: EdgeInsets.all(12),
+                      padding: EdgeInsets.all(5),
                       child: Icon(Icons.send)),
                   )
                 ],),
@@ -151,27 +163,33 @@ class MessageTile extends StatelessWidget {
   MessageTile(this.message,this.isSentByMe);
   @override
   Widget build(BuildContext context) {
+    ThemeNotifier _themeNotifier = Provider.of<ThemeNotifier>(context);
+    var themeFlag=_themeNotifier.darkTheme;
+
     return Container(
       padding: EdgeInsets.only(left: isSentByMe ? 0:24, right:isSentByMe ? 24:0),
-      margin: EdgeInsets.symmetric(vertical:8),
+      margin: EdgeInsets.symmetric(vertical:2),
       width: MediaQuery.of(context).size.width,
       alignment: isSentByMe ? Alignment.centerRight:Alignment.centerLeft,
           child: Container(
-            padding: EdgeInsets.symmetric(horizontal: 24, vertical:16),
+            padding: EdgeInsets.symmetric(horizontal: 22, vertical:6),
             decoration: BoxDecoration(
-              gradient: LinearGradient(
-                colors: isSentByMe ?  [
-                   const Color(0xff96ECE7),
-                   const Color(0xff96ECE7)
-                ]:[
-                  const Color(0xff565656),
-                  const Color(0xff565656)
-                ]
-              )
+              borderRadius: BorderRadius.circular(9),
+              color: isSentByMe? AppColors.PROTEGE_CYAN : themeFlag? Colors.grey[700] : AppColors.PROTEGE_GREY,
+              // gradient: LinearGradient(
+              //   colors: isSentByMe ?  [
+              //      const Color(0xff96ECE7),
+              //      const Color(0xff96ECE7)
+              //   ]:[
+              //     const Color(0xff565656),
+              //     const Color(0xff565656)
+              //   ]
+              // )
             ),
         child:Text(message,style:TextStyle(
-          color:Colors.black,
-          fontSize:17
+          color: isSentByMe? Colors.black : Colors.white,
+          fontSize:17,
+          fontFamily: 'GoogleSans'
         ) 
         )
       ),
