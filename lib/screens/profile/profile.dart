@@ -145,18 +145,46 @@ class _ProfileState extends State<Profile> {
     }
 
     return new Scaffold(
-      appBar: AppBar(
-        title: Text("Your Profile",
-            style: TextStyle(
-              fontFamily: 'GoogleSans',
-            )),
-        backgroundColor: AppColors.COLOR_TEAL_LIGHT,
-        elevation: 0.0,
-        actions: <Widget>[],
-      ),
+      // appBar: AppBar(
+      //   title: Text("Your Profile",
+      //       style: TextStyle(
+      //         fontFamily: 'GoogleSans',
+      //       )),
+      //   backgroundColor: AppColors.COLOR_TEAL_LIGHT,
+      //   elevation: 0.0,
+      //   actions: <Widget>[],
+      // ),
       // drawer: _drawer,
       // backgroundColor: Hexcolor('#a7d8de'),
-      body: Builder(
+      body: Column(children: [
+      Expanded(
+          child: Container(
+              child: Padding(
+                  padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      SizedBox(height: 32),
+                      Padding(
+                        padding: EdgeInsets.fromLTRB(32, 32, 0, 0),
+                        child: IconButton(
+                          icon: Icon(Icons.arrow_back),
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                          },
+                        ),
+                      ),
+                      SizedBox(height: 25),
+                      Padding(
+                        padding: EdgeInsets.fromLTRB(32, 0, 0, 0),
+                        child: Text("Your Profile",
+                            style: TextStyle(
+                                fontFamily: 'GoogleSans',
+                                fontWeight: FontWeight.bold,
+                                fontSize: 32)),
+                      ),
+                      Expanded(
+                        child: Builder(
         builder: (context) => Container(
           child: ListView(shrinkWrap: true, children: <Widget>[
             Stack(children: [
@@ -503,6 +531,14 @@ class _ProfileState extends State<Profile> {
           ]),
         ),
       ),
+        )
+        ],
+                  ))))
+    ]));
+  }
+}
+
+      
 
       //     Positioned(
       //       width: MediaQuery.of(context).size.width,
@@ -583,9 +619,9 @@ class _ProfileState extends State<Profile> {
       //     ),
       //   ),
       // ),
-    );
-  }
-}
+//     );
+//   }
+// }
 
 class GetClipper extends CustomClipper<Path> {
   @override
