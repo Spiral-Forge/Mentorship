@@ -130,6 +130,7 @@ class _ProfileState extends State<Profile> {
             newDpFlag = true;
             inprocess = false;
             print("put");
+            uploadImg(context);
           });
         } else {
           this.setState(() {
@@ -184,6 +185,7 @@ class _ProfileState extends State<Profile> {
                       Align(
                         alignment: Alignment.center,
                         child: CircleAvatar(
+                          backgroundColor: Colors.black,
                           radius: 75,
                           child: ClipOval(
                             child: SizedBox(
@@ -254,57 +256,25 @@ class _ProfileState extends State<Profile> {
               ),
             ),
 
-            SizedBox(height: 25),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: <Widget>[
-                new FloatingActionButton.extended(
-                    heroTag: "btn1",
-                    backgroundColor: AppColors.PROTEGE_GREY,
-                    onPressed: () async {
-                      //Navigator.of(context).pop();
-                      //  Navigator.of(context).push(new MaterialPageRoute(builder: (BuildContext context) => new EditProfilePage(user)));
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => EditProfilePage(user)),
-                      ).then((value) {
-                        StorageServices.getUserInfo().then((value) {
-                          print("im here");
-                          print(value);
-                          setState(() {
-                            user = value;
-                          });
-                        });
-                      });
-                    },
-                    icon: Icon(
-                      Icons.person,
-                      color: Colors.white,
-                    ),
-                    label: Text('Edit Profile',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontFamily: 'GoogleSans',
-                        ))),
-                new FloatingActionButton.extended(
-                    heroTag: "btn2",
-                    backgroundColor: AppColors.PROTEGE_GREY,
-                    onPressed: () {
-                      uploadImg(context);
-                    },
-                    icon: Icon(
-                      Icons.save,
-                      color: Colors.white,
-                    ),
-                    label: Text(
-                      'Save DP',
-                      style: TextStyle(
-                          color: Colors.white, fontFamily: 'GoogleSans'),
-                    )),
-              ],
-            ),
+            // SizedBox(height: 25),
+
+            // new FloatingActionButton.extended(
+            //     heroTag: "btn2",
+            //     backgroundColor: AppColors.PROTEGE_GREY,
+            //     onPressed: () {
+            //       uploadImg(context);
+            //     },
+            //     icon: Icon(
+            //       Icons.save,
+            //       color: Colors.white,
+            //     ),
+            //     label: Text(
+            //       'Save DP',
+            //       style: TextStyle(
+            //           color: Colors.white, fontFamily: 'GoogleSans'),
+            //     )),
+            //   ],
+            // ),
             SizedBox(height: 20),
 
             // Container(
@@ -488,6 +458,48 @@ class _ProfileState extends State<Profile> {
               ),
             ),
             SizedBox(height: 25),
+            Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: <Widget>[
+                  Container(
+                    height: 40,
+                    child: new FlatButton(
+                        // heroTag: "btn1",
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10.0),
+                        ),
+                        color: AppColors.PROTEGE_GREY,
+                        onPressed: () async {
+                          //Navigator.of(context).pop();
+                          //  Navigator.of(context).push(new MaterialPageRoute(builder: (BuildContext context) => new EditProfilePage(user)));
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => EditProfilePage(user)),
+                          ).then((value) {
+                            StorageServices.getUserInfo().then((value) {
+                              print("im here");
+                              print(value);
+                              setState(() {
+                                user = value;
+                              });
+                            });
+                          });
+                        },
+                        // icon: Icon(
+                        //   Icons.person,
+                        //   color: Colors.white,
+                        // ),
+                        child: Text('Edit Profile',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontFamily: 'GoogleSans',
+                              fontSize: 15,
+                            ))),
+                  ),
+                ]),
+            SizedBox(height: 20),
           ]),
         ),
       ),
