@@ -342,7 +342,10 @@ class _RegisterForm4State extends State<RegisterForm4> {
                                             style: TextStyle(
                                                 color:
                                                     AppColors.COLOR_ERROR_RED,
-                                                fontSize: 14.0))
+                                                fontSize: 14.0)),
+                                        new Divider(
+                                            height: 18.0,
+                                            color: Colors.transparent),
                                       ],
                                     ),
                                   ),

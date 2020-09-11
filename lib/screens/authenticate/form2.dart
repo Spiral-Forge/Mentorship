@@ -318,12 +318,9 @@ class _RegisterForm2State extends State<RegisterForm2> {
                                             height: 18.0,
                                             color: Colors.transparent),
                                       ])),
-                                )
-                                        // new Container(
-                                        ))
+                                )))
                               ]))))
             ]),
-      //),
     );
   }
 }
