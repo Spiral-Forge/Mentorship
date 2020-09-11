@@ -135,10 +135,6 @@ class FAQS extends StatelessWidget {
         body: Column(children: [
       Expanded(
           child: Container(
-              // decoration: BoxDecoration(
-              //     color: Colors.white,
-              //     borderRadius: BorderRadius.only(
-              //         bottomLeft: Radius.circular(100))),
               child: Padding(
                   padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
                   child: Column(
