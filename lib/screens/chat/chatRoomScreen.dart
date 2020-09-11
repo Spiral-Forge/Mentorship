@@ -12,7 +12,8 @@ class ConversationScreen extends StatefulWidget {
   final String userID;
   final String peerID;
   final String peerName;
-  ConversationScreen(this.userID,this.peerID,this.peerName);
+  final String profPic;
+  ConversationScreen(this.userID,this.peerID,this.peerName,this.profPic);
   @override
   _ConversationScreenState createState() => _ConversationScreenState();
 }
@@ -22,6 +23,7 @@ class _ConversationScreenState extends State<ConversationScreen> {
   DataBaseService databaseMethods=new DataBaseService();
   Stream chatMessageStream;
   String chatRoomId;
+  var peerData;
   @override
   void initState(){
     
@@ -31,11 +33,7 @@ class _ConversationScreenState extends State<ConversationScreen> {
   }
 
   void initialise() async{
-    // var user=await StorageServices.getUserInfo();
-    // print("user coming here from local storage");
-    // print(user);
     List<String> users=[widget.userID,widget.peerID];
-    //print(users);
     String chatRoomID=getChatRoomId(widget.userID,widget.peerID);
     setState(() {
       chatRoomId=chatRoomID;
@@ -96,14 +94,31 @@ class _ConversationScreenState extends State<ConversationScreen> {
 
     return Scaffold(
       appBar: new AppBar(
-            title: GestureDetector(
-              onTap: (){
-                //  Navigator.push(context,
-                //     MaterialPageRoute(builder: (context) => PeerProfile()));
-              },
-              child: new Text(widget.peerName)
+          backgroundColor: themeFlag ? null: AppColors.COLOR_TEAL_LIGHT,
+            title:  Container(
+                child:Row(
+                  children: <Widget>[
+                    CircleAvatar(
+                      backgroundColor: Colors.black,
+                      radius: 20,
+                      child: ClipOval(
+                        child: SizedBox(
+                          width: 40,
+                          height: 40,
+                          child: Image.network(widget.profPic)
+                        ))),
+                        SizedBox(width: 20,),
+                    GestureDetector(
+                      onTap: (){
+                          Navigator.push(context,
+                            MaterialPageRoute(builder: (context) => PeerProfile(widget.peerID)));
+                      },
+                      child: Container(child: Text(widget.peerName))
+                      )
+                  ],
+                )
+              )
             ),
-            backgroundColor: AppColors.COLOR_TEAL_LIGHT),
       body: Container(
         child: Stack(
           children: <Widget>[

@@ -9,10 +9,9 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:hexcolor/hexcolor.dart';
 
 class PeerProfile extends StatefulWidget {
-  final String post;
   final String peerID;
   //=["6qJheR9NT9djQiA7pkG9vS4hyE63"];
-  PeerProfile(this.post, this.peerID);
+  PeerProfile(this.peerID);
   @override
   _PeerProfileState createState() => _PeerProfileState();
 }
@@ -21,23 +20,23 @@ class _PeerProfileState extends State<PeerProfile> {
   Map<String, dynamic> user;
   bool loading = true;
   int avatorNum = Random().nextInt(4) + 1;
-  bool isPeerAdded;
+  // bool isPeerAdded;
 
   void initState() {
-    if (widget.peerID == null) {
-      setState(() {
-        isPeerAdded = false;
-      });
-    } else {
+    // if (widget.peerID == null) {
+    //   setState(() {
+    //     isPeerAdded = false;
+    //   });
+    // } else {
       DataBaseService().getPeerData(widget.peerID).then((userinfo) {
         setState(() {
           user = userinfo.data;
           loading = false;
-          isPeerAdded = true;
+          // isPeerAdded = true;
         });
         super.initState();
       });
-    }
+    //}
   }
 
   @override
@@ -45,15 +44,11 @@ class _PeerProfileState extends State<PeerProfile> {
     String hostel = user["hostel"] != null && user["hostel"] == true
         ? "Hosteller: Yes"
         : "Hosteller: No";
-    return isPeerAdded == false
-        ? UnaddedProfile(widget.post)
-        : loading
+    return loading
             ? Loading()
             : Scaffold(
                 appBar: new AppBar(
-                    title: new Text(widget.post == "Mentor"
-                        ? "Your Mentee"
-                        : "Your Mentor"),
+                    title: new Text("profile"),
                     backgroundColor: AppColors.COLOR_TEAL_LIGHT),
                 body: Builder(
                   builder: (context) => Container(

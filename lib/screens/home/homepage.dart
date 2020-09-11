@@ -184,7 +184,7 @@ class _HomePageState extends State<HomePage> {
                            Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => PeerProfile(post,
+                                builder: (context) => PeerProfile(
                                     peerID.length == 0 ? null : peerID[0])));
                         }
 
@@ -210,7 +210,7 @@ class _HomePageState extends State<HomePage> {
                     onSelected: (value) => Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => PeerProfile(post, value))),
+                            builder: (context) => PeerProfile(value))),
                     itemBuilder: (BuildContext context) {
                       return fixedList.map((index) {
                         return PopupMenuItem<String>(
