@@ -76,7 +76,7 @@ class _HomePageState extends State<HomePage> {
                                           fit: BoxFit.fill,
                                           image: themeFlag
                                               ? new AssetImage(
-                                                  'assets/images/book.jpg')
+                                              'assets/images/Protege_white_text.png')
                                               : new AssetImage(
                                                   'assets/images/Protege no bg.png')))),
                             ]))
@@ -92,7 +92,7 @@ class _HomePageState extends State<HomePage> {
                                       fontFamily: 'GoogleSans',
                                       fontWeight: FontWeight.w600,
                                       fontSize: 15,
-                                      color: AppColors.PROTEGE_GREY))),
+                                    color:themeFlag?Colors.white:Color(0xFF303030)))),
                         ],
                       ),
                       SizedBox(height: 35),
