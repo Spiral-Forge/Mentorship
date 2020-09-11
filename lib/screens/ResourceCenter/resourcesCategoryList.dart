@@ -239,7 +239,7 @@ class _ResourceCategoryListState extends State<ResourceCategoryList> {
                       //   );
                       // })
                 //]),
-      // drawer: _drawer,
+      drawer: _drawer,
       key: _scaffoldKey,
       body: Column(children: [
         Expanded(
