@@ -14,6 +14,7 @@ import 'package:dbapp/screens/sidebarScreens/about.dart';
 import 'package:dbapp/screens/sidebarScreens/faqs.dart';
 import 'package:dbapp/screens/sidebarScreens/feedback.dart';
 import 'package:dbapp/screens/sidebarScreens/guidelines.dart';
+import 'package:dbapp/screens/profile/profile.dart';
 
 class myDrawer extends StatefulWidget {
   @override
@@ -38,6 +39,7 @@ class _myDrawerState extends State<myDrawer> {
 
   @override
   Widget build(BuildContext context) {
+    File newDP;
     // ThemeChanger _themeChanger = Provider.of<ThemeChanger>(context);
     // final _themeChanger = Provider.of<ThemeChanger>(context);
 
@@ -52,6 +54,27 @@ class _myDrawerState extends State<myDrawer> {
             color: Colors.transparent,
           ),
           new ListTile(
+              // leading: CircleAvatar(
+              //               backgroundColor: Colors.black,
+              //               radius: 75,
+              //               child: ClipOval(
+              //                 child: SizedBox(
+              //                   width: 150,
+              //                   height: 150,
+              //                   child: StorageServices.getUserInfo().then((user) => user["photoURL"])
+              //                 ),
+              title: new Text(
+                "Profile",
+                style: TextStyle(fontFamily: 'GoogleSans', fontSize: 20),
+              ),
+              trailing: new Icon(Icons.arrow_right),
+              onTap: () {
+                Navigator.of(context).pop();
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => Profile()));
+              }),
+          new Divider(),
+          new ListTile(
               title: new Text(
                 "Code of Conduct",
                 style: TextStyle(fontFamily: 'GoogleSans', fontSize: 15),
@@ -64,7 +87,7 @@ class _myDrawerState extends State<myDrawer> {
               }),
           new ListTile(
               title: new Text(
-                "About",
+                "Our Vision",
                 style: TextStyle(fontFamily: 'GoogleSans', fontSize: 15),
               ),
               trailing: new Icon(Icons.arrow_right),

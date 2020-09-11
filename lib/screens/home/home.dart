@@ -19,10 +19,9 @@ class _HomeState extends State<Home> {
   static const TextStyle optionStyle =
       TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
   final List<Widget> _children = <Widget>[
-    Profile(),
-    HomePage(),
     /**comment out chatscreenhandler and uncomment resource category list to get resource center on bottom nav */
     ChatScreenHandler(),
+    HomePage(),
     ResourceCategoryList()
   ];
 
@@ -40,20 +39,16 @@ class _HomeState extends State<Home> {
         type: BottomNavigationBarType.fixed,
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
-            icon: Icon(Icons.person_pin),
-            title: Text('Profile'),
+            icon: Icon(Icons.chat),
+            title: Text('Chat'),
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
             title: Text('Home'),
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.chat),
-            title: Text('Chat'),
-          ),
-          BottomNavigationBarItem(
             icon: Icon(Icons.link),
-            title: Text('Resource Center'),
+            title: Text('Resources'),
           )
         ],
         currentIndex: _currentIndex,
