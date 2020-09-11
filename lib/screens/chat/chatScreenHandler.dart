@@ -26,7 +26,7 @@ class _ChatScreenHandlerState extends State<ChatScreenHandler> {
   }
   @override
   Widget build(BuildContext context) {
-     if(user==null || user["peerID"].length==0){
+     if(user==null || user["peerID"]==null || user["peerID"].length==0){
       return EmptyChat();
     }
     // else if(user["peerID"].length==1){
