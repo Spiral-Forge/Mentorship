@@ -65,7 +65,7 @@ class AuthService {
           name,
           phoneNo,
           email,
-          year,
+          year, 
           branch,
           rollNo,
           linkedInURL,
@@ -92,13 +92,12 @@ class AuthService {
         "peerID": [],
         'photoURL': null
       };
-      print("coming here");
+      userlist["id"]=user.uid;
       await StorageServices.saveUserInfo(userlist);
-      print("saved info");
       return user;
     } catch (e) {
       print(e.toString());
-      return null;
+      return e;
     }
   }
 
