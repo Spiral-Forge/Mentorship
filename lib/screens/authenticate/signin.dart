@@ -1,3 +1,4 @@
+import 'package:dbapp/blocs/values.dart';
 import 'package:dbapp/constants/colors.dart';
 import 'package:dbapp/screens/authenticate/form1.dart';
 import 'package:dbapp/services/auth.dart';
@@ -7,6 +8,7 @@ import 'package:dbapp/shared/loading.dart';
 import 'package:flutter/rendering.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:provider/provider.dart';
 import 'package:toast/toast.dart';
 
 class SignIn extends StatefulWidget {
@@ -42,25 +44,28 @@ class _SignInState extends State<SignIn> with SingleTickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
+    ThemeNotifier _themeNotifier = Provider.of<ThemeNotifier>(context);
+    var themeFlag = _themeNotifier.darkTheme;
     return Scaffold(
-        appBar: AppBar(
-          backgroundColor: AppColors.COLOR_TEAL_LIGHT,
-          elevation: 0.0,
-          title: Text("Sign In"),
-          actions: <Widget>[
-            FlatButton.icon(
-              icon: Icon(
-                Icons.person,
-                color: Colors.white,
-              ),
-              label: Text('Register', style: TextStyle(color: Colors.white)),
-              onPressed: () {
-                widget.toggleView();
-                //Navigator.pushReplacement( context, new MaterialPageRoute( builder: (BuildContext context) => RegisterForm1()));
-              },
-            )
-          ],
-        ),
+
+        // appBar: AppBar(
+        //   backgroundColor: AppColors.COLOR_TEAL_LIGHT,
+        //   elevation: 0.0,
+        //   title: Text("Sign In"),
+        //   actions: <Widget>[
+        //     FlatButton.icon(
+        //       icon: Icon(
+        //         Icons.person,
+        //         color: Colors.white,
+        //       ),
+        //       label: Text('Register', style: TextStyle(color: Colors.white)),
+        //       onPressed: () {
+        //         widget.toggleView();
+        //         //Navigator.pushReplacement( context, new MaterialPageRoute( builder: (BuildContext context) => RegisterForm1()));
+        //       },
+        //     )
+        //   ],
+        // ),
         body: loading
             ? Loading()
             : Container(
@@ -77,7 +82,9 @@ class _SignInState extends State<SignIn> with SingleTickerProviderStateMixin {
                                 //shape: BoxShape.circle,
                                 image: new DecorationImage(
                                     fit: BoxFit.fill,
-                                    image: new AssetImage(
+                                    image: themeFlag? new AssetImage(
+                                        'assets/images/Protege_white_text.png'):
+                                    new AssetImage(
                                         'assets/images/Protege no bg.png')))),
                         new Divider(height: 35.0, color: Colors.transparent),
                         Form(
@@ -95,7 +102,7 @@ class _SignInState extends State<SignIn> with SingleTickerProviderStateMixin {
                                           borderRadius: BorderRadius.all(
                                               Radius.circular(8)),
                                           borderSide: BorderSide(
-                                              color: Hexcolor('#d6a495')))),
+                                              color: AppColors.COLOR_TEAL_LIGHT))),
                                   validator: (val) =>
                                       val.isEmpty ? 'Enter an email' : null,
                                   onChanged: (val) {
@@ -112,7 +119,7 @@ class _SignInState extends State<SignIn> with SingleTickerProviderStateMixin {
                                           borderRadius: BorderRadius.all(
                                               Radius.circular(8)),
                                           borderSide: BorderSide(
-                                              color: Hexcolor('#d6a495')))),
+                                              color: AppColors.COLOR_TEAL_LIGHT))),
                                   obscureText: true,
                                   onChanged: (val) {
                                     setState(() => password = val);
@@ -212,12 +219,15 @@ class _SignInState extends State<SignIn> with SingleTickerProviderStateMixin {
                                         );
                                       });
                                 },
+
+
+
                                 child: Container(
                                   alignment: Alignment.bottomRight,
                                   child: Text("Forgot password?",
                                       style: TextStyle(
-                                          color: Hexcolor('#d6a495'),
-                                          // color: AppColors.PROTEGE_GREY,
+                                          // color: Hexcolor('#d6a495'),
+                                          color: AppColors.COLOR_TEAL_LIGHT,
                                           fontSize: 15.0,
                                           decoration:
                                               TextDecoration.underline)),
@@ -263,12 +273,46 @@ class _SignInState extends State<SignIn> with SingleTickerProviderStateMixin {
                                   },
                                 ),
                               ),
-                              SizedBox(height: 20.0),
-                              SizedBox(height: 20.0),
-                              Text(error,
-                                  style: TextStyle(
-                                      color: AppColors.COLOR_ERROR_RED,
-                                      fontSize: 14.0))
+
+                              SizedBox(height: 12.0),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: <Widget>[
+                                  Text(
+                                    'New Here? ',
+                                    style: TextStyle(
+                                        color: AppColors.PROTEGE_GREY,
+                                        fontSize: 15.0
+                                        )),
+                              //   ],
+                              // )
+                              SizedBox(height: 5.0),
+                              InkWell(
+                                onTap: () {
+                                     widget.toggleView(); //Navigator.pushReplacement( context, new MaterialPageRoute( builder: (BuildContext context) => RegisterForm1()));
+                                              },
+
+                                child: Container(
+                                  alignment: Alignment.bottomCenter,
+                                  margin: EdgeInsets.symmetric(vertical: 12),
+                                  child: Text("Register NOW",
+                                      style: TextStyle(
+                                          // color: Hexcolor('#d6a495'),
+                                          color: AppColors.COLOR_TEAL_LIGHT,
+                                          fontSize: 15.0,
+                                          decoration:
+                                          TextDecoration.underline)),
+                                ),
+                              ),
+                                ],
+                              )
+
+                            //   SizedBox(height: 20.0),
+                            //   SizedBox(height: 20.0),
+                            //   Text(error,
+                            //       style: TextStyle(
+                            //           color: AppColors.COLOR_ERROR_RED,
+                            //           fontSize: 14.0))
                             ],
                           ),
                         ),
