@@ -12,7 +12,7 @@ class About extends StatelessWidget {
         //     title:
         //         new Text("About", style: TextStyle(fontFamily: 'GoogleSans')),
         //     backgroundColor: AppColors.COLOR_TEAL_LIGHT),
-        backgroundColor: Colors.white,
+        // backgroundColor: Colors.white,
         body: SingleChildScrollView(
             scrollDirection: Axis.vertical,
             child: Padding(
@@ -83,6 +83,7 @@ Widget _buildCard(
         borderRadius: BorderRadius.circular(10),
       ),
       elevation: 0,
+      color: Colors.transparent,
       child: Column(
         children: <Widget>[
           SizedBox(
@@ -137,8 +138,9 @@ Widget _buildCard(
                   width: 80,
                   height: 30,
                   decoration: BoxDecoration(
-                      borderRadius: BorderRadius.all(Radius.circular(10)),
-                      color: Colors.white),
+                    borderRadius: BorderRadius.all(Radius.circular(10)),
+                    // color: Colors.white
+                  ),
                   child: Center(
                       child: Text(
                     "Connect",
