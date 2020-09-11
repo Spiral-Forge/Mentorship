@@ -47,10 +47,38 @@ class _PeerProfileState extends State<PeerProfile> {
     return loading
             ? Loading()
             : Scaffold(
-                appBar: new AppBar(
-                    title: new Text("profile"),
-                    backgroundColor: AppColors.COLOR_TEAL_LIGHT),
-                body: Builder(
+                // appBar: new AppBar(
+                //     title: new Text("profile"),
+                //     backgroundColor: AppColors.COLOR_TEAL_LIGHT),
+        body: Column(children: [
+      Expanded(
+          child: Container(
+              child: Padding(
+                  padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      SizedBox(height: 32),
+                      Padding(
+                        padding: EdgeInsets.fromLTRB(32, 32, 0, 0),
+                        child: IconButton(
+                          icon: Icon(Icons.arrow_back),
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                          },
+                        ),
+                      ),
+                      SizedBox(height: 25),
+                      Padding(
+                        padding: EdgeInsets.fromLTRB(32, 0, 0, 0),
+                        child: Text("Profile",
+                            style: TextStyle(
+                                fontFamily: 'GoogleSans',
+                                fontWeight: FontWeight.bold,
+                                fontSize: 32)),
+                      ),
+                      Expanded(
+                        child: Builder(
                   builder: (context) => Container(
                     child: ListView(shrinkWrap: true, children: <Widget>[
                       Stack(children: [
@@ -317,6 +345,13 @@ class _PeerProfileState extends State<PeerProfile> {
                     ]),
                   ),
                 ),
+              )
+               ],
+                  ))))
+    ]));
+  }
+}
+               
 
                 // Stack(
                 //   children: <Widget>[
@@ -472,9 +507,10 @@ class _PeerProfileState extends State<PeerProfile> {
 
                 //   ],
                 // )
-              );
-  }
-}
+                
+//               );
+//   }
+// }
 
 class getClipper extends CustomClipper<Path> {
   @override
