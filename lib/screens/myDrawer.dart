@@ -22,17 +22,15 @@ class myDrawer extends StatefulWidget {
 }
 
 class _myDrawerState extends State<myDrawer> {
-  // var dark=false;
-  var photoURL='';
+  var photoURL = '';
 
-  void initState(){
+  void initState() {
     super.initState();
     StorageServices.getUserInfo().then((value) {
       setState(() {
-        photoURL=value["photoURL"];
+        photoURL = value["photoURL"];
       });
     });
-
   }
   // asyncmode()async {
   //   var val= await StorageServices.getDarkMode();
@@ -59,17 +57,20 @@ class _myDrawerState extends State<myDrawer> {
           ),
           new ListTile(
               leading: CircleAvatar(
-                backgroundColor: Colors.black,
-                radius: 40,
-                child: ClipOval(
-                  child: SizedBox(
-                    width: 80,
-                    height: 80,
-                    child: Image.network(photoURL)
-                  ))),
+                  backgroundColor: Colors.black,
+                  radius: 20,
+                  child: ClipOval(
+                      child: SizedBox(
+                          width: 40,
+                          height: 40,
+                          child: Image.network(photoURL)))),
               title: new Text(
                 "Profile",
                 style: TextStyle(fontFamily: 'GoogleSans', fontSize: 20),
+              ),
+              subtitle: new Text(
+                "Logged In",
+                style: TextStyle(fontFamily: 'GoogleSans', fontSize: 13),
               ),
               // trailing: new Icon(Icons.arrow_right),
               onTap: () {
