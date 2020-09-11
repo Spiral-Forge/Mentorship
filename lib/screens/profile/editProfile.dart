@@ -1,3 +1,4 @@
+import 'package:dbapp/blocs/values.dart';
 import 'package:dbapp/constants/colors.dart';
 import 'package:dbapp/shared/loading.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -6,6 +7,7 @@ import 'package:multiselect_formfield/multiselect_formfield.dart';
 import 'package:dbapp/services/database.dart';
 import 'package:dbapp/services/storage.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:provider/provider.dart';
 
 String name = '';
 String phoneNo = '';
@@ -40,12 +42,15 @@ class EditProfilePageState extends State<EditProfilePage> {
 
   @override
   Widget build(BuildContext context) {
+    ThemeNotifier _themeNotifier = Provider.of<ThemeNotifier>(context);
+    var themeFlag = _themeNotifier.darkTheme;
+
     return Scaffold(
       appBar: new AppBar(
           title: new Text("Edit Profile"),
           backgroundColor: AppColors.COLOR_TEAL_DARK),
       // body: newDP == null ? getChooseButton() : getUploadButton(),
-      backgroundColor: Colors.blueGrey[50],
+      backgroundColor: themeFlag ? AppColors.PROTEGE_GREY : Colors.white,
       body: Card(
         child: new Container(
             padding: EdgeInsets.all(12), child: new RegistrationForm(userInfo)),
@@ -201,6 +206,9 @@ class _RegistrationFormState extends State<RegistrationForm> {
 
   @override
   Widget build(BuildContext context) {
+    ThemeNotifier _themeNotifier = Provider.of<ThemeNotifier>(context);
+    var themeFlag = _themeNotifier.darkTheme;
+
     return loading
         ? Loading()
         : Form(
@@ -209,11 +217,13 @@ class _RegistrationFormState extends State<RegistrationForm> {
                 shrinkWrap: true,
                 padding: EdgeInsets.all(10),
                 children: <Widget>[
-                  Text('Name'),
+                  Text('Name', style: TextStyle (fontFamily: 'GoogleSans',)),
                   new TextFormField(
                       initialValue: name,
                       keyboardType: TextInputType.text,
-                      style: TextStyle(color: AppColors.PROTEGE_GREY),
+                      style: TextStyle(
+                          color:
+                              themeFlag ? Colors.grey[300] : Colors.grey[700], fontFamily: 'GoogleSans',),
                       decoration: const InputDecoration(
                           enabledBorder: UnderlineInputBorder(
                             borderSide: BorderSide(color: Colors.grey),
@@ -235,11 +245,13 @@ class _RegistrationFormState extends State<RegistrationForm> {
                     height: 20,
                     color: Colors.transparent,
                   ),
-                  Text('Phone Number'),
+                  Text('Phone Number', style: TextStyle (fontFamily: 'GoogleSans',)),
                   TextFormField(
                       initialValue: phoneNo,
                       keyboardType: TextInputType.phone,
-                      style: TextStyle(color: AppColors.PROTEGE_GREY),
+                      style: TextStyle(
+                          color:
+                              themeFlag ? Colors.grey[300] : Colors.grey[700], fontFamily: 'GoogleSans',),
                       decoration: const InputDecoration(
                         enabledBorder: UnderlineInputBorder(
                           borderSide: BorderSide(color: Colors.grey),
@@ -264,8 +276,12 @@ class _RegistrationFormState extends State<RegistrationForm> {
                     height: 20,
                     color: Colors.transparent,
                   ),
-                  Text('Branch'),
+                  Text('Branch', style: TextStyle (fontFamily: 'GoogleSans',)),
                   DropdownButton<ListItem>(
+                      style: TextStyle(
+                          color:
+                              themeFlag ? Colors.grey[300] : Colors.grey[700], fontFamily: 'GoogleSans',
+                              ),
                       value: _selectedBranch,
                       items: _dropdownBranchItems,
                       onChanged: (value) {
@@ -278,8 +294,11 @@ class _RegistrationFormState extends State<RegistrationForm> {
                     height: 20,
                     color: Colors.transparent,
                   ),
-                  Text('Year'),
+                  Text('Year', style: TextStyle (fontFamily: 'GoogleSans',)),
                   DropdownButton<ListItem>(
+                      style: TextStyle(
+                          color:
+                              themeFlag ? Colors.grey[300] : Colors.grey[700], fontFamily: 'GoogleSans',),
                       value: _selectedYear,
                       items: _dropdownYearItems,
                       onChanged: (value) {
@@ -292,11 +311,12 @@ class _RegistrationFormState extends State<RegistrationForm> {
                     height: 20,
                     color: Colors.transparent,
                   ),
-                  Text('Roll Number'),
+                  Text('Roll Number', style: TextStyle (fontFamily: 'GoogleSans',)),
                   TextFormField(
                     initialValue: rollNo,
                     keyboardType: TextInputType.number,
-                    style: TextStyle(color: AppColors.PROTEGE_GREY),
+                    style: TextStyle(
+                        color: themeFlag ? Colors.grey[300] : Colors.grey[700], fontFamily: 'GoogleSans',),
                     decoration: new InputDecoration(
                         enabledBorder: UnderlineInputBorder(
                           borderSide: BorderSide(color: Colors.grey),
@@ -321,10 +341,12 @@ class _RegistrationFormState extends State<RegistrationForm> {
                     height: 20,
                     color: Colors.transparent,
                   ),
-                  Text('LinkedIn Profile URL'),
+                  Text('LinkedIn Profile URL', style: TextStyle (fontFamily: 'GoogleSans',)),
                   TextFormField(
                       initialValue: linkedInUrl,
-                      style: TextStyle(color: AppColors.PROTEGE_GREY),
+                      style: TextStyle(
+                          color:
+                              themeFlag ? Colors.grey[300] : Colors.grey[700], fontFamily: 'GoogleSans',),
                       decoration: const InputDecoration(
                         enabledBorder: UnderlineInputBorder(
                           borderSide: BorderSide(color: Colors.grey),
@@ -341,10 +363,12 @@ class _RegistrationFormState extends State<RegistrationForm> {
                     height: 20,
                     color: Colors.transparent,
                   ),
-                  Text('GitHub Profile URL'),
+                  Text('GitHub Profile URL', style: TextStyle (fontFamily: 'GoogleSans',)),
                   TextFormField(
                       initialValue: githubUrl,
-                      style: TextStyle(color: AppColors.PROTEGE_GREY),
+                      style: TextStyle(
+                          color:
+                              themeFlag ? Colors.grey[300] : Colors.grey[700], fontFamily: 'GoogleSans',),
                       decoration: const InputDecoration(
                         enabledBorder: UnderlineInputBorder(
                           borderSide: BorderSide(color: Colors.grey),
@@ -361,11 +385,12 @@ class _RegistrationFormState extends State<RegistrationForm> {
                     height: 20,
                     color: Colors.transparent,
                   ),
-                  Text('Domains'),
+                  Text('Domains', style: TextStyle (fontFamily: 'GoogleSans',)),
                   Container(
                     padding: EdgeInsets.all(4),
                     child: MultiSelectFormField(
-                      fillColor: Colors.transparent,
+                      fillColor:
+                          themeFlag ? Colors.grey[700] : Colors.transparent,
                       autovalidate: false,
                       titleText: 'Select domains',
                       validator: (value) {
@@ -417,11 +442,12 @@ class _RegistrationFormState extends State<RegistrationForm> {
                     height: 20,
                     color: Colors.transparent,
                   ),
-                  Text('Languages'),
+                  Text('Languages', style: TextStyle (fontFamily: 'GoogleSans',)),
                   Container(
                     padding: EdgeInsets.all(6),
                     child: MultiSelectFormField(
-                      fillColor: Colors.transparent,
+                      fillColor:
+                          themeFlag ? Colors.grey[700] : Colors.transparent,
                       autovalidate: false,
                       titleText: 'Select languages',
                       validator: (value) {
@@ -461,13 +487,12 @@ class _RegistrationFormState extends State<RegistrationForm> {
                     height: 20,
                     color: Colors.transparent,
                   ),
-                  Text('Hosteller'),
+                  Text('Hosteller', style: TextStyle (fontFamily: 'GoogleSans',)),
                   new Row(children: <Widget>[
                     new Radio(
                         value: 0,
                         groupValue: _hostellerValue,
                         onChanged: _handleHostellerValue),
-                        
                     new Text('Yes'),
                     new Radio(
                         value: 1,
@@ -477,14 +502,9 @@ class _RegistrationFormState extends State<RegistrationForm> {
                   ]),
                   new Container(
                     padding: const EdgeInsets.only(left: 175.0, top: 20.0),
-                    child: RaisedButton(
-                        color: AppColors.COLOR_TEAL_LIGHT,
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10.0),
-                            side: BorderSide(
-                              color: AppColors.COLOR_TEAL_LIGHT,
-                            )),
-                        child: Text("Save"),
+                    child: new FloatingActionButton.extended(
+                        heroTag: "btn1",
+                        backgroundColor: AppColors.PROTEGE_GREY,
                         onPressed: () async {
                           if (_formKey.currentState.validate()) {
                             await updateData();
@@ -492,7 +512,13 @@ class _RegistrationFormState extends State<RegistrationForm> {
                             Navigator.of(context).pop();
                             //Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> Home(0)));
                           }
-                        }),
+                        },
+                        label: Text('Save',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontFamily: 'GoogleSans',
+                            ))),
+                   
                   ),
                 ]));
   }
