@@ -101,180 +101,198 @@ class _RegisterForm3State extends State<RegisterForm3> {
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
-      backgroundColor: Colors.grey[50],
-      appBar: AppBar(
-        backgroundColor: AppColors.COLOR_TEAL_LIGHT,
-        elevation: 0.0,
-        title: Text("Register"),
-      ),
+      // appBar: AppBar(
+      //   backgroundColor: AppColors.COLOR_TEAL_LIGHT,
+      //   elevation: 0.0,
+      //   title: Text("Register"),
+      // ),
       body: loading
           ? Loading()
-          : Padding(
-              padding: EdgeInsets.all(18.0),
-              child: Card(
-                margin: EdgeInsets.all(8),
-                child: new Container(
-                    padding: EdgeInsets.all(15),
-                    child: Form(
-                      key: _formKey3,
-                      child: ListView(
-                        shrinkWrap: true,
-                        children: <Widget>[
-                          new Divider(height: 35.0, color: Colors.transparent),
-                          new Text(
-                            'College info',
-                            style: TextStyle(
-                              fontFamily: 'GoogleSans',
-                              fontSize: 25,
-                              fontWeight: FontWeight.w600,
-                            ),
-                            textAlign: TextAlign.center,
-                          ),
-                          new Divider(height: 35.0, color: Colors.transparent),
-                          Text(
-                            "Select your branch",
-                            style: TextStyle(
-                              fontFamily: 'GoogleSans',
-                              fontSize: 13,
+          : SizedBox(
+               height: MediaQuery.of(context).size.height,
+               width: MediaQuery.of(context).size.width,
+              // child: Card(
+                child: SingleChildScrollView(
+                                  child: Column(
+                    children: <Widget>[
+                      SizedBox(height: 32),
+                    Align(
+                       alignment: Alignment.topLeft,
+                        child: Padding(
+                            padding: EdgeInsets.fromLTRB(32, 32, 0, 0),
+                            child: IconButton(
+                              icon: Icon(Icons.arrow_back),
+                              onPressed: () {
+                                Navigator.of(context).pop();
+                              },
                             ),
                           ),
-                          DropdownButton<ListItem>(
-                              value: _selectedBranch,
-                              items: _dropdownBranchItems,
-                              onChanged: (value) {
-                                setState(() {
-                                  _selectedBranch = value;
-                                  branch = value.name;
-                                });
-                              }),
-                          new Divider(height: 10, color: Colors.transparent),
-                          Text(
-                            "Select your year",
-                            style: TextStyle(
-                              fontFamily: 'GoogleSans',
-                              fontSize: 13,
-                            ),
-                          ),
-                          DropdownButton<ListItem>(
-                              value: _selectedYear,
-                              items: _dropdownYearItems,
-                              onChanged: (value) {
-                                setState(() {
-                                  _selectedYear = value;
-                                  year = value.name;
-                                });
-                              }),
-                          new Divider(
-                            height: 10,
-                            color: Colors.transparent,
-                          ),
-                          Text(
-                            'Enter your Roll Number',
-                            style: TextStyle(
-                              fontFamily: 'GoogleSans',
-                              fontSize: 13,
-                            ),
-                          ),
-                          TextFormField(
-                            keyboardType: TextInputType.number,
-                            style: TextStyle(color: Colors.grey),
-                            decoration: new InputDecoration(
-                                enabledBorder: UnderlineInputBorder(
-                                  borderSide: BorderSide(color: Colors.grey),
+                    ),
+                      new Container(
+                          padding: EdgeInsets.symmetric(vertical:60.0,horizontal: 20),
+                          child: Form(
+                            key: _formKey3,
+                            child: ListView(
+                              shrinkWrap: true,
+                              children: <Widget>[
+                                new Divider(height: 35.0, color: Colors.transparent),
+                                new Text(
+                                  'College info',
+                                  style: TextStyle(
+                                    fontFamily: 'GoogleSans',
+                                    fontSize: 25,
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                  textAlign: TextAlign.center,
                                 ),
-                                focusedBorder: UnderlineInputBorder(
-                                  borderSide: BorderSide(color: Colors.blue),
+                                new Divider(height: 35.0, color: Colors.transparent),
+                                Text(
+                                  "Select your branch",
+                                  style: TextStyle(
+                                    fontFamily: 'GoogleSans',
+                                    fontSize: 13,
+                                  ),
                                 ),
-                                border: UnderlineInputBorder()),
-                            validator: (value) {
-                              if (value.length != 11) {
-                                return 'Incorrect Roll Number';
-                              }
-                              return null;
-                            },
-                            onChanged: (val) {
-                              setState(() {
-                                rollNo = val;
-                              });
-                            },
-                          ),
-                          new Divider(height: 10, color: Colors.transparent),
-                          new Text(
-                            userMap['post'] == 'Mentor'
-                                ? "Are you a hosteller?"
-                                : "Do you want your mentor to be a hosteller?",
-                            style: TextStyle(
-                              fontFamily: 'GoogleSans',
-                              fontSize: 13,
-                            ),
-                          ),
-                          new Row(children: <Widget>[
-                            new Radio(
-                                value: 0,
-                                groupValue: _hostellerValue,
-                                onChanged: _handleHostellerValue),
-                            new Text(
-                              'Yes',
-                              style: TextStyle(
-                                fontFamily: 'GoogleSans',
-                                fontSize: 16,
-                              ),
-                            ),
-                            new Radio(
-                                value: 1,
-                                groupValue: _hostellerValue,
-                                onChanged: _handleHostellerValue),
-                            new Text(
-                              'No',
-                              style: TextStyle(
-                                fontFamily: 'GoogleSans',
-                                fontSize: 16,
-                              ),
-                            ),
-                          ]),
-                          new Divider(height: 35.0, color: Colors.transparent),
-                          new Container(
-                            padding: EdgeInsets.fromLTRB(120, 5, 120, 5),
-                            child: RaisedButton(
-                                color: AppColors.COLOR_TEAL_LIGHT,
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(10.0),
-                                    side: BorderSide(
-                                      color: AppColors.COLOR_TEAL_LIGHT,
-                                    )),
-                                child: Text("Next",
-                                    style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 17,
-                                        fontWeight: FontWeight.w600,
-                                        fontFamily: 'GoogleSans'),
-                                    textAlign: TextAlign.center),
-                                onPressed: () {
-                                  if (_formKey3.currentState.validate() &&
-                                      _hostellerValue != -1) {
+                                DropdownButton<ListItem>(
+                                    value: _selectedBranch,
+                                    items: _dropdownBranchItems,
+                                    onChanged: (value) {
+                                      setState(() {
+                                        _selectedBranch = value;
+                                        branch = value.name;
+                                      });
+                                    }),
+                                new Divider(height: 10, color: Colors.transparent),
+                                Text(
+                                  "Select your year",
+                                  style: TextStyle(
+                                    fontFamily: 'GoogleSans',
+                                    fontSize: 13,
+                                  ),
+                                ),
+                                DropdownButton<ListItem>(
+                                    value: _selectedYear,
+                                    items: _dropdownYearItems,
+                                    onChanged: (value) {
+                                      setState(() {
+                                        _selectedYear = value;
+                                        year = value.name;
+                                      });
+                                    }),
+                                new Divider(
+                                  height: 10,
+                                  color: Colors.transparent,
+                                ),
+                                Text(
+                                  'Enter your Roll Number',
+                                  style: TextStyle(
+                                    fontFamily: 'GoogleSans',
+                                    fontSize: 13,
+                                  ),
+                                ),
+                                TextFormField(
+                                  keyboardType: TextInputType.number,
+                                  style: TextStyle(color: Colors.grey),
+                                  decoration: new InputDecoration(
+                                      enabledBorder: UnderlineInputBorder(
+                                        borderSide: BorderSide(color: Colors.grey),
+                                      ),
+                                      focusedBorder: UnderlineInputBorder(
+                                        borderSide: BorderSide(color: Colors.blue),
+                                      ),
+                                      border: UnderlineInputBorder()),
+                                  validator: (value) {
+                                    if (value.length != 11) {
+                                      return 'Incorrect Roll Number';
+                                    }
+                                    return null;
+                                  },
+                                  onChanged: (val) {
                                     setState(() {
-                                      userMap['year'] = year;
-                                      userMap['branch'] = branch;
-                                      userMap['rollNo'] = rollNo;
-                                      userMap['hosteller'] = hosteller;
+                                      rollNo = val;
                                     });
-                                    print(userMap);
-                                    Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                RegisterForm4(userMap)));
-                                    // If the form is valid, display a Snackbar.
-                                    // Scaffold.of(context).showSnackBar(
-                                    //     SnackBar(content: Text('Data is in processing.')));
-                                  }
-                                }),
-                          ),
-                          new Divider(height: 18.0, color: Colors.transparent),
-                        ],
-                      ),
-                    )),
-              ),
+                                  },
+                                ),
+                                new Divider(height: 10, color: Colors.transparent),
+                                new Text(
+                                  userMap['post'] == 'Mentor'
+                                      ? "Are you a hosteller?"
+                                      : "Do you want your mentor to be a hosteller?",
+                                  style: TextStyle(
+                                    fontFamily: 'GoogleSans',
+                                    fontSize: 13,
+                                  ),
+                                ),
+                                new Row(children: <Widget>[
+                                  new Radio(
+                                      value: 0,
+                                      groupValue: _hostellerValue,
+                                      onChanged: _handleHostellerValue),
+                                  new Text(
+                                    'Yes',
+                                    style: TextStyle(
+                                      fontFamily: 'GoogleSans',
+                                      fontSize: 16,
+                                    ),
+                                  ),
+                                  new Radio(
+                                      value: 1,
+                                      groupValue: _hostellerValue,
+                                      onChanged: _handleHostellerValue),
+                                  new Text(
+                                    'No',
+                                    style: TextStyle(
+                                      fontFamily: 'GoogleSans',
+                                      fontSize: 16,
+                                    ),
+                                  ),
+                                ]),
+                                new Divider(height: 35.0, color: Colors.transparent),
+                                new Container(
+                                  padding: EdgeInsets.fromLTRB(120, 5, 120, 5),
+                                  child: RaisedButton(
+                                      color: AppColors.COLOR_TEAL_LIGHT,
+                                      shape: RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.circular(10.0),
+                                          side: BorderSide(
+                                            color: AppColors.COLOR_TEAL_LIGHT,
+                                          )),
+                                      child: Text("Next",
+                                          style: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 17,
+                                              fontWeight: FontWeight.w600,
+                                              fontFamily: 'GoogleSans'),
+                                          textAlign: TextAlign.center),
+                                      onPressed: () {
+                                        if (_formKey3.currentState.validate() &&
+                                            _hostellerValue != -1) {
+                                          setState(() {
+                                            userMap['year'] = year;
+                                            userMap['branch'] = branch;
+                                            userMap['rollNo'] = rollNo;
+                                            userMap['hosteller'] = hosteller;
+                                          });
+                                          print(userMap);
+                                          Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      RegisterForm4(userMap)));
+                                          // If the form is valid, display a Snackbar.
+                                          // Scaffold.of(context).showSnackBar(
+                                          //     SnackBar(content: Text('Data is in processing.')));
+                                        }
+                                      }),
+                                ),
+                                new Divider(height: 18.0, color: Colors.transparent),
+                              ],
+                            ),
+                          )),
+                    ],
+                  ),
+                ),
+             // ),
             ),
     );
   }

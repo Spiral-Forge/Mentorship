@@ -3,6 +3,7 @@ import 'package:dbapp/blocs/values.dart';
 import 'package:dbapp/constants/colors.dart';
 import 'package:dbapp/constants/screenConstants.dart';
 import 'package:dbapp/screens/profile/peerProfile.dart';
+import 'package:dbapp/screens/profile/unaddedProfile.dart';
 import 'package:dbapp/services/storage.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
@@ -174,11 +175,19 @@ class _HomePageState extends State<HomePage> {
                   FlatButton.icon(
                       onPressed: () async {
                         //add navigation to edit profile page
-                        Navigator.push(
+                        if(peerID!=null || peerID.length==0){
+                             Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => UnaddedProfile(post)));
+                        } else{
+                           Navigator.push(
                             context,
                             MaterialPageRoute(
                                 builder: (context) => PeerProfile(post,
                                     peerID.length == 0 ? null : peerID[0])));
+                        }
+
                       },
                       icon: postFlag == true
                           ? Icon(
