@@ -1,13 +1,16 @@
 
 import 'package:dbapp/constants/colors.dart';
+import 'package:dbapp/screens/myDrawer.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class EmptyChat extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+     final myDrawer _drawer = new myDrawer();
     return Scaffold(
       appBar: new AppBar(title: new Text("Chat with your mentor"), backgroundColor: AppColors.COLOR_TEAL_LIGHT),
+      drawer: _drawer,
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[

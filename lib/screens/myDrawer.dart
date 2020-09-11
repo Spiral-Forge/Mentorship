@@ -23,13 +23,17 @@ class myDrawer extends StatefulWidget {
 
 class _myDrawerState extends State<myDrawer> {
   // var dark=false;
+  var photoURL='';
 
-  // void initState(){
-  //   super.initState();
-  //    print("printing dark mode");
-  //    asyncmode();
+  void initState(){
+    super.initState();
+    StorageServices.getUserInfo().then((value) {
+      setState(() {
+        photoURL=value["photoURL"];
+      });
+    });
 
-  // }
+  }
   // asyncmode()async {
   //   var val= await StorageServices.getDarkMode();
   //   if(val){
@@ -54,20 +58,20 @@ class _myDrawerState extends State<myDrawer> {
             color: Colors.transparent,
           ),
           new ListTile(
-              // leading: CircleAvatar(
-              //               backgroundColor: Colors.black,
-              //               radius: 75,
-              //               child: ClipOval(
-              //                 child: SizedBox(
-              //                   width: 150,
-              //                   height: 150,
-              //                   child: StorageServices.getUserInfo().then((user) => user["photoURL"])
-              //                 ),
+              leading: CircleAvatar(
+                backgroundColor: Colors.black,
+                radius: 40,
+                child: ClipOval(
+                  child: SizedBox(
+                    width: 80,
+                    height: 80,
+                    child: Image.network(photoURL)
+                  ))),
               title: new Text(
                 "Profile",
                 style: TextStyle(fontFamily: 'GoogleSans', fontSize: 20),
               ),
-              trailing: new Icon(Icons.arrow_right),
+              // trailing: new Icon(Icons.arrow_right),
               onTap: () {
                 Navigator.of(context).pop();
                 Navigator.push(context,

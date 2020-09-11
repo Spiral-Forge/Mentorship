@@ -154,7 +154,7 @@ class _ProfileState extends State<Profile> {
         elevation: 0.0,
         actions: <Widget>[],
       ),
-      drawer: _drawer,
+      // drawer: _drawer,
       // backgroundColor: Hexcolor('#a7d8de'),
       body: Builder(
         builder: (context) => Container(

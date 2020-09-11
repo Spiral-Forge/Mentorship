@@ -1,6 +1,7 @@
 // import 'package:chatApp/common/widgets.dart';
 import 'package:dbapp/blocs/values.dart';
 import 'package:dbapp/constants/colors.dart';
+import 'package:dbapp/screens/profile/peerProfile.dart';
 import 'package:dbapp/services/database.dart';
 import 'package:dbapp/services/storage.dart';
 import 'package:flutter/material.dart';
@@ -95,7 +96,13 @@ class _ConversationScreenState extends State<ConversationScreen> {
 
     return Scaffold(
       appBar: new AppBar(
-            title: new Text(widget.peerName),
+            title: GestureDetector(
+              onTap: (){
+                //  Navigator.push(context,
+                //     MaterialPageRoute(builder: (context) => PeerProfile()));
+              },
+              child: new Text(widget.peerName)
+            ),
             backgroundColor: AppColors.COLOR_TEAL_LIGHT),
       body: Container(
         child: Stack(
