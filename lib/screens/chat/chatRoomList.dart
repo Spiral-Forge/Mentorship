@@ -86,7 +86,7 @@ class _ChatRoomTileState extends State<ChatRoomTile> {
     return username.length ==0 ? Container() : GestureDetector(
       onTap: (){
           Navigator.push(context, MaterialPageRoute(
-              builder: (context)=>ConversationScreen(widget.userID,widget.peerID,username,profPic)
+              builder: (context)=>ConversationScreen(widget.userID,widget.peerID,username,profPic!=null ? profPic : null)
             ));
         },
           child: Row(

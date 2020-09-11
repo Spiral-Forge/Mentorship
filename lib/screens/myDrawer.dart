@@ -63,7 +63,7 @@ class _myDrawerState extends State<myDrawer> {
                       child: SizedBox(
                           width: 40,
                           height: 40,
-                          child: Image.network(photoURL)))),
+                          child: photoURL!=null && photoURL.length!=0 ? Image.network(photoURL) : Image.asset("assets/images/avatars/av1.jpg")))),
               title: new Text(
                 "Profile",
                 style: TextStyle(fontFamily: 'GoogleSans', fontSize: 20),

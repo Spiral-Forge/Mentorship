@@ -105,7 +105,7 @@ class _ConversationScreenState extends State<ConversationScreen> {
                         child: SizedBox(
                           width: 40,
                           height: 40,
-                          child: Image.network(widget.profPic)
+                          child: widget.profPic!=null ? Image.network(widget.profPic): Image.asset("assets/images/avatars/av1.jpg")
                         ))),
                         SizedBox(width: 20,),
                     GestureDetector(
