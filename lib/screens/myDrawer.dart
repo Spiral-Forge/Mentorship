@@ -59,8 +59,8 @@ class _myDrawerState extends State<myDrawer> {
               trailing: new Icon(Icons.arrow_right),
               onTap: () {
                 Navigator.of(context).pop();
-                Navigator.of(context).push(new MaterialPageRoute(
-                    builder: (BuildContext context) => new Guidelines()));
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => Guidelines()));
               }),
           new ListTile(
               title: new Text(

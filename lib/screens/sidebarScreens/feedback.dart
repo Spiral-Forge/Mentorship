@@ -100,71 +100,133 @@ class _MyFeedbackState extends State<MyFeedback> {
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
-      appBar: new AppBar(
-          title: new Text("Feedback"),
-          backgroundColor: AppColors.COLOR_TEAL_LIGHT),
-      body: ListView(
-        shrinkWrap: true,
-        padding: EdgeInsets.fromLTRB(32, 32, 32, 32),
-        children: <Widget>[
-          SizedBox(
-            height: 10.0,
-          ),
-          Text(
-            "Select type of feedback:",
-            style: TextStyle(
-              //color: Colors.black,
-              fontFamily: 'GoogleSans',
-              fontStyle: FontStyle.italic,
-              fontSize: 25,
-            ),
-          ),
-          SizedBox(height: 20.0),
-          BuildCheckBox(),
-          SizedBox(height: 20.0),
-          buildFeedbackForm(),
-          SizedBox(height: 20.0),
-          Spacer(),
-          Row(children: <Widget>[
-            Expanded(
-                child: FlatButton(
-              onPressed: () {
-                submitFeedback();
-                //sendMail();
-              },
-              color: AppColors.COLOR_TEAL_LIGHT,
-              padding: EdgeInsets.all(16.0),
-              child: Text(
-                "SUBMIT",
-                style: TextStyle(
-                    color: Colors.white,
-                    fontFamily: 'GoogleSans',
-                    fontSize: 20),
-              ),
-            ))
-          ])
-        ],
-      ),
-    );
+        // appBar: new AppBar(
+        //     title: new Text("Feedback"),
+        //     backgroundColor: AppColors.COLOR_TEAL_LIGHT),
+        body: Column(children: [
+      Expanded(
+          child: Container(
+              child: Padding(
+                  padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      SizedBox(height: 32),
+                      Padding(
+                        padding: EdgeInsets.fromLTRB(32, 32, 0, 0),
+                        child: IconButton(
+                          icon: Icon(Icons.arrow_back),
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                          },
+                        ),
+                      ),
+                      SizedBox(height: 25),
+                      Padding(
+                        padding: EdgeInsets.fromLTRB(32, 0, 0, 0),
+                        child: Text("Feedback",
+                            style: TextStyle(
+                                fontFamily: 'GoogleSans',
+                                fontWeight: FontWeight.bold,
+                                fontSize: 32)),
+                      ),
+                      SizedBox(height: 25),
+                      Expanded(
+                          child: SizedBox(
+                              height: 120.0,
+                              child: ListView(
+                                padding:
+                                    const EdgeInsets.fromLTRB(32, 0, 32, 0),
+                                children: <Widget>[
+                                  Text(
+                                    "Select type of feedback:",
+                                    style: TextStyle(
+                                      //color: Colors.black,
+                                      fontFamily: 'GoogleSans',
+                                      fontStyle: FontStyle.italic,
+                                      fontSize: 20,
+                                    ),
+                                  ),
+                                  SizedBox(height: 30.0),
+                                  BuildCheckBox(),
+                                  buildFeedbackForm(),
+                                  Padding(
+                                    padding: const EdgeInsets.fromLTRB(
+                                        90, 8.0, 90, 0),
+                                    child: Container(
+                                      // width: 50,
+                                      height: 45,
+                                      child: FlatButton(
+                                          color: AppColors.COLOR_TEAL_LIGHT,
+                                          shape: RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(10.0),
+                                              side: BorderSide(
+                                                color:
+                                                    AppColors.COLOR_TEAL_LIGHT,
+                                              )),
+                                          child: Text("Submit",
+                                              style: TextStyle(
+                                                  color: Colors.white,
+                                                  fontFamily: 'GoogleSans',
+                                                  fontSize: 15)),
+                                          onPressed: () {
+                                            submitFeedback();
+                                          }),
+                                    ),
+                                  ),
+                                ],
+                                // Row(children: <Widget>[
+                                //   Expanded(
+                                //       child: FlatButton(
+                                //     onPressed: () {
+                                //       submitFeedback();
+                                //       //sendMail();
+                                //     },
+                                //     color: AppColors.COLOR_TEAL_LIGHT,
+                                //     padding: EdgeInsets.all(16.0),
+                                //     child: Text(
+                                //       "SUBMIT",
+                                //       style: TextStyle(
+                                //           color: Colors.white,
+                                //           fontFamily: 'GoogleSans',
+                                //           fontSize: 20),
+                                //     ),
+                                //   ))
+                                // ])
+                              )))
+                    ],
+                  ))))
+    ])
+
+        // SizedBox(height: 20.0),
+
+        // SizedBox(height: 20.0),
+        // Spacer(),
+
+        );
   }
 
   buildFeedbackForm() {
     return Container(
         height: 200.0,
         child: Stack(children: <Widget>[
-          TextField(
-            controller: textController,
-            maxLines: 10,
-            decoration: InputDecoration(
-                hintText: "Please breifly describe the issue",
-                hintStyle: TextStyle(
-                    fontSize: 18.0,
-                    color: Color(0xffc5c5c5),
-                    fontStyle: FontStyle.italic,
-                    fontFamily: 'GoogleSans'),
-                border: OutlineInputBorder(
-                  borderSide: BorderSide(color: Color(0xffe5e5e5)),
-                )),
+          Padding(
+            padding: EdgeInsets.fromLTRB(0, 32, 0, 32),
+            child: TextField(
+              controller: textController,
+              maxLines: 10,
+              decoration: InputDecoration(
+                  hintText: "Please breifly describe the issue",
+                  hintStyle: TextStyle(
+                      fontSize: 15.0,
+                      color: Color(0xffc5c5c5),
+                      fontStyle: FontStyle.italic,
+                      fontFamily: 'GoogleSans'),
+                  border: OutlineInputBorder(
+                    borderSide: BorderSide(color: Color(0xffe5e5e5)),
+                  )),
+            ),
           ),
         ]));
   }
@@ -185,7 +247,7 @@ class _BuildCheckBoxState extends State<BuildCheckBox> {
       children: <Widget>[
         ListTile(
           title: const Text('Login Problem',
-              style: TextStyle(fontFamily: 'GoogleSans', fontSize: 20)),
+              style: TextStyle(fontFamily: 'GoogleSans', fontSize: 18)),
           leading: Radio(
             value: FeedbackOption.login,
             groupValue: _character,
@@ -200,7 +262,7 @@ class _BuildCheckBoxState extends State<BuildCheckBox> {
         ListTile(
           title: const Text(
             'Suggestions',
-            style: TextStyle(fontFamily: 'GoogleSans', fontSize: 20),
+            style: TextStyle(fontFamily: 'GoogleSans', fontSize: 18),
           ),
           leading: Radio(
             value: FeedbackOption.suggestion,
@@ -215,7 +277,7 @@ class _BuildCheckBoxState extends State<BuildCheckBox> {
         ),
         ListTile(
           title: const Text('Complaints',
-              style: TextStyle(fontFamily: 'GoogleSans', fontSize: 20)),
+              style: TextStyle(fontFamily: 'GoogleSans', fontSize: 18)),
           leading: Radio(
             value: FeedbackOption.complaint,
             groupValue: _character,
@@ -229,7 +291,7 @@ class _BuildCheckBoxState extends State<BuildCheckBox> {
         ),
         ListTile(
           title: const Text('Other issues',
-              style: TextStyle(fontFamily: 'GoogleSans', fontSize: 20)),
+              style: TextStyle(fontFamily: 'GoogleSans', fontSize: 18)),
           leading: Radio(
             value: FeedbackOption.other,
             groupValue: _character,
