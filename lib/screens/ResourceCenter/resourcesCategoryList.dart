@@ -373,7 +373,7 @@ class _ResourceCategoryListState extends State<ResourceCategoryList> {
                                                   "Open-Source",
                                                   "assets/images/opensrc.png"))
                                         ]),
-                                    SizedBox(height: 12),
+                                    SizedBox(height: 40),
                                   ])),
                             ]),
                           )
