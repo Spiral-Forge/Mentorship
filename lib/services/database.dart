@@ -24,7 +24,9 @@ class DataBaseService {
       List languages,
       bool hosteller,
       String post,
-      String dpurl) async {
+      String dpurl,
+      List<dynamic> peerID
+      ) async {
     return await userCollection.document(uid).setData({
       'name': name,
       'year': year,
@@ -38,7 +40,7 @@ class DataBaseService {
       'hosteller': hosteller,
       'languages': languages,
       'post': post,
-      'peerID': [],
+      'peerID': peerID,
       'photoURL': dpurl
     });
   }

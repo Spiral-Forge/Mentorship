@@ -74,7 +74,8 @@ class AuthService {
           languages,
           hosteller,
           post,
-          null);
+          null,
+          []);
       Map<String, dynamic> userlist = {
         'name': name,
         'contact': phoneNo,

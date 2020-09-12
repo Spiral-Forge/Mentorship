@@ -219,7 +219,8 @@ class _RegistrationFormState extends State<RegistrationForm> {
       'languages': languages,
       'hosteller': hosteller,
       'post': userInfo['post'],
-      'photoURL': userInfo['photoURL']
+      'photoURL': userInfo['photoURL'],
+      'peerID':userInfo['peerID']
     };
     dynamic result = await DataBaseService(uid: user.uid).updateUserData(
         name,
@@ -234,7 +235,9 @@ class _RegistrationFormState extends State<RegistrationForm> {
         languages,
         hosteller,
         userInfo['post'],
-        userInfo['photoUrl']);
+        userInfo['photoUrl'],
+        userInfo['peerID']
+        );
     await StorageServices.saveUserInfo(userMap).then((value) {
       print('saved in storage');
       //setState(() {});
