@@ -17,6 +17,7 @@ import 'package:path/path.dart';
 import 'package:image_cropper/image_cropper.dart';
 
 import 'package:dbapp/screens/myDrawer.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 final myDrawer _drawer = new myDrawer();
 
@@ -441,15 +442,22 @@ class _ProfileState extends State<Profile> {
                     title: Text("LinkedIn Profile",
                         style:
                             TextStyle(fontFamily: 'GoogleSans', fontSize: 18)),
-                    subtitle: Text(
-                      user["linkedInURL"] == null ||
-                              user["linkedInURL"].length == 0
-                          ? " - "
-                          : user["linkedInURL"],
-                      style: GoogleFonts.lato(
-                        textStyle: TextStyle(
-                          //color: AppColors.PROTEGE_GREY,
-                          fontSize: 20,
+                    subtitle: GestureDetector(
+                      onTap: (){
+                          if(user["linkedInURL"] != null && user["linkedInURL"].length != 0){
+                            launch(user["linkedInURL"]);
+                          }
+                        },
+                        child: Text(
+                        user["linkedInURL"] == null ||
+                                user["linkedInURL"].length == 0
+                            ? " - "
+                            : user["linkedInURL"],
+                        style: GoogleFonts.lato(
+                          textStyle: TextStyle(
+                            //color: AppColors.PROTEGE_GREY,
+                            fontSize: 20,
+                          ),
                         ),
                       ),
                     ),
@@ -468,13 +476,20 @@ class _ProfileState extends State<Profile> {
                         style:
                             TextStyle(fontFamily: 'GoogleSans', fontSize: 18),
                       ),
-                      subtitle: Text(
-                          user["githubURL"] == null ||
-                                  user["githubURL"].length == 0
-                              ? " - "
-                              : user["githubURL"],
-                          style: TextStyle(
-                              fontFamily: 'GoogleSans', fontSize: 18)),
+                      subtitle: GestureDetector(
+                        onTap: (){
+                          if(user["githubURL"] != null && user["githubURL"].length != 0){
+                            launch(user["githubURL"]);
+                          }
+                        },
+                            child: Text(
+                            user["githubURL"] == null ||
+                                    user["githubURL"].length == 0
+                                ? " - "
+                                : user["githubURL"],
+                            style: TextStyle(
+                                fontFamily: 'GoogleSans', fontSize: 18)),
+                      ),
                       // isThreeLine: true,
                       leading: Icon(
                         Icons.code,
