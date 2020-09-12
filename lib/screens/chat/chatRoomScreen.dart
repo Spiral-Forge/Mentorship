@@ -23,13 +23,20 @@ class _ConversationScreenState extends State<ConversationScreen> {
   DataBaseService databaseMethods=new DataBaseService();
   Stream chatMessageStream;
   String chatRoomId;
-  var peerData;
+  var post;
   @override
   void initState(){
     
     initialise();
+    getPost();
      super.initState();
     
+  }
+  void getPost() async{
+    var user= await StorageServices.getUserInfo();
+    this.setState(() {
+      post=user["post"];
+    });
   }
 
   void initialise() async{
@@ -94,7 +101,10 @@ class _ConversationScreenState extends State<ConversationScreen> {
 
     return Scaffold(
       appBar: new AppBar(
-          backgroundColor: themeFlag ? null: AppColors.COLOR_TEAL_LIGHT,
+        iconTheme: IconThemeData(
+            color: themeFlag ? null: Colors.black, //change your color here
+          ),
+          backgroundColor: themeFlag ? null: Colors.white,
             title:  Container(
                 child:Row(
                   children: <Widget>[
@@ -111,9 +121,11 @@ class _ConversationScreenState extends State<ConversationScreen> {
                     GestureDetector(
                       onTap: (){
                           Navigator.push(context,
-                            MaterialPageRoute(builder: (context) => PeerProfile(widget.peerID)));
+                            MaterialPageRoute(builder: (context) => PeerProfile(post,widget.peerID)));
                       },
-                      child: Container(child: Text(widget.peerName))
+                      child: Container(child: Text(widget.peerName,style:TextStyle(
+                        color:themeFlag ? null: Colors.black,
+                      )))
                       )
                   ],
                 )

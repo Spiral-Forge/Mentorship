@@ -10,14 +10,15 @@ import 'package:hexcolor/hexcolor.dart';
 
 class PeerProfile extends StatefulWidget {
   final String peerID;
+  final String post;
   //=["6qJheR9NT9djQiA7pkG9vS4hyE63"];
-  PeerProfile(this.peerID);
+  PeerProfile(this.post,this.peerID);
   @override
   _PeerProfileState createState() => _PeerProfileState();
 }
 
 class _PeerProfileState extends State<PeerProfile> {
-  Map<String, dynamic> user;
+  Map<String, dynamic> user={};
   bool loading = true;
   int avatorNum = Random().nextInt(4) + 1;
   // bool isPeerAdded;
@@ -71,7 +72,7 @@ class _PeerProfileState extends State<PeerProfile> {
                       SizedBox(height: 25),
                       Padding(
                         padding: EdgeInsets.fromLTRB(32, 0, 0, 0),
-                        child: Text("Profile",
+                        child: Text(widget.post == "Mentee" ? "Your Mentor" : "Your Mentee" ,
                             style: TextStyle(
                                 fontFamily: 'GoogleSans',
                                 fontWeight: FontWeight.bold,
