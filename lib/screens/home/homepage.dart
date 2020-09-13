@@ -46,27 +46,28 @@ class _HomePageState extends State<HomePage> {
   List<EventTile> eventlist = [];
   Widget eventList() {
     ThemeNotifier _themeNotifier = Provider.of<ThemeNotifier>(context);
-    print("printing theme notifier");
     var themeFlag = _themeNotifier.darkTheme;
     return loading
         ? Loading()
         : Center(
             child: Container(
-            width: 350.0,
+            width: MediaQuery.of(context).size.width / 1.1,
             child: ListView.builder(
                 shrinkWrap: true,
-                itemCount: eventlist.length + 2,
+                itemCount: eventlist.length + 1,
                 itemBuilder: (context, index) {
                   if (index == 0) {
-                    return Container(
-                        child: ListView(shrinkWrap: true, children: <Widget>[
-                      Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisSize: MainAxisSize.min,
-                          children: <Widget>[
-                            Container(
-                                child: Wrap(children: <Widget>[
+                    return Stack(children: [
+                      Padding(
+                        padding: const EdgeInsets.only(top: 45),
+                        child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            // mainAxisSize: MainAxisSize.min,
+                            children: <Widget>[
+                              // Center(
+                              // alignment: Alignment.center,
+                              // child: Wrap(children: <Widget>[
                               Container(
                                   width: 150.0,
                                   height: 150.0,
@@ -76,40 +77,42 @@ class _HomePageState extends State<HomePage> {
                                           fit: BoxFit.fill,
                                           image: themeFlag
                                               ? new AssetImage(
-                                              'assets/images/Protege_white_text.png')
+                                                  'assets/images/Protege_white_text.png')
                                               : new AssetImage(
                                                   'assets/images/Protege no bg.png')))),
-                            ]))
-                          ]),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisSize: MainAxisSize.min,
-                        children: <Widget>[
-                          Container(
+                              // ])
+                            ]),
+                      ),
+                      // ]),
+
+                      Padding(
+                        padding: const EdgeInsets.only(top: 198.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          // mainAxisSize: MainAxisSize.min,
+                          children: <Widget>[
+                            Container(
+                                child: Container(
                               child: Text("The Mentorship Society of IGDTUW",
+                                  // textAlign: Alignment.center,
                                   style: TextStyle(
                                       fontFamily: 'GoogleSans',
                                       fontWeight: FontWeight.w600,
-                                      fontSize: 15,
-                                    color:themeFlag?Colors.white:Color(0xFF303030)))),
-                        ],
+                                      fontSize: 18,
+                                      color: themeFlag
+                                          ? Colors.white
+                                          : Color(0xFF303030))),
+                            )),
+                          ],
+                        ),
                       ),
-                      SizedBox(height: 35),
-                    ]));
-                  } else if (index == 1) {
-                    return Center(
-                      child: Padding(
-                          padding: EdgeInsets.fromLTRB(0, 0, 0, 20),
-                          child: Text("UPCOMING EVENTS IN COLLEGE",
-                              style: TextStyle(
-                                fontFamily: 'GoogleSans',
-                                fontWeight: FontWeight.bold,
-                                fontSize: 20,
-                              ))),
-                    );
+                      SizedBox(
+                        height: 240,
+                      )
+                    ]);
                   } else {
-                    return eventlist[index - 2];
+                    return Container(width: 350, child: eventlist[index - 1]);
                   }
                 }),
           ));
@@ -163,107 +166,92 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     final GlobalKey<ScaffoldState> _scaffoldKey =
         new GlobalKey<ScaffoldState>();
-    // // final _themeChanger = Provider.of<ThemeChanger>(context);
-    // _darkTheme = (_themeChanger.getTheme() == darkTheme);
+    ThemeNotifier _themeNotifier = Provider.of<ThemeNotifier>(context);
+    var themeFlag = _themeNotifier.darkTheme;
 
     return Scaffold(
-        // appBar: AppBar(
-        //   title: Text("Home", style: TextStyle(fontFamily: 'GoogleSans')),
-        //   backgroundColor: AppColors.COLOR_TEAL_LIGHT,
-        //   elevation:
-        //       Theme.of(context).platform == TargetPlatform.iOS ? 0.0 : 4.0,
-        //   actions: peerID.length <= 1
-        //       ? <Widget>[
-        //           FlatButton.icon(
-        //               onPressed: () async {
-        //                 //add navigation to edit profile page
-        //                 if(peerID!=null || peerID.length==0){
-        //                      Navigator.push(
-        //                     context,
-        //                     MaterialPageRoute(
-        //                         builder: (context) => UnaddedProfile(post)));
-        //                 } else{
-        //                    Navigator.push(
-        //                     context,
-        //                     MaterialPageRoute(
-        //                         builder: (context) => PeerProfile(
-        //                             peerID.length == 0 ? null : peerID[0])));
-        //                 }
-
-        //               },
-        //               icon: postFlag == true
-        //                   ? Icon(
-        //                       Icons.people,
-        //                       color: Colors.white,
-        //                     )
-        //                   : Icon(null),
-        //               label: Text(
-        //                 postFlag == true
-        //                     ? post == "Mentor" ? 'Mentee' : 'Mentor'
-        //                     : "",
-        //                 style: TextStyle(
-        //                     color: Colors.white,
-        //                     fontFamily: 'GoogleSans',
-        //                     fontSize: 16),
-        //               ))
-        //         ]
-        //       : <Widget>[
-        //           PopupMenuButton<String>(
-        //             onSelected: (value) => Navigator.push(
-        //                 context,
-        //                 MaterialPageRoute(
-        //                     builder: (context) => PeerProfile(value))),
-        //             itemBuilder: (BuildContext context) {
-        //               return fixedList.map((index) {
-        //                 return PopupMenuItem<String>(
-        //                   value: peerID[index],
-        //                   child: Text(
-        //                       "View mentee " +
-        //                           (index + 1).toString() +
-        //                           " profile",
-        //                       style: TextStyle(fontFamily: 'GoogleSans')),
-        //                 );
-        //               }).toList();
-        //             },
-        //           )
-        //         ],
-        // ),
         key: _scaffoldKey,
         drawer: _drawer,
         body: Column(children: [
-        Expanded(
-            child: Container(
-                child: Padding(
-                    padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
-                    child: Column(
-                        // mainAxisAlignment: MainAxisAlignment.center,
-                        // crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.fromLTRB(15.0, 42, 0, 0),
-                            child: Row(children: [
-                              IconButton(
-                                  icon: Icon(Icons.menu),
-                                  onPressed: () {
-                                    _scaffoldKey.currentState.openDrawer();
-                                  }),
-                              Text(
-                                "Home",
-                                style: TextStyle(
-                                    fontFamily: 'GoogleSans', fontSize: 23),
-                              )
-                            ]),
-                          ),
-                          Expanded(
-                            child:eventList()
-                            )
-                           
-                        ])
+          Expanded(
+              child: Container(
+                  child: Padding(
+                      padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
+                      child: Column(children: [
+                        Expanded(
+                          child: Stack(children: <Widget>[
+                            Container(
+                                height:
+                                    MediaQuery.of(context).size.height / 3.3,
+                                decoration: BoxDecoration(
+                                  image: DecorationImage(
+                                      image: AssetImage(
+                                          'assets/images/homedark.jpg'),
+                                      fit: BoxFit.cover),
+                                )),
+                            Container(
+                              height: MediaQuery.of(context).size.height / 3.3,
+                              color: themeFlag
+                                  ? Hexcolor('#303030').withOpacity(0.55)
+                                  : Colors.white.withOpacity(0.55),
+                            ),
+                            Expanded(child: eventList()),
+                            Padding(
+                              padding:
+                                  const EdgeInsets.fromLTRB(15.0, 42, 0, 0),
+                              child: Row(children: [
+                                IconButton(
+                                    icon: Icon(Icons.menu),
+                                    onPressed: () {
+                                      _scaffoldKey.currentState.openDrawer();
+                                    }),
+                                Text(
+                                  "Home",
+                                  style: TextStyle(
+                                      fontFamily: 'GoogleSans', fontSize: 23),
+                                )
+                              ]),
+                            ),
+                          ]),
                         )
-                        )
-                        )
+                      ])))),
         ])
-    );
+
+        // Container(
+        //   child: Stack(
+        //       children: <Widget>[
+        // Container(
+        //     height: MediaQuery.of(context).size.height / 3.3,
+        //     decoration: BoxDecoration(
+        //       image: DecorationImage(
+        //           image: AssetImage('assets/images/homedark.jpg'),
+        //           fit: BoxFit.cover),
+        //     )),
+        // Container(
+        //   height: MediaQuery.of(context).size.height / 3.3,
+        //   color: Colors.white.withOpacity(0.7),
+        // ),
+        // Padding(
+        //   padding: const EdgeInsets.fromLTRB(15.0, 42, 0, 0),
+        //   child: Row(children: [
+        //     IconButton(
+        //         icon: Icon(Icons.menu),
+        //         onPressed: () {
+        //           _scaffoldKey.currentState.openDrawer();
+        //         }),
+        //     Text(
+        //       "Home",
+        //       style: TextStyle(fontFamily: 'GoogleSans', fontSize: 23),
+        //     )
+        //   ]),
+        // ),
+        //         Expanded(child: eventList()),
+        //         SizedBox(
+        //           height: 18,
+        //         )
+        //       ]),
+        // )
+        );
   }
 }
 
@@ -303,20 +291,17 @@ class EventTile extends StatelessWidget {
                       height: 210.0,
                       decoration: BoxDecoration(
                           image: DecorationImage(
-                              fit: BoxFit.scaleDown, image: NetworkImage(url)
-                              //AssetImage("assets/images/bg2.jpg")
-                              )),
+                              fit: BoxFit.scaleDown, image: NetworkImage(url))),
                     )),
                 Container(
                     width: MediaQuery.of(context).size.width,
                     child: ExpansionTile(
-                      // trailing: Icon(Icons.more),
                       title: Center(
                           child: Text(name,
                               style: TextStyle(
                                   fontFamily: 'GoogleSans',
                                   fontWeight: FontWeight.w600,
-                                  fontSize: 15))),
+                                  fontSize: 18))),
                       subtitle: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           crossAxisAlignment: CrossAxisAlignment.center,
@@ -325,42 +310,42 @@ class EventTile extends StatelessWidget {
                               children: <Widget>[
                                 Align(
                                   alignment: Alignment.center,
-                                  child: Icon(Icons.date_range, size: 14),
+                                  child: Icon(Icons.date_range, size: 15),
                                 ),
                                 Padding(
                                     padding: EdgeInsets.fromLTRB(5, 0, 0, 0),
                                     child: Text(date,
                                         style: TextStyle(
                                             fontFamily: 'GoogleSans',
-                                            fontSize: 14))),
+                                            fontSize: 15))),
                               ],
                             ),
                             Row(
                               children: <Widget>[
                                 Align(
                                   alignment: Alignment.center,
-                                  child: Icon(Icons.query_builder, size: 14),
+                                  child: Icon(Icons.query_builder, size: 15),
                                 ),
                                 Padding(
                                     padding: EdgeInsets.fromLTRB(5, 0, 0, 0),
                                     child: Text(time,
                                         style: TextStyle(
                                             fontFamily: 'GoogleSans',
-                                            fontSize: 14))),
+                                            fontSize: 15))),
                               ],
                             ),
                             Row(
                               children: <Widget>[
                                 Align(
                                   alignment: Alignment.center,
-                                  child: Icon(Icons.location_on, size: 14),
+                                  child: Icon(Icons.location_on, size: 15),
                                 ),
                                 Padding(
                                     padding: EdgeInsets.fromLTRB(5, 0, 0, 0),
                                     child: Text(venue,
                                         style: TextStyle(
                                             fontFamily: 'GoogleSans',
-                                            fontSize: 14))),
+                                            fontSize: 15))),
                               ],
                             ),
                           ]),
@@ -389,15 +374,8 @@ class EventTile extends StatelessWidget {
                               ),
                             ))
                       ],
-                      // ],
                     )),
               ],
             )));
   }
-}
-
-void onThemeChanged(bool value, ThemeChanger _themeChanger) async {
-  (value)
-      ? _themeChanger.setTheme(darkTheme)
-      : _themeChanger.setTheme(lightTheme);
 }

@@ -41,13 +41,7 @@ class _ResourceListState extends State<ResourceList> {
                   child: Text("No resources available yet"),
                 ),
               )
-            :
-            // Center(
-            //     child: Padding(
-            //         padding: EdgeInsets.fromLTRB(10, 20, 10, 0),
-            //         child: Container(
-            //           child:
-            Expanded(
+            : Expanded(
                 child: SizedBox(
                   height: 20.0,
                   child: new ListView.builder(
@@ -91,7 +85,7 @@ class _ResourceListState extends State<ResourceList> {
                 flex: 7,
                 child: Container(
                     decoration: BoxDecoration(
-                        color:themeFlag?Color(0xFF303030):Colors.white,
+                        color: themeFlag ? Color(0xFF303030) : Colors.white,
                         borderRadius: BorderRadius.only(
                             bottomLeft: Radius.circular(100))),
                     child: Padding(
