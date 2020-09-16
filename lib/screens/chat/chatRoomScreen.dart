@@ -1,4 +1,6 @@
 // import 'package:chatApp/common/widgets.dart';
+import 'dart:async';
+
 import 'package:dbapp/blocs/values.dart';
 import 'package:dbapp/constants/colors.dart';
 import 'package:dbapp/screens/profile/peerProfile.dart';
@@ -24,13 +26,16 @@ class _ConversationScreenState extends State<ConversationScreen> {
   Stream chatMessageStream;
   String chatRoomId;
   var post;
+  ScrollController scrollController;
+
   @override
   void initState(){
+
+    scrollController = ScrollController();
     
     initialise();
     getPost();
      super.initState();
-    
   }
   void getPost() async{
     var user= await StorageServices.getUserInfo();
@@ -42,15 +47,18 @@ class _ConversationScreenState extends State<ConversationScreen> {
   void initialise() async{
     List<String> users=[widget.userID,widget.peerID];
     String chatRoomID=getChatRoomId(widget.userID,widget.peerID);
+    print("priting userid");print(widget.userID);
     setState(() {
       chatRoomId=chatRoomID;
     });
+    print(chatRoomID);
     Map<String, dynamic> chatRoomMap={
       "users":users,
       "ChatRoomID":chatRoomID
     };
     await databaseMethods.createChatRoom(chatRoomID, chatRoomMap);
     var messageList= await databaseMethods.getConversationMessages(chatRoomID);
+    print("displaying message List");
     print(messageList);
     setState(() {
       chatMessageStream=messageList;
@@ -65,12 +73,25 @@ class _ConversationScreenState extends State<ConversationScreen> {
       return "$a\_$b";
     }
   }
+
+  _scrollToEnd() async {
+       // if (needScroll) {
+      //needScroll = false;
+      scrollController.animateTo(scrollController.position.maxScrollExtent,
+          duration: Duration(milliseconds: 100), curve: Curves.ease);
+   // }
+  }
+
   Widget ChatMessageList(){
+    
     return StreamBuilder(
       stream: chatMessageStream,
       builder: (context,snapshot){
+        WidgetsBinding.instance.addPostFrameCallback((_) => _scrollToEnd());
+
         return snapshot.hasData ? ListView.builder(
-          reverse: true,
+          controller: scrollController,
+          //reverse: true,
           shrinkWrap: true,
           itemCount: snapshot.data.documents.length,
           itemBuilder: (context,index){
@@ -98,6 +119,8 @@ class _ConversationScreenState extends State<ConversationScreen> {
 
     ThemeNotifier _themeNotifier = Provider.of<ThemeNotifier>(context);
     var themeFlag=_themeNotifier.darkTheme;
+    //WidgetsBinding.instance.addPostFrameCallback((_) => _scrollToEnd());
+
 
     return Scaffold(
       appBar: new AppBar(
@@ -158,6 +181,7 @@ class _ConversationScreenState extends State<ConversationScreen> {
                             ),
                           border: InputBorder.none
                         ),
+                        //onTap: _scrollToEnd(),
                       )
                       ),
                   GestureDetector(
