@@ -6,7 +6,6 @@ import 'package:dbapp/screens/chat/chatScreenHandler.dart';
 import 'package:dbapp/services/auth.dart';
 import 'package:flutter/material.dart';
 import 'package:dbapp/screens/profile/profile.dart';
-import 'package:dbapp/screens/chat/chat.dart';
 import 'package:dbapp/screens/home/homepage.dart';
 
 class Home extends StatefulWidget {

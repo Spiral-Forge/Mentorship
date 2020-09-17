@@ -1,7 +1,7 @@
 class SidebarConstants {
   static final List<String> guidelinesMentors = [
-    "You can see the profile page of your mentees in the ‘Know your mentees section’ on the homepage.",
     "As soon as you’re connected to your mentees, introduce yourself, share your contact and get familiar to each other.",
+    "You can view the profile page of your mentees through their chat screen.",
     "Try to build a friendly rather than a professional connection with your mentees from day 1 so that they feel comfortable addressing their doubts to you.",
     "Let the mentees know how you would like to be contacted, how often and what are your preferred times.",
     "Ask your mentees what they want to achieve and make short-term and long-term plans with them.",
@@ -10,27 +10,16 @@ class SidebarConstants {
     "Remind your mentees about any upcoming scholarship, internship, or other opportunities and motivate them to apply for the same.",
     "For any feedback/suggestions/complaints about the app, fill out the feedback form.",
     "If you find your mentee not showing considerable improvement or lacking efforts, give her two warnings, after which the issue should be reported to the core team members of Protégé.",
-    "Mentees",
-    "You can see the profile page of your mentor in the ‘Know your mentor section’ on the homepage.",
-    "As soon as you’re connected to your mentor, introduce yourself, share your contact and get familiar to each other.",
+  ];
+
+  static final List<String> guidelinesMentees = [
+   "As soon as you’re connected to your mentor, introduce yourself, share your contact and get familiar to each other.",
+    "You can view the profile page of your mentor through their chat screen.",
     "Ask your mentor about her preferred medium and preferred time to connect with her. Be respectful towards your mentor’s time.",
     "Although we encourage mentors and mentees to have a friendly rather than a professional relationship, make sure to not overstep the boundaries (by messaging too often, calling during inappropriate time of the day, etc.)",
     "Feel free to address any kind of questions to your mentor. At the same time, keep in mind that your mentor may not have experience in all domains and she might need time to figure out how to help you in the best way possible.",
     "Let your mentor know what you want to achieve and make short-term and long-term plans with her.",
     "Do check the resource center for any resource that you’re looking for before approaching your mentor.",
-    "Keep a regular check on the home for upcoming events. If you’re not sure whether you should attend an event, ask your mentor about it.",
-    "For any feedback/suggestions/complaints about the app, fill out the feedback form.",
-    "If you feel your mentor is not giving you satisfactory experience or is unable to give you appropriate time, send a feedback or contact the core team of Protégé directly.",
-  ];
-
-  static final List<String> guidelinesMentees = [
-    "You can see the profile page of your mentor in the ‘Know your mentor section’ on the homepage.",
-    "As soon as you’re connected to your mentor, introduce yourself, share your contact and get familiar to each other.",
-    "Ask your mentor about her preferred medium and preferred time to connect with her. Be respectful towards your mentor’s time.",
-    "Although we encourage mentors and mentees to have a friendly rather than a professional relationship, make sure to not overstep the boundaries (by messaging too often, calling during inappropriate time of the day, etc.)",
-    "Feel free to address any kind of questions to your mentor. At the same time, keep in mind that your mentor may not have experience in all domains and she might need time to figure out how to help you in the best way possible.",
-    "Let your mentor know what you want to achieve and make short-term and long-term plans with her.",
-    "Before asking for any resource from your mentor, check the resource center as you might find almost everything that you need there.",
     "Keep a regular check on the home for upcoming events. If you’re not sure whether you should attend an event, ask your mentor about it.",
     "For any feedback/suggestions/complaints about the app, fill out the feedback form.",
     "If you feel your mentor is not giving you satisfactory experience or is unable to give you appropriate time, send a feedback or contact the core team of Protégé directly.",

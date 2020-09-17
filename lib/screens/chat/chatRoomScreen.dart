@@ -1,4 +1,3 @@
-// import 'package:chatApp/common/widgets.dart';
 import 'dart:async';
 
 import 'package:dbapp/blocs/values.dart';
@@ -10,7 +9,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class ConversationScreen extends StatefulWidget {
-  //final String chatRoomID;
   final String userID;
   final String peerID;
   final String peerName;
@@ -75,12 +73,9 @@ class _ConversationScreenState extends State<ConversationScreen> {
   }
 
   _scrollToEnd() async {
-       // if (needScroll) {
-      //needScroll = false;
       scrollController.animateTo(scrollController.position.maxScrollExtent,
           duration: Duration(milliseconds: 100), curve: Curves.ease);
-   // }
-  }
+            }
 
   Widget ChatMessageList(){
     
@@ -91,7 +86,6 @@ class _ConversationScreenState extends State<ConversationScreen> {
 
         return snapshot.hasData ? ListView.builder(
           controller: scrollController,
-          //reverse: true,
           shrinkWrap: true,
           itemCount: snapshot.data.documents.length,
           itemBuilder: (context,index){
@@ -119,8 +113,6 @@ class _ConversationScreenState extends State<ConversationScreen> {
 
     ThemeNotifier _themeNotifier = Provider.of<ThemeNotifier>(context);
     var themeFlag=_themeNotifier.darkTheme;
-    //WidgetsBinding.instance.addPostFrameCallback((_) => _scrollToEnd());
-
 
     return Scaffold(
       appBar: new AppBar(
@@ -181,7 +173,6 @@ class _ConversationScreenState extends State<ConversationScreen> {
                             ),
                           border: InputBorder.none
                         ),
-                        //onTap: _scrollToEnd(),
                       )
                       ),
                   GestureDetector(
@@ -193,12 +184,6 @@ class _ConversationScreenState extends State<ConversationScreen> {
                       width: 40,
                       margin: EdgeInsets.symmetric(horizontal: 5),
                       decoration: BoxDecoration(
-                        // gradient: LinearGradient(
-                        //   colors: [
-                        //     const Color(0x0FFFFFFF),
-                        //     const Color(0x0FFFFFFF)
-                        //   ]
-                        //   ),
                           borderRadius: BorderRadius.circular(40)
                       ),
                       padding: EdgeInsets.all(5),
@@ -234,15 +219,6 @@ class MessageTile extends StatelessWidget {
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(9),
               color: isSentByMe? AppColors.PROTEGE_CYAN : themeFlag? Colors.grey[700] : AppColors.PROTEGE_GREY,
-              // gradient: LinearGradient(
-              //   colors: isSentByMe ?  [
-              //      const Color(0xff96ECE7),
-              //      const Color(0xff96ECE7)
-              //   ]:[
-              //     const Color(0xff565656),
-              //     const Color(0xff565656)
-              //   ]
-              // )
             ),
         child:Text(message,style:TextStyle(
           color: isSentByMe? Colors.black : Colors.white,
