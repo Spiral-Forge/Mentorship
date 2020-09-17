@@ -7,7 +7,6 @@ import 'package:dbapp/screens/ResourceCenter/resourceList.dart';
 import 'package:dbapp/services/database.dart';
 import 'package:dbapp/services/storage.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:toast/toast.dart';
 import 'package:dbapp/screens/myDrawer.dart';
 
@@ -18,18 +17,10 @@ class ResourceCategoryList extends StatefulWidget {
   _ResourceCategoryListState createState() => _ResourceCategoryListState();
 }
 
-//"assets/images/bg2.jpg"
 class _ResourceCategoryListState extends State<ResourceCategoryList> {
-  final _formKey = GlobalKey<FormState>();
   String post = '';
   TextEditingController titleController = new TextEditingController();
   TextEditingController linkController = new TextEditingController();
-
-  String _value;
-
-  //  String selectedName='';
-  //  String selectedCollectionID='';
-
   @override
   void initState() {
     getPostStatus();
@@ -62,140 +53,130 @@ class _ResourceCategoryListState extends State<ResourceCategoryList> {
             child: Container(
                 child: Padding(
                     padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
-                    child: Column(
-                        // mainAxisAlignment: MainAxisAlignment.center,
-                        // crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.fromLTRB(15.0, 42, 0, 0),
-                            child: Row(children: [
-                              IconButton(
-                                  icon: Icon(Icons.menu),
-                                  onPressed: () {
-                                    _scaffoldKey.currentState.openDrawer();
-                                  }),
-                              Text(
-                                "Resource Center",
-                                style: TextStyle(
-                                    fontFamily: 'GoogleSans', fontSize: 23),
-                              )
-                            ]),
-                          ),
-                          Expanded(
-                            child: ListView(children: <Widget>[
-                              Container(
-                                  padding: EdgeInsets.fromLTRB(0, 0, 0, 10),
-                                  width: MediaQuery.of(context).size.width,
-                                  child: Column(children: <Widget>[
-                                    // SizedBox(height: 12),
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: <Widget>[
-                                        GestureDetector(
-                                            onTap: () {
-                                              Navigator.push(
-                                                  context,
-                                                  MaterialPageRoute(
-                                                      builder: (context) =>
-                                                          ResourceList(
-                                                              "Development Resources",
-                                                              fieldMap[
-                                                                  "Development"])));
-                                            },
-                                            child: ResourceCategoryTile(
-                                                "Development",
-                                                "assets/images/development.png")),
-                                        GestureDetector(
-                                            onTap: () {
-                                              Navigator.push(
-                                                  context,
-                                                  MaterialPageRoute(
-                                                      builder: (context) =>
-                                                          ResourceList(
-                                                              "College Resources",
-                                                              fieldMap[
-                                                                  "College"])));
-                                            },
-                                            child: ResourceCategoryTile(
-                                                "College Resources",
-                                                "assets/images/book.jpg"))
-                                      ],
-                                    ),
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: <Widget>[
-                                        GestureDetector(
-                                            onTap: () {
-                                              Navigator.push(
-                                                  context,
-                                                  MaterialPageRoute(
-                                                      builder: (context) =>
-                                                          ResourceList(
-                                                              "Machine Learning Resources",
-                                                              fieldMap[
-                                                                  "Machine Learning"])));
-                                            },
-                                            child: ResourceCategoryTile(
-                                                "Machine Learning",
-                                                "assets/images/ml.png")),
-                                        GestureDetector(
-                                            onTap: () {
-                                              Navigator.push(
-                                                  context,
-                                                  MaterialPageRoute(
-                                                      builder: (context) =>
-                                                          ResourceList(
-                                                              "Scholarship Resources",
-                                                              fieldMap[
-                                                                  "Scholarship"])));
-                                            },
-                                            child: ResourceCategoryTile(
-                                                "Scholarships",
-                                                "assets/images/scholar.jpg"))
-                                      ],
-                                    ),
-                                    Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: <Widget>[
-                                          GestureDetector(
-                                              onTap: () {
-                                                Navigator.push(
-                                                    context,
-                                                    MaterialPageRoute(
-                                                        builder: (context) =>
-                                                            ResourceList(
-                                                                "Competitive Coding resources",
-                                                                fieldMap[
-                                                                    "Competitive Coding"])));
-                                              },
-                                              child: ResourceCategoryTile(
-                                                  "Competitive Coding",
-                                                  "assets/images/code.jpg")),
-                                          GestureDetector(
-                                              onTap: () {
-                                                Navigator.push(
-                                                    context,
-                                                    MaterialPageRoute(
-                                                        builder: (context) =>
-                                                            ResourceList(
-                                                                "Open-Source Resources",
-                                                                fieldMap[
-                                                                    "Open-Source"])));
-                                              },
-                                              child: ResourceCategoryTile(
-                                                  "Open-Source",
-                                                  "assets/images/opensrc.png"))
-                                        ]),
-                                    SizedBox(height: 40),
-                                  ])),
-                            ]),
+                    child: Column(children: [
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(15.0, 42, 0, 0),
+                        child: Row(children: [
+                          IconButton(
+                              icon: Icon(Icons.menu),
+                              onPressed: () {
+                                _scaffoldKey.currentState.openDrawer();
+                              }),
+                          Text(
+                            "Resource Center",
+                            style: TextStyle(
+                                fontFamily: 'GoogleSans', fontSize: 23),
                           )
-                        ]))))
+                        ]),
+                      ),
+                      Expanded(
+                        child: ListView(children: <Widget>[
+                          Container(
+                              padding: EdgeInsets.fromLTRB(0, 0, 0, 10),
+                              width: MediaQuery.of(context).size.width,
+                              child: Column(children: <Widget>[
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: <Widget>[
+                                    GestureDetector(
+                                        onTap: () {
+                                          Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      ResourceList(
+                                                          "Development Resources",
+                                                          fieldMap[
+                                                              "Development"])));
+                                        },
+                                        child: ResourceCategoryTile(
+                                            "Development",
+                                            "assets/images/development.png")),
+                                    GestureDetector(
+                                        onTap: () {
+                                          Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      ResourceList(
+                                                          "College Resources",
+                                                          fieldMap[
+                                                              "College"])));
+                                        },
+                                        child: ResourceCategoryTile(
+                                            "College Resources",
+                                            "assets/images/book.jpg"))
+                                  ],
+                                ),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: <Widget>[
+                                    GestureDetector(
+                                        onTap: () {
+                                          Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (context) => ResourceList(
+                                                      "Machine Learning Resources",
+                                                      fieldMap[
+                                                          "Machine Learning"])));
+                                        },
+                                        child: ResourceCategoryTile(
+                                            "Machine Learning",
+                                            "assets/images/ml.png")),
+                                    GestureDetector(
+                                        onTap: () {
+                                          Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      ResourceList(
+                                                          "Scholarship Resources",
+                                                          fieldMap[
+                                                              "Scholarship"])));
+                                        },
+                                        child: ResourceCategoryTile(
+                                            "Scholarships",
+                                            "assets/images/scholar.jpg"))
+                                  ],
+                                ),
+                                Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: <Widget>[
+                                      GestureDetector(
+                                          onTap: () {
+                                            Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                    builder: (context) => ResourceList(
+                                                        "Competitive Coding resources",
+                                                        fieldMap[
+                                                            "Competitive Coding"])));
+                                          },
+                                          child: ResourceCategoryTile(
+                                              "Competitive Coding",
+                                              "assets/images/code.jpg")),
+                                      GestureDetector(
+                                          onTap: () {
+                                            Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        ResourceList(
+                                                            "Open-Source Resources",
+                                                            fieldMap[
+                                                                "Open-Source"])));
+                                          },
+                                          child: ResourceCategoryTile(
+                                              "Open-Source",
+                                              "assets/images/opensrc.png"))
+                                    ]),
+                                SizedBox(height: 40),
+                              ])),
+                        ]),
+                      )
+                    ]))))
       ]),
-
       floatingActionButton: post == 'Mentor'
           ? FloatingActionButton(
               child: Icon(Icons.add),
@@ -262,7 +243,6 @@ class _ResourceCategoryListState extends State<ResourceCategoryList> {
                                                     (value) => DropdownMenuItem(
                                                           child: Text(
                                                             value,
-                                                            // style: TextStyle(color: Color(0xff11b719)),
                                                           ),
                                                           value: value,
                                                         ))
@@ -277,7 +257,6 @@ class _ResourceCategoryListState extends State<ResourceCategoryList> {
                                             isExpanded: false,
                                             hint: Text(
                                               'Resource Category',
-                                              //style: TextStyle(color: Color(0xff11b719)),
                                             ),
                                           ),
                                         ],
@@ -298,7 +277,6 @@ class _ResourceCategoryListState extends State<ResourceCategoryList> {
                                               )),
                                           child: Text("Submit"),
                                           onPressed: () async {
-                                            // if (_formKey.currentState.validate()) {
                                             var result = await DataBaseService()
                                                 .addResource(
                                                     fieldMap[selectedType],
@@ -316,7 +294,6 @@ class _ResourceCategoryListState extends State<ResourceCategoryList> {
                                                   duration: Toast.LENGTH_SHORT,
                                                   gravity: Toast.BOTTOM);
                                             } else {
-                                              //toast and close
                                               print(result);
                                               titleController.text = '';
                                               linkController.text = '';
@@ -327,9 +304,6 @@ class _ResourceCategoryListState extends State<ResourceCategoryList> {
                                                   duration: Toast.LENGTH_SHORT,
                                                   gravity: Toast.BOTTOM);
                                             }
-                                            //print(fieldMap[selectedType]);
-                                            //_formKey.currentState.save();
-                                            //}
                                           },
                                         ),
                                       )
@@ -344,12 +318,7 @@ class _ResourceCategoryListState extends State<ResourceCategoryList> {
                 );
               })
           : null,
-      // drawer: _drawer
     );
-
-    // SingleChildScrollView(
-    //   child:
-    // )
   }
 }
 

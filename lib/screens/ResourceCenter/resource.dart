@@ -1,9 +1,5 @@
-import 'package:dbapp/constants/colors.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:hexcolor/hexcolor.dart';
-import 'package:dbapp/blocs/values.dart';
-import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class ResourceTile extends StatelessWidget {
@@ -14,8 +10,6 @@ class ResourceTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    ThemeNotifier _themeNotifier = Provider.of<ThemeNotifier>(context);
-    var themeFlag = _themeNotifier.darkTheme;
     return Container(
         child: Card(
             shape: RoundedRectangleBorder(
@@ -25,19 +19,16 @@ class ResourceTile extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
                 Container(
-                  // color: Hexcolor('#eae8e0'),
                   width: MediaQuery.of(context).size.width,
                   decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(8),
-                      color: themeFlag ? Colors.white : AppColors.PROTEGE_GREY),
+                    borderRadius: BorderRadius.circular(8),
+                  ),
                   child: ExpansionTile(
-                      // trailing: Icon(Icons.more),
                       title: Text(resourceName,
                           style: TextStyle(
-                              fontSize: 20,
-                              fontFamily: 'GoogleSans',
-                              color: themeFlag ? Colors.black : Colors.white)),
-                      //subtitle: Center(child: Text("link here")),
+                            fontSize: 20,
+                            fontFamily: 'GoogleSans',
+                          )),
                       children: <Widget>[
                         new Center(
                             child: Padding(

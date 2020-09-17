@@ -28,14 +28,12 @@ class ResourceCategoryTile extends StatelessWidget {
                 Container(
                   width: MediaQuery.of(context).size.width / 2.4,
                   child: ListTile(
-                    // trailing: Icon(Icons.more),
                     title: Center(
                         child: Text(
                       categoryName,
                       style: TextStyle(fontSize: 18, fontFamily: 'GoogleSans'),
                       textAlign: TextAlign.center,
                     )),
-                    //subtitle: Center(child: Text(categoryName,style: TextStyle(fontSize: 20),)),
                   ),
                 )
               ],
