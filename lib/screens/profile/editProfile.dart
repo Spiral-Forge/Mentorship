@@ -3,10 +3,12 @@ import 'package:dbapp/constants/colors.dart';
 import 'package:dbapp/shared/loading.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:hexcolor/hexcolor.dart';
 import 'package:multiselect_formfield/multiselect_formfield.dart';
 import 'package:dbapp/services/database.dart';
 import 'package:dbapp/services/storage.dart';
 import 'package:provider/provider.dart';
+import 'package:dbapp/constants/screenConstants.dart';
 
 String name = '';
 String phoneNo = '';
@@ -39,7 +41,7 @@ class EditProfilePageState extends State<EditProfilePage> {
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
-    body: Column(children: [
+        body: Column(children: [
       Expanded(
           child: Container(
               child: Padding(
@@ -50,26 +52,31 @@ class EditProfilePageState extends State<EditProfilePage> {
                       SizedBox(height: 32),
                       Padding(
                         padding: EdgeInsets.fromLTRB(32, 32, 0, 0),
-                        child: IconButton(
-                          icon: Icon(Icons.arrow_back),
-                          onPressed: () {
-                            Navigator.of(context).pop();
-                          },
+                        child: Row(
+                          children: [
+                            IconButton(
+                              icon: Icon(Icons.arrow_back),
+                              onPressed: () {
+                                Navigator.of(context).pop();
+                              },
+                            ),
+                            Padding(
+                              padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
+                              child: Text("Edit Profile",
+                                  style: TextStyle(
+                                      fontFamily: 'GoogleSans',
+                                      fontWeight: FontWeight.w600,
+                                      fontSize: 25)),
+                            ),
+                          ],
                         ),
                       ),
                       SizedBox(height: 25),
-                      Padding(
-                        padding: EdgeInsets.fromLTRB(32, 0, 0, 0),
-                        child: Text("Edit Profile",
-                            style: TextStyle(
-                                fontFamily: 'GoogleSans',
-                                fontWeight: FontWeight.bold,
-                                fontSize: 32)),
-                      ),
                       Expanded(
                         child: Card(
                           child: new Container(
-                              padding: EdgeInsets.all(12), child: new RegistrationForm(userInfo)),
+                              padding: EdgeInsets.all(12),
+                              child: new RegistrationForm(userInfo)),
                           margin: EdgeInsets.all(15),
                         ),
                       )
@@ -78,7 +85,6 @@ class EditProfilePageState extends State<EditProfilePage> {
     ]));
   }
 }
-
 
 class RegistrationForm extends StatefulWidget {
   final Map<String, dynamic> userInfo;
@@ -191,7 +197,7 @@ class _RegistrationFormState extends State<RegistrationForm> {
       'hosteller': hosteller,
       'post': userInfo['post'],
       'photoURL': userInfo['photoURL'],
-      'peerID':userInfo['peerID']
+      'peerID': userInfo['peerID']
     };
     dynamic result = await DataBaseService(uid: user.uid).updateUserData(
         name,
@@ -207,10 +213,8 @@ class _RegistrationFormState extends State<RegistrationForm> {
         hosteller,
         userInfo['post'],
         userInfo['photoUrl'],
-        userInfo['peerID']
-        );
+        userInfo['peerID']);
     await StorageServices.saveUserInfo(userMap);
-    
   }
 
   @override
@@ -226,13 +230,18 @@ class _RegistrationFormState extends State<RegistrationForm> {
                 shrinkWrap: true,
                 padding: EdgeInsets.all(10),
                 children: <Widget>[
-                  Text('Name', style: TextStyle (fontFamily: 'GoogleSans',)),
+                  Text('Name',
+                      style: TextStyle(
+                          fontFamily: 'GoogleSans',
+                          fontSize: 13,
+                          color: Hexcolor("#959595"))),
                   new TextFormField(
                       initialValue: name,
                       keyboardType: TextInputType.text,
                       style: TextStyle(
-                          color:
-                              themeFlag ? Colors.grey[300] : Colors.grey[700], fontFamily: 'GoogleSans',),
+                        color: themeFlag ? Colors.grey[300] : Colors.grey[700],
+                        fontFamily: 'GoogleSans',
+                      ),
                       decoration: const InputDecoration(
                           enabledBorder: UnderlineInputBorder(
                             borderSide: BorderSide(color: Colors.grey),
@@ -254,13 +263,18 @@ class _RegistrationFormState extends State<RegistrationForm> {
                     height: 20,
                     color: Colors.transparent,
                   ),
-                  Text('Phone Number', style: TextStyle (fontFamily: 'GoogleSans',)),
+                  Text('Phone Number',
+                      style: TextStyle(
+                          fontFamily: 'GoogleSans',
+                          fontSize: 13,
+                          color: Hexcolor("#959595"))),
                   TextFormField(
                       initialValue: phoneNo,
                       keyboardType: TextInputType.phone,
                       style: TextStyle(
-                          color:
-                              themeFlag ? Colors.grey[300] : Colors.grey[700], fontFamily: 'GoogleSans',),
+                        color: themeFlag ? Colors.grey[300] : Colors.grey[700],
+                        fontFamily: 'GoogleSans',
+                      ),
                       decoration: const InputDecoration(
                         enabledBorder: UnderlineInputBorder(
                           borderSide: BorderSide(color: Colors.grey),
@@ -285,12 +299,16 @@ class _RegistrationFormState extends State<RegistrationForm> {
                     height: 20,
                     color: Colors.transparent,
                   ),
-                  Text('Branch', style: TextStyle (fontFamily: 'GoogleSans',)),
+                  Text('Branch',
+                      style: TextStyle(
+                          fontFamily: 'GoogleSans',
+                          fontSize: 13,
+                          color: Hexcolor("#959595"))),
                   DropdownButton<ListItem>(
                       style: TextStyle(
-                          color:
-                              themeFlag ? Colors.grey[300] : Colors.grey[700], fontFamily: 'GoogleSans',
-                              ),
+                        color: themeFlag ? Colors.grey[300] : Colors.grey[700],
+                        fontFamily: 'GoogleSans',
+                      ),
                       value: _selectedBranch,
                       items: _dropdownBranchItems,
                       onChanged: (value) {
@@ -303,11 +321,16 @@ class _RegistrationFormState extends State<RegistrationForm> {
                     height: 20,
                     color: Colors.transparent,
                   ),
-                  Text('Year', style: TextStyle (fontFamily: 'GoogleSans',)),
+                  Text('Year',
+                      style: TextStyle(
+                          fontFamily: 'GoogleSans',
+                          fontSize: 13,
+                          color: Hexcolor("#959595"))),
                   DropdownButton<ListItem>(
                       style: TextStyle(
-                          color:
-                              themeFlag ? Colors.grey[300] : Colors.grey[700], fontFamily: 'GoogleSans',),
+                        color: themeFlag ? Colors.grey[300] : Colors.grey[700],
+                        fontFamily: 'GoogleSans',
+                      ),
                       value: _selectedYear,
                       items: _dropdownYearItems,
                       onChanged: (value) {
@@ -320,12 +343,18 @@ class _RegistrationFormState extends State<RegistrationForm> {
                     height: 20,
                     color: Colors.transparent,
                   ),
-                  Text('Roll Number', style: TextStyle (fontFamily: 'GoogleSans',)),
+                  Text('Roll Number',
+                      style: TextStyle(
+                          fontFamily: 'GoogleSans',
+                          fontSize: 13,
+                          color: Hexcolor("#959595"))),
                   TextFormField(
                     initialValue: rollNo,
                     keyboardType: TextInputType.number,
                     style: TextStyle(
-                        color: themeFlag ? Colors.grey[300] : Colors.grey[700], fontFamily: 'GoogleSans',),
+                      color: themeFlag ? Colors.grey[300] : Colors.grey[700],
+                      fontFamily: 'GoogleSans',
+                    ),
                     decoration: new InputDecoration(
                         enabledBorder: UnderlineInputBorder(
                           borderSide: BorderSide(color: Colors.grey),
@@ -350,12 +379,17 @@ class _RegistrationFormState extends State<RegistrationForm> {
                     height: 20,
                     color: Colors.transparent,
                   ),
-                  Text('LinkedIn Profile URL', style: TextStyle (fontFamily: 'GoogleSans',)),
+                  Text('LinkedIn URL',
+                      style: TextStyle(
+                          fontFamily: 'GoogleSans',
+                          fontSize: 13,
+                          color: Hexcolor("#959595"))),
                   TextFormField(
                       initialValue: linkedInUrl,
                       style: TextStyle(
-                          color:
-                              themeFlag ? Colors.grey[300] : Colors.grey[700], fontFamily: 'GoogleSans',),
+                        color: themeFlag ? Colors.grey[300] : Colors.grey[700],
+                        fontFamily: 'GoogleSans',
+                      ),
                       decoration: const InputDecoration(
                         enabledBorder: UnderlineInputBorder(
                           borderSide: BorderSide(color: Colors.grey),
@@ -372,12 +406,17 @@ class _RegistrationFormState extends State<RegistrationForm> {
                     height: 20,
                     color: Colors.transparent,
                   ),
-                  Text('GitHub Profile URL', style: TextStyle (fontFamily: 'GoogleSans',)),
+                  Text('GitHub URL',
+                      style: TextStyle(
+                          fontFamily: 'GoogleSans',
+                          fontSize: 13,
+                          color: Hexcolor("#959595"))),
                   TextFormField(
                       initialValue: githubUrl,
                       style: TextStyle(
-                          color:
-                              themeFlag ? Colors.grey[300] : Colors.grey[700], fontFamily: 'GoogleSans',),
+                        color: themeFlag ? Colors.grey[300] : Colors.grey[700],
+                        fontFamily: 'GoogleSans',
+                      ),
                       decoration: const InputDecoration(
                         enabledBorder: UnderlineInputBorder(
                           borderSide: BorderSide(color: Colors.grey),
@@ -394,7 +433,11 @@ class _RegistrationFormState extends State<RegistrationForm> {
                     height: 20,
                     color: Colors.transparent,
                   ),
-                  Text('Domains', style: TextStyle (fontFamily: 'GoogleSans',)),
+                  Text('Domains',
+                      style: TextStyle(
+                          fontFamily: 'GoogleSans',
+                          fontSize: 13,
+                          color: Hexcolor("#959595"))),
                   Container(
                     padding: EdgeInsets.all(4),
                     child: MultiSelectFormField(
@@ -407,32 +450,7 @@ class _RegistrationFormState extends State<RegistrationForm> {
                           return 'Please select one or more options';
                         }
                       },
-                      dataSource: [
-                        {
-                          "display": "Web Development",
-                          "value": "Web Development",
-                        },
-                        {
-                          "display": "App Development",
-                          "value": "App Development",
-                        },
-                        {
-                          "display": "Machine Learning",
-                          "value": "Machine Learning",
-                        },
-                        {
-                          "display": "IOT",
-                          "value": "IOT",
-                        },
-                        {
-                          "display": "BlockChain",
-                          "value": "BlockChain",
-                        },
-                        {
-                          "display": "Competitive Programming",
-                          "value": "Competitive Programming",
-                        }
-                      ],
+                      dataSource: ScreenConstants.registerFieldData,
                       textField: 'display',
                       valueField: 'value',
                       okButtonLabel: 'OK',
@@ -451,7 +469,11 @@ class _RegistrationFormState extends State<RegistrationForm> {
                     height: 20,
                     color: Colors.transparent,
                   ),
-                  Text('Languages', style: TextStyle (fontFamily: 'GoogleSans',)),
+                  Text('Languages',
+                      style: TextStyle(
+                          fontFamily: 'GoogleSans',
+                          fontSize: 13,
+                          color: Hexcolor("#959595"))),
                   Container(
                     padding: EdgeInsets.all(6),
                     child: MultiSelectFormField(
@@ -464,20 +486,7 @@ class _RegistrationFormState extends State<RegistrationForm> {
                           return 'Please select one or more options';
                         }
                       },
-                      dataSource: [
-                        {
-                          "display": "C/C++",
-                          "value": "C/C++",
-                        },
-                        {
-                          "display": "Java",
-                          "value": "Java",
-                        },
-                        {
-                          "display": "Python",
-                          "value": "Python",
-                        },
-                      ],
+                      dataSource: ScreenConstants.registerLanguageData,
                       textField: 'display',
                       valueField: 'value',
                       okButtonLabel: 'OK',
@@ -496,35 +505,59 @@ class _RegistrationFormState extends State<RegistrationForm> {
                     height: 20,
                     color: Colors.transparent,
                   ),
-                  Text('Hosteller', style: TextStyle (fontFamily: 'GoogleSans',)),
+                  Text('Hosteller',
+                      style: TextStyle(
+                          fontFamily: 'GoogleSans',
+                          fontSize: 13,
+                          color: Hexcolor("#959595"))),
                   new Row(children: <Widget>[
                     new Radio(
                         value: 0,
                         groupValue: _hostellerValue,
                         onChanged: _handleHostellerValue),
-                    new Text('Yes'),
+                    new Text('Yes',
+                        style:
+                            TextStyle(fontFamily: 'GoogleSans', fontSize: 15)),
                     new Radio(
                         value: 1,
                         groupValue: _hostellerValue,
                         onChanged: _handleHostellerValue),
-                    new Text('No'),
+                    new Text('No',
+                        style:
+                            TextStyle(fontFamily: 'GoogleSans', fontSize: 15)),
                   ]),
-                  new Container(
-                    padding: const EdgeInsets.only(left: 175.0, top: 20.0),
-                    child: new FloatingActionButton.extended(
-                        heroTag: "btn1",
-                        backgroundColor: AppColors.PROTEGE_GREY,
-                        onPressed: () async {
-                          if (_formKey.currentState.validate()) {
-                            await updateData();
-                            Navigator.of(context).pop();
-                          }
-                        },
-                        label: Text('Save',
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontFamily: 'GoogleSans',
-                            ))),
+                  Divider(
+                    height: 25,
+                    color: Colors.transparent,
+                  ),
+                  Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: <Widget>[
+                        Container(
+                          height: 35,
+                          child: new FlatButton(
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10.0),
+                              ),
+                              color: AppColors.PROTEGE_GREY,
+                              onPressed: () async {
+                                if (_formKey.currentState.validate()) {
+                                  await updateData();
+                                  Navigator.of(context).pop();
+                                }
+                              },
+                              child: Text('Save',
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontFamily: 'GoogleSans',
+                                    fontSize: 15,
+                                  ))),
+                        ),
+                      ]),
+                  Divider(
+                    height: 20,
+                    color: Colors.transparent,
                   ),
                 ]));
   }
