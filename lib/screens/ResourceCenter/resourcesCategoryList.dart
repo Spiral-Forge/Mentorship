@@ -1,5 +1,3 @@
-import 'package:dbapp/blocs/theme.dart';
-import 'package:dbapp/blocs/values.dart';
 import 'package:dbapp/constants/colors.dart';
 import 'package:dbapp/constants/screenConstants.dart';
 import 'package:dbapp/screens/ResourceCenter/category.dart';
@@ -248,7 +246,6 @@ class _ResourceCategoryListState extends State<ResourceCategoryList> {
                                                         ))
                                                 .toList(),
                                             onChanged: (selectedField) {
-                                              print('$selectedField');
                                               setState(() {
                                                 selectedType = selectedField;
                                               });
@@ -283,8 +280,6 @@ class _ResourceCategoryListState extends State<ResourceCategoryList> {
                                                     titleController.text,
                                                     linkController.text);
                                             if (result == null) {
-                                              //toast and close
-                                              print("some error occured");
                                               titleController.text = '';
                                               linkController.text = '';
                                               Navigator.of(context).pop();
@@ -294,7 +289,6 @@ class _ResourceCategoryListState extends State<ResourceCategoryList> {
                                                   duration: Toast.LENGTH_SHORT,
                                                   gravity: Toast.BOTTOM);
                                             } else {
-                                              print(result);
                                               titleController.text = '';
                                               linkController.text = '';
                                               Navigator.of(context).pop();
@@ -320,10 +314,4 @@ class _ResourceCategoryListState extends State<ResourceCategoryList> {
           : null,
     );
   }
-}
-
-void onThemeChanged(bool value, ThemeChanger _themeChanger) async {
-  (value)
-      ? _themeChanger.setTheme(darkTheme)
-      : _themeChanger.setTheme(lightTheme);
 }

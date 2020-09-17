@@ -22,7 +22,6 @@ class _ResourceListState extends State<ResourceList> {
     DataBaseService()
         .getCurrentCollectionData(widget.collectionName)
         .then((value) {
-      print(value.documents[0].data.runtimeType);
       setState(() {
         resourcesList = value.documents;
       });
@@ -35,6 +34,7 @@ class _ResourceListState extends State<ResourceList> {
         ? Align(
             alignment: Alignment.center,
             child: Container(
+              padding: EdgeInsets.only(top:20.0),
               child: Text(
                 "No resources available yet",
                 style: TextStyle(fontFamily: 'GoogleSans', fontSize: 18),
@@ -98,7 +98,6 @@ class _ResourceListState extends State<ResourceList> {
                   decoration: BoxDecoration(
                       borderRadius:
                           BorderRadius.only(bottomLeft: Radius.circular(15))),
-                  // child: resourceList()
                 )),
           ],
         ));
