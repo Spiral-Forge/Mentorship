@@ -178,7 +178,7 @@ class _RegisterForm4State extends State<RegisterForm4> {
                                             ),
                                           ),
                                           new Divider(
-                                              height: 0,
+                                              height: 10,
                                               color: Colors.transparent),
                                           Container(
                                             child: MultiSelectFormField(
@@ -269,47 +269,52 @@ class _RegisterForm4State extends State<RegisterForm4> {
                                           new Divider(
                                               height: 35.0,
                                               color: Colors.transparent),
-                                          new Container(
-                                            padding: EdgeInsets.fromLTRB(
-                                                120, 5, 120, 5),
-                                            child: RaisedButton(
-                                                color:
-                                                    AppColors.COLOR_TEAL_LIGHT,
-                                                shape: RoundedRectangleBorder(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            10.0),
-                                                    side: BorderSide(
+                                          Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.spaceEvenly,
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.center,
+                                              children: <Widget>[
+                                                Container(
+                                                  height: 40,
+                                                  child: new MaterialButton(
+                                                      shape:
+                                                          RoundedRectangleBorder(
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(10.0),
+                                                      ),
                                                       color: AppColors
                                                           .COLOR_TEAL_LIGHT,
-                                                    )),
-                                                child: Text("Next",
-                                                    style: TextStyle(
-                                                        color: Colors.white,
-                                                        fontSize: 17,
-                                                        fontWeight:
-                                                            FontWeight.w600,
-                                                        fontFamily:
-                                                            'GoogleSans'),
-                                                    textAlign:
-                                                        TextAlign.center),
-                                                onPressed: () {
-                                                  if (_formKey4.currentState
-                                                      .validate()) {
-                                                    setState(() {
-                                                      userMap['domains'] =
-                                                          domains;
-                                                      userMap['languages'] =
-                                                          languages;
-                                                      userMap['linkedInURL'] =
-                                                          linkedinURL;
-                                                      userMap['githubURL'] =
-                                                          githubURL;
-                                                      saveData();
-                                                    });
-                                                  }
-                                                }),
-                                          ),
+                                                      onPressed: () async {
+                                                        if (_formKey4
+                                                            .currentState
+                                                            .validate()) {
+                                                          setState(() {
+                                                            userMap['domains'] =
+                                                                domains;
+                                                            userMap['languages'] =
+                                                                languages;
+                                                            userMap['linkedInURL'] =
+                                                                linkedinURL;
+                                                            userMap['githubURL'] =
+                                                                githubURL;
+                                                            saveData();
+                                                          });
+                                                        }
+                                                      },
+                                                      child: Text('Next',
+                                                          style: TextStyle(
+                                                              color:
+                                                                  Colors.white,
+                                                              fontFamily:
+                                                                  'GoogleSans',
+                                                              fontSize: 18,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w600))),
+                                                ),
+                                              ]),
                                           Text(error,
                                               textAlign: TextAlign.center,
                                               style: TextStyle(
