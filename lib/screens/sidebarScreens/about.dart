@@ -86,11 +86,9 @@ class About extends StatelessWidget {
                           ),
                         ),
                       )
-
                     ],
                   ))))
-    ]));
-       
+    ]));   
   }
 }
 

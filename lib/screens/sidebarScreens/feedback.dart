@@ -1,12 +1,10 @@
 import 'package:dbapp/constants/colors.dart';
 import 'package:dbapp/constants/sidebarConstants.dart';
 import 'package:dbapp/services/storage.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_mailer/flutter_mailer.dart';
 import 'package:toast/toast.dart';
-import '../../services/auth.dart';
 
 enum FeedbackOption { login, suggestion, complaint, other }
 var feedbackopt = 1;
@@ -18,13 +16,7 @@ class MyFeedback extends StatefulWidget {
 
 class _MyFeedbackState extends State<MyFeedback> {
   final TextEditingController textController = new TextEditingController();
-
-  final AuthService _auth = AuthService();
   Map<String, dynamic> user;
-  final FirebaseAuth _authUser = FirebaseAuth.instance;
-  Future<FirebaseUser> getCurrentUser() {
-    return _authUser.currentUser();
-  }
 
   Map<int, String> feedbackOption = SidebarConstants.feedbackOptionsMap;
   String uid = "";
@@ -37,7 +29,6 @@ class _MyFeedbackState extends State<MyFeedback> {
 
   void setUser() async {
     await StorageServices.getUserInfo().then((userInfo) {
-      print(userInfo);
       setState(() {
         user = userInfo;
       });
@@ -47,16 +38,6 @@ class _MyFeedbackState extends State<MyFeedback> {
   submitFeedback() {
     if (textController.text.isNotEmpty) {
       sendMail();
-      /**
-       * Uncomment for saving into DB
-       */
-      //  DataBaseService().addFeedback(feedbackMap).then((value) {
-      //    if(value!=null){
-      //      Toast.show("Thank you for your feedback", context, duration: Toast.LENGTH_SHORT, gravity:  Toast.BOTTOM);
-      //    }else{
-      //      Toast.show("Some error occured. Please try again later.", context, duration: Toast.LENGTH_SHORT, gravity:  Toast.BOTTOM);
-      //    }
-      //  });
     } else {
       Toast.show("Feedback cannot be empty. Please try again.", context,
           duration: Toast.LENGTH_SHORT, gravity: Toast.BOTTOM);
@@ -87,11 +68,9 @@ class _MyFeedbackState extends State<MyFeedback> {
       Toast.show("Thank you for your feedback", context,
           duration: Toast.LENGTH_SHORT, gravity: Toast.BOTTOM);
     } on PlatformException catch (error) {
-      print(error.toString());
       Toast.show("Some error occured. Please try again later.", context,
           duration: Toast.LENGTH_SHORT, gravity: Toast.BOTTOM);
     } catch (error) {
-      print(error.toString());
       Toast.show("Some error occured. Please try again later.", context,
           duration: Toast.LENGTH_SHORT, gravity: Toast.BOTTOM);
     }
@@ -138,7 +117,6 @@ class _MyFeedbackState extends State<MyFeedback> {
                                   Text(
                                     "Select type of feedback:",
                                     style: TextStyle(
-                                      //color: Colors.black,
                                       fontFamily: 'GoogleSans',
                                       fontStyle: FontStyle.italic,
                                       fontSize: 20,
