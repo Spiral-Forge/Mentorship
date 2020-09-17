@@ -60,8 +60,7 @@ class EmptyChat extends StatelessWidget {
           )
         ],
       )
-                            )
-                           
+                            )                          
                         ])
                         )
                         )

@@ -18,7 +18,6 @@ class _ChatScreenHandlerState extends State<ChatScreenHandler> {
   }
   setUser() async{
     var userData=await StorageServices.getUserInfo();
-    print(userData);
     setState(() {
       user=userData;
     });

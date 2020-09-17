@@ -35,13 +35,11 @@ class ThemeNotifier extends ChangeNotifier{
 
   _loadFromPrefs() async{
     var val=await StorageServices.getDarkMode();
-    print("val is "+val.toString());
     _darktheme=val!=null ? val:false;
     notifyListeners();
   }
 
   _saveToPrefs() async{
-    print("coming inside func");
     await StorageServices.saveDarkMode(_darktheme);
   }
 

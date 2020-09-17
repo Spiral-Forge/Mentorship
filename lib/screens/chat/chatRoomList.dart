@@ -77,7 +77,6 @@ class _ChatRoomTileState extends State<ChatRoomTile> {
 
   getNames() async {
     await databaseMethods.getUserFromID(widget.peerID).then((val) {
-      print(val);
       setState(() {
         username = val["name"];
         profPic = val["profilePic"];

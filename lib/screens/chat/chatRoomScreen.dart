@@ -46,20 +46,15 @@ class _ConversationScreenState extends State<ConversationScreen> {
   void initialise() async {
     List<String> users = [widget.userID, widget.peerID];
     String chatRoomID = getChatRoomId(widget.userID, widget.peerID);
-    print("priting userid");
-    print(widget.userID);
     setState(() {
       chatRoomId = chatRoomID;
     });
-    print(chatRoomID);
     Map<String, dynamic> chatRoomMap = {
       "users": users,
       "ChatRoomID": chatRoomID
     };
     await databaseMethods.createChatRoom(chatRoomID, chatRoomMap);
     var messageList = await databaseMethods.getConversationMessages(chatRoomID);
-    print("displaying message List");
-    print(messageList);
     setState(() {
       chatMessageStream = messageList;
     });
