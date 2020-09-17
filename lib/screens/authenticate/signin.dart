@@ -1,13 +1,12 @@
 import 'package:dbapp/blocs/values.dart';
 import 'package:dbapp/constants/colors.dart';
-import 'package:dbapp/screens/authenticate/form1.dart';
 import 'package:dbapp/services/auth.dart';
 import 'package:dbapp/shared/styles.dart';
 import 'package:flutter/material.dart';
 import 'package:dbapp/shared/loading.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:hexcolor/hexcolor.dart';
 import 'package:provider/provider.dart';
 import 'package:toast/toast.dart';
 
@@ -25,7 +24,9 @@ class _SignInState extends State<SignIn> with SingleTickerProviderStateMixin {
   AnimationController _iconAnimationController;
   Animation<double> _iconAnimation;
 
-  //form state
+  /*
+   * form state
+   */
   String email = '';
   String password = '';
   String error = '';
@@ -47,25 +48,6 @@ class _SignInState extends State<SignIn> with SingleTickerProviderStateMixin {
     ThemeNotifier _themeNotifier = Provider.of<ThemeNotifier>(context);
     var themeFlag = _themeNotifier.darkTheme;
     return Scaffold(
-
-        // appBar: AppBar(
-        //   backgroundColor: AppColors.COLOR_TEAL_LIGHT,
-        //   elevation: 0.0,
-        //   title: Text("Sign In"),
-        //   actions: <Widget>[
-        //     FlatButton.icon(
-        //       icon: Icon(
-        //         Icons.person,
-        //         color: Colors.white,
-        //       ),
-        //       label: Text('Register', style: TextStyle(color: Colors.white)),
-        //       onPressed: () {
-        //         widget.toggleView();
-        //         //Navigator.pushReplacement( context, new MaterialPageRoute( builder: (BuildContext context) => RegisterForm1()));
-        //       },
-        //     )
-        //   ],
-        // ),
         body: loading
             ? Loading()
             : Container(
@@ -226,9 +208,9 @@ class _SignInState extends State<SignIn> with SingleTickerProviderStateMixin {
                                   alignment: Alignment.bottomRight,
                                   child: Text("Forgot password?",
                                       style: TextStyle(
-                                          // color: Hexcolor('#d6a495'),
                                           color: AppColors.COLOR_TEAL_LIGHT,
                                           fontSize: 15.0,
+                                          fontFamily: 'GoogleSans',
                                           decoration:
                                               TextDecoration.underline)),
                                 ),
@@ -260,15 +242,21 @@ class _SignInState extends State<SignIn> with SingleTickerProviderStateMixin {
                                       });
                                       dynamic result =
                                           await _auth.signin(email, password);
-                                      if (result == null) {
-                                        if (mounted) {
-                                          setState(() {
-                                            error =
-                                                "Either email or password is incorrect. Try again.";
-                                            loading = false;
-                                          });
-                                        }
-                                      }
+                                           if (result.runtimeType == PlatformException) {
+                                              setState(() {
+                                                error = result.message.toString();
+                                                loading = false;
+                                              });
+                                            }
+                                      // if (result == null) {
+                                      //   // if (mounted) {
+                                      //     setState(() {
+                                      //       error =
+                                      //           "Either email or password is incorrect. Try again.";
+                                      //       loading = false;
+                                      //     });
+                                      //   //}
+                                      // }
                                     }
                                   },
                                 ),
@@ -281,15 +269,16 @@ class _SignInState extends State<SignIn> with SingleTickerProviderStateMixin {
                                   Text(
                                     'New Here? ',
                                     style: TextStyle(
-                                        color: AppColors.PROTEGE_GREY,
-                                        fontSize: 15.0
+                                        color: themeFlag ? const Color(0xFF959595) : AppColors.PROTEGE_GREY,
+                                        fontSize: 15.0,
+                                        fontFamily: 'GoogleSans'
                                         )),
                               //   ],
                               // )
                               SizedBox(height: 5.0),
                               InkWell(
                                 onTap: () {
-                                     widget.toggleView(); //Navigator.pushReplacement( context, new MaterialPageRoute( builder: (BuildContext context) => RegisterForm1()));
+                                     widget.toggleView(); 
                                               },
 
                                 child: Container(
@@ -297,22 +286,25 @@ class _SignInState extends State<SignIn> with SingleTickerProviderStateMixin {
                                   margin: EdgeInsets.symmetric(vertical: 12),
                                   child: Text("Register NOW",
                                       style: TextStyle(
-                                          // color: Hexcolor('#d6a495'),
+                                          fontFamily: 'GoogleSans',
                                           color: AppColors.COLOR_TEAL_LIGHT,
                                           fontSize: 15.0,
                                           decoration:
                                           TextDecoration.underline)),
                                 ),
+                                
                               ),
+                              
                                 ],
-                              )
+                              ),
 
                             //   SizedBox(height: 20.0),
-                            //   SizedBox(height: 20.0),
-                            //   Text(error,
-                            //       style: TextStyle(
-                            //           color: AppColors.COLOR_ERROR_RED,
-                            //           fontSize: 14.0))
+                              SizedBox(height: 5.0),
+                              Text(error,
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                      color: AppColors.COLOR_ERROR_RED,
+                                      fontSize: 14.0))
                             ],
                           ),
                         ),

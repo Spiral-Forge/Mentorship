@@ -33,7 +33,7 @@ class AuthService {
       });
     } catch (e) {
       print(e.toString());
-      return null;
+      return e;
     }
   }
 
