@@ -343,7 +343,7 @@ class _ResourceCategoryListState extends State<ResourceCategoryList> {
                   },
                 );
               })
-          : FloatingActionButton(onPressed: null),
+          : null,
       // drawer: _drawer
     );
 
