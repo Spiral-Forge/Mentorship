@@ -100,9 +100,6 @@ class _MyFeedbackState extends State<MyFeedback> {
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
-        // appBar: new AppBar(
-        //     title: new Text("Feedback"),
-        //     backgroundColor: AppColors.COLOR_TEAL_LIGHT),
         body: Column(children: [
       Expanded(
           child: Container(
@@ -154,7 +151,6 @@ class _MyFeedbackState extends State<MyFeedback> {
                                     padding: const EdgeInsets.fromLTRB(
                                         90, 8.0, 90, 0),
                                     child: Container(
-                                      // width: 50,
                                       height: 45,
                                       child: FlatButton(
                                           color: AppColors.COLOR_TEAL_LIGHT,
@@ -176,34 +172,10 @@ class _MyFeedbackState extends State<MyFeedback> {
                                     ),
                                   ),
                                 ],
-                                // Row(children: <Widget>[
-                                //   Expanded(
-                                //       child: FlatButton(
-                                //     onPressed: () {
-                                //       submitFeedback();
-                                //       //sendMail();
-                                //     },
-                                //     color: AppColors.COLOR_TEAL_LIGHT,
-                                //     padding: EdgeInsets.all(16.0),
-                                //     child: Text(
-                                //       "SUBMIT",
-                                //       style: TextStyle(
-                                //           color: Colors.white,
-                                //           fontFamily: 'GoogleSans',
-                                //           fontSize: 20),
-                                //     ),
-                                //   ))
-                                // ])
                               )))
                     ],
                   ))))
     ])
-
-        // SizedBox(height: 20.0),
-
-        // SizedBox(height: 20.0),
-        // Spacer(),
-
         );
   }
 

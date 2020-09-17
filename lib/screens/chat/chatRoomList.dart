@@ -3,7 +3,6 @@ import 'package:dbapp/screens/chat/chatRoomScreen.dart';
 import 'package:dbapp/screens/myDrawer.dart';
 import 'package:dbapp/services/database.dart';
 import 'package:flutter/material.dart';
-import 'package:hexcolor/hexcolor.dart';
 
 class ChatRoomList extends StatefulWidget {
   final String userID;
@@ -14,11 +13,6 @@ class ChatRoomList extends StatefulWidget {
 }
 
 class _ChatRoomListState extends State<ChatRoomList> {
-  // void initState(){
-  //   print("printing peer list");
-  //   print(widget.peerList);
-  //   super.initState();
-  // }
 
   Widget roomList(){
       return ListView.builder(
@@ -38,10 +32,6 @@ class _ChatRoomListState extends State<ChatRoomList> {
         new GlobalKey<ScaffoldState>();
     final myDrawer _drawer = new myDrawer();
     return Scaffold(
-      // appBar: AppBar(
-      //   title: Text("Chat Room"),
-      //   backgroundColor: AppColors.COLOR_TEAL_LIGHT
-      // ),
       drawer: _drawer,
       key: _scaffoldKey,
       
@@ -51,8 +41,6 @@ class _ChatRoomListState extends State<ChatRoomList> {
                 child: Padding(
                     padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
                     child: Column(
-                        // mainAxisAlignment: MainAxisAlignment.center,
-                        // crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           Padding(
                             padding: const EdgeInsets.fromLTRB(15.0, 42, 0, 0),
@@ -103,18 +91,13 @@ class _ChatRoomTileState extends State<ChatRoomTile> {
     super.initState();
   }
   getNames() async{
-    //print(widget.userID);
     await databaseMethods.getUserFromID(widget.peerID).then((val){
-      print("val is what?");
       print(val);
       setState(() {
         username=val["name"];
         profPic=val["profilePic"];
       });
     });
-    //print(username);
-    
-    //print("all done");
   }
   @override
   Widget build(BuildContext context) {
