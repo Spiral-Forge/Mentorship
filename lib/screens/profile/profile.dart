@@ -23,7 +23,6 @@ class Profile extends StatefulWidget {
 }
 
 class _ProfileState extends State<Profile> {
-
   bool loading = true;
   Map<String, dynamic> user = {};
 
@@ -197,7 +196,7 @@ class _ProfileState extends State<Profile> {
                                                             fit: BoxFit
                                                                 .scaleDown)
                                                         : Image.asset(
-                                                            "assets/images/avatars/av1.jpg"),
+                                                            "assets/images/avatars/av1.png"),
                                               ),
                                             ),
                                           ),
@@ -489,5 +488,3 @@ class _ProfileState extends State<Profile> {
     ]));
   }
 }
-
-

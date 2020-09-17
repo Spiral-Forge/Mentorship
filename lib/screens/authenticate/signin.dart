@@ -239,7 +239,7 @@ class _SignInState extends State<SignIn> with SingleTickerProviderStateMixin {
                                   },
                                 ),
                               ),
-                              SizedBox(height: 12.0),
+                              SizedBox(height: 10.0),
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: <Widget>[
@@ -248,7 +248,7 @@ class _SignInState extends State<SignIn> with SingleTickerProviderStateMixin {
                                           color: themeFlag
                                               ? const Color(0xFF959595)
                                               : AppColors.PROTEGE_GREY,
-                                          fontSize: 15.0,
+                                          fontSize: 14.5,
                                           fontFamily: 'GoogleSans')),
                                   SizedBox(height: 5.0),
                                   InkWell(
@@ -263,7 +263,7 @@ class _SignInState extends State<SignIn> with SingleTickerProviderStateMixin {
                                           style: TextStyle(
                                               fontFamily: 'GoogleSans',
                                               color: AppColors.COLOR_TEAL_LIGHT,
-                                              fontSize: 15.0,
+                                              fontSize: 14.5,
                                               decoration:
                                                   TextDecoration.underline)),
                                     ),

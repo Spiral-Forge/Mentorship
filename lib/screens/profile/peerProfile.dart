@@ -123,7 +123,7 @@ class _PeerProfileState extends State<PeerProfile> {
                                                               fit: BoxFit
                                                                   .scaleDown)
                                                           : Image.asset(
-                                                              "assets/images/avatars/av1.jpg"),
+                                                              "assets/images/avatars/av1.png"),
                                                     ),
                                                   ),
                                                 ),
@@ -131,7 +131,6 @@ class _PeerProfileState extends State<PeerProfile> {
                                             ]),
                                       ),
                                     ]),
-
                                     SizedBox(
                                       height: 0,
                                     ),
@@ -373,4 +372,3 @@ class _PeerProfileState extends State<PeerProfile> {
           ]));
   }
 }
-

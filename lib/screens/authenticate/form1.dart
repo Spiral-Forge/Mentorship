@@ -68,8 +68,11 @@ class _RegisterForm1State extends State<RegisterForm1> {
                               height: 150,
                               decoration: new BoxDecoration(
                                   image: new DecorationImage(
-                                      image: new AssetImage(
-                                          'assets/images/Protege no bg.png')))),
+                                      image: themeFlag
+                                          ? new AssetImage(
+                                              'assets/images/Protege_white_text.png')
+                                          : new AssetImage(
+                                              'assets/images/Protege no bg.png')))),
                           new Divider(height: 55.0, color: Colors.transparent),
                           new Text(
                             'Hey,' + '\n' + 'register yourself as',
@@ -140,14 +143,14 @@ class _RegisterForm1State extends State<RegisterForm1> {
                                             textAlign: TextAlign.center),
                                       ))),
                             ),
-                            SizedBox(height: 12.0),
+                            SizedBox(height: 10.0),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: <Widget>[
                                 Text('Already registered? ',
                                     style: TextStyle(
                                         fontFamily: 'GoogleSans',
-                                        fontSize: 14.0,
+                                        fontSize: 14.5,
                                         color: themeFlag
                                             ? const Color(0xFF959595)
                                             : AppColors.PROTEGE_GREY)),
@@ -162,7 +165,7 @@ class _RegisterForm1State extends State<RegisterForm1> {
                                     child: Text("Sign In Here",
                                         style: TextStyle(
                                             color: AppColors.COLOR_TEAL_LIGHT,
-                                            fontSize: 14.0,
+                                            fontSize: 14.5,
                                             fontFamily: 'GoogleSans',
                                             decoration:
                                                 TextDecoration.underline)),
