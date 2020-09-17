@@ -23,10 +23,6 @@ class _SignInState extends State<SignIn> with SingleTickerProviderStateMixin {
   bool loading = false;
   AnimationController _iconAnimationController;
   Animation<double> _iconAnimation;
-
-  /*
-   * form state
-   */
   String email = '';
   String password = '';
   String error = '';
@@ -61,7 +57,6 @@ class _SignInState extends State<SignIn> with SingleTickerProviderStateMixin {
                             width: _iconAnimation.value * 200,
                             height: _iconAnimation.value * 210,
                             decoration: new BoxDecoration(
-                                //shape: BoxShape.circle,
                                 image: new DecorationImage(
                                     fit: BoxFit.fill,
                                     image: themeFlag? new AssetImage(
@@ -123,9 +118,9 @@ class _SignInState extends State<SignIn> with SingleTickerProviderStateMixin {
                                             title: Text(
                                               'Enter your email',
                                               style: TextStyle(
-                                                  // color: AppColors.PROTEGE_GREY,
                                                   fontSize: 20,
-                                                  fontWeight: FontWeight.bold),
+                                                  fontFamily: 'GoogleSans'
+                                                  ),
                                             ),
                                             content: TextField(
                                               controller:
@@ -136,27 +131,26 @@ class _SignInState extends State<SignIn> with SingleTickerProviderStateMixin {
                                             actions: <Widget>[
                                               new FlatButton(
                                                 child: new Text('Cancel',
-                                                    style: GoogleFonts.lato(
-                                                      textStyle: TextStyle(
+                                                    style: TextStyle(
                                                           // color: AppColors.PROTEGE_GREY,
                                                           fontSize: 14,
-                                                          fontWeight:
-                                                              FontWeight.bold),
-                                                    )),
+                                                          fontFamily: 'GoogleSans'
+                                                          ),
+                                                    ),
                                                 onPressed: () {
                                                   Navigator.of(context).pop();
                                                 },
                                               ),
                                               new FlatButton(
                                                 child: new Text(
-                                                    'SEND RESET LINK',
-                                                    style: GoogleFonts.lato(
-                                                      textStyle: TextStyle(
+                                                    'Send Reset Link',
+                                                      style: TextStyle(
                                                           // color: AppColors.PROTEGE_GREY,
                                                           fontSize: 14,
-                                                          fontWeight:
-                                                              FontWeight.bold),
-                                                    )),
+                                                          fontFamily: 'GoogleSans',
+                                                          
+                                                              ),
+                                                    ),
                                                 onPressed: () async {
                                                   if (resetPasswordController
                                                       .text.isEmpty) {
