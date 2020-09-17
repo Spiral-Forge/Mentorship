@@ -13,7 +13,7 @@ class SidebarConstants {
   ];
 
   static final List<String> guidelinesMentees = [
-   "As soon as you’re connected to your mentor, introduce yourself, share your contact and get familiar to each other.",
+    "As soon as you’re connected to your mentor, introduce yourself, share your contact and get familiar to each other.",
     "You can view the profile page of your mentor through their chat screen.",
     "Ask your mentor about her preferred medium and preferred time to connect with her. Be respectful towards your mentor’s time.",
     "Although we encourage mentors and mentees to have a friendly rather than a professional relationship, make sure to not overstep the boundaries (by messaging too often, calling during inappropriate time of the day, etc.)",
@@ -39,9 +39,14 @@ class SidebarConstants {
   ];
 
   static final List<String> feedbackCCRecipients = [
-    'suhanichawla2000@gmail.com'
+    'suhanichawla2000@gmail.com',
+    'urvigoel26@gmail.com',
+    'nitashadhingra612@gmail.com',
+    'oshinsaini18092000@gmail.com'
   ];
-  static final List<String> feedbackRecipients = ['suhanichawla2000@gmail.com'];
+
+  static final List<String> feedbackRecipients = ['spiralforge4@gmail.com'];
+
   static final Map<int, String> feedbackOptionsMap = {
     1: "Login Problem",
     2: "Suggestions",
@@ -52,24 +57,29 @@ class SidebarConstants {
 
   static final String aboutSoc =
       'During our first year in IGDTUW, we often felt intimidated by our new surroundings, and found ourselves pondering upon questions like \n\n"Which society should I join?" "Which programming language to learn?" "Which books to refer?" "How to not miss-out on opportunities?" "HOW TO SURVIVE IGDTUW?"\n\nProtégé aims to answer all these questions and more by connecting students with their seniors who will mentor them in all aspects of college life!';
+  
   static final  Map<String, String> oshin = {
     "Name":"Oshin Saini",
     "LinkedIN": "https://www.linkedin.com/in/oshin-saini-838718184/",
     "Image": "assets/images/OshinSaini.jpg"
   };
+
   static final  Map<String, String> suhani = {
     "Name":"Suhani Chawla",
     "LinkedIN": "https://www.linkedin.com/in/suhani-chawla-891919171/",
     "Image": "assets/images/SuhaniChawla.jpeg"
   };
+
   static final  Map<String, String> nitasha = {
     "Name":"Nitasha Dhingra",
     "LinkedIN": "https://www.linkedin.com/in/nitashadhingra/",
     "Image": "assets/images/NitashaDhingra.jpg"
   };
+
   static final  Map<String, String> urvi = {
     "Name":"Urvi Goel",
     "LinkedIN": "https://www.linkedin.com/in/urvi-goel/",
     "Image": "assets/images/UrviGoel.jpg"
   };
+
 }
