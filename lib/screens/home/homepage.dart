@@ -7,7 +7,7 @@ import 'package:dbapp/services/database.dart';
 import 'package:dbapp/shared/loading.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import 'package:dbapp/screens/myDrawer.dart';
+import 'package:dbapp/shared/myDrawer.dart';
 
 final myDrawer _drawer = new myDrawer();
 

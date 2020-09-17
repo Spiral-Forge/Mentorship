@@ -6,7 +6,7 @@ import 'package:dbapp/services/database.dart';
 import 'package:dbapp/services/storage.dart';
 import 'package:flutter/material.dart';
 import 'package:toast/toast.dart';
-import 'package:dbapp/screens/myDrawer.dart';
+import 'package:dbapp/shared/myDrawer.dart';
 
 final myDrawer _drawer = new myDrawer();
 

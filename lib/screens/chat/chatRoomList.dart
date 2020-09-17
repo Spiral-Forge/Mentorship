@@ -1,6 +1,6 @@
 import 'package:dbapp/constants/colors.dart';
 import 'package:dbapp/screens/chat/chatRoomScreen.dart';
-import 'package:dbapp/screens/myDrawer.dart';
+import 'package:dbapp/shared/myDrawer.dart';
 import 'package:dbapp/services/database.dart';
 import 'package:flutter/material.dart';
 
