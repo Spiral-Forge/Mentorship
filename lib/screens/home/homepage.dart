@@ -205,11 +205,14 @@ class EventTile extends StatelessWidget {
                     width: MediaQuery.of(context).size.width,
                     child: ExpansionTile(
                       title: Center(
-                          child: Text(name,
-                              style: TextStyle(
-                                  fontFamily: 'GoogleSans',
-                                  fontWeight: FontWeight.w600,
-                                  fontSize: 18))),
+                          child: Padding(
+                        padding: EdgeInsets.fromLTRB(0, 5, 0, 5),
+                        child: Text(name,
+                            style: TextStyle(
+                                fontFamily: 'GoogleSans',
+                                fontWeight: FontWeight.w600,
+                                fontSize: 18)),
+                      )),
                       subtitle: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           crossAxisAlignment: CrossAxisAlignment.center,
@@ -218,42 +221,42 @@ class EventTile extends StatelessWidget {
                               children: <Widget>[
                                 Align(
                                   alignment: Alignment.center,
-                                  child: Icon(Icons.date_range, size: 15),
+                                  child: Icon(Icons.date_range, size: 16),
                                 ),
                                 Padding(
-                                    padding: EdgeInsets.fromLTRB(5, 0, 0, 0),
+                                    padding: EdgeInsets.fromLTRB(8, 0, 0, 5),
                                     child: Text(date,
                                         style: TextStyle(
                                             fontFamily: 'GoogleSans',
-                                            fontSize: 15))),
+                                            fontSize: 16))),
                               ],
                             ),
                             Row(
                               children: <Widget>[
                                 Align(
                                   alignment: Alignment.center,
-                                  child: Icon(Icons.query_builder, size: 15),
+                                  child: Icon(Icons.query_builder, size: 16),
                                 ),
                                 Padding(
-                                    padding: EdgeInsets.fromLTRB(5, 0, 0, 0),
+                                    padding: EdgeInsets.fromLTRB(8, 0, 0, 5),
                                     child: Text(time,
                                         style: TextStyle(
                                             fontFamily: 'GoogleSans',
-                                            fontSize: 15))),
+                                            fontSize: 16))),
                               ],
                             ),
                             Row(
                               children: <Widget>[
                                 Align(
                                   alignment: Alignment.center,
-                                  child: Icon(Icons.location_on, size: 15),
+                                  child: Icon(Icons.location_on, size: 16),
                                 ),
                                 Padding(
-                                    padding: EdgeInsets.fromLTRB(5, 0, 0, 0),
+                                    padding: EdgeInsets.fromLTRB(8, 0, 0, 5),
                                     child: Text(venue,
                                         style: TextStyle(
                                             fontFamily: 'GoogleSans',
-                                            fontSize: 15))),
+                                            fontSize: 16))),
                               ],
                             ),
                           ]),
