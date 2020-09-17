@@ -6,6 +6,7 @@ import 'package:dbapp/screens/profile/peerProfile.dart';
 import 'package:dbapp/services/database.dart';
 import 'package:dbapp/services/storage.dart';
 import 'package:flutter/material.dart';
+import 'package:hexcolor/hexcolor.dart';
 import 'package:provider/provider.dart';
 
 class ConversationScreen extends StatefulWidget {
@@ -33,7 +34,7 @@ class _ConversationScreenState extends State<ConversationScreen> {
     
     initialise();
     getPost();
-     super.initState();
+    super.initState();
   }
   void getPost() async{
     var user= await StorageServices.getUserInfo();
@@ -210,17 +211,20 @@ class MessageTile extends StatelessWidget {
     var themeFlag=_themeNotifier.darkTheme;
 
     return Container(
-      padding: EdgeInsets.only(left: isSentByMe ? 0:24, right:isSentByMe ? 24:0),
+      padding: EdgeInsets.only(left: isSentByMe ? 0:10, right:isSentByMe ? 10:0),
       margin: EdgeInsets.symmetric(vertical:2),
       width: MediaQuery.of(context).size.width,
       alignment: isSentByMe ? Alignment.centerRight:Alignment.centerLeft,
           child: Container(
-            padding: EdgeInsets.symmetric(horizontal: 22, vertical:6),
+            constraints: BoxConstraints(maxWidth: (7*MediaQuery.of(context).size.width)/8),
+            padding: EdgeInsets.symmetric(horizontal: 10, vertical:6),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(9),
-              color: isSentByMe? AppColors.PROTEGE_CYAN : themeFlag? Colors.grey[700] : AppColors.PROTEGE_GREY,
+              color: isSentByMe?Hexcolor('#fcf9f0') : themeFlag? Colors.grey[700] : AppColors.PROTEGE_GREY,
             ),
-        child:Text(message,style:TextStyle(
+        child:Text(message,
+        textAlign: isSentByMe? TextAlign.right : TextAlign.left,
+        style:TextStyle(
           color: isSentByMe? Colors.black : Colors.white,
           fontSize:17,
           fontFamily: 'GoogleSans'
