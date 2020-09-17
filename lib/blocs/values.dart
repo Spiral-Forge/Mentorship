@@ -26,23 +26,14 @@ class ThemeNotifier extends ChangeNotifier{
     _darktheme=false;
     _loadFromPrefs();
   }
+
   toggleTheme(){
-    // print("this is getting called");
-    // print(_darktheme);
     _darktheme=!_darktheme;
     _saveToPrefs();
-    // print("now dark?");
-    // print(_darktheme);
     notifyListeners();
   }
-  // _initPrefs() async{
-  //    if(prefs==null){
-  //      prefs=await SharedPreferences.getInstance();
-  //    }
-  //  }
 
   _loadFromPrefs() async{
-    //await _initPrefs();
     var val=await StorageServices.getDarkMode();
     print("val is "+val.toString());
     _darktheme=val!=null ? val:false;
@@ -50,11 +41,8 @@ class ThemeNotifier extends ChangeNotifier{
   }
 
   _saveToPrefs() async{
-    //await _initPrefs();
-    //prefs.setBool(key, _darktheme);
     print("coming inside func");
     await StorageServices.saveDarkMode(_darktheme);
-    //print("val is ")
   }
 
 
