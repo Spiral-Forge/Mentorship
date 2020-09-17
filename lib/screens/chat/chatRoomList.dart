@@ -111,7 +111,7 @@ class _ChatRoomTileState extends State<ChatRoomTile> {
                             width: 60,
                             alignment: Alignment.center,
                             decoration: BoxDecoration(
-                                color: AppColors.PROTEGE_CYAN,
+                                color: Colors.black,
                                 borderRadius: BorderRadius.circular(40),
                                 image: DecorationImage(
                                   image: profPic != null

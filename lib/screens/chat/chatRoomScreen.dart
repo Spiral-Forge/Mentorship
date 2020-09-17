@@ -120,7 +120,7 @@ class _ConversationScreenState extends State<ConversationScreen> {
     return Scaffold(
         appBar: new AppBar(
             iconTheme: IconThemeData(
-              color: themeFlag ? null : Colors.black, //change your color here
+              color: themeFlag ? null : Colors.black, 
             ),
             backgroundColor: themeFlag ? null : Colors.white,
             title: Container(
@@ -227,13 +227,13 @@ class MessageTile extends StatelessWidget {
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(9),
             color: isSentByMe
-                ? Hexcolor('#fcf9f0')
+                ? AppColors.COLOR_TEAL_DARK
                 : themeFlag ? Colors.grey[700] : AppColors.PROTEGE_GREY,
           ),
           child: Text(message,
               textAlign: isSentByMe ? TextAlign.right : TextAlign.left,
               style: TextStyle(
-                  color: isSentByMe ? Colors.black : Colors.white,
+                  color: isSentByMe ? Colors.white : Colors.white,
                   fontSize: 17,
                   fontFamily: 'GoogleSans'))),
     );
