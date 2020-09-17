@@ -1,4 +1,3 @@
-import 'dart:math';
 import 'package:dbapp/services/storage.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:dbapp/services/database.dart';
@@ -25,7 +24,6 @@ class AuthService {
         return user;
       });
     } catch (e) {
-      print(e.toString());
       return e;
     }
   }
@@ -85,7 +83,6 @@ class AuthService {
       await StorageServices.saveUserInfo(userlist);
       return user;
     } catch (e) {
-      print(e.toString());
       return e;
     }
   }
@@ -94,7 +91,6 @@ class AuthService {
     try {
       return await _auth.signOut();
     } catch (e) {
-      print(e.toString());
       return null;
     }
   }
@@ -103,7 +99,6 @@ class AuthService {
     try {
       return await _auth.sendPasswordResetEmail(email: email);
     } catch (e) {
-      print(e.toString());
       return e.toString();
     }
   }

@@ -49,7 +49,7 @@ class _ProfileState extends State<Profile> {
 
   @override
   Widget build(BuildContext context) {
-    String hostel = user["hostel"] != null && user["hostel"] == true
+    String hostel = user["hosteller"] != null && user["hosteller"] == true
         ? "Hosteller: Yes"
         : "Hosteller: No";
 
