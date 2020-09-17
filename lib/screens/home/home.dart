@@ -1,11 +1,7 @@
 import 'package:dbapp/constants/colors.dart';
-import 'package:dbapp/screens/ResourceCenter/resourceList.dart';
 import 'package:dbapp/screens/ResourceCenter/resourcesCategoryList.dart';
-import 'package:dbapp/screens/chat/chatRoomScreen.dart';
 import 'package:dbapp/screens/chat/chatScreenHandler.dart';
-import 'package:dbapp/services/auth.dart';
 import 'package:flutter/material.dart';
-import 'package:dbapp/screens/profile/profile.dart';
 import 'package:dbapp/screens/home/homepage.dart';
 
 class Home extends StatefulWidget {
@@ -18,7 +14,6 @@ class _HomeState extends State<Home> {
   static const TextStyle optionStyle =
       TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
   final List<Widget> _children = <Widget>[
-    /**comment out chatscreenhandler and uncomment resource category list to get resource center on bottom nav */
     ChatScreenHandler(),
     HomePage(),
     ResourceCategoryList()
