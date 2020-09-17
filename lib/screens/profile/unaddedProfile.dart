@@ -18,7 +18,6 @@ class UnaddedProfile extends StatelessWidget {
                 width: 5000.0,
                 height: 400.0,
                 decoration: new BoxDecoration(
-                //shape: BoxShape.circle,
                 image: new DecorationImage(
                   fit: BoxFit.fill,
                   image: new AssetImage('assets/images/wait_for_it.png')
@@ -28,7 +27,6 @@ class UnaddedProfile extends StatelessWidget {
           ),
           Text("WAIT FOR IT...",style:GoogleFonts.lato(
                     textStyle: TextStyle(
-                     // color: AppColors.PROTEGE_GREY,
                       fontSize: 30,
                       fontWeight: FontWeight.bold
                     ),

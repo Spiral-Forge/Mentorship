@@ -6,18 +6,15 @@ import 'package:flutter/material.dart';
 import 'package:multiselect_formfield/multiselect_formfield.dart';
 import 'package:dbapp/services/database.dart';
 import 'package:dbapp/services/storage.dart';
-import 'package:hexcolor/hexcolor.dart';
 import 'package:provider/provider.dart';
 
 String name = '';
 String phoneNo = '';
-
 String branch = '';
 String year = '';
 String rollNo = '';
 String githubUrl = '';
 String linkedInUrl = '';
-
 List domains = [];
 List languages = [];
 bool hosteller = false;
@@ -25,7 +22,6 @@ bool hosteller = false;
 class ListItem {
   int value;
   String name;
-
   ListItem(this.value, this.name);
 }
 
@@ -42,17 +38,8 @@ class EditProfilePageState extends State<EditProfilePage> {
 
   @override
   Widget build(BuildContext context) {
-    ThemeNotifier _themeNotifier = Provider.of<ThemeNotifier>(context);
-    var themeFlag = _themeNotifier.darkTheme;
-
     return new Scaffold(
-        // appBar: new AppBar(
-        //     title: new Text(
-        //       "FAQs",
-        //       style: TextStyle(fontFamily: 'GoogleSans'),
-        //     ),
-        //     backgroundColor: AppColors.COLOR_TEAL_LIGHT),
-        body: Column(children: [
+    body: Column(children: [
       Expanded(
           child: Container(
               child: Padding(
@@ -92,20 +79,6 @@ class EditProfilePageState extends State<EditProfilePage> {
   }
 }
 
-//     return Scaffold(
-//       appBar: new AppBar(
-//           title: new Text("Edit Profile"),
-//           backgroundColor: AppColors.COLOR_TEAL_DARK),
-//       // body: newDP == null ? getChooseButton() : getUploadButton(),
-//       backgroundColor: themeFlag ? AppColors.PROTEGE_GREY : Colors.white,
-//       body: Card(
-//         child: new Container(
-//             padding: EdgeInsets.all(12), child: new RegistrationForm(userInfo)),
-//         margin: EdgeInsets.all(15),
-//       ),
-//     );
-//   }
-// }
 
 class RegistrationForm extends StatefulWidget {
   final Map<String, dynamic> userInfo;
@@ -120,7 +93,6 @@ class _RegistrationFormState extends State<RegistrationForm> {
   @override
   final _formKey = GlobalKey<FormState>();
   int _hostellerValue = -1;
-  String error = '';
   bool loading = true;
 
   List<ListItem> _dropdownBranch = [
@@ -205,7 +177,6 @@ class _RegistrationFormState extends State<RegistrationForm> {
   void updateData() async {
     final FirebaseAuth _authUser = FirebaseAuth.instance;
     FirebaseUser user = await _authUser.currentUser();
-    print(user.uid);
     Map<String, dynamic> userMap = {
       'name': name,
       'contact': phoneNo,
@@ -238,20 +209,8 @@ class _RegistrationFormState extends State<RegistrationForm> {
         userInfo['photoUrl'],
         userInfo['peerID']
         );
-    await StorageServices.saveUserInfo(userMap).then((value) {
-      print('saved in storage');
-      //setState(() {});
-      StorageServices.getUserInfo().then((value) {
-        print("this is getting printed inside get info");
-        print(value);
-      });
-    });
-    if (result == null) {
-      setState(() {
-        error = 'some error message';
-        loading = false;
-      });
-    }
+    await StorageServices.saveUserInfo(userMap);
+    
   }
 
   @override
@@ -558,9 +517,7 @@ class _RegistrationFormState extends State<RegistrationForm> {
                         onPressed: () async {
                           if (_formKey.currentState.validate()) {
                             await updateData();
-                            print("this is getting printed");
                             Navigator.of(context).pop();
-                            //Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> Home(0)));
                           }
                         },
                         label: Text('Save',
@@ -568,7 +525,6 @@ class _RegistrationFormState extends State<RegistrationForm> {
                               color: Colors.white,
                               fontFamily: 'GoogleSans',
                             ))),
-                   
                   ),
                 ]));
   }

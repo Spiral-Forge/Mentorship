@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:math';
 import 'dart:io';
 
 import 'package:dbapp/constants/colors.dart';
@@ -7,6 +6,7 @@ import 'package:dbapp/screens/profile/editProfile.dart';
 import 'package:dbapp/services/profile.dart';
 
 import 'package:dbapp/services/storage.dart';
+import 'package:dbapp/shared/clipper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -23,7 +23,6 @@ class Profile extends StatefulWidget {
 }
 
 class _ProfileState extends State<Profile> {
-  int randomNum = Random().nextInt(4) + 1;
 
   bool loading = true;
   Map<String, dynamic> user = {};
@@ -35,11 +34,7 @@ class _ProfileState extends State<Profile> {
   @override
   void initState() {
     super.initState();
-    print("hi");
-    print(randomNum);
     getCurrentUser().then((userinfo) {
-      print("printing user");
-      print(userinfo);
       setState(() {
         user = userinfo;
         loading = false;
@@ -79,15 +74,10 @@ class _ProfileState extends State<Profile> {
       }
       var url = Uri.parse(await ref.getDownloadURL()).toString();
       pathDP = url;
-      print("url");
-      print(url);
       ProfileService updateUser = new ProfileService();
       await updateUser.updateDP(url);
-      print("checkpt34");
       await StorageServices.saveProfileURL(url);
       StorageServices.getUserInfo().then((updatedUser) {
-        print("now updated: ");
-        print(updatedUser);
         setState(() {
           user = updatedUser;
           newDpFlag = false;
@@ -116,7 +106,6 @@ class _ProfileState extends State<Profile> {
             newDP = resized;
             newDpFlag = true;
             inprocess = false;
-            print("put");
             uploadImg(context);
           });
         } else {
@@ -299,7 +288,6 @@ class _ProfileState extends State<Profile> {
                                       leading: Icon(
                                         Icons.mail,
                                         color: AppColors.COLOR_TEAL_LIGHT,
-                                        // color: Hexcolor('#d89279'),
                                       ),
                                     ),
                                     Divider(),
@@ -477,8 +465,6 @@ class _ProfileState extends State<Profile> {
                                             ).then((value) {
                                               StorageServices.getUserInfo()
                                                   .then((value) {
-                                                print("im here");
-                                                print(value);
                                                 setState(() {
                                                   user = value;
                                                 });
@@ -504,18 +490,4 @@ class _ProfileState extends State<Profile> {
   }
 }
 
-class GetClipper extends CustomClipper<Path> {
-  @override
-  Path getClip(Size size) {
-    var path = new Path();
-    path.lineTo(0.0, size.height / 1.2);
-    path.lineTo(size.width + 500, 0.0);
-    path.close();
-    return path;
-  }
 
-  @override
-  bool shouldReclip(CustomClipper<Path> oldClipper) {
-    return true;
-  }
-}
