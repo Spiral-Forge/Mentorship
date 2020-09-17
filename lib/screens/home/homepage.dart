@@ -6,7 +6,6 @@ import 'package:provider/provider.dart';
 import 'package:dbapp/services/database.dart';
 import 'package:dbapp/shared/loading.dart';
 import 'package:url_launcher/url_launcher.dart';
-
 import 'package:dbapp/shared/myDrawer.dart';
 
 final myDrawer _drawer = new myDrawer();
@@ -93,7 +92,6 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     super.initState();
     DataBaseService().getEvents().then((val) {
-      print(val.documents[0].data);
       List<EventTile> templist = [];
       for (var i = 0; i < val.documents.length; i++) {
         templist.add(EventTile(
@@ -180,7 +178,6 @@ class EventTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print(url);
     return Container(
         child: Card(
             shape: RoundedRectangleBorder(
