@@ -194,22 +194,56 @@ class _RegisterForm1State extends State<RegisterForm1> {
                                                     textAlign: TextAlign.center),
                                               ))),
                                 ),
-                                new Divider(
-                                    height: 35.0, color: Colors.transparent
-                                ),
-                                GestureDetector(
-                                  onTap:  ()=> widget.toggleView(),
-                                  child: Text("Already registered? Sign In Here",
-                                    style: TextStyle(
-                                        fontSize: 15.0,
-                                        decoration:
-                                            TextDecoration.underline)
+
+                                SizedBox(height: 12.0),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: <Widget>[
+                                    Text(
+                                        'Already registered? ',
+                                        style: TextStyle(
+                                            color: AppColors.PROTEGE_GREY,
+                                            fontSize: 15.0
+                                        )),
+                                    //   ],
+                                    // )
+                                    SizedBox(height: 5.0),
+                                    InkWell(
+                                      onTap: () {
+                                        widget.toggleView(); //Navigator.pushReplacement( context, new MaterialPageRoute( builder: (BuildContext context) => RegisterForm1()));
+                                      },
+
+                                      child: Container(
+                                        alignment: Alignment.bottomCenter,
+                                        margin: EdgeInsets.symmetric(vertical: 12),
+                                        child: Text("Sign In Here",
+                                            style: TextStyle(
+                                              // color: Hexcolor('#d6a495'),
+                                                color: AppColors.COLOR_TEAL_LIGHT,
+                                                fontSize: 15.0,
+                                                decoration:
+                                                TextDecoration.underline)),
                                       ),
-                                ),
-                                new Divider(
-                                    height: 35.0, color: Colors.transparent
-                                ),
-                      
+                                    ),
+                                  ],
+                                )
+
+                                // new Divider(
+                                //     height: 35.0, color: Colors.transparent
+                                // ),
+                                // GestureDetector(
+                                //   onTap:  ()=> widget.toggleView(),
+                                //   child: Text("Already registered? Sign In Here",
+                                //     style: TextStyle(
+                                //         fontSize: 15.0,
+                                //         decoration:
+                                //             TextDecoration.underline)
+                                //       ),
+                                // ),
+                                // new Divider(
+                                //     height: 35.0, color: Colors.transparent
+                                // ),
+                                //
                                   
                               ],
                             )
