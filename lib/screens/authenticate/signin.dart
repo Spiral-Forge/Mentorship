@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:dbapp/shared/loading.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:toast/toast.dart';
 
@@ -132,7 +131,6 @@ class _SignInState extends State<SignIn> with SingleTickerProviderStateMixin {
                                               new FlatButton(
                                                 child: new Text('Cancel',
                                                     style: TextStyle(
-                                                          // color: AppColors.PROTEGE_GREY,
                                                           fontSize: 14,
                                                           fontFamily: 'GoogleSans'
                                                           ),
@@ -145,7 +143,6 @@ class _SignInState extends State<SignIn> with SingleTickerProviderStateMixin {
                                                 child: new Text(
                                                     'Send Reset Link',
                                                       style: TextStyle(
-                                                          // color: AppColors.PROTEGE_GREY,
                                                           fontSize: 14,
                                                           fontFamily: 'GoogleSans',
                                                           
@@ -154,7 +151,6 @@ class _SignInState extends State<SignIn> with SingleTickerProviderStateMixin {
                                                 onPressed: () async {
                                                   if (resetPasswordController
                                                       .text.isEmpty) {
-                                                    print("coming here");
                                                     Toast.show(
                                                         "Email can't be empty.",
                                                         context,
@@ -195,9 +191,6 @@ class _SignInState extends State<SignIn> with SingleTickerProviderStateMixin {
                                         );
                                       });
                                 },
-
-
-
                                 child: Container(
                                   alignment: Alignment.bottomRight,
                                   child: Text("Forgot password?",
@@ -217,8 +210,6 @@ class _SignInState extends State<SignIn> with SingleTickerProviderStateMixin {
                                   height: 48,
                                   shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(50.0),
-                                    // side: BorderSide(
-                                    //     color: const Color(0xFF565656))
                                   ),
                                   color: AppColors.COLOR_TEAL_LIGHT,
                                   child: Text(
@@ -236,26 +227,16 @@ class _SignInState extends State<SignIn> with SingleTickerProviderStateMixin {
                                       });
                                       dynamic result =
                                           await _auth.signin(email, password);
-                                           if (result.runtimeType == PlatformException) {
+                                          if (result.runtimeType == PlatformException) {
                                               setState(() {
                                                 error = result.message.toString();
                                                 loading = false;
                                               });
                                             }
-                                      // if (result == null) {
-                                      //   // if (mounted) {
-                                      //     setState(() {
-                                      //       error =
-                                      //           "Either email or password is incorrect. Try again.";
-                                      //       loading = false;
-                                      //     });
-                                      //   //}
-                                      // }
                                     }
                                   },
                                 ),
                               ),
-
                               SizedBox(height: 12.0),
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
@@ -267,14 +248,11 @@ class _SignInState extends State<SignIn> with SingleTickerProviderStateMixin {
                                         fontSize: 15.0,
                                         fontFamily: 'GoogleSans'
                                         )),
-                              //   ],
-                              // )
                               SizedBox(height: 5.0),
                               InkWell(
                                 onTap: () {
-                                     widget.toggleView(); 
-                                              },
-
+                                    widget.toggleView(); 
+                                },
                                 child: Container(
                                   alignment: Alignment.bottomCenter,
                                   margin: EdgeInsets.symmetric(vertical: 12),
@@ -285,14 +263,10 @@ class _SignInState extends State<SignIn> with SingleTickerProviderStateMixin {
                                           fontSize: 15.0,
                                           decoration:
                                           TextDecoration.underline)),
-                                ),
-                                
-                              ),
-                              
-                                ],
-                              ),
-
-                            //   SizedBox(height: 20.0),
+                                  ),                                
+                                ),                              
+                              ],
+                            ),
                               SizedBox(height: 5.0),
                               Text(error,
                                   textAlign: TextAlign.center,
