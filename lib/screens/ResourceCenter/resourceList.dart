@@ -4,7 +4,6 @@ import 'package:dbapp/constants/colors.dart';
 import 'package:dbapp/screens/ResourceCenter/resource.dart';
 import 'package:dbapp/services/database.dart';
 import 'package:flutter/material.dart';
-import 'package:hexcolor/hexcolor.dart';
 import 'package:provider/provider.dart';
 
 class ResourceList extends StatefulWidget {
@@ -16,7 +15,6 @@ class ResourceList extends StatefulWidget {
 }
 
 class _ResourceListState extends State<ResourceList> {
-  final _formKey = GlobalKey<FormState>();
   List<DocumentSnapshot> resourcesList = [];
 
   @override
@@ -27,7 +25,6 @@ class _ResourceListState extends State<ResourceList> {
       print(value.documents[0].data.runtimeType);
       setState(() {
         resourcesList = value.documents;
-        //print(resourcesList.length);
       });
     });
     super.initState();
@@ -35,38 +32,28 @@ class _ResourceListState extends State<ResourceList> {
 
   Widget resourceList() {
     return resourcesList.length == 0
-            ? Align(
-                alignment: Alignment.center,
-                child: Container(
-                  child: Text("No resources available yet"),
-                ),
-              )
-            : Expanded(
-                child: SizedBox(
-                  height: 20.0,
-                  child: new ListView.builder(
-                    scrollDirection: Axis.vertical,
-                    itemCount: resourcesList.length,
-                    itemBuilder: (context, index) {
-                      return ResourceTile(resourcesList[index].data["Title"],
-                          resourcesList[index].data["Link"]);
-                    },
-                  ),
-                ),
-              )
-        // Align(
-        //     alignment: Alignment.center,
-        //     child: ListView.builder(
-        //         itemCount: resourcesList.length,
-        //         itemBuilder: (context, index) {
-        //           return ResourceTile(resourcesList[index].data["Title"],
-        //               resourcesList[index].data["Link"]);
-        //         }),
-        //   )
-
-        // ))
-        // )
-        ;
+        ? Align(
+            alignment: Alignment.center,
+            child: Container(
+              child: Text(
+                "No resources available yet",
+                style: TextStyle(fontFamily: 'GoogleSans', fontSize: 18),
+              ),
+            ),
+          )
+        : Expanded(
+            child: SizedBox(
+              height: 20.0,
+              child: new ListView.builder(
+                scrollDirection: Axis.vertical,
+                itemCount: resourcesList.length,
+                itemBuilder: (context, index) {
+                  return ResourceTile(resourcesList[index].data["Title"],
+                      resourcesList[index].data["Link"]);
+                },
+              ),
+            ),
+          );
   }
 
   @override
@@ -74,11 +61,7 @@ class _ResourceListState extends State<ResourceList> {
     ThemeNotifier _themeNotifier = Provider.of<ThemeNotifier>(context);
     var themeFlag = _themeNotifier.darkTheme;
     return new Scaffold(
-        // appBar: new AppBar(
-        //     title: new Text(widget.resourceField),
-        //     backgroundColor: AppColors.COLOR_TEAL_LIGHT),
         backgroundColor: AppColors.COLOR_TEAL_LIGHT,
-        // backgroundColor: Hexcolor("#d6a495"),
         body: Column(
           children: <Widget>[
             Expanded(

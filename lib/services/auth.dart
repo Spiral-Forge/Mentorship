@@ -1,20 +1,16 @@
 import 'dart:math';
-
-import 'package:dbapp/models/user.dart';
 import 'package:dbapp/services/storage.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:dbapp/services/database.dart';
-import 'dart:convert';
 
 class AuthService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
-  //auth change using stream
+  /*auth change using stream*/
   Stream<FirebaseUser> get user {
     return _auth.onAuthStateChanged;
   }
 
-  //sign in with email and password
   Future signin(String email, String password) async {
     try {
       AuthResult result = await _auth.signInWithEmailAndPassword(
@@ -25,19 +21,15 @@ class AuthService {
       DataBaseService(uid: user.uid).getUserData().then((userdata) async {
         Map<String, dynamic> userMap = userdata.data;
         userMap["id"]=userdata.documentID;
-        userMap["avatarNum"] = Random().nextInt(4) + 1;
-        print("printing user map");
-        print(userMap);
         await StorageServices.saveUserInfo(userMap);
         return user;
       });
     } catch (e) {
       print(e.toString());
-      return null;
+      return e;
     }
   }
 
-  //register wit email and password
   Future register(
       String name,
       String phoneNo,
@@ -58,9 +50,6 @@ class AuthService {
         password: password,
       );
       FirebaseUser user = result.user;
-      print("printing uid at time of isgnup");
-      print(user.uid);
-      //%%%%%
       await DataBaseService(uid: user.uid).updateUserData(
           name,
           phoneNo,
@@ -89,7 +78,6 @@ class AuthService {
         'languages': languages,
         'hosteller': hosteller,
         'post': post,
-        "avatarNum": Random().nextInt(4) + 1,
         "peerID": [],
         'photoURL': null
       };
@@ -102,7 +90,6 @@ class AuthService {
     }
   }
 
-  //signout
   Future signOut() async {
     try {
       return await _auth.signOut();

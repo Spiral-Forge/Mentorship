@@ -15,11 +15,7 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path/path.dart';
 import 'package:image_cropper/image_cropper.dart';
-
-import 'package:dbapp/screens/myDrawer.dart';
 import 'package:url_launcher/url_launcher.dart';
-
-final myDrawer _drawer = new myDrawer();
 
 class Profile extends StatefulWidget {
   @override
@@ -41,12 +37,10 @@ class _ProfileState extends State<Profile> {
     super.initState();
     print("hi");
     print(randomNum);
-    //print(user);
     getCurrentUser().then((userinfo) {
       print("printing user");
       print(userinfo);
       setState(() {
-        //print(user.runtimeType);
         user = userinfo;
         loading = false;
       });
@@ -60,9 +54,6 @@ class _ProfileState extends State<Profile> {
 
   @override
   Widget build(BuildContext context) {
-    //print("user");
-    print(user);
-
     String hostel = user["hostel"] != null && user["hostel"] == true
         ? "Hosteller: Yes"
         : "Hosteller: No";
@@ -76,13 +67,12 @@ class _ProfileState extends State<Profile> {
       StorageTaskSnapshot taskSnapshot = await uploadTask.onComplete;
       if (mounted) {
         setState(() {
-          print("Profile Picture Changed Successfully");
           Scaffold.of(context).showSnackBar(SnackBar(
             content: Text('Profile Picture Changed Successfully',
                 style: TextStyle(
                   fontFamily: 'GoogleSans',
                   fontStyle: FontStyle.italic,
-                  fontSize: 10,
+                  fontSize: 8,
                 )),
           ));
         });
@@ -120,12 +110,6 @@ class _ProfileState extends State<Profile> {
           maxHeight: 150,
           maxWidth: 150,
           compressFormat: ImageCompressFormat.jpg,
-          // iosUiSettings: ,
-          // androidUiSettings: AndroidUiSettings(
-          //     toolbarColor: AppColors.COLOR_TEAL_LIGHT,
-          //     toolbarTitle: "Crop",
-          //     statusBarColor: AppColors.COLOR_TEAL_LIGHT,
-          //     backgroundColor: Colors.white)
         );
         if (resized != null) {
           this.setState(() {
@@ -148,17 +132,6 @@ class _ProfileState extends State<Profile> {
     }
 
     return new Scaffold(
-        // appBar: AppBar(
-        //   title: Text("Your Profile",
-        //       style: TextStyle(
-        //         fontFamily: 'GoogleSans',
-        //       )),
-        //   backgroundColor: AppColors.COLOR_TEAL_LIGHT,
-        //   elevation: 0.0,
-        //   actions: <Widget>[],
-        // ),
-        // drawer: _drawer,
-        // backgroundColor: Hexcolor('#a7d8de'),
         body: Column(children: [
       Expanded(
           child: Container(
@@ -187,8 +160,6 @@ class _ProfileState extends State<Profile> {
                           ),
                         ]),
                       ),
-                      // SizedBox(height: 25),
-
                       Expanded(
                         child: Builder(
                           builder: (context) => Container(
@@ -245,15 +216,11 @@ class _ProfileState extends State<Profile> {
                                       ]),
                                 ),
                                 Positioned(
-                                    // width: MediaQuery.of(context).size.width,
                                     top: MediaQuery.of(context).size.height /
                                         3.6,
                                     left: MediaQuery.of(context).size.width /
                                         2.15,
-                                    // widthFactor: 5,
                                     child: Container(
-                                      //   top: MediaQuery.of(context).size.height / 4.5,
-                                      // padding: EdgeInsets.all(padExtend),
                                       height: 30,
                                       width: 30,
                                       decoration: BoxDecoration(
@@ -263,7 +230,7 @@ class _ProfileState extends State<Profile> {
                                       child: IconButton(
                                         icon: Icon(
                                           Icons.edit,
-                                          size: 15,
+                                          size: 12,
                                           color: Colors.white,
                                         ),
                                         alignment: Alignment.center,
@@ -273,11 +240,9 @@ class _ProfileState extends State<Profile> {
                                       ),
                                     )),
                               ]),
-
                               SizedBox(
                                 height: 0,
                               ),
-
                               SizedBox(height: 25),
                               Align(
                                 alignment: Alignment.center,
@@ -287,60 +252,21 @@ class _ProfileState extends State<Profile> {
                                         : "null",
                                     style: TextStyle(
                                         fontFamily: 'GoogleSans',
-                                        fontSize: 28)),
+                                        fontSize: 25)),
                               ),
-                              // SizedBox(height: 100),
                               Align(
                                 alignment: Alignment.center,
                                 child: Text(
                                   user["post"] != null ? user["post"] : "Null",
                                   style: TextStyle(
-                                    fontSize: 20,
+                                    fontSize: 18,
                                     fontFamily: 'GoogleSans',
-                                    // color: AppColors.COLOR_TEAL_LIGHT,
                                     color: Hexcolor('#d89279'),
                                     fontStyle: FontStyle.italic,
                                   ),
                                 ),
                               ),
-
-                              // SizedBox(height: 25),
-
-                              // new FloatingActionButton.extended(
-                              //     heroTag: "btn2",
-                              //     backgroundColor: AppColors.PROTEGE_GREY,
-                              //     onPressed: () {
-                              //       uploadImg(context);
-                              //     },
-                              //     icon: Icon(
-                              //       Icons.save,
-                              //       color: Colors.white,
-                              //     ),
-                              //     label: Text(
-                              //       'Save DP',
-                              //       style: TextStyle(
-                              //           color: Colors.white, fontFamily: 'GoogleSans'),
-                              //     )),
-                              //   ],
-                              // ),
                               SizedBox(height: 20),
-
-                              // Container(
-                              //   margin: EdgeInsets.fromLTRB(35, 0, 35, 0),
-                              //   child: Row(
-                              //     crossAxisAlignment: CrossAxisAlignment.center,
-                              //     children: <Widget>[
-                              //       Container(
-                              //         margin: EdgeInsets.fromLTRB(0, 0, 10, 10),
-                              //         child: Icon(
-                              //           Icons.call,
-                              //           size: 20,
-                              //         ),
-                              //       ),
-                              //     ],
-                              //   ),
-                              // ),
-
                               Card(
                                 margin: EdgeInsets.fromLTRB(15, 0, 15, 0),
                                 child: Column(
@@ -354,11 +280,10 @@ class _ProfileState extends State<Profile> {
                                                 : "null",
                                             style: TextStyle(
                                                 fontFamily: 'GoogleSans',
-                                                fontSize: 20)),
+                                                fontSize: 18)),
                                         leading: Icon(
                                           Icons.phone,
                                           color: AppColors.COLOR_TEAL_LIGHT,
-                                          // color: Hexcolor('#d89279'),
                                         ),
                                       ),
                                     ),
@@ -370,7 +295,7 @@ class _ProfileState extends State<Profile> {
                                               : user["email"],
                                           style: TextStyle(
                                               fontFamily: 'GoogleSans',
-                                              fontSize: 20)),
+                                              fontSize: 18)),
                                       leading: Icon(
                                         Icons.mail,
                                         color: AppColors.COLOR_TEAL_LIGHT,
@@ -391,7 +316,7 @@ class _ProfileState extends State<Profile> {
                                                     " year",
                                             style: TextStyle(
                                                 fontFamily: 'GoogleSans',
-                                                fontSize: 20)),
+                                                fontSize: 18)),
                                         subtitle: Text(
                                             user["rollNo"] == null
                                                 ? "null"
@@ -400,21 +325,18 @@ class _ProfileState extends State<Profile> {
                                                     hostel,
                                             style: TextStyle(
                                                 fontFamily: 'GoogleSans',
-                                                fontSize: 20)),
+                                                fontSize: 18)),
                                         isThreeLine: true,
                                         leading: Icon(
                                           Icons.school,
                                           color: AppColors.COLOR_TEAL_LIGHT,
-                                          // color: Hexcolor('#d89279'),
                                         ),
                                       ),
                                     ),
                                   ],
                                 ),
                               ),
-
                               SizedBox(height: 10),
-
                               Card(
                                 margin: EdgeInsets.fromLTRB(15, 0, 15, 0),
                                 child: Column(
@@ -435,13 +357,10 @@ class _ProfileState extends State<Profile> {
                                                 : "null",
                                             style: TextStyle(
                                                 fontFamily: 'GoogleSans',
-                                                fontSize: 20)),
-
-                                        // isThreeLine: true,
+                                                fontSize: 18)),
                                         leading: Icon(
                                           Icons.code,
                                           color: AppColors.COLOR_TEAL_LIGHT,
-                                          // color: Hexcolor('#d89279'),
                                         ),
                                       ),
                                     ),
@@ -460,12 +379,10 @@ class _ProfileState extends State<Profile> {
                                               : "null",
                                           style: TextStyle(
                                               fontFamily: 'GoogleSans',
-                                              fontSize: 20)),
-                                      // isThreeLine: true,
+                                              fontSize: 18)),
                                       leading: Icon(
                                         Icons.code,
                                         color: AppColors.COLOR_TEAL_LIGHT,
-                                        // color: Hexcolor('#d89279'),
                                       ),
                                     ),
                                     Divider(),
@@ -489,13 +406,12 @@ class _ProfileState extends State<Profile> {
                                               : user["linkedInURL"],
                                           style: GoogleFonts.lato(
                                             textStyle: TextStyle(
-                                              //color: AppColors.PROTEGE_GREY,
-                                              fontSize: 20,
+                                              fontFamily: 'GoogleSans',
+                                              fontSize: 18,
                                             ),
                                           ),
                                         ),
                                       ),
-                                      // isThreeLine: true,
                                       leading: Icon(
                                         Icons.code,
                                         color: AppColors.COLOR_TEAL_LIGHT,
@@ -529,7 +445,6 @@ class _ProfileState extends State<Profile> {
                                                   fontFamily: 'GoogleSans',
                                                   fontSize: 18)),
                                         ),
-                                        // isThreeLine: true,
                                         leading: Icon(
                                           Icons.code,
                                           color: AppColors.COLOR_TEAL_LIGHT,
@@ -548,15 +463,12 @@ class _ProfileState extends State<Profile> {
                                     Container(
                                       height: 40,
                                       child: new FlatButton(
-                                          // heroTag: "btn1",
                                           shape: RoundedRectangleBorder(
                                             borderRadius:
                                                 BorderRadius.circular(10.0),
                                           ),
                                           color: AppColors.PROTEGE_GREY,
                                           onPressed: () async {
-                                            //Navigator.of(context).pop();
-                                            //  Navigator.of(context).push(new MaterialPageRoute(builder: (BuildContext context) => new EditProfilePage(user)));
                                             Navigator.push(
                                               context,
                                               MaterialPageRoute(
@@ -573,10 +485,6 @@ class _ProfileState extends State<Profile> {
                                               });
                                             });
                                           },
-                                          // icon: Icon(
-                                          //   Icons.person,
-                                          //   color: Colors.white,
-                                          // ),
                                           child: Text('Edit Profile',
                                               style: TextStyle(
                                                 color: Colors.white,
@@ -595,89 +503,6 @@ class _ProfileState extends State<Profile> {
     ]));
   }
 }
-
-//     Positioned(
-//       width: MediaQuery.of(context).size.width,
-//       top: MediaQuery.of(context).size.height / 10,
-//       // child: Column(
-//       //   children: <Widget>[
-//       //     Center(
-//       //       widthFactor: 150.0,
-//       //       heightFactor: 150.0,
-//       // decoration: BoxDecoration(
-//       //     color: AppColors.PROTEGE_CYAN,
-//       //     image: DecorationImage(
-//       // image: userInfo["avatarNum"]!= null ? AssetImage("assets/images/avatars/av"+userInfo["avatarNum"].toString()+".jpg"):AssetImage("assets/images/avatars/av1.jpg"),
-//       // child: newDP == null
-//       //     ? AssetImage("assets/images/avatars/av1.jpg")
-//       //     : uploadImage(),
-
-//       // ),
-//       // borderRadius: BorderRadius.all(Radius.circular(175.0)),
-//       // boxShadow: [
-//       //   BoxShadow(
-//       //     blurRadius: 7.0,
-//       //     color: Colors.black,
-//       //   )
-//       // ]),
-//
-
-//
-//       ),
-//     ),
-//     SizedBox(height: 5),
-//     FloatingActionButton.extended(
-//         backgroundColor: Color.fromRGBO(0, 128, 128, 0.5),
-//         onPressed: () async {
-//           //Navigator.of(context).pop();
-//           //  Navigator.of(context).push(new MaterialPageRoute(builder: (BuildContext context) => new EditProfilePage(user)));
-//           Navigator.push(
-//             context,
-//             MaterialPageRoute(
-//                 builder: (context) => EditProfilePage(user)),
-//           ).then((value) {
-//             StorageServices.getUserInfo().then((value) {
-//               print(value);
-//               setState(() {
-//                 user = value;
-//               });
-//             });
-//           });
-//         },
-//         icon: Icon(
-//           Icons.person,
-//           color: Colors.white,
-//         ),
-//         label: Text(
-//           'Edit Profile',
-//           style: TextStyle(color: Colors.white),
-//         )),
-
-// Container(
-//   height: 30,
-//   width: 95,
-//   child: Material(
-//     borderRadius: BorderRadius.circular(25),
-//     shadowColor: Colors.blueGrey[200],
-//     elevation: 7.0,
-//     child: GestureDetector(
-//       onTap: () => EditProfilePage,
-//       child: Center(
-//         child: Text(
-//           'Edit Info',
-//           style: GoogleFonts.lato(
-//             textStyle: TextStyle(
-//               color: AppColors.COLOR_TEAL_LIGHT,
-//             ),
-//           ),
-//         ),
-//       ),
-//     ),
-//   ),
-// ),
-//     );
-//   }
-// }
 
 class GetClipper extends CustomClipper<Path> {
   @override
