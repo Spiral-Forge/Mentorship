@@ -1,4 +1,3 @@
-import 'package:dbapp/constants/colors.dart';
 import 'package:flutter/material.dart';
 
 const textInputDecorations=InputDecoration(
@@ -16,8 +15,3 @@ const textInputDecorations=InputDecoration(
                       )
                   );
 
-const headingDecoration=TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 40.0,
-                      height: 1
-);  
