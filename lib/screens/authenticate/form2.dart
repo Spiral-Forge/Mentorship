@@ -1,13 +1,7 @@
 import 'package:dbapp/constants/colors.dart';
-import 'package:dbapp/constants/screenConstants.dart';
-import 'package:dbapp/screens/authenticate/signin.dart';
-import 'package:dbapp/screens/home/home.dart';
-import 'package:dbapp/services/auth.dart';
-import 'package:dbapp/shared/styles.dart';
 import 'package:flutter/material.dart';
 import 'package:dbapp/shared/loading.dart';
 import 'package:flutter/services.dart';
-import 'package:multiselect_formfield/multiselect_formfield.dart';
 import 'package:dbapp/screens/authenticate/form3.dart';
 
 String name = '';
@@ -28,37 +22,10 @@ class RegisterForm2 extends StatefulWidget {
 class _RegisterForm2State extends State<RegisterForm2> {
   final Map<String, dynamic> userMap;
   _RegisterForm2State(this.userMap);
-
-  final AuthService _auth = AuthService();
   final _formKey2 = GlobalKey<FormState>();
-
-  //form fields
 
   String error = '';
   bool loading = false;
-
-  // void saveData() async {
-  //   dynamic result = await _auth.register(
-  //       name,
-  //       phoneNo,
-  //       email,
-  //       password,
-  //       year,
-  //       branch,
-  //       rollNo,
-  //       linkedInURL,
-  //       githubURL,
-  //       domains,
-  //       languages,
-  //       hosteller,
-  //       post);
-  //   if (result == null) {
-  //     setState(() {
-  //       error = 'some error message';
-  //       loading = false;
-  //     });
-  //   }
-  // }
 
   void initState() {
     super.initState();
@@ -73,11 +40,6 @@ class _RegisterForm2State extends State<RegisterForm2> {
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
-      // appBar: AppBar(
-      //   backgroundColor: AppColors.COLOR_TEAL_LIGHT,
-      //   elevation: 0.0,
-      //   title: Text("Register"),
-      // ),
       body: loading
           ? Loading()
           : Column(children: [
@@ -99,11 +61,8 @@ class _RegisterForm2State extends State<RegisterForm2> {
                                   ),
                                 ),
                                 SizedBox(height: 25),
-                                // Card(
-                                //   child:
                                 Expanded(
                                     child: SizedBox(
-                                        // height: 120.0,
                                         child: Padding(
                                   padding: EdgeInsets.fromLTRB(32, 0, 32, 0),
                                   child: Form(
@@ -146,10 +105,7 @@ class _RegisterForm2State extends State<RegisterForm2> {
                                               ),
                                               border: UnderlineInputBorder(),
                                               icon: const Icon(Icons.person),
-                                              hintText: 'Enter your full name',
-                                              hintStyle:
-                                                  TextStyle(fontSize: 12),
-                                              labelText: 'Name',
+                                              labelText: 'Full Name',
                                             ),
                                             validator: (value) {
                                               if (value.isEmpty) {
@@ -181,10 +137,6 @@ class _RegisterForm2State extends State<RegisterForm2> {
                                                 ),
                                                 border: UnderlineInputBorder(),
                                                 icon: const Icon(Icons.phone),
-                                                hintText:
-                                                    'Enter a phone number',
-                                                hintStyle:
-                                                    TextStyle(fontSize: 12),
                                                 labelText: 'Phone'),
                                             validator: (value) {
                                               if (value.isEmpty) {
@@ -218,9 +170,6 @@ class _RegisterForm2State extends State<RegisterForm2> {
                                               ),
                                               border: UnderlineInputBorder(),
                                               icon: const Icon(Icons.email),
-                                              hintText: 'Enter your email id',
-                                              hintStyle:
-                                                  TextStyle(fontSize: 12),
                                               labelText: 'Email id',
                                             ),
                                             validator: (value) {
@@ -251,9 +200,6 @@ class _RegisterForm2State extends State<RegisterForm2> {
                                               ),
                                               border: UnderlineInputBorder(),
                                               icon: const Icon(Icons.security),
-                                              hintText: 'Enter your password',
-                                              hintStyle:
-                                                  TextStyle(fontSize: 12),
                                               labelText: 'Password',
                                             ),
                                             validator: (value) {
@@ -269,51 +215,55 @@ class _RegisterForm2State extends State<RegisterForm2> {
                                         new Divider(
                                             height: 35.0,
                                             color: Colors.transparent),
-                                        new Container(
-                                          padding: EdgeInsets.fromLTRB(
-                                              120, 5, 120, 5),
-                                          child: RaisedButton(
-                                              color: AppColors.COLOR_TEAL_LIGHT,
-                                              shape: RoundedRectangleBorder(
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          10.0),
-                                                  side: BorderSide(
+                                        Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceEvenly,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.center,
+                                            children: <Widget>[
+                                              Container(
+                                                height: 40,
+                                                child: new MaterialButton(
+                                                    shape:
+                                                        RoundedRectangleBorder(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              10.0),
+                                                    ),
                                                     color: AppColors
                                                         .COLOR_TEAL_LIGHT,
-                                                  )),
-                                              child: Text("Next",
-                                                  style: TextStyle(
-                                                      color: Colors.white,
-                                                      fontSize: 17,
-                                                      fontWeight:
-                                                          FontWeight.w600,
-                                                      fontFamily: 'GoogleSans'),
-                                                  textAlign: TextAlign.center),
-                                              onPressed: () async {
-                                                if (_formKey2.currentState
-                                                    .validate()) {
-                                                  setState(() {
-                                                    userMap['name'] = name;
-                                                    userMap['phoneNo'] =
-                                                        phoneNo;
-                                                    userMap['email'] = email;
-                                                    userMap['password'] =
-                                                        password;
-                                                  });
-                                                  print(userMap);
-                                                  Navigator.push(
-                                                      context,
-                                                      MaterialPageRoute(
-                                                          builder: (context) =>
-                                                              RegisterForm3(
-                                                                  userMap)));
-                                                  // If the form is valid, display a Snackbar.
-                                                  // Scaffold.of(context).showSnackBar(
-                                                  //     SnackBar(content: Text('Data is in processing.')));
-                                                }
-                                              }),
-                                        ),
+                                                    onPressed: () async {
+                                                      if (_formKey2.currentState
+                                                          .validate()) {
+                                                        setState(() {
+                                                          userMap['name'] =
+                                                              name;
+                                                          userMap['phoneNo'] =
+                                                              phoneNo;
+                                                          userMap['email'] =
+                                                              email;
+                                                          userMap['password'] =
+                                                              password;
+                                                        });
+                                                        Navigator.push(
+                                                            context,
+                                                            MaterialPageRoute(
+                                                                builder: (context) =>
+                                                                    RegisterForm3(
+                                                                        userMap)));
+                                                      }
+                                                    },
+                                                    child: Text('Next',
+                                                        style: TextStyle(
+                                                            color: Colors.white,
+                                                            fontFamily:
+                                                                'GoogleSans',
+                                                            fontSize: 18,
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .w600))),
+                                              ),
+                                            ]),
                                         new Divider(
                                             height: 18.0,
                                             color: Colors.transparent),

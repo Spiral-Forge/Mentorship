@@ -58,10 +58,11 @@ class _SignInState extends State<SignIn> with SingleTickerProviderStateMixin {
                             decoration: new BoxDecoration(
                                 image: new DecorationImage(
                                     fit: BoxFit.fill,
-                                    image: themeFlag? new AssetImage(
-                                        'assets/images/Protege_white_text.png'):
-                                    new AssetImage(
-                                        'assets/images/Protege no bg.png')))),
+                                    image: themeFlag
+                                        ? new AssetImage(
+                                            'assets/images/Protege_white_text.png')
+                                        : new AssetImage(
+                                            'assets/images/Protege no bg.png')))),
                         new Divider(height: 35.0, color: Colors.transparent),
                         Form(
                           key: _formKey,
@@ -78,7 +79,8 @@ class _SignInState extends State<SignIn> with SingleTickerProviderStateMixin {
                                           borderRadius: BorderRadius.all(
                                               Radius.circular(8)),
                                           borderSide: BorderSide(
-                                              color: AppColors.COLOR_TEAL_LIGHT))),
+                                              color:
+                                                  AppColors.COLOR_TEAL_LIGHT))),
                                   validator: (val) =>
                                       val.isEmpty ? 'Enter an email' : null,
                                   onChanged: (val) {
@@ -95,7 +97,8 @@ class _SignInState extends State<SignIn> with SingleTickerProviderStateMixin {
                                           borderRadius: BorderRadius.all(
                                               Radius.circular(8)),
                                           borderSide: BorderSide(
-                                              color: AppColors.COLOR_TEAL_LIGHT))),
+                                              color:
+                                                  AppColors.COLOR_TEAL_LIGHT))),
                                   obscureText: true,
                                   onChanged: (val) {
                                     setState(() => password = val);
@@ -118,8 +121,7 @@ class _SignInState extends State<SignIn> with SingleTickerProviderStateMixin {
                                               'Enter your email',
                                               style: TextStyle(
                                                   fontSize: 20,
-                                                  fontFamily: 'GoogleSans'
-                                                  ),
+                                                  fontFamily: 'GoogleSans'),
                                             ),
                                             content: TextField(
                                               controller:
@@ -129,25 +131,24 @@ class _SignInState extends State<SignIn> with SingleTickerProviderStateMixin {
                                             ),
                                             actions: <Widget>[
                                               new FlatButton(
-                                                child: new Text('Cancel',
-                                                    style: TextStyle(
-                                                          fontSize: 14,
-                                                          fontFamily: 'GoogleSans'
-                                                          ),
-                                                    ),
+                                                child: new Text(
+                                                  'Cancel',
+                                                  style: TextStyle(
+                                                      fontSize: 14,
+                                                      fontFamily: 'GoogleSans'),
+                                                ),
                                                 onPressed: () {
                                                   Navigator.of(context).pop();
                                                 },
                                               ),
                                               new FlatButton(
                                                 child: new Text(
-                                                    'Send Reset Link',
-                                                      style: TextStyle(
-                                                          fontSize: 14,
-                                                          fontFamily: 'GoogleSans',
-                                                          
-                                                              ),
-                                                    ),
+                                                  'Send Reset Link',
+                                                  style: TextStyle(
+                                                    fontSize: 14,
+                                                    fontFamily: 'GoogleSans',
+                                                  ),
+                                                ),
                                                 onPressed: () async {
                                                   if (resetPasswordController
                                                       .text.isEmpty) {
@@ -227,12 +228,13 @@ class _SignInState extends State<SignIn> with SingleTickerProviderStateMixin {
                                       });
                                       dynamic result =
                                           await _auth.signin(email, password);
-                                          if (result.runtimeType == PlatformException) {
-                                              setState(() {
-                                                error = result.message.toString();
-                                                loading = false;
-                                              });
-                                            }
+                                      if (result.runtimeType ==
+                                          PlatformException) {
+                                        setState(() {
+                                          error = result.message.toString();
+                                          loading = false;
+                                        });
+                                      }
                                     }
                                   },
                                 ),
@@ -241,32 +243,33 @@ class _SignInState extends State<SignIn> with SingleTickerProviderStateMixin {
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: <Widget>[
-                                  Text(
-                                    'New Here? ',
-                                    style: TextStyle(
-                                        color: themeFlag ? const Color(0xFF959595) : AppColors.PROTEGE_GREY,
-                                        fontSize: 15.0,
-                                        fontFamily: 'GoogleSans'
-                                        )),
-                              SizedBox(height: 5.0),
-                              InkWell(
-                                onTap: () {
-                                    widget.toggleView(); 
-                                },
-                                child: Container(
-                                  alignment: Alignment.bottomCenter,
-                                  margin: EdgeInsets.symmetric(vertical: 12),
-                                  child: Text("Register NOW",
+                                  Text('New Here? ',
                                       style: TextStyle(
-                                          fontFamily: 'GoogleSans',
-                                          color: AppColors.COLOR_TEAL_LIGHT,
+                                          color: themeFlag
+                                              ? const Color(0xFF959595)
+                                              : AppColors.PROTEGE_GREY,
                                           fontSize: 15.0,
-                                          decoration:
-                                          TextDecoration.underline)),
-                                  ),                                
-                                ),                              
-                              ],
-                            ),
+                                          fontFamily: 'GoogleSans')),
+                                  SizedBox(height: 5.0),
+                                  InkWell(
+                                    onTap: () {
+                                      widget.toggleView();
+                                    },
+                                    child: Container(
+                                      alignment: Alignment.bottomCenter,
+                                      margin:
+                                          EdgeInsets.symmetric(vertical: 12),
+                                      child: Text("Register NOW",
+                                          style: TextStyle(
+                                              fontFamily: 'GoogleSans',
+                                              color: AppColors.COLOR_TEAL_LIGHT,
+                                              fontSize: 15.0,
+                                              decoration:
+                                                  TextDecoration.underline)),
+                                    ),
+                                  ),
+                                ],
+                              ),
                               SizedBox(height: 5.0),
                               Text(error,
                                   textAlign: TextAlign.center,
