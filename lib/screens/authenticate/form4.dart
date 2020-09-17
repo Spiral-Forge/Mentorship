@@ -1,11 +1,8 @@
 import 'package:dbapp/blocs/values.dart';
 import 'package:dbapp/constants/colors.dart';
 import 'package:dbapp/constants/screenConstants.dart';
-import 'package:dbapp/screens/authenticate/signin.dart';
-import 'package:dbapp/screens/home/home.dart';
 import 'package:dbapp/screens/wrapper.dart';
 import 'package:dbapp/services/auth.dart';
-import 'package:dbapp/shared/styles.dart';
 import 'package:flutter/material.dart';
 import 'package:dbapp/shared/loading.dart';
 import 'package:flutter/services.dart';
@@ -77,7 +74,6 @@ class _RegisterForm4State extends State<RegisterForm4> {
         ),
         (route) => false,
       );
-      //Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> Wrapper()));
     }
   }
 
@@ -94,267 +90,240 @@ class _RegisterForm4State extends State<RegisterForm4> {
     ThemeNotifier _themeNotifier = Provider.of<ThemeNotifier>(context);
     var themeFlag = _themeNotifier.darkTheme;
     return new Scaffold(
-      // appBar: AppBar(
-      //   backgroundColor: AppColors.COLOR_TEAL_DARK,
-      //   elevation: 0.0,
-      //   title: Text("Register"),
-      // ),
-      body: loading
-          ? Loading()
-          : Column(children: [
-              Expanded(
-                  child: Container(
-                      child: Padding(
-                          padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
-                          child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                SizedBox(height: 32),
-                                Padding(
-                                  padding: EdgeInsets.fromLTRB(32, 32, 0, 0),
-                                  child: IconButton(
-                                    icon: Icon(Icons.arrow_back),
-                                    onPressed: () {
-                                      Navigator.of(context).pop();
-                                    },
-                                  ),
-                                ),
-                                SizedBox(height: 25),
-                                // Card(
-                                //   child:
-                                Expanded(
-                                    child: SizedBox(
-                                        // height: 120.0,
-                                        child: Padding(
-                                  padding: EdgeInsets.fromLTRB(32, 0, 32, 0),
-                                  child: Form(
-                                    key: _formKey4,
-                                    child: ListView(
-                                      shrinkWrap: true,
-                                      children: <Widget>[
-                                        new Divider(
-                                            height: 35.0,
-                                            color: Colors.transparent),
-                                        new Text(
-                                          'Additional info',
-                                          style: TextStyle(
-                                            fontFamily: 'GoogleSans',
-                                            fontSize: 25,
-                                            fontWeight: FontWeight.w600,
-                                          ),
-                                          textAlign: TextAlign.center,
-                                        ),
-                                        new Divider(
-                                            height: 35.0,
-                                            color: Colors.transparent),
-                                        new Text(
-                                          userMap['post'] == 'Mentor'
-                                              ? "Tell us about your domain knowledge"
-                                              : "What skills do you want to be mentored with?",
-                                          style: TextStyle(
-                                            fontFamily: 'GoogleSans',
-                                            fontSize: 13,
-                                          ),
-                                          textAlign: TextAlign.center,
-                                        ),
-                                        // new Divider(height: 12, color: Colors.transparent),
-                                        Container(
-                                          padding: EdgeInsets.all(6),
-                                          child: MultiSelectFormField(
-                                            fillColor: themeFlag
-                                                ? Colors.grey[700]
-                                                : Colors.transparent,
-                                            autovalidate: false,
-                                            titleText: 'Domains',
-                                            validator: (value) {
-                                              if (value == null ||
-                                                  value.length == 0) {
-                                                return 'Please select one or more options';
-                                              }
-                                            },
-                                            dataSource: ScreenConstants
-                                                .registerFieldData,
-                                            textField: 'display',
-                                            valueField: 'value',
-                                            okButtonLabel: 'OK',
-                                            cancelButtonLabel: 'CANCEL',
-                                            hintText: 'Choose one or more',
-                                            initialValue: domains,
-                                            onSaved: (value) {
-                                              if (value == null) return;
-                                              setState(() {
-                                                domains = value;
-                                              });
-                                            },
-                                          ),
-                                        ),
-                                        new Divider(
-                                            height: 0,
-                                            color: Colors.transparent),
-                                        Container(
-                                          padding: EdgeInsets.all(6),
-                                          child: MultiSelectFormField(
-                                            fillColor: themeFlag
-                                                ? Colors.grey[700]
-                                                : Colors.transparent,
-                                            autovalidate: false,
-                                            titleText: 'Languages',
-                                            validator: (value) {
-                                              if (value == null ||
-                                                  value.length == 0) {
-                                                return 'Please select one or more options';
-                                              }
-                                            },
-                                            dataSource: ScreenConstants
-                                                .registerLanguageData,
-                                            textField: 'display',
-                                            valueField: 'value',
-                                            okButtonLabel: 'OK',
-                                            cancelButtonLabel: 'CANCEL',
-                                            hintText: 'Choose one or more',
-                                            initialValue: languages,
-                                            onSaved: (value) {
-                                              if (value == null) return;
-                                              setState(() {
-                                                languages = value;
-                                              });
-                                            },
-                                          ),
-                                        ),
-                                        new Divider(
-                                            height: 10,
-                                            color: Colors.transparent),
-                                        Text(
-                                          'Your Linkedin Profile URL',
-                                          style: TextStyle(
-                                            fontFamily: 'GoogleSans',
-                                            fontSize: 13,
-                                          ),
-                                        ),
-                                        TextFormField(
-                                            style:
-                                                TextStyle(color: Colors.grey),
-                                            decoration: const InputDecoration(
-                                              enabledBorder:
-                                                  UnderlineInputBorder(
-                                                borderSide: BorderSide(
-                                                    color: Colors.grey),
-                                              ),
-                                              focusedBorder:
-                                                  UnderlineInputBorder(
-                                                borderSide: BorderSide(
-                                                    color: Colors.blue),
-                                              ),
-                                              border: UnderlineInputBorder(),
-                                            ),
-                                            // validator: (val) {
-                                            //   if (val.length == 0) {
-                                            //     return 'Required';
-                                            //   }
-                                            //   return '';
-                                            // },
-                                            onChanged: (val) {
-                                              setState(() => linkedinURL = val);
-                                            }),
-                                        new Divider(
-                                            height: 10,
-                                            color: Colors.transparent),
-                                        Text(
-                                          'Your GitHub Profile URL',
-                                          style: TextStyle(
-                                            fontFamily: 'GoogleSans',
-                                            fontSize: 13,
-                                          ),
-                                        ),
-                                        TextFormField(
-                                            style:
-                                                TextStyle(color: Colors.grey),
-                                            decoration: const InputDecoration(
-                                              enabledBorder:
-                                                  UnderlineInputBorder(
-                                                borderSide: BorderSide(
-                                                    color: Colors.grey),
-                                              ),
-                                              focusedBorder:
-                                                  UnderlineInputBorder(
-                                                borderSide: BorderSide(
-                                                    color: Colors.blue),
-                                              ),
-                                              border: UnderlineInputBorder(),
-                                            ),
-                                            // validator: (val) {
-                                            //   if (val.length == 0) {
-                                            //     return 'Required';
-                                            //   }
-                                            //   return '';
-                                            // },
-                                            onChanged: (val) {
-                                              setState(() => githubURL = val);
-                                            }),
-                                        new Divider(
-                                            height: 35.0,
-                                            color: Colors.transparent),
-                                        new Container(
-                                          padding: EdgeInsets.fromLTRB(
-                                              120, 5, 120, 5),
-                                          child: RaisedButton(
-                                              color: AppColors.COLOR_TEAL_LIGHT,
-                                              shape: RoundedRectangleBorder(
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          10.0),
-                                                  side: BorderSide(
-                                                    color: AppColors
-                                                        .COLOR_TEAL_LIGHT,
-                                                  )),
-                                              child: Text("Next",
-                                                  style: TextStyle(
-                                                      color: Colors.white,
-                                                      fontSize: 17,
-                                                      fontWeight:
-                                                          FontWeight.w600,
-                                                      fontFamily: 'GoogleSans'),
-                                                  textAlign: TextAlign.center),
-                                              onPressed: () {
-                                                if (_formKey4.currentState
-                                                    .validate()) {
-                                                  setState(() {
-                                                    userMap['domains'] =
-                                                        domains;
-                                                    userMap['languages'] =
-                                                        languages;
-
-                                                    userMap['linkedInURL'] =
-                                                        linkedinURL;
-                                                    userMap['githubURL'] =
-                                                        githubURL;
-                                                    print(userMap);
-                                                    saveData();
-                                                  });
-                                                  // If the form is valid, display a Snackbar.
-                                                  // Scaffold.of(context).showSnackBar(
-                                                  //     SnackBar(content: Text('Data is in processing.')));
-                                                }
-                                              }),
-                                        ),
-                                        Text(error,
-                                            textAlign: TextAlign.center,
-                                            style: TextStyle(
-                                                color:
-                                                    AppColors.COLOR_ERROR_RED,
-                                                fontSize: 14.0)),
-                                        new Divider(
-                                            height: 18.0,
-                                            color: Colors.transparent),
-                                      ],
+        body: loading
+            ? Loading()
+            : Column(children: [
+                Expanded(
+                    child: Container(
+                        child: Padding(
+                            padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
+                            child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  SizedBox(height: 32),
+                                  Padding(
+                                    padding: EdgeInsets.fromLTRB(32, 32, 0, 0),
+                                    child: IconButton(
+                                      icon: Icon(Icons.arrow_back),
+                                      onPressed: () {
+                                        Navigator.of(context).pop();
+                                      },
                                     ),
                                   ),
-                                )
-                                        // new Container(
-                                        ))
-                              ]))))
-            ]),
-      //),
-    );
+                                  SizedBox(height: 25),
+                                  Expanded(
+                                      child: SizedBox(
+                                          child: Padding(
+                                    padding: EdgeInsets.fromLTRB(32, 0, 32, 0),
+                                    child: Form(
+                                      key: _formKey4,
+                                      child: ListView(
+                                        shrinkWrap: true,
+                                        children: <Widget>[
+                                          new Divider(
+                                              height: 35.0,
+                                              color: Colors.transparent),
+                                          new Text(
+                                            'Additional info',
+                                            style: TextStyle(
+                                              fontFamily: 'GoogleSans',
+                                              fontSize: 25,
+                                              fontWeight: FontWeight.w600,
+                                            ),
+                                            textAlign: TextAlign.center,
+                                          ),
+                                          new Divider(
+                                              height: 10.0,
+                                              color: Colors.transparent),
+                                          new Text(
+                                            userMap['post'] == 'Mentor'
+                                                ? "Tell us about your domain knowledge"
+                                                : "What skills do you want to be mentored with?",
+                                            style: TextStyle(
+                                              fontFamily: 'GoogleSans',
+                                              fontSize: 13,
+                                            ),
+                                            textAlign: TextAlign.center,
+                                          ),
+                                          new Divider(
+                                              height: 35.0,
+                                              color: Colors.transparent),
+                                          Container(
+                                            child: MultiSelectFormField(
+                                              fillColor: themeFlag
+                                                  ? Colors.grey[700]
+                                                  : Colors.transparent,
+                                              autovalidate: false,
+                                              titleText: 'Domains',
+                                              validator: (value) {
+                                                if (value == null ||
+                                                    value.length == 0) {
+                                                  return 'Please select one or more options';
+                                                }
+                                              },
+                                              dataSource: ScreenConstants
+                                                  .registerFieldData,
+                                              textField: 'display',
+                                              valueField: 'value',
+                                              okButtonLabel: 'OK',
+                                              cancelButtonLabel: 'CANCEL',
+                                              hintText: 'Choose one or more',
+                                              initialValue: domains,
+                                              onSaved: (value) {
+                                                if (value == null) return;
+                                                setState(() {
+                                                  domains = value;
+                                                });
+                                              },
+                                            ),
+                                          ),
+                                          new Divider(
+                                              height: 0,
+                                              color: Colors.transparent),
+                                          Container(
+                                            child: MultiSelectFormField(
+                                              fillColor: themeFlag
+                                                  ? Colors.grey[700]
+                                                  : Colors.transparent,
+                                              autovalidate: false,
+                                              titleText: 'Languages',
+                                              validator: (value) {
+                                                if (value == null ||
+                                                    value.length == 0) {
+                                                  return 'Please select one or more options';
+                                                }
+                                              },
+                                              dataSource: ScreenConstants
+                                                  .registerLanguageData,
+                                              textField: 'display',
+                                              valueField: 'value',
+                                              okButtonLabel: 'OK',
+                                              cancelButtonLabel: 'CANCEL',
+                                              hintText: 'Choose one or more',
+                                              initialValue: languages,
+                                              onSaved: (value) {
+                                                if (value == null) return;
+                                                setState(() {
+                                                  languages = value;
+                                                });
+                                              },
+                                            ),
+                                          ),
+                                          new Divider(
+                                              height: 10,
+                                              color: Colors.transparent),
+                                          new TextFormField(
+                                              keyboardType: TextInputType.text,
+                                              style:
+                                                  TextStyle(color: Colors.grey),
+                                              decoration: const InputDecoration(
+                                                labelStyle: TextStyle(
+                                                    color: Colors.grey,
+                                                    fontFamily: 'GoogleSans'),
+                                                enabledBorder:
+                                                    UnderlineInputBorder(
+                                                  borderSide: BorderSide(
+                                                      color: Colors.grey),
+                                                ),
+                                                focusedBorder:
+                                                    UnderlineInputBorder(
+                                                  borderSide: BorderSide(
+                                                      color: Colors.blue),
+                                                ),
+                                                border: UnderlineInputBorder(),
+                                                labelText:
+                                                    'Your LinkedIN Profile URL',
+                                              ),
+                                              onChanged: (val) {
+                                                setState(
+                                                    () => linkedinURL = val);
+                                              }),
+                                          new Divider(
+                                              height: 10,
+                                              color: Colors.transparent),
+                                          new TextFormField(
+                                              keyboardType: TextInputType.text,
+                                              style:
+                                                  TextStyle(color: Colors.grey),
+                                              decoration: const InputDecoration(
+                                                labelStyle: TextStyle(
+                                                    color: Colors.grey,
+                                                    fontFamily: 'GoogleSans'),
+                                                enabledBorder:
+                                                    UnderlineInputBorder(
+                                                  borderSide: BorderSide(
+                                                      color: Colors.grey),
+                                                ),
+                                                focusedBorder:
+                                                    UnderlineInputBorder(
+                                                  borderSide: BorderSide(
+                                                      color: Colors.blue),
+                                                ),
+                                                border: UnderlineInputBorder(),
+                                                labelText:
+                                                    'Your Github Profile URL',
+                                              ),
+                                              onChanged: (val) {
+                                                setState(() => githubURL = val);
+                                              }),
+                                          new Divider(
+                                              height: 35.0,
+                                              color: Colors.transparent),
+                                          new Container(
+                                            padding: EdgeInsets.fromLTRB(
+                                                120, 5, 120, 5),
+                                            child: RaisedButton(
+                                                color:
+                                                    AppColors.COLOR_TEAL_LIGHT,
+                                                shape: RoundedRectangleBorder(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            10.0),
+                                                    side: BorderSide(
+                                                      color: AppColors
+                                                          .COLOR_TEAL_LIGHT,
+                                                    )),
+                                                child: Text("Next",
+                                                    style: TextStyle(
+                                                        color: Colors.white,
+                                                        fontSize: 17,
+                                                        fontWeight:
+                                                            FontWeight.w600,
+                                                        fontFamily:
+                                                            'GoogleSans'),
+                                                    textAlign:
+                                                        TextAlign.center),
+                                                onPressed: () {
+                                                  if (_formKey4.currentState
+                                                      .validate()) {
+                                                    setState(() {
+                                                      userMap['domains'] =
+                                                          domains;
+                                                      userMap['languages'] =
+                                                          languages;
+                                                      userMap['linkedInURL'] =
+                                                          linkedinURL;
+                                                      userMap['githubURL'] =
+                                                          githubURL;
+                                                      saveData();
+                                                    });
+                                                  }
+                                                }),
+                                          ),
+                                          Text(error,
+                                              textAlign: TextAlign.center,
+                                              style: TextStyle(
+                                                  color:
+                                                      AppColors.COLOR_ERROR_RED,
+                                                  fontSize: 14.0)),
+                                          new Divider(
+                                              height: 18.0,
+                                              color: Colors.transparent),
+                                        ],
+                                      ),
+                                    ),
+                                  )))
+                                ]))))
+              ]));
   }
 }
