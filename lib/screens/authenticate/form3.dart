@@ -248,6 +248,7 @@ class _RegisterForm3State extends State<RegisterForm3> {
                                           new Divider(
                                               height: 35.0,
                                               color: Colors.transparent),
+                                          
                                           Row(
                                               mainAxisAlignment:
                                                   MainAxisAlignment.spaceEvenly,

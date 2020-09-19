@@ -66,7 +66,7 @@ class _ProfileState extends State<Profile> {
                 style: TextStyle(
                   fontFamily: 'GoogleSans',
                   fontStyle: FontStyle.italic,
-                  fontSize: 8,
+                  fontSize: 12,
                 )),
           ));
         });
