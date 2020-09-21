@@ -208,24 +208,28 @@ class _ProfileState extends State<Profile> {
                                         3.6,
                                     left: MediaQuery.of(context).size.width /
                                         2.15,
-                                    child: Container(
-                                      height: 30,
-                                      width: 30,
-                                      decoration: BoxDecoration(
-                                          color: AppColors.PROTEGE_GREY,
-                                          borderRadius:
-                                              BorderRadius.circular(50)),
-                                      child: IconButton(
-                                        icon: Icon(
-                                          Icons.edit,
-                                          size: 12,
-                                          color: Colors.white,
+                                    child: Row(
+                                      children: [
+                                        Container(
+                                          height: 30,
+                                          width: 30,
+                                          decoration: BoxDecoration(
+                                              color: AppColors.PROTEGE_GREY,
+                                              borderRadius:
+                                                  BorderRadius.circular(50)),
+                                          child: IconButton(
+                                            icon: Icon(
+                                              Icons.edit,
+                                              size: 12,
+                                              color: Colors.white,
+                                            ),
+                                            alignment: Alignment.center,
+                                            onPressed: () async {
+                                              await getImage(context);
+                                            },
+                                          ),
                                         ),
-                                        alignment: Alignment.center,
-                                        onPressed: () async {
-                                          await getImage(context);
-                                        },
-                                      ),
+                                      ],
                                     )),
                               ]),
                               SizedBox(
