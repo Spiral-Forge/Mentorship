@@ -111,6 +111,7 @@ class _PeerProfileState extends State<PeerProfile> {
                                               Align(
                                                 alignment: Alignment.center,
                                                 child: CircleAvatar(
+                                                  backgroundColor: Colors.black,
                                                   radius: 75,
                                                   child: ClipOval(
                                                     child: SizedBox(

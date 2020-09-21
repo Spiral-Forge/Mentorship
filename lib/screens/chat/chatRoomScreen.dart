@@ -210,14 +210,18 @@ class MessageTile extends StatelessWidget {
     var themeFlag = _themeNotifier.darkTheme;
 
     return Container(
+      constraints: BoxConstraints(
+              maxWidth: (7 * MediaQuery.of(context).size.width) / 8,
+              minWidth: 10.0),
       padding: EdgeInsets.only(
           left: isSentByMe ? 0 : 10, right: isSentByMe ? 10 : 0),
       margin: EdgeInsets.symmetric(vertical: 2),
-      width: MediaQuery.of(context).size.width,
+      // width: MediaQuery.of(context).size.width,
       alignment: isSentByMe ? Alignment.centerRight : Alignment.centerLeft,
       child: Container(
-          constraints: BoxConstraints(
-              maxWidth: (7 * MediaQuery.of(context).size.width) / 8),
+        constraints: BoxConstraints(
+              maxWidth: (7 * MediaQuery.of(context).size.width) / 8,
+              minWidth: 10.0),
           padding: EdgeInsets.symmetric(horizontal: 10, vertical: 6),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(9),
