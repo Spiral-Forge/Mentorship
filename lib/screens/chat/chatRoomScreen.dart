@@ -115,7 +115,7 @@ class _ConversationScreenState extends State<ConversationScreen> {
     return Scaffold(
         appBar: new AppBar(
             iconTheme: IconThemeData(
-              color: themeFlag ? null : Colors.black, 
+              color: themeFlag ? null : Colors.black,
             ),
             backgroundColor: themeFlag ? null : Colors.white,
             title: Container(
@@ -152,11 +152,12 @@ class _ConversationScreenState extends State<ConversationScreen> {
             ))),
         body: Container(
           decoration: BoxDecoration(
-            image:DecorationImage(
-              image: AssetImage("assets/images/feature.jpg"),
-              fit:BoxFit.scaleDown,
-            )
-          ),
+              image: DecorationImage(
+            image: themeFlag
+                ? AssetImage("assets/images/feature graphic.png")
+                : AssetImage("assets/images/feature.jpg"),
+            fit: BoxFit.cover,
+          )),
           child: Stack(
             children: <Widget>[
               Padding(
@@ -166,7 +167,7 @@ class _ConversationScreenState extends State<ConversationScreen> {
               Container(
                 alignment: Alignment.bottomCenter,
                 child: Container(
-                  color: themeFlag ? Colors.grey[700] : Colors.white70,
+                  color: themeFlag ? Colors.grey[900] : Colors.white,
                   padding: EdgeInsets.symmetric(horizontal: 24, vertical: 8),
                   child: Row(
                     children: <Widget>[
@@ -176,7 +177,9 @@ class _ConversationScreenState extends State<ConversationScreen> {
                         style: TextStyle(
                             color: themeFlag ? Colors.white : Colors.black),
                         decoration: InputDecoration(
-                            fillColor: themeFlag ? Colors.white : AppColors.PROTEGE_GREY,
+                            fillColor: themeFlag
+                                ? Colors.white
+                                : AppColors.PROTEGE_GREY,
                             hintText: "Enter message..",
                             hintStyle: TextStyle(
                                 color:
@@ -218,28 +221,28 @@ class MessageTile extends StatelessWidget {
 
     return Container(
       constraints: BoxConstraints(
-              maxWidth: (7 * MediaQuery.of(context).size.width) / 8,
-              minWidth: 10.0),
+          maxWidth: (7 * MediaQuery.of(context).size.width) / 8,
+          minWidth: 10.0),
       padding: EdgeInsets.only(
           left: isSentByMe ? 0 : 10, right: isSentByMe ? 10 : 0),
       margin: EdgeInsets.symmetric(vertical: 2),
       // width: MediaQuery.of(context).size.width,
       alignment: isSentByMe ? Alignment.centerRight : Alignment.centerLeft,
       child: Container(
-        constraints: BoxConstraints(
+          constraints: BoxConstraints(
               maxWidth: (7 * MediaQuery.of(context).size.width) / 8,
               minWidth: 10.0),
-          padding: EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+          padding: EdgeInsets.symmetric(horizontal: 13, vertical: 8),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(9),
             color: isSentByMe
-                ? themeFlag? Colors.black : Hexcolor("#F6F6F6")
-                : themeFlag ? Colors.grey[700] : AppColors.PROTEGE_GREY,
+                ? themeFlag ? Colors.grey[600] : Hexcolor("#d89279")
+                : themeFlag ? Hexcolor("#22272B") : Colors.grey[700],
           ),
           child: Text(message,
               textAlign: isSentByMe ? TextAlign.right : TextAlign.left,
               style: TextStyle(
-                  color: isSentByMe ? Colors.black : Colors.white,
+                  color: Colors.white,
                   fontSize: 17,
                   fontFamily: 'GoogleSans'))),
     );
