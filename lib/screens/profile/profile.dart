@@ -397,10 +397,10 @@ class _ProfileState extends State<Profile> {
                                               : user["linkedInURL"],
                                           style: GoogleFonts.lato(
                                             textStyle: TextStyle(
-                                              fontFamily: 'GoogleSans',
-                                              fontSize: 14,
-                                              decoration: TextDecoration.underline
-                                            ),
+                                                fontFamily: 'GoogleSans',
+                                                fontSize: 14,
+                                                decoration:
+                                                    TextDecoration.underline),
                                           ),
                                         ),
                                       ),
@@ -427,17 +427,17 @@ class _ProfileState extends State<Profile> {
                                             }
                                           },
                                           child: Text(
-                                              user["githubURL"] == null ||
-                                                      user["githubURL"]
-                                                              .length ==
-                                                          0
-                                                  ? " - "
-                                                  : user["githubURL"],
-                                              style: TextStyle(
-                                              fontFamily: 'GoogleSans',
-                                              fontSize: 14,
-                                              decoration: TextDecoration.underline
-                                            ),),
+                                            user["githubURL"] == null ||
+                                                    user["githubURL"].length ==
+                                                        0
+                                                ? " - "
+                                                : user["githubURL"],
+                                            style: TextStyle(
+                                                fontFamily: 'GoogleSans',
+                                                fontSize: 14,
+                                                decoration:
+                                                    TextDecoration.underline),
+                                          ),
                                         ),
                                         leading: Icon(
                                           Icons.code,
