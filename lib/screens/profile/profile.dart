@@ -394,7 +394,8 @@ class _ProfileState extends State<Profile> {
                                           style: GoogleFonts.lato(
                                             textStyle: TextStyle(
                                               fontFamily: 'GoogleSans',
-                                              fontSize: 18,
+                                              fontSize: 14,
+                                              decoration: TextDecoration.underline
                                             ),
                                           ),
                                         ),
@@ -429,8 +430,10 @@ class _ProfileState extends State<Profile> {
                                                   ? " - "
                                                   : user["githubURL"],
                                               style: TextStyle(
-                                                  fontFamily: 'GoogleSans',
-                                                  fontSize: 18)),
+                                              fontFamily: 'GoogleSans',
+                                              fontSize: 14,
+                                              decoration: TextDecoration.underline
+                                            ),),
                                         ),
                                         leading: Icon(
                                           Icons.code,

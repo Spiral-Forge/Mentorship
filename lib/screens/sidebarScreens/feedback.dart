@@ -149,6 +149,7 @@ class _MyFeedbackState extends State<MyFeedback> {
                                           }),
                                     ),
                                   ),
+                                  SizedBox(height:18.0)
                                 ],
                               )))
                     ],

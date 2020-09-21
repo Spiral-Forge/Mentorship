@@ -19,7 +19,7 @@ class FAQS extends StatelessWidget {
               return Container(
                 margin: EdgeInsets.fromLTRB(20, 0, 20, 20),
                 decoration: BoxDecoration(
-                    color: Hexcolor('#dacbc8'),
+                    color: AppColors.COLOR_TEAL_LIGHT,
                     borderRadius: BorderRadius.circular(15)),
                 child: Column(children: <Widget>[
                   Padding(
@@ -33,7 +33,7 @@ class FAQS extends StatelessWidget {
                           Text(
                         faqlist[index - 1],
                         style: TextStyle(
-                            color: AppColors.PROTEGE_GREY,
+                            color:Hexcolor("#303030"),
                             fontFamily: 'GoogleSans',
                             fontSize: 18,
                             fontStyle: FontStyle.italic),
@@ -51,7 +51,7 @@ class FAQS extends StatelessWidget {
                           Text(
                         faqlist[index],
                         style: TextStyle(
-                            color: Colors.black,
+                            color: Colors.white,
                             fontFamily: 'GoogleSans',
                             fontSize: 18,
                             fontWeight: FontWeight.w200),

@@ -308,10 +308,11 @@ class _PeerProfileState extends State<PeerProfile> {
                                                     ? " - "
                                                     : user["linkedInURL"],
                                                 style: GoogleFonts.lato(
-                                                  textStyle: TextStyle(
-                                                    fontSize: 20,
-                                                  ),
-                                                ),
+                                                  textStyle:  TextStyle(
+                                              fontFamily: 'GoogleSans',
+                                              fontSize: 14,
+                                              decoration: TextDecoration.underline
+                                                  ))
                                               ),
                                             ),
                                             leading: Icon(
@@ -348,10 +349,10 @@ class _PeerProfileState extends State<PeerProfile> {
                                                         ? " - "
                                                         : user["githubURL"],
                                                     style: TextStyle(
-                                                        fontFamily:
-                                                            'GoogleSans',
-                                                        fontSize: 18)),
-                                              ),
+                                              fontFamily: 'GoogleSans',
+                                              fontSize: 14,
+                                              decoration: TextDecoration.underline
+                                            ))),
                                               leading: Icon(
                                                 Icons.code,
                                                 color:
