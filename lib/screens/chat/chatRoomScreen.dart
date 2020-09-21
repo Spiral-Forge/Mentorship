@@ -151,6 +151,12 @@ class _ConversationScreenState extends State<ConversationScreen> {
               ],
             ))),
         body: Container(
+          decoration: BoxDecoration(
+            image:DecorationImage(
+              image: AssetImage("assets/images/feature.png"),
+              fit:BoxFit.fill,
+            )
+          ),
           child: Stack(
             children: <Widget>[
               Padding(
@@ -170,6 +176,7 @@ class _ConversationScreenState extends State<ConversationScreen> {
                         style: TextStyle(
                             color: themeFlag ? Colors.white : Colors.black),
                         decoration: InputDecoration(
+                            fillColor: themeFlag ? Colors.white : AppColors.PROTEGE_GREY,
                             hintText: "Enter message..",
                             hintStyle: TextStyle(
                                 color:
