@@ -153,8 +153,8 @@ class _ConversationScreenState extends State<ConversationScreen> {
         body: Container(
           decoration: BoxDecoration(
             image:DecorationImage(
-              image: AssetImage("assets/images/feature.png"),
-              fit:BoxFit.fill,
+              image: AssetImage("assets/images/feature.jpg"),
+              fit:BoxFit.scaleDown,
             )
           ),
           child: Stack(
@@ -166,7 +166,7 @@ class _ConversationScreenState extends State<ConversationScreen> {
               Container(
                 alignment: Alignment.bottomCenter,
                 child: Container(
-                  color: themeFlag ? Colors.grey[700] : Colors.transparent,
+                  color: themeFlag ? Colors.grey[700] : Colors.white70,
                   padding: EdgeInsets.symmetric(horizontal: 24, vertical: 8),
                   child: Row(
                     children: <Widget>[
@@ -233,13 +233,13 @@ class MessageTile extends StatelessWidget {
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(9),
             color: isSentByMe
-                ? AppColors.COLOR_TEAL_DARK
+                ? themeFlag? Colors.black : Hexcolor("#F6F6F6")
                 : themeFlag ? Colors.grey[700] : AppColors.PROTEGE_GREY,
           ),
           child: Text(message,
               textAlign: isSentByMe ? TextAlign.right : TextAlign.left,
               style: TextStyle(
-                  color: isSentByMe ? Colors.white : Colors.white,
+                  color: isSentByMe ? Colors.black : Colors.white,
                   fontSize: 17,
                   fontFamily: 'GoogleSans'))),
     );
