@@ -158,7 +158,7 @@ class _ConversationScreenState extends State<ConversationScreen> {
               image: DecorationImage(
             image: themeFlag
                 ? AssetImage("assets/images/feature graphic.png")
-                : AssetImage("assets/images/feature.jpg"),
+                : AssetImage("assets/images/feature_light.jpeg"),
             fit: BoxFit.cover,
           )),
           child: Stack(
@@ -239,7 +239,7 @@ class MessageTile extends StatelessWidget {
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(9),
             color: isSentByMe
-                ? themeFlag ? Colors.grey[600] : Hexcolor("#d89279")
+                ? themeFlag ? Colors.grey[800] : Hexcolor("#dea38e")
                 : themeFlag ? Hexcolor("#22272B") : Colors.grey[700],
           ),
           child: Linkify(
@@ -253,7 +253,7 @@ class MessageTile extends StatelessWidget {
                       },
                 text: message,
                 textAlign: isSentByMe ? TextAlign.right : TextAlign.left,
-                linkStyle: TextStyle(color: Colors.white),
+                linkStyle: TextStyle(color: themeFlag ? Hexcolor("#42A2F5") : Hexcolor("#2D8CFF") ),
                 style: TextStyle(
                     color: Colors.white,
                     fontSize: 17,

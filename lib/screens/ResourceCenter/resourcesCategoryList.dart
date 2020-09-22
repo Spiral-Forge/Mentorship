@@ -272,7 +272,7 @@ class _ResourceCategoryListState extends State<ResourceCategoryList> {
                                                 color:
                                                     AppColors.COLOR_TEAL_LIGHT,
                                               )),
-                                          child: Text("Submit"),
+                                          child: Text("Submit",style: TextStyle(color:Colors.white),),
                                           onPressed: () async {
                                             var result = await DataBaseService()
                                                 .addResource(
