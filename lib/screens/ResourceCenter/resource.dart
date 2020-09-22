@@ -1,5 +1,6 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:toast/toast.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class ResourceTile extends StatelessWidget {
@@ -41,8 +42,13 @@ class ResourceTile extends StatelessWidget {
                                         style:
                                             new TextStyle(color: Colors.blue),
                                         recognizer: new TapGestureRecognizer()
-                                          ..onTap = () {
-                                            launch(link);
+                                          ..onTap = () async{
+                                            if (await canLaunch(link)) {
+                                                await launch(link);
+                                              } else {
+                                                 Toast.show("Could not launch $link", context,
+                                      duration: Toast.LENGTH_SHORT, gravity: Toast.BOTTOM);
+                                              }
                                           },
                                       ),
                                     ],

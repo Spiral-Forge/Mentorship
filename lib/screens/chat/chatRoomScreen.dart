@@ -8,6 +8,9 @@ import 'package:dbapp/services/storage.dart';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:provider/provider.dart';
+import 'package:toast/toast.dart';
+import 'package:url_launcher/url_launcher.dart';
+import 'package:flutter_linkify/flutter_linkify.dart';
 
 class ConversationScreen extends StatefulWidget {
   final String userID;
@@ -239,12 +242,23 @@ class MessageTile extends StatelessWidget {
                 ? themeFlag ? Colors.grey[600] : Hexcolor("#d89279")
                 : themeFlag ? Hexcolor("#22272B") : Colors.grey[700],
           ),
-          child: Text(message,
-              textAlign: isSentByMe ? TextAlign.right : TextAlign.left,
-              style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 17,
-                  fontFamily: 'GoogleSans'))),
+          child: Linkify(
+                    onOpen: (link) async {
+                        if (await canLaunch(link.url)) {
+                            await launch(link.url);
+                          } else {
+                             Toast.show("Could not launch $link", context,
+                                      duration: Toast.LENGTH_SHORT, gravity: Toast.BOTTOM);
+                          }
+                      },
+                text: message,
+                textAlign: isSentByMe ? TextAlign.right : TextAlign.left,
+                linkStyle: TextStyle(color: Colors.white),
+                style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 17,
+                    fontFamily: 'GoogleSans')),
+          ),
     );
   }
 }

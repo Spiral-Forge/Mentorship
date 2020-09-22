@@ -48,19 +48,23 @@ class About extends StatelessWidget {
                                 style:
                                     TextStyle(fontSize: 16.0, fontFamily: 'GoogleSans'),
                               ),
-                    ),
+                            ),
                     Row(
                       mainAxisAlignment:MainAxisAlignment.center ,
                               children: [
                                 Container(
                                   width:  MediaQuery.of(context).size.width / 2.22,
-                                  child: _buildCard(context, SidebarConstants.nitasha["Name"],
-                                      SidebarConstants.nitasha["Image"], SidebarConstants.nitasha["LinkedIN"], 1),
+                                  child: Container(
+                                    child: _buildCard(context, SidebarConstants.nitasha["Name"],
+                                        SidebarConstants.nitasha["Image"], SidebarConstants.nitasha["LinkedIN"], 1),
+                                  ),
                                 ),
                                 Container(
                                   width:  MediaQuery.of(context).size.width / 2.22,
-                                  child: _buildCard(context, SidebarConstants.suhani["Name"],
-                                      SidebarConstants.suhani["Image"], SidebarConstants.suhani["LinkedIN"], 2),
+                                  child: Container(
+                                    child: _buildCard(context, SidebarConstants.suhani["Name"],
+                                        SidebarConstants.suhani["Image"], SidebarConstants.suhani["LinkedIN"], 2),
+                                  ),
                                 ),
                               ],
                     ),
@@ -69,13 +73,17 @@ class About extends StatelessWidget {
                               children: [
                                 Container(
                                   width:  MediaQuery.of(context).size.width / 2.22,
-                                  child: _buildCard(context, SidebarConstants.urvi["Name"],
-                                      SidebarConstants.urvi["Image"], SidebarConstants.urvi["LinkedIN"], 3),
+                                  child: Container(
+                                    child: _buildCard(context, SidebarConstants.urvi["Name"],
+                                        SidebarConstants.urvi["Image"], SidebarConstants.urvi["LinkedIN"], 3),
+                                  ),
                                 ),
                                 Container(
                                   width:  MediaQuery.of(context).size.width / 2.22,
-                                  child: _buildCard(context, SidebarConstants.oshin["Name"],
-                                      SidebarConstants.oshin["Image"], SidebarConstants.oshin["LinkedIN"], 4),
+                                  child: Container(
+                                    child: _buildCard(context, SidebarConstants.oshin["Name"],
+                                        SidebarConstants.oshin["Image"], SidebarConstants.oshin["LinkedIN"], 4),
+                                  ),
                                 ),
                               ],
                     ),
@@ -87,15 +95,17 @@ class About extends StatelessWidget {
                         ),
                       )
                     ],
-                  ))))
+                  )
+                )
+              )
+            )
     ]));   
   }
 }
 
 Widget _buildCard(
     BuildContext context, String name, String img, String link, int index) {
-  return Expanded(
-      child: Container(
+  return  Container(
       width: MediaQuery.of(context).size.width / 2.22,
       child: Card(
         shape: RoundedRectangleBorder(
@@ -157,7 +167,6 @@ Widget _buildCard(
           ],
         ),
       ),
-    ),
   );
 }
 
