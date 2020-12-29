@@ -33,11 +33,11 @@ Ofcourse, Protégé App is available in both light and dark theme!
 3. Frontend: Flutter
 
 ## Screenshots
-![](Screenshots/home.jpeg)
-![](Screenshots/resource.jpeg)
-![](Screenshots/chat.jpeg)
-![](Screenshots/feedback.jpeg)
-![](Screenshots/profile.jpg)
+![](Screenshots/home.jpeg =200x400)
+![](Screenshots/resource.jpeg =200x400)
+![](Screenshots/chat.jpeg =200x400)
+![](Screenshots/feedback.jpeg =200x400)
+![](Screenshots/profile.jpg =200x400)
 
 ## Try it yourself
 [Download app from Google Play Store](https://play.google.com/store/apps/details?id=com.spiralforge.dbapp)
