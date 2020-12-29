@@ -10,28 +10,22 @@ Protégé aims to answer all these questions and more by connecting students wit
 
 ## Features
 
-- Resource Center
-<br>
+- Resource Center\
 The app provides multiple resources for different domains. From developemnt to ML to scholarships, you'll find everything in the resource center.
 
-- Chat with your mentor
-<br>
+- Chat with your mentor\
 Once assigned a mentor, you can use the app to chat with your mentor and receive the best guidance.
 
-- Events
-<br>
+- Events\
 The app lists down upcoming events happening in and outside college. 
 
-- Feedback/Help Center
-<br>
+- Feedback/Help Center\
 The app has a help center where the user can send feedback, suggestions or complaints to Protege IGDTUW. 
 
-- Profile
-<br>
+- Profile\
 The user can view and edit their profile. Both mentors and mentees can view the profile of mentors and mentees they are paired with.
 
-- Change theme
-<br>
+- Change theme\
 Ofcourse, Protégé App is available in both light and dark theme!
 
 ## Tech stack
