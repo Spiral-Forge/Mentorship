@@ -11,21 +11,27 @@ Protégé aims to answer all these questions and more by connecting students wit
 ## Features
 
 - Resource Center
+<br>
 The app provides multiple resources for different domains. From developemnt to ML to scholarships, you'll find everything in the resource center.
 
 - Chat with your mentor
+<br>
 Once assigned a mentor, you can use the app to chat with your mentor and receive the best guidance.
 
 - Events
+<br>
 The app lists down upcoming events happening in and outside college. 
 
 - Feedback/Help Center
+<br>
 The app has a help center where the user can send feedback, suggestions or complaints to Protege IGDTUW. 
 
 - Profile
+<br>
 The user can view and edit their profile. Both mentors and mentees can view the profile of mentors and mentees they are paired with.
 
 - Change theme
+<br>
 Ofcourse, Protégé App is available in both light and dark theme!
 
 ## Tech stack
@@ -33,11 +39,12 @@ Ofcourse, Protégé App is available in both light and dark theme!
 3. Frontend: Flutter
 
 ## Screenshots
-![](Screenshots/home.jpeg =200x400)
-![](Screenshots/resource.jpeg =200x400)
-![](Screenshots/chat.jpeg =200x400)
-![](Screenshots/feedback.jpeg =200x400)
-![](Screenshots/profile.jpg =200x400)
+<img src="/Screenshots/home.jpeg" height="300px" width="150px">
+<img src="/Screenshots/resource.jpeg" height="300px" width="150px">
+<img src="/Screenshots/chat.jpeg" height="300px" width="150px">
+<br>
+<img src="/Screenshots/feedback.jpeg" height="300px" width="150px">
+<img src="/Screenshots/profile.jpg" height="300px" width="150px">
 
 ## Try it yourself
 [Download app from Google Play Store](https://play.google.com/store/apps/details?id=com.spiralforge.dbapp)
