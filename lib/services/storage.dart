@@ -21,12 +21,12 @@ class StorageServices {
     return await prefs.setString(
         sharedPreferenceUserInfoKey, json.encode(userMap));
   }
+
   static Future<bool> saveDarkMode(bool darkMode) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    return await prefs.setBool(sharedPrefernceDarkModeKey,darkMode);
-
+    return await prefs.setBool(sharedPrefernceDarkModeKey, darkMode);
   }
-  
+
   static Future<bool> saveUserID(String id) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     return await prefs.setString(sharedPreferenceUserID, id);
@@ -37,7 +37,8 @@ class StorageServices {
     var obj = await prefs.getString(sharedPreferenceUserInfoKey);
     var parsedObj = json.decode(obj);
     parsedObj['photoURL'] = url;
-    return await prefs.setString(sharedPreferenceUserInfoKey, json.encode(parsedObj));
+    return await prefs.setString(
+        sharedPreferenceUserInfoKey, json.encode(parsedObj));
   }
 
   //GETTING DATA FROM SHARED PREFERENCE
@@ -45,6 +46,7 @@ class StorageServices {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     return prefs.getString(sharedPreferncePostKey);
   }
+
   static Future<bool> getDarkMode() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     return prefs.getBool(sharedPrefernceDarkModeKey);

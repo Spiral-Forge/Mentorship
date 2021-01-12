@@ -39,6 +39,9 @@ dependencies:
   image_cropper:
   firebase_storage:
   firebase_core:
+  firebase_analytics:
+  firebase_messaging: 
+  http:
 
 dev_dependencies:
   flutter_test:
