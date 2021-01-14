@@ -10,16 +10,17 @@ class AuthService {
     return _auth.onAuthStateChanged;
   }
 
-  Future signin(String email, String password) async {
+  Future signin(String email, String password, String token) async {
     try {
       AuthResult result = await _auth.signInWithEmailAndPassword(
         email: email,
         password: password,
       );
       FirebaseUser user = result.user;
+      await DataBaseService(uid: user.uid).saveUserToken(token);
       DataBaseService(uid: user.uid).getUserData().then((userdata) async {
         Map<String, dynamic> userMap = userdata.data;
-        userMap["id"]=userdata.documentID;
+        userMap["id"] = userdata.documentID;
         await StorageServices.saveUserInfo(userMap);
         return user;
       });
@@ -41,7 +42,8 @@ class AuthService {
       List domains,
       List languages,
       bool hosteller,
-      String post) async {
+      String post,
+      String token) async {
     try {
       AuthResult result = await _auth.createUserWithEmailAndPassword(
         email: email,
@@ -52,7 +54,7 @@ class AuthService {
           name,
           phoneNo,
           email,
-          year, 
+          year,
           branch,
           rollNo,
           linkedInURL,
@@ -61,8 +63,8 @@ class AuthService {
           languages,
           hosteller,
           post,
-          null,
-          []);
+          token,
+          null, []);
       Map<String, dynamic> userlist = {
         'name': name,
         'contact': phoneNo,
@@ -76,10 +78,11 @@ class AuthService {
         'languages': languages,
         'hosteller': hosteller,
         'post': post,
+        'token': token,
         "peerID": [],
         'photoURL': null
       };
-      userlist["id"]=user.uid;
+      userlist["id"] = user.uid;
       await StorageServices.saveUserInfo(userlist);
       return user;
     } catch (e) {

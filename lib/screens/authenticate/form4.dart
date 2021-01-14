@@ -8,6 +8,7 @@ import 'package:dbapp/shared/loading.dart';
 import 'package:flutter/services.dart';
 import 'package:multiselect_formfield/multiselect_formfield.dart';
 import 'package:provider/provider.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 
 List domains;
 List languages;
@@ -37,6 +38,7 @@ class _RegisterForm4State extends State<RegisterForm4> {
 
   final AuthService _auth = AuthService();
   final _formKey4 = GlobalKey<FormState>();
+  final FirebaseMessaging _firebaseMessaging = FirebaseMessaging();
 
   //form fields
 
@@ -44,8 +46,10 @@ class _RegisterForm4State extends State<RegisterForm4> {
   bool loading = false;
 
   void saveData() async {
+    var token = await _firebaseMessaging.getToken();
     setState(() {
       loading = true;
+      userMap['token'] = token;
     });
     dynamic result = await _auth.register(
         userMap['name'],
@@ -60,7 +64,8 @@ class _RegisterForm4State extends State<RegisterForm4> {
         userMap['domains'],
         userMap['languages'],
         userMap['hosteller'],
-        userMap['post']);
+        userMap['post'],
+        userMap['token']);
     if (result.runtimeType == PlatformException) {
       setState(() {
         error = result.message.toString();
