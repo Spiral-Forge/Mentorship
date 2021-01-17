@@ -116,7 +116,7 @@ class _RegistrationFormState extends State<RegistrationForm> {
     ListItem(1, "First"),
     ListItem(2, "Second"),
     ListItem(3, "Third"),
-    ListItem(4,"Fourth")
+    ListItem(4, "Fourth")
   ];
 
   List<DropdownMenuItem<ListItem>> _dropdownBranchItems;
@@ -197,6 +197,7 @@ class _RegistrationFormState extends State<RegistrationForm> {
       'languages': languages,
       'hosteller': hosteller,
       'post': userInfo['post'],
+      'token': userInfo['token'],
       'photoURL': userInfo['photoURL'],
       'peerID': userInfo['peerID']
     };
@@ -213,6 +214,7 @@ class _RegistrationFormState extends State<RegistrationForm> {
         languages,
         hosteller,
         userInfo['post'],
+        userInfo['token'],
         userInfo['photoUrl'],
         userInfo['peerID']);
     await StorageServices.saveUserInfo(userMap);

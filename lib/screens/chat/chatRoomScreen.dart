@@ -11,6 +11,10 @@ import 'package:provider/provider.dart';
 import 'package:toast/toast.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter_linkify/flutter_linkify.dart';
+import 'package:http/http.dart' as http;
+import 'package:dbapp/constants/keys.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
+import 'dart:convert';
 
 class ConversationScreen extends StatefulWidget {
   final String userID;
@@ -25,9 +29,11 @@ class ConversationScreen extends StatefulWidget {
 class _ConversationScreenState extends State<ConversationScreen> {
   TextEditingController messageController = new TextEditingController();
   DataBaseService databaseMethods = new DataBaseService();
+  final FirebaseMessaging _firebaseMessaging = FirebaseMessaging();
   Stream chatMessageStream;
   String chatRoomId;
   var post;
+  String token = '';
   ScrollController scrollController;
 
   @override
@@ -58,8 +64,12 @@ class _ConversationScreenState extends State<ConversationScreen> {
     };
     await databaseMethods.createChatRoom(chatRoomID, chatRoomMap);
     var messageList = await databaseMethods.getConversationMessages(chatRoomID);
+    var peerData = await databaseMethods.getPeerToken(widget.peerID);
+    print("peerdata is");
+    print(peerData.data["token"]);
     setState(() {
       chatMessageStream = messageList;
+      token = peerData.data["token"];
     });
   }
 
@@ -98,16 +108,60 @@ class _ConversationScreenState extends State<ConversationScreen> {
     );
   }
 
-  sendMessage() {
+  sendMessage() async {
     if (messageController.text.isNotEmpty) {
+      print("coming here");
       Map<String, dynamic> messageMap = {
         "message": messageController.text,
         "sentBy": widget.userID,
         "time": DateTime.now().millisecondsSinceEpoch
       };
-      databaseMethods.addConversationMessage(chatRoomId, messageMap);
+      await databaseMethods.addConversationMessage(chatRoomId, messageMap);
+      await sendAndRetrieveMessage(token, messageController.text);
       messageController.text = '';
     }
+  }
+
+  Future<Map<String, dynamic>> sendAndRetrieveMessage(
+      String token, String msg) async {
+    print("inside send and retrive func and token is " + token);
+    print("inside send and retrive func and msg is " + msg);
+    var serverToken = Keys.serverKey;
+    await http.post(
+      'https://fcm.googleapis.com/fcm/send',
+      headers: <String, String>{
+        'Content-Type': 'application/json',
+        'Authorization': 'key=$serverToken',
+      },
+      body: jsonEncode(
+        <String, dynamic>{
+          'notification': <String, dynamic>{
+            'body': msg,
+            'title': 'FlutterCloudMessage'
+          },
+          'priority': 'high',
+          'data': <String, dynamic>{
+            'click_action': 'FLUTTER_NOTIFICATION_CLICK',
+            'id': '1',
+            'status': 'done'
+          },
+          'to': token,
+        },
+      ),
+    );
+
+    print("inside mid of send and retrive func");
+
+    final Completer<Map<String, dynamic>> completer =
+        Completer<Map<String, dynamic>>();
+
+    _firebaseMessaging.configure(
+      onMessage: (Map<String, dynamic> message) async {
+        completer.complete(message);
+      },
+    );
+    print("just before returning");
+    return completer.future;
   }
 
   @override
@@ -232,33 +286,36 @@ class MessageTile extends StatelessWidget {
       // width: MediaQuery.of(context).size.width,
       alignment: isSentByMe ? Alignment.centerRight : Alignment.centerLeft,
       child: Container(
-          constraints: BoxConstraints(
-              maxWidth: (7 * MediaQuery.of(context).size.width) / 8,
-              minWidth: 10.0),
-          padding: EdgeInsets.symmetric(horizontal: 13, vertical: 8),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(9),
-            color: isSentByMe
-                ? themeFlag ? Colors.grey[800] : Hexcolor("#dea38e")
-                : themeFlag ? Hexcolor("#22272B") : Colors.grey[700],
-          ),
-          child: Linkify(
-                    onOpen: (link) async {
-                        if (await canLaunch(link.url)) {
-                            await launch(link.url);
-                          } else {
-                             Toast.show("Could not launch $link", context,
-                                      duration: Toast.LENGTH_SHORT, gravity: Toast.BOTTOM);
-                          }
-                      },
-                text: message,
-                textAlign: isSentByMe ? TextAlign.right : TextAlign.left,
-                linkStyle: TextStyle(color: themeFlag ? Hexcolor("#42A2F5") : Hexcolor("#2D8CFF") ),
-                style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 17,
-                    fontFamily: 'GoogleSans')),
-          ),
+        constraints: BoxConstraints(
+            maxWidth: (7 * MediaQuery.of(context).size.width) / 8,
+            minWidth: 10.0),
+        padding: EdgeInsets.symmetric(horizontal: 13, vertical: 8),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(9),
+          color: isSentByMe
+              ? themeFlag
+                  ? Colors.grey[800]
+                  : Hexcolor("#dea38e")
+              : themeFlag
+                  ? Hexcolor("#22272B")
+                  : Colors.grey[700],
+        ),
+        child: Linkify(
+            onOpen: (link) async {
+              if (await canLaunch(link.url)) {
+                await launch(link.url);
+              } else {
+                Toast.show("Could not launch $link", context,
+                    duration: Toast.LENGTH_SHORT, gravity: Toast.BOTTOM);
+              }
+            },
+            text: message,
+            textAlign: isSentByMe ? TextAlign.right : TextAlign.left,
+            linkStyle: TextStyle(
+                color: themeFlag ? Hexcolor("#42A2F5") : Hexcolor("#2D8CFF")),
+            style: TextStyle(
+                color: Colors.white, fontSize: 17, fontFamily: 'GoogleSans')),
+      ),
     );
   }
 }

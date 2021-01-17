@@ -19,9 +19,9 @@ class DataBaseService {
       List languages,
       bool hosteller,
       String post,
+      String token,
       String dpurl,
-      List<dynamic> peerID
-      ) async {
+      List<dynamic> peerID) async {
     return await userCollection.document(uid).setData({
       'name': name,
       'year': year,
@@ -36,8 +36,22 @@ class DataBaseService {
       'languages': languages,
       'post': post,
       'peerID': peerID,
+      'token': token,
       'photoURL': dpurl
     });
+  }
+
+  saveUserToken(token) async {
+    // Firestore.instance.collection("Users").getDocuments();
+    await Firestore.instance
+        .document('/Users/${this.uid}')
+        .updateData({
+          'token': token,
+        })
+        .then((val) {})
+        .catchError((e) {
+          print(e);
+        });
   }
 
   getEvents() async {
@@ -48,6 +62,10 @@ class DataBaseService {
     return await Firestore.instance.collection(collectionName).getDocuments();
   }
 
+  getPeerToken(String userID) async {
+    return await Firestore.instance.collection("Users").document(userID).get();
+  }
+
   getUserData() async {
     return await Firestore.instance
         .collection("Users")
@@ -55,27 +73,32 @@ class DataBaseService {
         .get();
   }
 
-  getConversationMessages(String chatRoomID)async {
-    return await Firestore.instance.collection("ChatRoom")
-    .document(chatRoomID)
-    .collection("chats")
-    .orderBy("time",descending: false)
-    .snapshots();
+  getConversationMessages(String chatRoomID) async {
+    return await Firestore.instance
+        .collection("ChatRoom")
+        .document(chatRoomID)
+        .collection("chats")
+        .orderBy("time", descending: false)
+        .snapshots();
   }
 
-  createChatRoom(String chatRoomID,chatRoomMap){
-    Firestore.instance.collection("ChatRoom").document(chatRoomID)
-      .setData(chatRoomMap).catchError((e){
-        print(e.toString());
-      });
+  createChatRoom(String chatRoomID, chatRoomMap) {
+    Firestore.instance
+        .collection("ChatRoom")
+        .document(chatRoomID)
+        .setData(chatRoomMap)
+        .catchError((e) {
+      print(e.toString());
+    });
   }
 
-  addConversationMessage(String chatRoomID,messageMap){
-    Firestore.instance.collection("ChatRoom")
-    .document(chatRoomID)
-    .collection("chats")
-    .add(messageMap)
-    .catchError((e){
+  addConversationMessage(String chatRoomID, messageMap) {
+    Firestore.instance
+        .collection("ChatRoom")
+        .document(chatRoomID)
+        .collection("chats")
+        .add(messageMap)
+        .catchError((e) {
       print(e.toString());
     });
   }
@@ -90,19 +113,18 @@ class DataBaseService {
         .collection(collectionName)
         .add(resourceMap)
         .catchError((e) {
-          print(e.toString());
+      print(e.toString());
     });
   }
 
-  Future<dynamic> getUserFromID(String userID) async{
-    dynamic doc=await Firestore.instance.collection("Users").document(userID).get();
-    var data=await doc.data;
-    Map<String,String> rv={
-      "name":data["name"],
-      "profilePic":data["photoURL"]
+  Future<dynamic> getUserFromID(String userID) async {
+    dynamic doc =
+        await Firestore.instance.collection("Users").document(userID).get();
+    var data = await doc.data;
+    Map<String, String> rv = {
+      "name": data["name"],
+      "profilePic": data["photoURL"]
     };
     return rv;
   }
 }
-
-

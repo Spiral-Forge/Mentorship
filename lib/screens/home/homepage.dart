@@ -80,7 +80,7 @@ class _HomePageState extends State<HomePage> {
                       ),
                       SizedBox(
                         height: 200,
-                      )
+                      ),
                     ]);
                   } else {
                     return Container(width: 350, child: eventlist[index - 1]);

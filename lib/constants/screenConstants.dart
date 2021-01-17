@@ -21,8 +21,28 @@ class ScreenConstants {
       "value": "BlockChain",
     },
     {
+      "display": "AR/VR",
+      "value": "AR/VR",
+    },
+    {
+      "display": "Game Development",
+      "value": "Game Development",
+    },
+    {
+      "display": "Cloud Engineering",
+      "value": "Cloud Engineering",
+    },
+    {
       "display": "Competitive Programming",
       "value": "Competitive Programming",
+    },
+    {
+      "display": "Cyber Security",
+      "value": "Cyber Security",
+    },
+    {
+      "display": "Open Source",
+      "value": "Open Source",
     },
     {
       "display": "No Preference",

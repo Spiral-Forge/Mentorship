@@ -7,6 +7,7 @@ import 'package:dbapp/shared/loading.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:toast/toast.dart';
 
 class SignIn extends StatefulWidget {
@@ -18,6 +19,7 @@ class SignIn extends StatefulWidget {
 
 class _SignInState extends State<SignIn> with SingleTickerProviderStateMixin {
   final AuthService _auth = AuthService();
+  final FirebaseMessaging _firebaseMessaging = FirebaseMessaging();
   final _formKey = GlobalKey<FormState>();
   bool loading = false;
   AnimationController _iconAnimationController;
@@ -224,11 +226,13 @@ class _SignInState extends State<SignIn> with SingleTickerProviderStateMixin {
                                   ),
                                   onPressed: () async {
                                     if (_formKey.currentState.validate()) {
+                                      var token =
+                                          await _firebaseMessaging.getToken();
                                       setState(() {
                                         loading = true;
                                       });
-                                      dynamic result =
-                                          await _auth.signin(email, password);
+                                      dynamic result = await _auth.signin(
+                                          email, password, token);
                                       if (result.runtimeType ==
                                           PlatformException) {
                                         setState(() {
