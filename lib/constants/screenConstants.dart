@@ -55,7 +55,9 @@ class ScreenConstants {
     "College",
     "Machine Learning",
     "Open-Source",
-    "Competitive Coding"
+    "Competitive Coding",
+    "Blogs and Articles",
+    "Miscellaneous"
   ];
 
   static final Map<String, String> resourceFieldMap = {
