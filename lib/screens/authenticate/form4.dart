@@ -1,6 +1,7 @@
 import 'package:dbapp/blocs/values.dart';
 import 'package:dbapp/constants/colors.dart';
 import 'package:dbapp/constants/screenConstants.dart';
+import 'package:dbapp/screens/home/home.dart';
 import 'package:dbapp/screens/wrapper.dart';
 import 'package:dbapp/services/auth.dart';
 import 'package:flutter/material.dart';
@@ -75,7 +76,7 @@ class _RegisterForm4State extends State<RegisterForm4> {
       Navigator.pushAndRemoveUntil(
         context,
         MaterialPageRoute(
-          builder: (BuildContext context) => Wrapper(),
+          builder: (BuildContext context) => Home(),
         ),
         (route) => false,
       );

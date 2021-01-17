@@ -90,8 +90,9 @@ class AuthService {
     }
   }
 
-  Future signOut() async {
+  Future signOut(String uid) async {
     try {
+      await DataBaseService(uid: uid).unsaveUserToken();
       return await _auth.signOut();
     } catch (e) {
       return null;
