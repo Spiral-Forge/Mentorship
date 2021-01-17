@@ -84,7 +84,8 @@ class _SignInState extends State<SignIn> with SingleTickerProviderStateMixin {
                                   validator: (val) =>
                                       val.isEmpty ? 'Enter an email' : null,
                                   onChanged: (val) {
-                                    setState(() => email = val);
+                                    setState(
+                                        () => email = val.replaceAll(" ", ""));
                                   }),
                               SizedBox(height: 20.0),
                               TextField(
