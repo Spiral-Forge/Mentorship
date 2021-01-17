@@ -48,7 +48,7 @@ class _RegisterForm3State extends State<RegisterForm3> {
     ListItem(1, "First"),
     ListItem(2, "Second"),
     ListItem(3, "Third"),
-    ListItem(4,"Fourth")
+    ListItem(4, "Fourth")
   ];
 
   List<DropdownMenuItem<ListItem>> _dropdownBranchItems;
@@ -67,11 +67,7 @@ class _RegisterForm3State extends State<RegisterForm3> {
   void initState() {
     super.initState();
     _dropdownYearItems = buildDropDownMenuItems(_dropdownYear);
-    _selectedYear = _dropdownYear[0];
-    year = _selectedYear.name;
     _dropdownBranchItems = buildDropDownMenuItems(_dropdownBranch);
-    _selectedBranch = _dropdownBranch[0];
-    branch = _selectedBranch.name;
     rollNo = '';
   }
 
@@ -144,14 +140,26 @@ class _RegisterForm3State extends State<RegisterForm3> {
                                                 color: Hexcolor('#959595')),
                                           ),
                                           DropdownButton<ListItem>(
-                                              value: _selectedBranch,
+                                              hint: Padding(
+                                                padding:
+                                                    const EdgeInsets.fromLTRB(
+                                                        12.0, 0, 16, 0),
+                                                child: Text(
+                                                  "Pick your branch",
+                                                  style: TextStyle(
+                                                      color:
+                                                          Hexcolor('#a9a9a9')),
+                                                ),
+                                              ),
                                               items: _dropdownBranchItems,
                                               onChanged: (value) {
                                                 setState(() {
                                                   _selectedBranch = value;
                                                   branch = value.name;
                                                 });
-                                              }),
+                                              },
+                                              value: _selectedBranch,
+                                              isExpanded: false),
                                           new Divider(
                                               height: 10,
                                               color: Colors.transparent),
@@ -163,14 +171,26 @@ class _RegisterForm3State extends State<RegisterForm3> {
                                                 color: Hexcolor('#959595')),
                                           ),
                                           DropdownButton<ListItem>(
-                                              value: _selectedYear,
+                                              hint: Padding(
+                                                padding:
+                                                    const EdgeInsets.fromLTRB(
+                                                        12.0, 0, 16, 0),
+                                                child: Text(
+                                                  "Current year of study",
+                                                  style: TextStyle(
+                                                      color:
+                                                          Hexcolor('#a9a9a9')),
+                                                ),
+                                              ),
                                               items: _dropdownYearItems,
                                               onChanged: (value) {
                                                 setState(() {
                                                   _selectedYear = value;
                                                   year = value.name;
                                                 });
-                                              }),
+                                              },
+                                              value: _selectedYear,
+                                              isExpanded: false),
                                           new Divider(
                                             height: 10,
                                             color: Colors.transparent,
@@ -249,7 +269,6 @@ class _RegisterForm3State extends State<RegisterForm3> {
                                           new Divider(
                                               height: 35.0,
                                               color: Colors.transparent),
-                                          
                                           Row(
                                               mainAxisAlignment:
                                                   MainAxisAlignment.spaceEvenly,

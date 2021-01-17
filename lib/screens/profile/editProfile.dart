@@ -1,5 +1,6 @@
 import 'package:dbapp/blocs/values.dart';
 import 'package:dbapp/constants/colors.dart';
+import 'package:dbapp/screens/authenticate/form1.dart';
 import 'package:dbapp/shared/loading.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -119,10 +120,19 @@ class _RegistrationFormState extends State<RegistrationForm> {
     ListItem(4, "Fourth")
   ];
 
+  List<ListItem> _dropdownLang = [
+    ListItem(1, "C++"),
+    ListItem(2, "Java"),
+    ListItem(3, "Python"),
+    ListItem(4, "No preference")
+  ];
+
   List<DropdownMenuItem<ListItem>> _dropdownBranchItems;
   ListItem _selectedBranch;
   List<DropdownMenuItem<ListItem>> _dropdownYearItems;
   ListItem _selectedYear;
+  List<DropdownMenuItem<ListItem>> _dropdownLangItems;
+  ListItem _selectedLang;
 
   List<DropdownMenuItem<ListItem>> buildDropDownMenuItems(List listItems) {
     List<DropdownMenuItem<ListItem>> items = List();
@@ -149,6 +159,7 @@ class _RegistrationFormState extends State<RegistrationForm> {
 
     _dropdownYearItems = buildDropDownMenuItems(_dropdownYear);
     _dropdownBranchItems = buildDropDownMenuItems(_dropdownBranch);
+    _dropdownLangItems = buildDropDownMenuItems(_dropdownLang);
 
     _dropdownBranch.forEach((element) {
       if (element.name == userInfo['branch']) {
@@ -161,8 +172,17 @@ class _RegistrationFormState extends State<RegistrationForm> {
         _selectedYear = element;
       }
     });
+
+    // _dropdownLang.forEach((element) {
+    //   if (element.name == userInfo['languages']) {
+    //     _selectedLang = element;
+    //   }
+    // });
+
     branch = _selectedBranch.name;
     year = _selectedYear.name;
+    _selectedLang = userInfo['languages'];
+    // languages = _selectedLang.name;
 
     if (userInfo['hosteller']) {
       _hostellerValue = 0;
@@ -478,32 +498,82 @@ class _RegistrationFormState extends State<RegistrationForm> {
                           fontSize: 13,
                           color: Hexcolor("#959595"))),
                   Container(
-                    padding: EdgeInsets.all(6),
-                    child: MultiSelectFormField(
-                      fillColor:
-                          themeFlag ? Colors.grey[700] : Colors.transparent,
-                      autovalidate: false,
-                      titleText: 'Select languages',
-                      validator: (value) {
-                        if (value == null || value.length == 0) {
-                          return 'Please select one or more options';
-                        }
-                      },
-                      dataSource: ScreenConstants.registerLanguageData,
-                      textField: 'display',
-                      valueField: 'value',
-                      okButtonLabel: 'OK',
-                      cancelButtonLabel: 'CANCEL',
-                      hintText: '',
-                      initialValue: languages,
-                      onSaved: (value) {
-                        if (value == null) return;
-                        setState(() {
-                          languages = value;
-                        });
-                      },
-                    ),
-                  ),
+                      padding: EdgeInsets.all(6),
+                      child: userMap['post'] == 'Mentee'
+                          ? Container(
+                              child: DropdownButton<ListItem>(
+                                  hint: Padding(
+                                    padding: const EdgeInsets.fromLTRB(
+                                        12.0, 0, 16, 0),
+                                    child: Text(
+                                      "Pick your language",
+                                      style:
+                                          TextStyle(color: Hexcolor('#a9a9a9')),
+                                    ),
+                                  ),
+                                  items: _dropdownLangItems,
+                                  onChanged: (val) {
+                                    setState(() {
+                                      _selectedLang = val;
+                                      languages = [];
+                                      languages.add(val.name);
+                                    });
+                                  },
+                                  // value: _selectedLang,
+                                  isExpanded: false))
+                          : Container(
+                              child: MultiSelectFormField(
+                                fillColor: themeFlag
+                                    ? Colors.grey[700]
+                                    : Colors.transparent,
+                                autovalidate: false,
+                                titleText: 'Languages',
+                                validator: (value) {
+                                  if (value == null || value.length == 0) {
+                                    return 'Please select one or more options';
+                                  }
+                                },
+                                dataSource:
+                                    ScreenConstants.registerLanguageData,
+                                textField: 'display',
+                                valueField: 'value',
+                                okButtonLabel: 'OK',
+                                cancelButtonLabel: 'CANCEL',
+                                hintText: 'Choose one or more',
+                                initialValue: languages,
+                                onSaved: (value) {
+                                  if (value == null) return;
+                                  setState(() {
+                                    languages = value;
+                                  });
+                                },
+                              ),
+                            )),
+                  //   MultiSelectFormField(
+                  //     fillColor:
+                  //         themeFlag ? Colors.grey[700] : Colors.transparent,
+                  //     autovalidate: false,
+                  //     titleText: 'Select languages',
+                  //     validator: (value) {
+                  //       if (value == null || value.length == 0) {
+                  //         return 'Please select one or more options';
+                  //       }
+                  //     },
+                  //     dataSource: ScreenConstants.registerLanguageData,
+                  //     textField: 'display',
+                  //     valueField: 'value',
+                  //     okButtonLabel: 'OK',
+                  //     cancelButtonLabel: 'CANCEL',
+                  //     hintText: '',
+                  //     initialValue: languages,
+                  //     onSaved: (value) {
+                  //       if (value == null) return;
+                  //       setState(() {
+                  //         languages = value;
+                  //       });
+                  //     },
+                  //   ),
+                  // ),
                   Divider(
                     height: 20,
                     color: Colors.transparent,
