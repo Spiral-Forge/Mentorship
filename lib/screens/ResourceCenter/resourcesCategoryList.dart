@@ -168,7 +168,40 @@ class _ResourceCategoryListState extends State<ResourceCategoryList> {
                                           child: ResourceCategoryTile(
                                               "Open-Source",
                                               "assets/images/opensrc.png"))
-                                    ]),
+                                    ]
+                                  ),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: <Widget>[
+                                      GestureDetector(
+                                          onTap: () {
+                                            Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                    builder: (context) => ResourceList(
+                                                        "Blogs and Articles",
+                                                        fieldMap[
+                                                            "Blogs and Articles"])));
+                                          },
+                                          child: ResourceCategoryTile(
+                                              "Blogs and Articles",
+                                              "assets/images/blogs.png")),
+                                      GestureDetector(
+                                          onTap: () {
+                                            Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        ResourceList(
+                                                            "Miscellaneous Resources",
+                                                            fieldMap[
+                                                                "Miscellaneous"])));
+                                          },
+                                          child: ResourceCategoryTile(
+                                              "Miscellaneous",
+                                              "assets/images/other.png"))
+                                    ]
+                                  ),
                                 SizedBox(height: 40),
                               ])),
                         ]),
