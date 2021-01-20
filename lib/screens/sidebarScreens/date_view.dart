@@ -45,7 +45,12 @@ class _DateViewState extends State<DateView> {
 
   void getDeadlines() async {
     var tempMap = await DataBaseService().mapDeadlines();
-    _events = decodeMap(tempMap);
+    setState(() {
+      _events = decodeMap(tempMap);
+    });
+
+    print("events are");
+    print(_events);
   }
 
   void getPost() async {

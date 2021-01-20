@@ -162,17 +162,21 @@ class DataBaseService {
     });
     Map<String, List<dynamic>> mapped = {};
 
-    p.documents.forEach((date) async {
-      print(date.documentID.toString());
-      var events = await getTodaysDeadlines(date.documentID.toString());
+    for (int i = 0; i < p.documents.length; i++) {
+      print(p.documents[i].documentID.toString());
+      var events =
+          await getTodaysDeadlines(p.documents[i].documentID.toString());
       print("CHECKK");
       print(events.documents[0].data);
       List<dynamic> pairs = [];
       events.documents.forEach((ev) {
         pairs.add({ev.data["Title"], ev.data["Link"]});
       });
-      mapped[date.documentID.toString()] = pairs;
-    });
+      mapped[p.documents[i].documentID.toString()] = pairs;
+    }
+    // await p.documents.forEach((date) async {
+
+    // });
     print("Inside of mapping");
     print(mapped);
     return mapped;
