@@ -13,13 +13,53 @@ class ChatRoomList extends StatefulWidget {
 }
 
 class _ChatRoomListState extends State<ChatRoomList> {
-  Widget roomList() {
-    return ListView.builder(
-        itemCount: widget.peerList.length,
-        itemBuilder: (context, index) {
-          return ChatRoomTile(widget.userID, widget.peerList[index]);
-        });
+  Stream chatRooms;
+  @override
+  void initState() {
+    getUserInfogetChats();
+    super.initState();
   }
+
+  getUserInfogetChats() async {
+    DataBaseService().getUserPeers(widget.userID).then((snapshots) {
+      print("snapshots received");
+      setState(() {
+        chatRooms = snapshots;
+        print("we got the data + ${chatRooms.toString()}");
+      });
+    });
+  }
+
+  Widget roomList() {
+    //print(chatRooms.length);
+    return StreamBuilder(
+      stream: chatRooms,
+      builder: (context, snapshot) {
+        print(snapshot.hasData);
+        if (snapshot.hasData) {
+          print("snapshot data");
+          print(snapshot.data.data["peerID"]);
+        }
+        return snapshot.hasData
+            ? ListView.builder(
+                itemCount: snapshot.data.data["peerID"].length,
+                shrinkWrap: true,
+                itemBuilder: (context, index) {
+                  return ChatRoomTile(
+                      widget.userID, snapshot.data.data["peerID"][index]);
+                })
+            : Container();
+      },
+    );
+  }
+
+  // Widget roomList() {
+  //   return ListView.builder(
+  //       itemCount: widget.peerList.length,
+  //       itemBuilder: (context, index) {
+  //         return ChatRoomTile(widget.userID, widget.peerList[index]);
+  //       });
+  // }
 
   @override
   Widget build(BuildContext context) {

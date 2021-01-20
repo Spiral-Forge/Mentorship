@@ -53,6 +53,18 @@ class DataBaseService {
         });
   }
 
+  unsaveUserToken() async {
+    await Firestore.instance
+        .document('/Users/${this.uid}')
+        .updateData({
+          'token': '',
+        })
+        .then((val) {})
+        .catchError((e) {
+          print(e);
+        });
+  }
+
   getEvents() async {
     return await Firestore.instance.collection("Events").getDocuments();
   }
@@ -139,6 +151,17 @@ class DataBaseService {
         .catchError((e) {
       print(e.toString());
     });
+  
+  getUserPeers(String userid) async {
+    print("user id" + userid);
+
+    var result = await Firestore.instance
+        .collection("Users")
+        .document(userid)
+        .snapshots();
+    print("result");
+    print(result);
+    return result;
   }
 
   Future<dynamic> getUserFromID(String userID) async {

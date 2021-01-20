@@ -1,6 +1,7 @@
 import 'package:dbapp/blocs/values.dart';
 import 'package:dbapp/constants/colors.dart';
 import 'package:dbapp/constants/screenConstants.dart';
+import 'package:dbapp/screens/home/home.dart';
 import 'package:dbapp/screens/wrapper.dart';
 import 'package:dbapp/services/auth.dart';
 import 'package:flutter/material.dart';
@@ -9,6 +10,7 @@ import 'package:flutter/services.dart';
 import 'package:multiselect_formfield/multiselect_formfield.dart';
 import 'package:provider/provider.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:hexcolor/hexcolor.dart';
 
 List domains;
 List languages;
@@ -45,6 +47,7 @@ class _RegisterForm4State extends State<RegisterForm4> {
   String error = '';
   bool loading = false;
 
+  
   void saveData() async {
     var token = await _firebaseMessaging.getToken();
     setState(() {
@@ -75,19 +78,43 @@ class _RegisterForm4State extends State<RegisterForm4> {
       Navigator.pushAndRemoveUntil(
         context,
         MaterialPageRoute(
-          builder: (BuildContext context) => Wrapper(),
+          builder: (BuildContext context) => Home(),
         ),
         (route) => false,
       );
     }
   }
 
+  List<ListItem> _dropdownLang = [
+    ListItem(1, "C++"),
+    ListItem(2, "Java"),
+    ListItem(3, "Python"),
+    ListItem(4, "No preference")
+  ];
+
+  List<DropdownMenuItem<ListItem>> _dropdownLangItems;
+  ListItem _selectedLang;
+
   void initState() {
     super.initState();
     domains = [];
+    _dropdownLangItems = buildDropDownMenuItems(_dropdownLang);
     languages = [];
     linkedinURL = '';
     githubURL = '';
+  }
+
+  List<DropdownMenuItem<ListItem>> buildDropDownMenuItems(List listItems) {
+    List<DropdownMenuItem<ListItem>> items = List();
+    for (ListItem listItem in listItems) {
+      items.add(
+        DropdownMenuItem(
+          child: Text(listItem.name),
+          value: listItem,
+        ),
+      );
+    }
+    return items;
   }
 
   @override
@@ -183,37 +210,75 @@ class _RegisterForm4State extends State<RegisterForm4> {
                                             ),
                                           ),
                                           new Divider(
-                                              height: 10,
+                                              height: 15,
                                               color: Colors.transparent),
-                                          Container(
-                                            child: MultiSelectFormField(
-                                              fillColor: themeFlag
-                                                  ? Colors.grey[700]
-                                                  : Colors.transparent,
-                                              autovalidate: false,
-                                              titleText: 'Languages',
-                                              validator: (value) {
-                                                if (value == null ||
-                                                    value.length == 0) {
-                                                  return 'Please select one or more options';
-                                                }
-                                              },
-                                              dataSource: ScreenConstants
-                                                  .registerLanguageData,
-                                              textField: 'display',
-                                              valueField: 'value',
-                                              okButtonLabel: 'OK',
-                                              cancelButtonLabel: 'CANCEL',
-                                              hintText: 'Choose one or more',
-                                              initialValue: languages,
-                                              onSaved: (value) {
-                                                if (value == null) return;
-                                                setState(() {
-                                                  languages = value;
-                                                });
-                                              },
-                                            ),
+                                          Text(
+                                            "Select your language",
+                                            style: TextStyle(
+                                                fontFamily: 'GoogleSans',
+                                                fontSize: 13,
+                                                color: Hexcolor('#959595')),
                                           ),
+                                          new Divider(
+                                              height: 5,
+                                              color: Colors.transparent),
+                                          userMap['post'] == 'Mentee'
+                                              ? Container(
+                                                  child: DropdownButton<
+                                                          ListItem>(
+                                                      hint: Padding(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                    .fromLTRB(
+                                                                12.0, 0, 16, 0),
+                                                        child: Text(
+                                                          "Pick your language",
+                                                          style: TextStyle(
+                                                              color: Hexcolor(
+                                                                  '#a9a9a9')),
+                                                        ),
+                                                      ),
+                                                      items: _dropdownLangItems,
+                                                      onChanged: (value) {
+                                                        setState(() {
+                                                          _selectedLang = value;
+                                                          languages = [];
+                                                          languages
+                                                              .add(value.name);
+                                                        });
+                                                      },
+                                                      value: _selectedLang,
+                                                      isExpanded: false))
+                                              : Container(
+                                                  child: MultiSelectFormField(
+                                                    fillColor: themeFlag
+                                                        ? Colors.grey[700]
+                                                        : Colors.transparent,
+                                                    autovalidate: false,
+                                                    titleText: 'Languages',
+                                                    validator: (value) {
+                                                      if (value == null ||
+                                                          value.length == 0) {
+                                                        return 'Please select one or more options';
+                                                      }
+                                                    },
+                                                    dataSource: ScreenConstants
+                                                        .registerLanguageData,
+                                                    textField: 'display',
+                                                    valueField: 'value',
+                                                    okButtonLabel: 'OK',
+                                                    cancelButtonLabel: 'CANCEL',
+                                                    hintText:
+                                                        'Choose one or more',
+                                                    initialValue: languages,
+                                                    onSaved: (value) {
+                                                      if (value == null) return;
+                                                      setState(() {
+                                                        languages = value;
+                                                      });
+                                                    },
+                                                  ),
+                                                ),
                                           new Divider(
                                               height: 10,
                                               color: Colors.transparent),
@@ -224,6 +289,7 @@ class _RegisterForm4State extends State<RegisterForm4> {
                                               decoration: const InputDecoration(
                                                 labelStyle: TextStyle(
                                                     color: Colors.grey,
+                                                    fontSize: 13,
                                                     fontFamily: 'GoogleSans'),
                                                 enabledBorder:
                                                     UnderlineInputBorder(
@@ -253,6 +319,7 @@ class _RegisterForm4State extends State<RegisterForm4> {
                                               decoration: const InputDecoration(
                                                 labelStyle: TextStyle(
                                                     color: Colors.grey,
+                                                    fontSize: 13,
                                                     fontFamily: 'GoogleSans'),
                                                 enabledBorder:
                                                     UnderlineInputBorder(
@@ -308,7 +375,7 @@ class _RegisterForm4State extends State<RegisterForm4> {
                                                           });
                                                         }
                                                       },
-                                                      child: Text('Next',
+                                                      child: Text('Submit',
                                                           style: TextStyle(
                                                               color:
                                                                   Colors.white,

@@ -21,8 +21,28 @@ class ScreenConstants {
       "value": "BlockChain",
     },
     {
+      "display": "AR/VR",
+      "value": "AR/VR",
+    },
+    {
+      "display": "Game Development",
+      "value": "Game Development",
+    },
+    {
+      "display": "Cloud Engineering",
+      "value": "Cloud Engineering",
+    },
+    {
       "display": "Competitive Programming",
       "value": "Competitive Programming",
+    },
+    {
+      "display": "Cyber Security",
+      "value": "Cyber Security",
+    },
+    {
+      "display": "Open Source",
+      "value": "Open Source",
     },
     {
       "display": "No Preference",
@@ -55,7 +75,9 @@ class ScreenConstants {
     "College",
     "Machine Learning",
     "Open-Source",
-    "Competitive Coding"
+    "Competitive Coding",
+    "Blogs and Articles",
+    "Miscellaneous"
   ];
 
   static final Map<String, String> resourceFieldMap = {
@@ -64,6 +86,8 @@ class ScreenConstants {
     "College": "College",
     "Machine Learning": "ML",
     "Open-Source": "OpenSource",
-    "Competitive Coding": "CompCoding"
+    "Competitive Coding": "CompCoding",
+    "Blogs and Articles" : "BlogsArticles",
+    "Miscellaneous" : "Misc"
   };
 }

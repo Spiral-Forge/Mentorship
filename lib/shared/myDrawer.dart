@@ -1,4 +1,6 @@
+import 'package:dbapp/screens/authenticate/authenticate.dart';
 import 'package:dbapp/services/storage.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:dbapp/services/auth.dart';
 import 'package:provider/provider.dart';
@@ -30,6 +32,7 @@ class _myDrawerState extends State<myDrawer> {
   @override
   Widget build(BuildContext context) {
     final AuthService _auth = AuthService();
+    final user = Provider.of<FirebaseUser>(context);
     return new Drawer(
       child: new ListView(
         children: <Widget>[
@@ -146,7 +149,14 @@ class _myDrawerState extends State<myDrawer> {
               ),
               trailing: new Icon(Icons.call_made),
               onTap: () async {
-                await _auth.signOut();
+                await _auth.signOut(user.uid);
+                Navigator.pushAndRemoveUntil(
+                  context,
+                  MaterialPageRoute(
+                    builder: (BuildContext context) => Authenticate(),
+                  ),
+                  (route) => false,
+                );
               }),
           new Divider(),
         ],

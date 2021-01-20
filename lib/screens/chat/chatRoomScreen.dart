@@ -118,7 +118,6 @@ class _ConversationScreenState extends State<ConversationScreen> {
       };
       await databaseMethods.addConversationMessage(chatRoomId, messageMap);
       await sendAndRetrieveMessage(token, messageController.text);
-      messageController.text = '';
     }
   }
 
@@ -137,7 +136,7 @@ class _ConversationScreenState extends State<ConversationScreen> {
         <String, dynamic>{
           'notification': <String, dynamic>{
             'body': msg,
-            'title': 'FlutterCloudMessage'
+            'title': widget.peerName
           },
           'priority': 'high',
           'data': <String, dynamic>{
@@ -149,7 +148,7 @@ class _ConversationScreenState extends State<ConversationScreen> {
         },
       ),
     );
-
+    messageController.text = '';
     print("inside mid of send and retrive func");
 
     final Completer<Map<String, dynamic>> completer =

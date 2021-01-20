@@ -248,12 +248,14 @@ class EventTile extends StatelessWidget {
                                   alignment: Alignment.center,
                                   child: Icon(Icons.location_on, size: 16),
                                 ),
-                                Padding(
-                                    padding: EdgeInsets.fromLTRB(8, 0, 0, 5),
-                                    child: Text(venue,
-                                        style: TextStyle(
-                                            fontFamily: 'GoogleSans',
-                                            fontSize: 16))),
+                                Expanded(
+                                  child: Padding(
+                                      padding: EdgeInsets.fromLTRB(8, 0, 0, 5),
+                                      child: Text(venue,
+                                          style: TextStyle(
+                                              fontFamily: 'GoogleSans',
+                                              fontSize: 16))),
+                                ),
                               ],
                             ),
                           ]),
