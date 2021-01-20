@@ -151,16 +151,13 @@ class DataBaseService {
         .catchError((e) {
       print(e.toString());
     });
-  
-  getUserPeers(String userid) async {
-    print("user id" + userid);
+  }
 
+  getUserPeers(String userid) async {
     var result = await Firestore.instance
         .collection("Users")
         .document(userid)
         .snapshots();
-    print("result");
-    print(result);
     return result;
   }
 
@@ -181,13 +178,11 @@ class DataBaseService {
     Map<DateTime, List<dynamic>> mapped = {};
     if (p.documents.length == null) return mapped;
     for (int i = 0; i < p.documents.length; i++) {
-      print(p.documents[i].documentID.toString());
       var events =
           await getTodaysDeadlines(p.documents[i].documentID.toString());
       List<dynamic> pairs = [];
       events.documents.forEach((ev) {
         pairs.add([ev.data["Title"], ev.data["Link"]]);
-        // pairs.add({"Title": ev.data["Title"], "Link": ev.data["Link"]});
       });
       String key = p.documents[i].documentID.toString();
       mapped[DateTime.parse(key)] = pairs;

@@ -2,7 +2,6 @@ import 'package:dbapp/blocs/values.dart';
 import 'package:dbapp/constants/colors.dart';
 import 'package:dbapp/constants/screenConstants.dart';
 import 'package:dbapp/screens/home/home.dart';
-import 'package:dbapp/screens/wrapper.dart';
 import 'package:dbapp/services/auth.dart';
 import 'package:flutter/material.dart';
 import 'package:dbapp/shared/loading.dart';
@@ -42,12 +41,9 @@ class _RegisterForm4State extends State<RegisterForm4> {
   final _formKey4 = GlobalKey<FormState>();
   final FirebaseMessaging _firebaseMessaging = FirebaseMessaging();
 
-  //form fields
-
   String error = '';
   bool loading = false;
 
-  
   void saveData() async {
     var token = await _firebaseMessaging.getToken();
     setState(() {

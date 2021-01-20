@@ -302,19 +302,20 @@ class _PeerProfileState extends State<PeerProfile> {
                                                 }
                                               },
                                               child: Text(
-                                                user["linkedInURL"] == null ||
-                                                        user["linkedInURL"]
-                                                                .length ==
-                                                            0
-                                                    ? " - "
-                                                    : user["linkedInURL"],
-                                                style: GoogleFonts.lato(
-                                                  textStyle:  TextStyle(
-                                              fontFamily: 'GoogleSans',
-                                              fontSize: 14,
-                                              decoration: TextDecoration.underline
-                                                  ))
-                                              ),
+                                                  user["linkedInURL"] == null ||
+                                                          user["linkedInURL"]
+                                                                  .length ==
+                                                              0
+                                                      ? " - "
+                                                      : user["linkedInURL"],
+                                                  style: GoogleFonts.lato(
+                                                      textStyle: TextStyle(
+                                                          fontFamily:
+                                                              'GoogleSans',
+                                                          fontSize: 14,
+                                                          decoration:
+                                                              TextDecoration
+                                                                  .underline))),
                                             ),
                                             leading: Icon(
                                               Icons.code,
@@ -333,27 +334,30 @@ class _PeerProfileState extends State<PeerProfile> {
                                                     fontSize: 18),
                                               ),
                                               subtitle: GestureDetector(
-                                                onTap: () {
-                                                  if (user["githubURL"] !=
-                                                          null &&
-                                                      user["githubURL"]
-                                                              .length !=
-                                                          0) {
-                                                    launch(user["githubURL"]);
-                                                  }
-                                                },
-                                                child: Text(
-                                                    user["githubURL"] == null ||
-                                                            user["githubURL"]
-                                                                    .length ==
-                                                                0
-                                                        ? " - "
-                                                        : user["githubURL"],
-                                                    style: TextStyle(
-                                              fontFamily: 'GoogleSans',
-                                              fontSize: 14,
-                                              decoration: TextDecoration.underline
-                                            ))),
+                                                  onTap: () {
+                                                    if (user["githubURL"] !=
+                                                            null &&
+                                                        user["githubURL"]
+                                                                .length !=
+                                                            0) {
+                                                      launch(user["githubURL"]);
+                                                    }
+                                                  },
+                                                  child: Text(
+                                                      user["githubURL"] ==
+                                                                  null ||
+                                                              user["githubURL"]
+                                                                      .length ==
+                                                                  0
+                                                          ? " - "
+                                                          : user["githubURL"],
+                                                      style: TextStyle(
+                                                          fontFamily:
+                                                              'GoogleSans',
+                                                          fontSize: 14,
+                                                          decoration:
+                                                              TextDecoration
+                                                                  .underline))),
                                               leading: Icon(
                                                 Icons.code,
                                                 color:

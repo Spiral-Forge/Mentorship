@@ -34,7 +34,6 @@ class RegisterForm1 extends StatefulWidget {
 }
 
 class _RegisterForm1State extends State<RegisterForm1> {
-  // final AuthService _auth = AuthService();
   final _formKey1 = GlobalKey<FormState>();
 
   String error = '';

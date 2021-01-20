@@ -168,9 +168,8 @@ class _ResourceCategoryListState extends State<ResourceCategoryList> {
                                           child: ResourceCategoryTile(
                                               "Open-Source",
                                               "assets/images/opensrc.png"))
-                                    ]
-                                  ),
-                                  Row(
+                                    ]),
+                                Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: <Widget>[
                                       GestureDetector(
@@ -178,10 +177,11 @@ class _ResourceCategoryListState extends State<ResourceCategoryList> {
                                             Navigator.push(
                                                 context,
                                                 MaterialPageRoute(
-                                                    builder: (context) => ResourceList(
-                                                        "Blogs and Articles",
-                                                        fieldMap[
-                                                            "Blogs and Articles"])));
+                                                    builder: (context) =>
+                                                        ResourceList(
+                                                            "Blogs and Articles",
+                                                            fieldMap[
+                                                                "Blogs and Articles"])));
                                           },
                                           child: ResourceCategoryTile(
                                               "Blogs and Articles",
@@ -191,17 +191,15 @@ class _ResourceCategoryListState extends State<ResourceCategoryList> {
                                             Navigator.push(
                                                 context,
                                                 MaterialPageRoute(
-                                                    builder: (context) =>
-                                                        ResourceList(
-                                                            "Miscellaneous Resources",
-                                                            fieldMap[
-                                                                "Miscellaneous"])));
+                                                    builder: (context) => ResourceList(
+                                                        "Miscellaneous Resources",
+                                                        fieldMap[
+                                                            "Miscellaneous"])));
                                           },
                                           child: ResourceCategoryTile(
                                               "Miscellaneous",
                                               "assets/images/other.png"))
-                                    ]
-                                  ),
+                                    ]),
                                 SizedBox(height: 40),
                               ])),
                         ]),

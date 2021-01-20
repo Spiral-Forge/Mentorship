@@ -65,8 +65,6 @@ class _ConversationScreenState extends State<ConversationScreen> {
     await databaseMethods.createChatRoom(chatRoomID, chatRoomMap);
     var messageList = await databaseMethods.getConversationMessages(chatRoomID);
     var peerData = await databaseMethods.getPeerToken(widget.peerID);
-    print("peerdata is");
-    print(peerData.data["token"]);
     setState(() {
       chatMessageStream = messageList;
       token = peerData.data["token"];
@@ -86,7 +84,7 @@ class _ConversationScreenState extends State<ConversationScreen> {
         duration: Duration(milliseconds: 100), curve: Curves.ease);
   }
 
-  Widget ChatMessageList() {
+  Widget chatMessageList() {
     return StreamBuilder(
       stream: chatMessageStream,
       builder: (context, snapshot) {
@@ -110,7 +108,6 @@ class _ConversationScreenState extends State<ConversationScreen> {
 
   sendMessage() async {
     if (messageController.text.isNotEmpty) {
-      print("coming here");
       Map<String, dynamic> messageMap = {
         "message": messageController.text,
         "sentBy": widget.userID,
@@ -123,8 +120,6 @@ class _ConversationScreenState extends State<ConversationScreen> {
 
   Future<Map<String, dynamic>> sendAndRetrieveMessage(
       String token, String msg) async {
-    print("inside send and retrive func and token is " + token);
-    print("inside send and retrive func and msg is " + msg);
     var serverToken = Keys.serverKey;
     await http.post(
       'https://fcm.googleapis.com/fcm/send',
@@ -149,7 +144,6 @@ class _ConversationScreenState extends State<ConversationScreen> {
       ),
     );
     messageController.text = '';
-    print("inside mid of send and retrive func");
 
     final Completer<Map<String, dynamic>> completer =
         Completer<Map<String, dynamic>>();
@@ -159,7 +153,6 @@ class _ConversationScreenState extends State<ConversationScreen> {
         completer.complete(message);
       },
     );
-    print("just before returning");
     return completer.future;
   }
 
@@ -218,7 +211,7 @@ class _ConversationScreenState extends State<ConversationScreen> {
             children: <Widget>[
               Padding(
                 padding: const EdgeInsets.only(bottom: 72, top: 8),
-                child: ChatMessageList(),
+                child: chatMessageList(),
               ),
               Container(
                 alignment: Alignment.bottomCenter,
@@ -282,7 +275,6 @@ class MessageTile extends StatelessWidget {
       padding: EdgeInsets.only(
           left: isSentByMe ? 0 : 10, right: isSentByMe ? 10 : 0),
       margin: EdgeInsets.symmetric(vertical: 2),
-      // width: MediaQuery.of(context).size.width,
       alignment: isSentByMe ? Alignment.centerRight : Alignment.centerLeft,
       child: Container(
         constraints: BoxConstraints(
@@ -292,12 +284,8 @@ class MessageTile extends StatelessWidget {
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(9),
           color: isSentByMe
-              ? themeFlag
-                  ? Colors.grey[800]
-                  : Hexcolor("#dea38e")
-              : themeFlag
-                  ? Hexcolor("#22272B")
-                  : Colors.grey[700],
+              ? themeFlag ? Colors.grey[800] : Hexcolor("#dea38e")
+              : themeFlag ? Hexcolor("#22272B") : Colors.grey[700],
         ),
         child: Linkify(
             onOpen: (link) async {

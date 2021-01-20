@@ -37,9 +37,6 @@ class _DateViewState extends State<DateView> {
     setState(() {
       _events = tempMap;
     });
-
-    print("events are");
-    print(_events);
   }
 
   void getPost() async {
@@ -140,7 +137,6 @@ class _DateViewState extends State<DateView> {
                                     style: TextStyle(color: Colors.white),
                                   ),
                                   onPressed: () async {
-                                    print(_controller.selectedDay);
                                     DataBaseService().addDeadline(
                                         _controller.selectedDay,
                                         _eventController.text,
@@ -189,14 +185,10 @@ class _DateViewState extends State<DateView> {
                               events: _events,
                               headerStyle: HeaderStyle(),
                               onDaySelected: (date, events, hols) {
-                                print(date);
                                 setState(() {
-                                  print(_events[date]);
                                   _events[date] == null
                                       ? _selectedEvents = []
                                       : _selectedEvents = _events[date];
-                                  print("Today's events:");
-                                  print(_selectedEvents);
                                 });
                               },
                               calendarStyle: CalendarStyle(
