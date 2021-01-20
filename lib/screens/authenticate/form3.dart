@@ -37,10 +37,11 @@ class _RegisterForm3State extends State<RegisterForm3> {
   List<ListItem> _dropdownBranch = [
     ListItem(1, "CSE-1"),
     ListItem(2, "CSE-2"),
-    ListItem(3, "IT-1"),
-    ListItem(4, "IT-2"),
-    ListItem(5, "ECE"),
-    ListItem(6, "MAE"),
+    ListItem(3, "CSAI"),
+    ListItem(4, "IT-1"),
+    ListItem(5, "IT-2"),
+    ListItem(6, "ECE"),
+    ListItem(7, "MAE"),
     ListItem(7, "BBA"),
     ListItem(8, "B.Arch")
   ];
