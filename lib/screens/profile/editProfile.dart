@@ -105,10 +105,11 @@ class _RegistrationFormState extends State<RegistrationForm> {
   List<ListItem> _dropdownBranch = [
     ListItem(1, "CSE-1"),
     ListItem(2, "CSE-2"),
-    ListItem(3, "IT-1"),
-    ListItem(4, "IT-2"),
-    ListItem(5, "ECE"),
-    ListItem(6, "MAE"),
+    ListItem(3, "CSAI"),
+    ListItem(4, "IT-1"),
+    ListItem(5, "IT-2"),
+    ListItem(6, "ECE"),
+    ListItem(7, "MAE"),
     ListItem(7, "BBA"),
     ListItem(8, "B.Arch")
   ];
@@ -145,60 +146,6 @@ class _RegistrationFormState extends State<RegistrationForm> {
       );
     }
     return items;
-  }
-
-  void initState() {
-    super.initState();
-    name = userInfo['name'];
-    phoneNo = userInfo['contact'];
-    rollNo = userInfo['rollNo'];
-    githubUrl = userInfo['githubURL'];
-    linkedInUrl = userInfo['linkedInURL'];
-    domains = userInfo['domains'];
-    languages = userInfo['languages'];
-
-    _dropdownYearItems = buildDropDownMenuItems(_dropdownYear);
-    _dropdownBranchItems = buildDropDownMenuItems(_dropdownBranch);
-    _dropdownLangItems = buildDropDownMenuItems(_dropdownLang);
-
-    _dropdownBranch.forEach((element) {
-      if (element.name == userInfo['branch']) {
-        _selectedBranch = element;
-      }
-    });
-
-    _dropdownYear.forEach((element) {
-      if (element.name == userInfo['year']) {
-        _selectedYear = element;
-      }
-    });
-
-    // _dropdownLang.forEach((element) {
-    //   if (element.name == userInfo['languages']) {
-    //     _selectedLang = element;
-    //   }
-    // });
-
-    branch = _selectedBranch.name;
-    year = _selectedYear.name;
-    _selectedLang = userInfo['languages'];
-    // languages = _selectedLang.name;
-
-    if (userInfo['hosteller']) {
-      _hostellerValue = 0;
-    } else {
-      _hostellerValue = 1;
-    }
-    setState(() {
-      loading = false;
-    });
-  }
-
-  void _handleHostellerValue(int value) {
-    setState(() {
-      _hostellerValue = value;
-      hosteller = _hostellerValue == 0;
-    });
   }
 
   void updateData() async {
@@ -238,6 +185,63 @@ class _RegistrationFormState extends State<RegistrationForm> {
         userInfo['photoUrl'],
         userInfo['peerID']);
     await StorageServices.saveUserInfo(userMap);
+  }
+
+  void initState() {
+    super.initState();
+    name = userInfo['name'];
+    phoneNo = userInfo['contact'];
+    rollNo = userInfo['rollNo'];
+    githubUrl = userInfo['githubURL'];
+    linkedInUrl = userInfo['linkedInURL'];
+    domains = userInfo['domains'];
+
+    _dropdownYearItems = buildDropDownMenuItems(_dropdownYear);
+    _dropdownBranchItems = buildDropDownMenuItems(_dropdownBranch);
+    _dropdownLangItems = buildDropDownMenuItems(_dropdownLang);
+
+    _dropdownBranch.forEach((element) {
+      if (element.name == userInfo['branch']) {
+        _selectedBranch = element;
+      }
+    });
+
+    _dropdownYear.forEach((element) {
+      if (element.name == userInfo['year']) {
+        _selectedYear = element;
+      }
+    });
+
+    if (userInfo['post'] == 'Mentee') {
+      _dropdownLang.forEach((element) {
+        if (element.name == userInfo['languages'][0]) {
+          _selectedLang = element;
+          languages.add(element);
+          //break;
+        }
+      });
+    } else {
+      languages = userInfo['languages'];
+    }
+
+    branch = _selectedBranch.name;
+    year = _selectedYear.name;
+
+    if (userInfo['hosteller']) {
+      _hostellerValue = 0;
+    } else {
+      _hostellerValue = 1;
+    }
+    setState(() {
+      loading = false;
+    });
+  }
+
+  void _handleHostellerValue(int value) {
+    setState(() {
+      _hostellerValue = value;
+      hosteller = _hostellerValue == 0;
+    });
   }
 
   @override
@@ -461,6 +465,10 @@ class _RegistrationFormState extends State<RegistrationForm> {
                           fontFamily: 'GoogleSans',
                           fontSize: 13,
                           color: Hexcolor("#959595"))),
+                  Divider(
+                    height: 10,
+                    color: Colors.transparent,
+                  ),
                   Container(
                     padding: EdgeInsets.all(4),
                     child: MultiSelectFormField(
@@ -497,20 +505,22 @@ class _RegistrationFormState extends State<RegistrationForm> {
                           fontFamily: 'GoogleSans',
                           fontSize: 13,
                           color: Hexcolor("#959595"))),
+                  Divider(
+                    height: 10,
+                    color: Colors.transparent,
+                  ),
                   Container(
-                      padding: EdgeInsets.all(6),
-                      child: userMap['post'] == 'Mentee'
+                      child: userInfo['post'] == 'Mentee'
                           ? Container(
+                              padding: EdgeInsets.fromLTRB(6, 0, 6, 0),
                               child: DropdownButton<ListItem>(
-                                  hint: Padding(
-                                    padding: const EdgeInsets.fromLTRB(
-                                        12.0, 0, 16, 0),
-                                    child: Text(
-                                      "Pick your language",
-                                      style:
-                                          TextStyle(color: Hexcolor('#a9a9a9')),
-                                    ),
+                                  style: TextStyle(
+                                    color: themeFlag
+                                        ? Colors.grey[300]
+                                        : Colors.grey[700],
+                                    fontFamily: 'GoogleSans',
                                   ),
+                                  value: _selectedLang,
                                   items: _dropdownLangItems,
                                   onChanged: (val) {
                                     setState(() {
@@ -519,9 +529,9 @@ class _RegistrationFormState extends State<RegistrationForm> {
                                       languages.add(val.name);
                                     });
                                   },
-                                  // value: _selectedLang,
                                   isExpanded: false))
                           : Container(
+                              padding: EdgeInsets.fromLTRB(6, 4, 6, 4),
                               child: MultiSelectFormField(
                                 fillColor: themeFlag
                                     ? Colors.grey[700]

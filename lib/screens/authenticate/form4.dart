@@ -47,16 +47,7 @@ class _RegisterForm4State extends State<RegisterForm4> {
   String error = '';
   bool loading = false;
 
-  List<ListItem> _dropdownLang = [
-    ListItem(1, "C++"),
-    ListItem(2, "Java"),
-    ListItem(3, "Python"),
-    ListItem(4, "No preference")
-  ];
-
-  List<DropdownMenuItem<ListItem>> _dropdownLangItems;
-  ListItem _selectedLang;
-
+  
   void saveData() async {
     var token = await _firebaseMessaging.getToken();
     setState(() {
@@ -93,6 +84,16 @@ class _RegisterForm4State extends State<RegisterForm4> {
       );
     }
   }
+
+  List<ListItem> _dropdownLang = [
+    ListItem(1, "C++"),
+    ListItem(2, "Java"),
+    ListItem(3, "Python"),
+    ListItem(4, "No preference")
+  ];
+
+  List<DropdownMenuItem<ListItem>> _dropdownLangItems;
+  ListItem _selectedLang;
 
   void initState() {
     super.initState();
@@ -209,7 +210,7 @@ class _RegisterForm4State extends State<RegisterForm4> {
                                             ),
                                           ),
                                           new Divider(
-                                              height: 10,
+                                              height: 15,
                                               color: Colors.transparent),
                                           Text(
                                             "Select your language",
@@ -218,6 +219,9 @@ class _RegisterForm4State extends State<RegisterForm4> {
                                                 fontSize: 13,
                                                 color: Hexcolor('#959595')),
                                           ),
+                                          new Divider(
+                                              height: 5,
+                                              color: Colors.transparent),
                                           userMap['post'] == 'Mentee'
                                               ? Container(
                                                   child: DropdownButton<
@@ -285,6 +289,7 @@ class _RegisterForm4State extends State<RegisterForm4> {
                                               decoration: const InputDecoration(
                                                 labelStyle: TextStyle(
                                                     color: Colors.grey,
+                                                    fontSize: 13,
                                                     fontFamily: 'GoogleSans'),
                                                 enabledBorder:
                                                     UnderlineInputBorder(
@@ -314,6 +319,7 @@ class _RegisterForm4State extends State<RegisterForm4> {
                                               decoration: const InputDecoration(
                                                 labelStyle: TextStyle(
                                                     color: Colors.grey,
+                                                    fontSize: 13,
                                                     fontFamily: 'GoogleSans'),
                                                 enabledBorder:
                                                     UnderlineInputBorder(
