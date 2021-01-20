@@ -7,6 +7,7 @@ import 'package:dbapp/screens/sidebarScreens/about.dart';
 import 'package:dbapp/screens/sidebarScreens/faqs.dart';
 import 'package:dbapp/screens/sidebarScreens/feedback.dart';
 import 'package:dbapp/screens/sidebarScreens/guidelines.dart';
+import 'package:dbapp/screens/sidebarScreens/date_view.dart';
 import 'package:dbapp/screens/profile/profile.dart';
 
 class myDrawer extends StatefulWidget {
@@ -28,7 +29,6 @@ class _myDrawerState extends State<myDrawer> {
 
   @override
   Widget build(BuildContext context) {
-
     final AuthService _auth = AuthService();
     return new Drawer(
       child: new ListView(
@@ -72,6 +72,17 @@ class _myDrawerState extends State<myDrawer> {
                 Navigator.of(context).pop();
                 Navigator.push(context,
                     MaterialPageRoute(builder: (context) => Guidelines()));
+              }),
+          new ListTile(
+              title: new Text(
+                "Deadlines",
+                style: TextStyle(fontFamily: 'GoogleSans', fontSize: 15),
+              ),
+              trailing: new Icon(Icons.arrow_right),
+              onTap: () {
+                Navigator.of(context).pop();
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => DateView()));
               }),
           new ListTile(
               title: new Text(
@@ -143,4 +154,3 @@ class _myDrawerState extends State<myDrawer> {
     );
   }
 }
-

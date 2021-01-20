@@ -62,6 +62,14 @@ class DataBaseService {
     return await Firestore.instance.collection(collectionName).getDocuments();
   }
 
+  getTodaysDeadlines(date) async {
+    return await Firestore.instance
+        .collection("Deadlines")
+        .document(date)
+        .collection("Listed")
+        .getDocuments();
+  }
+
   getPeerToken(String userID) async {
     return await Firestore.instance.collection("Users").document(userID).get();
   }
@@ -117,6 +125,23 @@ class DataBaseService {
     });
   }
 
+  void addDeadline(date, title, link) async {
+    Map<String, String> deadlineMap = {"Title": title, "Link": link};
+    await Firestore.instance
+        .collection("Deadlines")
+        .document(date.toIso8601String())
+        .setData({"data": date});
+    return await Firestore.instance
+        .collection("Deadlines")
+        .document(date.toIso8601String())
+        .collection("Listed")
+        .document()
+        .setData(deadlineMap)
+        .catchError((e) {
+      print(e.toString());
+    });
+  }
+
   Future<dynamic> getUserFromID(String userID) async {
     dynamic doc =
         await Firestore.instance.collection("Users").document(userID).get();
@@ -126,5 +151,30 @@ class DataBaseService {
       "profilePic": data["photoURL"]
     };
     return rv;
+  }
+
+  Future<Map<String, List<dynamic>>> mapDeadlines() async {
+    var p = await Firestore.instance.collection('Deadlines').getDocuments();
+    print("HEEEELLO");
+    print(p.documents.length);
+    p.documents.forEach((document) {
+      print(document.documentID);
+    });
+    Map<String, List<dynamic>> mapped = {};
+
+    p.documents.forEach((date) async {
+      print(date.documentID.toString());
+      var events = await getTodaysDeadlines(date.documentID.toString());
+      print("CHECKK");
+      print(events.documents[0].data);
+      List<dynamic> pairs = [];
+      events.documents.forEach((ev) {
+        pairs.add({ev.data["Title"], ev.data["Link"]});
+      });
+      mapped[date.documentID.toString()] = pairs;
+    });
+    print("Inside of mapping");
+    print(mapped);
+    return mapped;
   }
 }
