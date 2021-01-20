@@ -31,22 +31,11 @@ class _DateViewState extends State<DateView> {
     getPost();
   }
 
-  Map<DateTime, List<dynamic>> decodeMap(Map<String, List<dynamic>> map) {
-    print("HELLO?");
-    print(map);
-    Map<DateTime, List<dynamic>> newMap = {};
-    map.forEach((key, value) {
-      newMap[DateTime.parse(key)] = map[key];
-    });
-    print("IM HERE");
-    print(newMap);
-    return newMap;
-  }
-
   void getDeadlines() async {
-    var tempMap = await DataBaseService().mapDeadlines();
+    Map<DateTime, List<dynamic>> tempMap =
+        await DataBaseService().mapDeadlines();
     setState(() {
-      _events = decodeMap(tempMap);
+      _events = tempMap;
     });
 
     print("events are");
@@ -61,16 +50,8 @@ class _DateViewState extends State<DateView> {
     });
   }
 
-  Map<String, dynamic> encodeMap(Map<DateTime, dynamic> events) {
-    Map<String, dynamic> newMap = {};
-    events.forEach((key, value) {
-      newMap[key.toString()] = events[key];
-    });
-    return newMap;
-  }
-
   Widget deadlineList() {
-    return _selectedEvents.length == 0
+    return _selectedEvents.length == null || _selectedEvents.length == 0
         ? Align(
             alignment: Alignment.center,
             child: Container(
@@ -88,8 +69,8 @@ class _DateViewState extends State<DateView> {
                 scrollDirection: Axis.vertical,
                 itemCount: _selectedEvents.length,
                 itemBuilder: (context, index) {
-                  return ResourceTile(_selectedEvents[index].data["Title"],
-                      _selectedEvents[index].data["Link"]);
+                  return ResourceTile(
+                      _selectedEvents[index][0], _selectedEvents[index][1]);
                 },
               ),
             ),
@@ -99,68 +80,87 @@ class _DateViewState extends State<DateView> {
   @override
   Widget build(BuildContext context) {
     _showDialogue() {
-      showDialog(
+      showDialog<void>(
           context: context,
-          builder: (context) => AlertDialog(
-                  content: Column(children: [
-                    TextField(
-                      controller: _eventController,
-                      decoration: InputDecoration(
-                        icon: Icon(Icons.title),
-                        labelText: 'Title',
+          builder: (BuildContext context) {
+            return AlertDialog(content: StatefulBuilder(
+                builder: (BuildContext context, StateSetter setState) {
+              return Stack(overflow: Overflow.visible, children: <Widget>[
+                Positioned(
+                  right: -35.0,
+                  top: -35.0,
+                  child: InkResponse(
+                    onTap: () {
+                      Navigator.of(context).pop();
+                    },
+                    child: CircleAvatar(
+                      child: Icon(
+                        Icons.close,
+                        size: 15,
                       ),
+                      backgroundColor: AppColors.PROTEGE_GREY,
+                      foregroundColor: Colors.white,
+                      radius: 15,
                     ),
-                    TextField(
-                      controller: _linkController,
-                      decoration: InputDecoration(
-                        icon: Icon(Icons.link),
-                        labelText: 'Link',
+                  ),
+                ),
+                Form(
+                    child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: <Widget>[
+                      TextField(
+                        controller: _eventController,
+                        decoration: InputDecoration(
+                          icon: Icon(Icons.title),
+                          labelText: 'Title',
+                        ),
                       ),
-                    ),
-                  ]),
-                  actions: <Widget>[
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: RaisedButton(
-                          color: AppColors.COLOR_TEAL_LIGHT,
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10.0),
-                              side: BorderSide(
-                                color: AppColors.COLOR_TEAL_LIGHT,
-                              )),
-                          child: Text(
-                            "Submit",
-                            style: TextStyle(color: Colors.white),
-                          ),
-                          onPressed: () async {
-                            print(_controller.selectedDay);
-                            DataBaseService().addDeadline(
-                                _controller.selectedDay,
-                                _eventController.text,
-                                _linkController.text);
-                            _eventController.text = '';
-                            _linkController.text = '';
-                            Navigator.of(context).pop();
-                          }),
-                    ),
-                    FlatButton(
-                        onPressed: () {
-                          // if (_eventController.text.isEmpty) return;
-                          // setState(() {
-                          //   if (_events[_controller.selectedDay] != null) {
-                          //     _events[_controller.selectedDay]
-                          //         .add({_eventController.text, link});
-                          //   } else {
-                          //     _events[_controller.selectedDay] = [
-                          //       _eventController.text
-                          //     ];
-                          //   }
-                          //   _eventController.clear();
-                          Navigator.pop(context);
-                          // })
-                        },
-                        child: Text("Cancel"))
-                  ]));
+                      TextField(
+                        controller: _linkController,
+                        decoration: InputDecoration(
+                          icon: Icon(Icons.link),
+                          labelText: 'Link',
+                        ),
+                      ),
+                      Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: RaisedButton(
+                                  color: AppColors.COLOR_TEAL_LIGHT,
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(10.0),
+                                      side: BorderSide(
+                                        color: AppColors.COLOR_TEAL_LIGHT,
+                                      )),
+                                  child: Text(
+                                    "Submit",
+                                    style: TextStyle(color: Colors.white),
+                                  ),
+                                  onPressed: () async {
+                                    print(_controller.selectedDay);
+                                    DataBaseService().addDeadline(
+                                        _controller.selectedDay,
+                                        _eventController.text,
+                                        _linkController.text);
+                                    getDeadlines();
+                                    _eventController.text = '';
+                                    _linkController.text = '';
+                                    Navigator.of(context).pop();
+                                  }),
+                            ),
+                            FlatButton(
+                                onPressed: () {
+                                  Navigator.pop(context);
+                                },
+                                child: Text("Cancel"))
+                          ])
+                    ]))
+              ]);
+            }));
+          });
     }
 
     return Scaffold(
@@ -178,7 +178,6 @@ class _DateViewState extends State<DateView> {
                           Navigator.of(context).pop();
                         },
                       ),
-
                       SizedBox(height: 25),
                       Text("Don't Miss Deadlines!",
                           style: TextStyle(
@@ -192,21 +191,14 @@ class _DateViewState extends State<DateView> {
                               onDaySelected: (date, events, hols) {
                                 print(date);
                                 setState(() {
-                                  DataBaseService()
-                                      .getTodaysDeadlines(
-                                          date.toIso8601String())
-                                      .then((value) {
-                                    setState(() {
-                                      _selectedEvents = value.documents;
-                                    });
-                                  });
-                                  print("EVENTS:");
+                                  print(_events[date]);
+                                  _events[date] == null
+                                      ? _selectedEvents = []
+                                      : _selectedEvents = _events[date];
+                                  print("Today's events:");
                                   print(_selectedEvents);
                                 });
                               },
-                              // onDayLongPressed: (day, events, holidays) {
-                              //   print(day.toIso8601String());
-                              // },
                               calendarStyle: CalendarStyle(
                                   todayColor: AppColors.COLOR_TEAL_DARK),
                               builders: CalendarBuilders(
@@ -218,58 +210,9 @@ class _DateViewState extends State<DateView> {
                                               shape: BoxShape.circle),
                                           child: Text(date.day.toString()))),
                               calendarController: _controller)),
-
                       Expanded(
-                          child: SizedBox(height: 100.0, child: deadlineList()
-                              // ListView.builder(
-                              //     itemCount: _selectedEvents.length,
-                              //     itemBuilder: (context, index) {
-                              //       return ListTile(
-                              //           title: Text(
-                              //         _selectedEvents[index],
-                              //         style: TextStyle(color: Colors.black),
-                              //       ));
-                              //     })
-                              )),
-                      SizedBox(height: 25),
-                      // Expanded(
-                      //     child: SizedBox(
-                      //         height: 120.0,
-                      //         child: ListView(
-                      //             padding: const EdgeInsets.fromLTRB(
-                      //                 32, 0, 32, 0),
-                      //             children: <Widget>[
-                      //               _selectedEvents.map((e) => ListTile(
-                      //                 title: Text(e),
-                      //               ))
-
-                      //             )
-                      //             ]))),
-                      //   Expanded(
-                      //       child: SizedBox(
-                      //           height: 120.0,
-                      //           child: ListView(
-                      //               padding:
-                      //                   const EdgeInsets.fromLTRB(32, 0, 32, 0),
-                      //               children: <Widget>[
-                      //                 Center(child: Text("Title: ")),
-                      //                 Row(
-                      //                   mainAxisAlignment:
-                      //                       MainAxisAlignment.spaceEvenly,
-                      //                   children: [
-                      //                     Text("Start Date"),
-                      //                     Text("End Date")
-                      //                   ],
-                      //                 ),
-                      //                 Center(
-                      //                   child: RaisedButton(
-                      //                       child: Text("Dates"),
-                      //                       onPressed: () async {
-                      //                         // await dateRangePicker(context);
-                      //                       }),
-                      //                 )
-                      //               ])))
-                      // ])))
+                          child:
+                              SizedBox(height: 150.0, child: deadlineList())),
                     ])))
       ]),
       floatingActionButton: post == 'Mentor'

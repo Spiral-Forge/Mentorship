@@ -42,7 +42,6 @@ class DataBaseService {
   }
 
   saveUserToken(token) async {
-    // Firestore.instance.collection("Users").getDocuments();
     await Firestore.instance
         .document('/Users/${this.uid}')
         .updateData({
@@ -153,32 +152,24 @@ class DataBaseService {
     return rv;
   }
 
-  Future<Map<String, List<dynamic>>> mapDeadlines() async {
+  Future<Map<DateTime, List<dynamic>>> mapDeadlines() async {
     var p = await Firestore.instance.collection('Deadlines').getDocuments();
-    print("HEEEELLO");
-    print(p.documents.length);
-    p.documents.forEach((document) {
-      print(document.documentID);
-    });
-    Map<String, List<dynamic>> mapped = {};
 
+    Map<DateTime, List<dynamic>> mapped = {};
+    if (p.documents.length == null) return mapped;
     for (int i = 0; i < p.documents.length; i++) {
       print(p.documents[i].documentID.toString());
       var events =
           await getTodaysDeadlines(p.documents[i].documentID.toString());
-      print("CHECKK");
-      print(events.documents[0].data);
       List<dynamic> pairs = [];
       events.documents.forEach((ev) {
-        pairs.add({ev.data["Title"], ev.data["Link"]});
+        pairs.add([ev.data["Title"], ev.data["Link"]]);
+        // pairs.add({"Title": ev.data["Title"], "Link": ev.data["Link"]});
       });
-      mapped[p.documents[i].documentID.toString()] = pairs;
+      String key = p.documents[i].documentID.toString();
+      mapped[DateTime.parse(key)] = pairs;
     }
-    // await p.documents.forEach((date) async {
 
-    // });
-    print("Inside of mapping");
-    print(mapped);
     return mapped;
   }
 }
