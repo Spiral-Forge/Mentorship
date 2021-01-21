@@ -34,7 +34,7 @@ class _ResourceListState extends State<ResourceList> {
         ? Align(
             alignment: Alignment.center,
             child: Container(
-              padding: EdgeInsets.only(top:20.0),
+              padding: EdgeInsets.only(top: 20.0),
               child: Text(
                 "No resources available yet",
                 style: TextStyle(fontFamily: 'GoogleSans', fontSize: 18),

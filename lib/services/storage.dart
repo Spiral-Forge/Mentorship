@@ -34,7 +34,7 @@ class StorageServices {
 
   static Future<bool> saveProfileURL(String url) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    var obj = await prefs.getString(sharedPreferenceUserInfoKey);
+    var obj = prefs.getString(sharedPreferenceUserInfoKey);
     var parsedObj = json.decode(obj);
     parsedObj['photoURL'] = url;
     return await prefs.setString(
@@ -54,7 +54,7 @@ class StorageServices {
 
   static Future<Map<String, dynamic>> getUserInfo() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    String user = await prefs.getString(sharedPreferenceUserInfoKey);
+    String user = prefs.getString(sharedPreferenceUserInfoKey);
     Map<String, dynamic> userinfo = json.decode(user);
     return userinfo;
   }

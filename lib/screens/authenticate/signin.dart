@@ -1,5 +1,6 @@
 import 'package:dbapp/blocs/values.dart';
 import 'package:dbapp/constants/colors.dart';
+import 'package:dbapp/screens/home/home.dart';
 import 'package:dbapp/services/auth.dart';
 import 'package:dbapp/shared/styles.dart';
 import 'package:flutter/material.dart';
@@ -86,7 +87,8 @@ class _SignInState extends State<SignIn> with SingleTickerProviderStateMixin {
                                   validator: (val) =>
                                       val.isEmpty ? 'Enter an email' : null,
                                   onChanged: (val) {
-                                    setState(() => email = val);
+                                    setState(
+                                        () => email = val.replaceAll(" ", ""));
                                   }),
                               SizedBox(height: 20.0),
                               TextField(
@@ -238,6 +240,15 @@ class _SignInState extends State<SignIn> with SingleTickerProviderStateMixin {
                                           error = result.message.toString();
                                           loading = false;
                                         });
+                                      } else {
+                                        Navigator.pushAndRemoveUntil(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (BuildContext context) =>
+                                                Home(),
+                                          ),
+                                          (route) => false,
+                                        );
                                       }
                                     }
                                   },

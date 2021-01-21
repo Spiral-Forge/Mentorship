@@ -17,11 +17,12 @@ class ProfileService {
       await Firestore.instance
           .document('/Users/${docs.documents[0].documentID}')
           .updateData({
-        'photoURL': url,
-      }).then((val) {
-      }).catchError((e) {
-        print(e);
-      });
+            'photoURL': url,
+          })
+          .then((val) {})
+          .catchError((e) {
+            print(e);
+          });
     }).catchError((e) {
       print(e);
     });

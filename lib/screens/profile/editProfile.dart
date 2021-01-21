@@ -170,6 +170,7 @@ class _RegistrationFormState extends State<RegistrationForm> {
       'photoURL': userInfo['photoURL'],
       'peerID': userInfo['peerID']
     };
+    
     dynamic result = await DataBaseService(uid: user.uid).updateUserData(
         name,
         phoneNo,
@@ -578,31 +579,6 @@ class _RegistrationFormState extends State<RegistrationForm> {
                                 },
                               ),
                             )),
-                  //   MultiSelectFormField(
-                  //     fillColor:
-                  //         themeFlag ? Colors.grey[700] : Colors.transparent,
-                  //     autovalidate: false,
-                  //     titleText: 'Select languages',
-                  //     validator: (value) {
-                  //       if (value == null || value.length == 0) {
-                  //         return 'Please select one or more options';
-                  //       }
-                  //     },
-                  //     dataSource: ScreenConstants.registerLanguageData,
-                  //     textField: 'display',
-                  //     valueField: 'value',
-                  //     okButtonLabel: 'OK',
-                  //     cancelButtonLabel: 'CANCEL',
-                  //     hintText: '',
-                  //     initialValue: languages,
-                  //     onSaved: (value) {
-                  //       if (value == null) return;
-                  //       setState(() {
-                  //         languages = value;
-                  //       });
-                  //     },
-                  //   ),
-                  // ),
                   Divider(
                     height: 20,
                     color: Colors.transparent,

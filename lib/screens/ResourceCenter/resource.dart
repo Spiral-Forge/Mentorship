@@ -42,13 +42,16 @@ class ResourceTile extends StatelessWidget {
                                         style:
                                             new TextStyle(color: Colors.blue),
                                         recognizer: new TapGestureRecognizer()
-                                          ..onTap = () async{
+                                          ..onTap = () async {
                                             if (await canLaunch(link)) {
-                                                await launch(link);
-                                              } else {
-                                                 Toast.show("Could not launch $link", context,
-                                      duration: Toast.LENGTH_SHORT, gravity: Toast.BOTTOM);
-                                              }
+                                              await launch(link);
+                                            } else {
+                                              Toast.show(
+                                                  "Could not launch $link",
+                                                  context,
+                                                  duration: Toast.LENGTH_SHORT,
+                                                  gravity: Toast.BOTTOM);
+                                            }
                                           },
                                       ),
                                     ],

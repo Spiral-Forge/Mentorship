@@ -44,11 +44,22 @@ class DataBaseService {
   }
 
   saveUserToken(token) async {
-    // Firestore.instance.collection("Users").getDocuments();
     await Firestore.instance
         .document('/Users/${this.uid}')
         .updateData({
           'token': token,
+        })
+        .then((val) {})
+        .catchError((e) {
+          print(e);
+        });
+  }
+
+  unsaveUserToken() async {
+    await Firestore.instance
+        .document('/Users/${this.uid}')
+        .updateData({
+          'token': '',
         })
         .then((val) {})
         .catchError((e) {
@@ -62,6 +73,14 @@ class DataBaseService {
 
   getCurrentCollectionData(collectionName) async {
     return await Firestore.instance.collection(collectionName).getDocuments();
+  }
+
+  getTodaysDeadlines(date) async {
+    return await Firestore.instance
+        .collection("Deadlines")
+        .document(date)
+        .collection("Listed")
+        .getDocuments();
   }
 
   getPeerToken(String userID) async {
@@ -119,6 +138,31 @@ class DataBaseService {
     });
   }
 
+  void addDeadline(date, title, link) async {
+    Map<String, String> deadlineMap = {"Title": title, "Link": link};
+    await Firestore.instance
+        .collection("Deadlines")
+        .document(date.toIso8601String())
+        .setData({"data": date});
+    return await Firestore.instance
+        .collection("Deadlines")
+        .document(date.toIso8601String())
+        .collection("Listed")
+        .document()
+        .setData(deadlineMap)
+        .catchError((e) {
+      print(e.toString());
+    });
+  }
+
+  getUserPeers(String userid) async {
+    var result = await Firestore.instance
+        .collection("Users")
+        .document(userid)
+        .snapshots();
+    return result;
+  }
+
   Future<dynamic> getUserFromID(String userID) async {
     dynamic doc =
         await Firestore.instance.collection("Users").document(userID).get();
@@ -128,5 +172,24 @@ class DataBaseService {
       "profilePic": data["photoURL"]
     };
     return rv;
+  }
+
+  Future<Map<DateTime, List<dynamic>>> mapDeadlines() async {
+    var p = await Firestore.instance.collection('Deadlines').getDocuments();
+
+    Map<DateTime, List<dynamic>> mapped = {};
+    if (p.documents.length == null) return mapped;
+    for (int i = 0; i < p.documents.length; i++) {
+      var events =
+          await getTodaysDeadlines(p.documents[i].documentID.toString());
+      List<dynamic> pairs = [];
+      events.documents.forEach((ev) {
+        pairs.add([ev.data["Title"], ev.data["Link"]]);
+      });
+      String key = p.documents[i].documentID.toString();
+      mapped[DateTime.parse(key)] = pairs;
+    }
+
+    return mapped;
   }
 }

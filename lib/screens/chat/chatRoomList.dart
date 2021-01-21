@@ -1,4 +1,3 @@
-import 'package:dbapp/constants/colors.dart';
 import 'package:dbapp/screens/chat/chatRoomScreen.dart';
 import 'package:dbapp/shared/myDrawer.dart';
 import 'package:dbapp/services/database.dart';
@@ -13,12 +12,36 @@ class ChatRoomList extends StatefulWidget {
 }
 
 class _ChatRoomListState extends State<ChatRoomList> {
+  Stream chatRooms;
+  @override
+  void initState() {
+    getUserInfogetChats();
+    super.initState();
+  }
+
+  getUserInfogetChats() async {
+    DataBaseService().getUserPeers(widget.userID).then((snapshots) {
+      setState(() {
+        chatRooms = snapshots;
+      });
+    });
+  }
+
   Widget roomList() {
-    return ListView.builder(
-        itemCount: widget.peerList.length,
-        itemBuilder: (context, index) {
-          return ChatRoomTile(widget.userID, widget.peerList[index]);
-        });
+    return StreamBuilder(
+      stream: chatRooms,
+      builder: (context, snapshot) {
+        return snapshot.hasData
+            ? ListView.builder(
+                itemCount: snapshot.data.data["peerID"].length,
+                shrinkWrap: true,
+                itemBuilder: (context, index) {
+                  return ChatRoomTile(
+                      widget.userID, snapshot.data.data["peerID"][index]);
+                })
+            : Container();
+      },
+    );
   }
 
   @override
