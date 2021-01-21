@@ -22,7 +22,8 @@ Map<String, dynamic> userMap = {
   'domains': [],
   'languages': [],
   'hosteller': '',
-  'post': ''
+  'post': '',
+  'cohort': ''
 };
 
 class RegisterForm1 extends StatefulWidget {
