@@ -43,6 +43,7 @@ class AuthService {
       List languages,
       bool hosteller,
       String post,
+      String cohort,
       String token) async {
     try {
       AuthResult result = await _auth.createUserWithEmailAndPassword(
@@ -63,6 +64,7 @@ class AuthService {
           languages,
           hosteller,
           post,
+          cohort,
           token,
           null, []);
       Map<String, dynamic> userlist = {
@@ -78,6 +80,7 @@ class AuthService {
         'languages': languages,
         'hosteller': hosteller,
         'post': post,
+        'cohort': cohort,
         'token': token,
         "peerID": [],
         'photoURL': null

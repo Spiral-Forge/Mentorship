@@ -200,8 +200,9 @@ class _RegisterForm3State extends State<RegisterForm3> {
                                               keyboardType:
                                                   TextInputType.number,
                                               style:
-                                                  TextStyle(color: Colors.grey),
+                                                  TextStyle(color: Colors.white),
                                               decoration: const InputDecoration(
+                                                
                                                 labelStyle: TextStyle(
                                                     color: Colors.grey,
                                                     fontFamily: 'GoogleSans'),
@@ -238,7 +239,8 @@ class _RegisterForm3State extends State<RegisterForm3> {
                                                 : "Do you want your mentor to be a hosteller?",
                                             style: TextStyle(
                                               fontFamily: 'GoogleSans',
-                                              fontSize: 15,
+                                              fontSize: 13,
+                                              color: Colors.grey
                                             ),
                                           ),
                                           new Row(children: <Widget>[

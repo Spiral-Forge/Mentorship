@@ -1,6 +1,5 @@
 import 'package:dbapp/blocs/values.dart';
 import 'package:dbapp/constants/colors.dart';
-import 'package:dbapp/screens/authenticate/form1.dart';
 import 'package:dbapp/shared/loading.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -21,6 +20,7 @@ String linkedInUrl = '';
 List domains = [];
 List languages = [];
 bool hosteller = false;
+String cohort = '';
 
 class ListItem {
   int value;
@@ -100,6 +100,7 @@ class _RegistrationFormState extends State<RegistrationForm> {
   @override
   final _formKey = GlobalKey<FormState>();
   int _hostellerValue = -1;
+  int _cohortValue = -1;
   bool loading = true;
 
   List<ListItem> _dropdownBranch = [
@@ -164,6 +165,7 @@ class _RegistrationFormState extends State<RegistrationForm> {
       'languages': languages,
       'hosteller': hosteller,
       'post': userInfo['post'],
+      'cohort': userInfo['cohort'],
       'token': userInfo['token'],
       'photoURL': userInfo['photoURL'],
       'peerID': userInfo['peerID']
@@ -181,6 +183,7 @@ class _RegistrationFormState extends State<RegistrationForm> {
         languages,
         hosteller,
         userInfo['post'],
+        userInfo['cohort'],
         userInfo['token'],
         userInfo['photoUrl'],
         userInfo['peerID']);
@@ -217,7 +220,6 @@ class _RegistrationFormState extends State<RegistrationForm> {
         if (element.name == userInfo['languages'][0]) {
           _selectedLang = element;
           languages.add(element);
-          //break;
         }
       });
     } else {
@@ -232,6 +234,12 @@ class _RegistrationFormState extends State<RegistrationForm> {
     } else {
       _hostellerValue = 1;
     }
+    if (userInfo['cohort'] == "Mentober") {
+      _cohortValue = 0;
+    } else {
+      _cohortValue = 1;
+    }
+
     setState(() {
       loading = false;
     });
@@ -241,6 +249,17 @@ class _RegistrationFormState extends State<RegistrationForm> {
     setState(() {
       _hostellerValue = value;
       hosteller = _hostellerValue == 0;
+    });
+  }
+
+  void _handleCohortValue(int value) {
+    setState(() {
+      _cohortValue = value;
+      if (_cohortValue == 0) {
+        userInfo['cohort'] = cohort = "Mentober";
+      } else {
+        userInfo['cohort'] = cohort = "January 2021";
+      }
     });
   }
 
@@ -606,6 +625,31 @@ class _RegistrationFormState extends State<RegistrationForm> {
                         groupValue: _hostellerValue,
                         onChanged: _handleHostellerValue),
                     new Text('No',
+                        style:
+                            TextStyle(fontFamily: 'GoogleSans', fontSize: 15)),
+                  ]),
+                  Divider(
+                    height: 25,
+                    color: Colors.transparent,
+                  ),
+                  Text('Cohort',
+                      style: TextStyle(
+                          fontFamily: 'GoogleSans',
+                          fontSize: 13,
+                          color: Hexcolor("#959595"))),
+                  new Row(children: <Widget>[
+                    new Radio(
+                        value: 0,
+                        groupValue: _cohortValue,
+                        onChanged: _handleCohortValue),
+                    new Text('Mentober',
+                        style:
+                            TextStyle(fontFamily: 'GoogleSans', fontSize: 15)),
+                    new Radio(
+                        value: 1,
+                        groupValue: _cohortValue,
+                        onChanged: _handleCohortValue),
+                    new Text('January 2021',
                         style:
                             TextStyle(fontFamily: 'GoogleSans', fontSize: 15)),
                   ]),

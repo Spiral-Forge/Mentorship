@@ -19,6 +19,7 @@ class DataBaseService {
       List languages,
       bool hosteller,
       String post,
+      String cohort,
       String token,
       String dpurl,
       List<dynamic> peerID) async {
@@ -35,6 +36,7 @@ class DataBaseService {
       'hosteller': hosteller,
       'languages': languages,
       'post': post,
+      'cohort': cohort,
       'peerID': peerID,
       'token': token,
       'photoURL': dpurl

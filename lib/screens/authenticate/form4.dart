@@ -15,6 +15,7 @@ List domains;
 List languages;
 String linkedinURL = '';
 String githubURL = '';
+String cohort='';
 
 class ListItem {
   int value;
@@ -67,6 +68,7 @@ class _RegisterForm4State extends State<RegisterForm4> {
         userMap['languages'],
         userMap['hosteller'],
         userMap['post'],
+        userMap['cohort'],
         userMap['token']);
     if (result.runtimeType == PlatformException) {
       setState(() {
@@ -93,6 +95,19 @@ class _RegisterForm4State extends State<RegisterForm4> {
 
   List<DropdownMenuItem<ListItem>> _dropdownLangItems;
   ListItem _selectedLang;
+
+  int _cohortValue = -1;
+  void _handleCohortValue(int value) {
+    setState(() {
+      _cohortValue = value;
+      if(_cohortValue==0){
+        cohort = "Mentober";
+      }
+      else{
+        cohort = "January 2021";
+      }
+    });
+  }
 
   void initState() {
     super.initState();
@@ -340,6 +355,44 @@ class _RegisterForm4State extends State<RegisterForm4> {
                                           new Divider(
                                               height: 35.0,
                                               color: Colors.transparent),
+                                              new Text("Which cohort are you applying for?",
+                                            style: TextStyle(
+                                              fontFamily: 'GoogleSans',
+                                              fontSize: 13,
+                                              color: Colors.grey
+                                            ),
+                                          ),
+                                          new Row(children: <Widget>[
+                                            new Radio(
+                                                value: 0,
+                                                groupValue: _cohortValue,
+                                                onChanged:
+                                                    _handleCohortValue),
+                                            new Text(
+                                              'Mentober',
+                                              style: TextStyle(
+                                                fontFamily: 'GoogleSans',
+                                                fontSize: 13,
+                                              color: Colors.grey
+                                              ),
+                                            ),
+                                            new Radio(
+                                                value: 1,
+                                                groupValue: _cohortValue,
+                                                onChanged:
+                                                    _handleCohortValue),
+                                            new Text(
+                                              'January 2021',
+                                              style: TextStyle(
+                                                fontFamily: 'GoogleSans',
+                                                fontSize: 13,
+                                              color: Colors.grey
+                                              ),
+                                            ),
+                                          ]),
+                                          new Divider(
+                                              height: 35.0,
+                                              color: Colors.transparent),
                                           Row(
                                               mainAxisAlignment:
                                                   MainAxisAlignment.spaceEvenly,
@@ -370,6 +423,7 @@ class _RegisterForm4State extends State<RegisterForm4> {
                                                                 linkedinURL;
                                                             userMap['githubURL'] =
                                                                 githubURL;
+                                                                userMap['cohort'] = cohort;
                                                             saveData();
                                                           });
                                                         }
