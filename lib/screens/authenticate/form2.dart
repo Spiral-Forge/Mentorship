@@ -179,7 +179,8 @@ class _RegisterForm2State extends State<RegisterForm2> {
                                               return null;
                                             },
                                             onChanged: (val) {
-                                              setState(() => email = val);
+                                              setState(() => email =
+                                                  val.replaceAll(" ", ""));
                                             }),
                                         TextFormField(
                                             style:

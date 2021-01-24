@@ -169,6 +169,37 @@ class _ResourceCategoryListState extends State<ResourceCategoryList> {
                                               "Open-Source",
                                               "assets/images/opensrc.png"))
                                     ]),
+                                Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: <Widget>[
+                                      GestureDetector(
+                                          onTap: () {
+                                            Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        ResourceList(
+                                                            "Blogs and Articles",
+                                                            fieldMap[
+                                                                "Blogs and Articles"])));
+                                          },
+                                          child: ResourceCategoryTile(
+                                              "Blogs and Articles",
+                                              "assets/images/blogs.png")),
+                                      GestureDetector(
+                                          onTap: () {
+                                            Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                    builder: (context) => ResourceList(
+                                                        "Miscellaneous Resources",
+                                                        fieldMap[
+                                                            "Miscellaneous"])));
+                                          },
+                                          child: ResourceCategoryTile(
+                                              "Miscellaneous",
+                                              "assets/images/other.png"))
+                                    ]),
                                 SizedBox(height: 40),
                               ])),
                         ]),
@@ -272,7 +303,11 @@ class _ResourceCategoryListState extends State<ResourceCategoryList> {
                                                 color:
                                                     AppColors.COLOR_TEAL_LIGHT,
                                               )),
-                                          child: Text("Submit",style: TextStyle(color:Colors.white),),
+                                          child: Text(
+                                            "Submit",
+                                            style:
+                                                TextStyle(color: Colors.white),
+                                          ),
                                           onPressed: () async {
                                             var result = await DataBaseService()
                                                 .addResource(
