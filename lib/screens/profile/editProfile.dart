@@ -257,8 +257,10 @@ class _RegistrationFormState extends State<RegistrationForm> {
       _cohortValue = value;
       if (_cohortValue == 0) {
         userInfo['cohort'] = cohort = "Mentober";
-      } else {
+      } else if (_cohortValue == 1) {
         userInfo['cohort'] = cohort = "January 2021";
+      } else {
+        userInfo['cohort'] = cohort = "Just looking around";
       }
     });
   }
@@ -637,21 +639,40 @@ class _RegistrationFormState extends State<RegistrationForm> {
                           fontFamily: 'GoogleSans',
                           fontSize: 13,
                           color: Hexcolor("#959595"))),
-                  new Row(children: <Widget>[
-                    new Radio(
-                        value: 0,
-                        groupValue: _cohortValue,
-                        onChanged: _handleCohortValue),
-                    new Text('Mentober',
-                        style:
-                            TextStyle(fontFamily: 'GoogleSans', fontSize: 15)),
-                    new Radio(
-                        value: 1,
-                        groupValue: _cohortValue,
-                        onChanged: _handleCohortValue),
-                    new Text('January 2021',
-                        style:
-                            TextStyle(fontFamily: 'GoogleSans', fontSize: 15)),
+                  new Column(children: <Widget>[
+                    Row(
+                      children: [
+                        new Radio(
+                            value: 0,
+                            groupValue: _cohortValue,
+                            onChanged: _handleCohortValue),
+                        new Text('Mentober',
+                            style: TextStyle(
+                                fontFamily: 'GoogleSans', fontSize: 15)),
+                      ],
+                    ),
+                    Row(
+                      children: [
+                        new Radio(
+                            value: 1,
+                            groupValue: _cohortValue,
+                            onChanged: _handleCohortValue),
+                        new Text('January 2021',
+                            style: TextStyle(
+                                fontFamily: 'GoogleSans', fontSize: 15)),
+                      ],
+                    ),
+                    Row(
+                      children: [
+                        new Radio(
+                            value: 2,
+                            groupValue: _cohortValue,
+                            onChanged: _handleCohortValue),
+                        new Text('Just looking around',
+                            style: TextStyle(
+                                fontFamily: 'GoogleSans', fontSize: 15)),
+                      ],
+                    ),
                   ]),
                   Divider(
                     height: 25,

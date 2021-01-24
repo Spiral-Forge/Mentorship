@@ -15,7 +15,7 @@ List domains;
 List languages;
 String linkedinURL = '';
 String githubURL = '';
-String cohort='';
+String cohort = '';
 
 class ListItem {
   int value;
@@ -47,7 +47,6 @@ class _RegisterForm4State extends State<RegisterForm4> {
   String error = '';
   bool loading = false;
 
-  
   void saveData() async {
     var token = await _firebaseMessaging.getToken();
     setState(() {
@@ -100,11 +99,12 @@ class _RegisterForm4State extends State<RegisterForm4> {
   void _handleCohortValue(int value) {
     setState(() {
       _cohortValue = value;
-      if(_cohortValue==0){
+      if (_cohortValue == 0) {
         cohort = "Mentober";
-      }
-      else{
+      } else if (_cohortValue == 1) {
         cohort = "January 2021";
+      } else {
+        cohort = "Just looking around";
       }
     });
   }
@@ -355,39 +355,61 @@ class _RegisterForm4State extends State<RegisterForm4> {
                                           new Divider(
                                               height: 35.0,
                                               color: Colors.transparent),
-                                              new Text("Which cohort are you applying for?",
+                                          new Text(
+                                            "Which cohort are you applying for?",
                                             style: TextStyle(
-                                              fontFamily: 'GoogleSans',
-                                              fontSize: 13,
-                                              color: Colors.grey
-                                            ),
+                                                fontFamily: 'GoogleSans',
+                                                fontSize: 13,
+                                                color: Colors.grey),
                                           ),
-                                          new Row(children: <Widget>[
-                                            new Radio(
-                                                value: 0,
-                                                groupValue: _cohortValue,
-                                                onChanged:
-                                                    _handleCohortValue),
-                                            new Text(
-                                              'Mentober',
-                                              style: TextStyle(
-                                                fontFamily: 'GoogleSans',
-                                                fontSize: 13,
-                                              color: Colors.grey
-                                              ),
+                                          new Column(children: <Widget>[
+                                            Row(
+                                              children: [
+                                                new Radio(
+                                                    value: 0,
+                                                    groupValue: _cohortValue,
+                                                    onChanged:
+                                                        _handleCohortValue),
+                                                new Text(
+                                                  'Mentober',
+                                                  style: TextStyle(
+                                                      fontFamily: 'GoogleSans',
+                                                      fontSize: 13,
+                                                      color: Colors.grey),
+                                                ),
+                                              ],
                                             ),
-                                            new Radio(
-                                                value: 1,
-                                                groupValue: _cohortValue,
-                                                onChanged:
-                                                    _handleCohortValue),
-                                            new Text(
-                                              'January 2021',
-                                              style: TextStyle(
-                                                fontFamily: 'GoogleSans',
-                                                fontSize: 13,
-                                              color: Colors.grey
-                                              ),
+                                            Row(
+                                              children: [
+                                                new Radio(
+                                                    value: 1,
+                                                    groupValue: _cohortValue,
+                                                    onChanged:
+                                                        _handleCohortValue),
+                                                new Text(
+                                                  'January 2021',
+                                                  style: TextStyle(
+                                                      fontFamily: 'GoogleSans',
+                                                      fontSize: 13,
+                                                      color: Colors.grey),
+                                                ),
+                                              ],
+                                            ),
+                                            Row(
+                                              children: [
+                                                new Radio(
+                                                    value: 2,
+                                                    groupValue: _cohortValue,
+                                                    onChanged:
+                                                        _handleCohortValue),
+                                                new Text(
+                                                  'Just looking around',
+                                                  style: TextStyle(
+                                                      fontFamily: 'GoogleSans',
+                                                      fontSize: 13,
+                                                      color: Colors.grey),
+                                                ),
+                                              ],
                                             ),
                                           ]),
                                           new Divider(
@@ -423,7 +445,8 @@ class _RegisterForm4State extends State<RegisterForm4> {
                                                                 linkedinURL;
                                                             userMap['githubURL'] =
                                                                 githubURL;
-                                                                userMap['cohort'] = cohort;
+                                                            userMap['cohort'] =
+                                                                cohort;
                                                             saveData();
                                                           });
                                                         }

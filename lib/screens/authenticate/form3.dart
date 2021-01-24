@@ -200,7 +200,7 @@ class _RegisterForm3State extends State<RegisterForm3> {
                                               keyboardType:
                                                   TextInputType.number,
                                               style:
-                                                  TextStyle(color: Colors.white),
+                                                  TextStyle(color: Colors.grey),
                                               decoration: const InputDecoration(
                                                 
                                                 labelStyle: TextStyle(
