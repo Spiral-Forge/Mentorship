@@ -52,6 +52,18 @@ class _ConversationScreenState extends State<ConversationScreen> {
     });
   }
 
+  Future onSelectNotification(String payload) async {
+    showDialog(
+      context: context,
+      builder: (_) {
+        return new AlertDialog(
+          title: Text("PayLoad"),
+          content: Text("Payload : $payload"),
+        );
+      },
+    );
+  }
+
   void initialise() async {
     List<String> users = [widget.userID, widget.peerID];
     String chatRoomID = getChatRoomId(widget.userID, widget.peerID);
@@ -69,6 +81,8 @@ class _ConversationScreenState extends State<ConversationScreen> {
       chatMessageStream = messageList;
       token = peerData.data["token"];
     });
+// initializationSettings = InitializationSettings(
+    // initializationSettingsAndroid, initializationSettingsIOS);
   }
 
   String getChatRoomId(String a, String b) {
