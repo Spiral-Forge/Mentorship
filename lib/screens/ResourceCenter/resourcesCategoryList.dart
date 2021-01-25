@@ -6,9 +6,9 @@ import 'package:dbapp/services/database.dart';
 import 'package:dbapp/services/storage.dart';
 import 'package:flutter/material.dart';
 import 'package:toast/toast.dart';
-import 'package:dbapp/shared/myDrawer.dart';
+import 'package:dbapp/shared/MyDrawer.dart';
 
-final myDrawer _drawer = new myDrawer();
+final MyDrawer _drawer = new MyDrawer();
 
 class ResourceCategoryList extends StatefulWidget {
   @override
@@ -231,7 +231,7 @@ class _ResourceCategoryListState extends State<ResourceCategoryList> {
                                       Icons.close,
                                       size: 15,
                                     ),
-                                    backgroundColor: AppColors.PROTEGE_GREY,
+                                    backgroundColor: AppColors.protegeGrey,
                                     foregroundColor: Colors.white,
                                     radius: 15,
                                   ),
@@ -295,13 +295,12 @@ class _ResourceCategoryListState extends State<ResourceCategoryList> {
                                       Padding(
                                         padding: const EdgeInsets.all(8.0),
                                         child: RaisedButton(
-                                          color: AppColors.COLOR_TEAL_LIGHT,
+                                          color: AppColors.colorTealLight,
                                           shape: RoundedRectangleBorder(
                                               borderRadius:
                                                   BorderRadius.circular(10.0),
                                               side: BorderSide(
-                                                color:
-                                                    AppColors.COLOR_TEAL_LIGHT,
+                                                color: AppColors.colorTealLight,
                                               )),
                                           child: Text(
                                             "Submit",

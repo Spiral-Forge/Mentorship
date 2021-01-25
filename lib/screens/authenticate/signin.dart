@@ -83,7 +83,7 @@ class _SignInState extends State<SignIn> with SingleTickerProviderStateMixin {
                                               Radius.circular(8)),
                                           borderSide: BorderSide(
                                               color:
-                                                  AppColors.COLOR_TEAL_LIGHT))),
+                                                  AppColors.colorTealLight))),
                                   validator: (val) =>
                                       val.isEmpty ? 'Enter an email' : null,
                                   onChanged: (val) {
@@ -102,7 +102,7 @@ class _SignInState extends State<SignIn> with SingleTickerProviderStateMixin {
                                               Radius.circular(8)),
                                           borderSide: BorderSide(
                                               color:
-                                                  AppColors.COLOR_TEAL_LIGHT))),
+                                                  AppColors.colorTealLight))),
                                   obscureText: true,
                                   onChanged: (val) {
                                     setState(() => password = val);
@@ -200,7 +200,7 @@ class _SignInState extends State<SignIn> with SingleTickerProviderStateMixin {
                                   alignment: Alignment.bottomRight,
                                   child: Text("Forgot password?",
                                       style: TextStyle(
-                                          color: AppColors.COLOR_TEAL_LIGHT,
+                                          color: AppColors.colorTealLight,
                                           fontSize: 15.0,
                                           fontFamily: 'GoogleSans',
                                           decoration:
@@ -216,7 +216,7 @@ class _SignInState extends State<SignIn> with SingleTickerProviderStateMixin {
                                   shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(50.0),
                                   ),
-                                  color: AppColors.COLOR_TEAL_LIGHT,
+                                  color: AppColors.colorTealLight,
                                   child: Text(
                                     'LOGIN',
                                     style: TextStyle(
@@ -262,7 +262,7 @@ class _SignInState extends State<SignIn> with SingleTickerProviderStateMixin {
                                       style: TextStyle(
                                           color: themeFlag
                                               ? const Color(0xFF959595)
-                                              : AppColors.PROTEGE_GREY,
+                                              : AppColors.protegeGrey,
                                           fontSize: 14.5,
                                           fontFamily: 'GoogleSans')),
                                   SizedBox(height: 5.0),
@@ -277,7 +277,7 @@ class _SignInState extends State<SignIn> with SingleTickerProviderStateMixin {
                                       child: Text("Register NOW",
                                           style: TextStyle(
                                               fontFamily: 'GoogleSans',
-                                              color: AppColors.COLOR_TEAL_LIGHT,
+                                              color: AppColors.colorTealLight,
                                               fontSize: 14.5,
                                               decoration:
                                                   TextDecoration.underline)),
@@ -289,7 +289,7 @@ class _SignInState extends State<SignIn> with SingleTickerProviderStateMixin {
                               Text(error,
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
-                                      color: AppColors.COLOR_ERROR_RED,
+                                      color: AppColors.colorErrorRed,
                                       fontSize: 14.0))
                             ],
                           ),

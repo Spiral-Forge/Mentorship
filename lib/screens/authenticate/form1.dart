@@ -101,7 +101,7 @@ class _RegisterForm1State extends State<RegisterForm1> {
                                   padding: EdgeInsets.symmetric(horizontal: 55),
                                   child: Material(
                                       borderRadius: BorderRadius.circular(20),
-                                      color: AppColors.COLOR_TEAL_LIGHT,
+                                      color: AppColors.colorTealLight,
                                       child: Container(
                                         height: 40,
                                         alignment: Alignment.center,
@@ -130,7 +130,7 @@ class _RegisterForm1State extends State<RegisterForm1> {
                                   padding: EdgeInsets.symmetric(horizontal: 55),
                                   child: Material(
                                       borderRadius: BorderRadius.circular(20),
-                                      color: AppColors.COLOR_TEAL_LIGHT,
+                                      color: AppColors.colorTealLight,
                                       child: Container(
                                         height: 40,
                                         alignment: Alignment.center,
@@ -153,7 +153,7 @@ class _RegisterForm1State extends State<RegisterForm1> {
                                         fontSize: 14.5,
                                         color: themeFlag
                                             ? const Color(0xFF959595)
-                                            : AppColors.PROTEGE_GREY)),
+                                            : AppColors.protegeGrey)),
                                 SizedBox(height: 5.0),
                                 InkWell(
                                   onTap: () {
@@ -164,7 +164,7 @@ class _RegisterForm1State extends State<RegisterForm1> {
                                     margin: EdgeInsets.symmetric(vertical: 12),
                                     child: Text("Sign In Here",
                                         style: TextStyle(
-                                            color: AppColors.COLOR_TEAL_LIGHT,
+                                            color: AppColors.colorTealLight,
                                             fontSize: 14.5,
                                             fontFamily: 'GoogleSans',
                                             decoration:

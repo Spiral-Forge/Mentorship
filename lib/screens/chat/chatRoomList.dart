@@ -1,5 +1,5 @@
 import 'package:dbapp/screens/chat/chatRoomScreen.dart';
-import 'package:dbapp/shared/myDrawer.dart';
+import 'package:dbapp/shared/MyDrawer.dart';
 import 'package:dbapp/services/database.dart';
 import 'package:flutter/material.dart';
 
@@ -48,7 +48,7 @@ class _ChatRoomListState extends State<ChatRoomList> {
   Widget build(BuildContext context) {
     final GlobalKey<ScaffoldState> _scaffoldKey =
         new GlobalKey<ScaffoldState>();
-    final myDrawer _drawer = new myDrawer();
+    final MyDrawer _drawer = new MyDrawer();
     return Scaffold(
         drawer: _drawer,
         key: _scaffoldKey,

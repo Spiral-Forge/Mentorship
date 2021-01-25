@@ -95,7 +95,7 @@ class _DateViewState extends State<DateView> {
                         Icons.close,
                         size: 15,
                       ),
-                      backgroundColor: AppColors.PROTEGE_GREY,
+                      backgroundColor: AppColors.protegeGrey,
                       foregroundColor: Colors.white,
                       radius: 15,
                     ),
@@ -126,11 +126,11 @@ class _DateViewState extends State<DateView> {
                             Padding(
                               padding: const EdgeInsets.all(8.0),
                               child: RaisedButton(
-                                  color: AppColors.COLOR_TEAL_LIGHT,
+                                  color: AppColors.colorTealLight,
                                   shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(10.0),
                                       side: BorderSide(
-                                        color: AppColors.COLOR_TEAL_LIGHT,
+                                        color: AppColors.colorTealLight,
                                       )),
                                   child: Text(
                                     "Submit",
@@ -192,13 +192,13 @@ class _DateViewState extends State<DateView> {
                                 });
                               },
                               calendarStyle: CalendarStyle(
-                                  todayColor: AppColors.COLOR_TEAL_DARK),
+                                  todayColor: AppColors.colorTealDark),
                               builders: CalendarBuilders(
                                   selectedDayBuilder: (context, date, events) =>
                                       Container(
                                           alignment: Alignment.center,
                                           decoration: BoxDecoration(
-                                              color: AppColors.COLOR_TEAL_LIGHT,
+                                              color: AppColors.colorTealLight,
                                               shape: BoxShape.circle),
                                           child: Text(date.day.toString()))),
                               calendarController: _controller)),

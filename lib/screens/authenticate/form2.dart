@@ -11,8 +11,8 @@ String password = '';
 
 class RegisterForm2 extends StatefulWidget {
   //taken from parent props:
-  Map<String, dynamic> userMap;
-  Function toggleView;
+  final Map<String, dynamic> userMap;
+  final Function toggleView;
   RegisterForm2(this.userMap, {this.toggleView});
 
   @override
@@ -232,7 +232,7 @@ class _RegisterForm2State extends State<RegisterForm2> {
                                                               10.0),
                                                     ),
                                                     color: AppColors
-                                                        .COLOR_TEAL_LIGHT,
+                                                        .colorTealLight,
                                                     onPressed: () async {
                                                       if (_formKey2.currentState
                                                           .validate()) {

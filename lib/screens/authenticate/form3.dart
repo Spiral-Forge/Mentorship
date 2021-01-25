@@ -19,8 +19,8 @@ class ListItem {
 
 class RegisterForm3 extends StatefulWidget {
   //taken from parent props:
-  Map<String, dynamic> userMap;
-  Function toggleView;
+  final Map<String, dynamic> userMap;
+  final Function toggleView;
   RegisterForm3(this.userMap, {this.toggleView});
 
   @override
@@ -289,7 +289,7 @@ class _RegisterForm3State extends State<RegisterForm3> {
                                                                       10.0),
                                                         ),
                                                         color: AppColors
-                                                            .COLOR_TEAL_LIGHT,
+                                                            .colorTealLight,
                                                         onPressed: () async {
                                                           if (_formKey3
                                                                   .currentState

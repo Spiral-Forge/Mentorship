@@ -228,7 +228,7 @@ class _ConversationScreenState extends State<ConversationScreen> {
                         decoration: InputDecoration(
                             fillColor: themeFlag
                                 ? Colors.white
-                                : AppColors.PROTEGE_GREY,
+                                : AppColors.protegeGrey,
                             hintText: "Enter message..",
                             hintStyle: TextStyle(
                                 color:

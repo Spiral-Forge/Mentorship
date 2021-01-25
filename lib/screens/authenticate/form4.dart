@@ -26,8 +26,8 @@ class ListItem {
 
 class RegisterForm4 extends StatefulWidget {
   //taken from parent props:
-  Map<String, dynamic> userMap;
-  Function toggleView;
+  final Map<String, dynamic> userMap;
+  final Function toggleView;
   RegisterForm4(this.userMap, {this.toggleView});
 
   @override
@@ -204,6 +204,7 @@ class _RegisterForm4State extends State<RegisterForm4> {
                                                     value.length == 0) {
                                                   return 'Please select one or more options';
                                                 }
+                                                return null;
                                               },
                                               dataSource: ScreenConstants
                                                   .registerFieldData,
@@ -273,6 +274,7 @@ class _RegisterForm4State extends State<RegisterForm4> {
                                                           value.length == 0) {
                                                         return 'Please select one or more options';
                                                       }
+                                                      return null;
                                                     },
                                                     dataSource: ScreenConstants
                                                         .registerLanguageData,
@@ -429,7 +431,7 @@ class _RegisterForm4State extends State<RegisterForm4> {
                                                                 .circular(10.0),
                                                       ),
                                                       color: AppColors
-                                                          .COLOR_TEAL_LIGHT,
+                                                          .colorTealLight,
                                                       onPressed: () async {
                                                         if (_formKey4
                                                             .currentState
@@ -465,7 +467,7 @@ class _RegisterForm4State extends State<RegisterForm4> {
                                               textAlign: TextAlign.center,
                                               style: TextStyle(
                                                   color:
-                                                      AppColors.COLOR_ERROR_RED,
+                                                      AppColors.colorErrorRed,
                                                   fontSize: 14.0)),
                                           new Divider(
                                               height: 18.0,

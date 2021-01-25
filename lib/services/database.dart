@@ -95,7 +95,7 @@ class DataBaseService {
   }
 
   getConversationMessages(String chatRoomID) async {
-    return await Firestore.instance
+    return Firestore.instance
         .collection("ChatRoom")
         .document(chatRoomID)
         .collection("chats")
@@ -156,10 +156,8 @@ class DataBaseService {
   }
 
   getUserPeers(String userid) async {
-    var result = await Firestore.instance
-        .collection("Users")
-        .document(userid)
-        .snapshots();
+    var result =
+        Firestore.instance.collection("Users").document(userid).snapshots();
     return result;
   }
 

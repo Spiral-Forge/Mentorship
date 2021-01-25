@@ -19,7 +19,7 @@ class FAQS extends StatelessWidget {
               return Container(
                 margin: EdgeInsets.fromLTRB(20, 0, 20, 20),
                 decoration: BoxDecoration(
-                    color: AppColors.COLOR_TEAL_LIGHT,
+                    color: AppColors.colorTealLight,
                     borderRadius: BorderRadius.circular(15)),
                 child: Column(children: <Widget>[
                   Padding(
@@ -29,11 +29,10 @@ class FAQS extends StatelessWidget {
                         maxHeight: 150,
                         minHeight: 35,
                       ),
-                      child:
-                          Text(
+                      child: Text(
                         faqlist[index - 1],
                         style: TextStyle(
-                            color:Hexcolor("#303030"),
+                            color: Hexcolor("#303030"),
                             fontFamily: 'GoogleSans',
                             fontSize: 18,
                             fontStyle: FontStyle.italic),
@@ -47,8 +46,7 @@ class FAQS extends StatelessWidget {
                         maxHeight: 150,
                         minHeight: 35,
                       ),
-                      child:
-                          Text(
+                      child: Text(
                         faqlist[index],
                         style: TextStyle(
                             color: Colors.white,

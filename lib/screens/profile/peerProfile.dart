@@ -178,8 +178,7 @@ class _PeerProfileState extends State<PeerProfile> {
                                                       fontSize: 20)),
                                               leading: Icon(
                                                 Icons.phone,
-                                                color:
-                                                    AppColors.COLOR_TEAL_LIGHT,
+                                                color: AppColors.colorTealLight,
                                               ),
                                             ),
                                           ),
@@ -194,7 +193,7 @@ class _PeerProfileState extends State<PeerProfile> {
                                                     fontSize: 20)),
                                             leading: Icon(
                                               Icons.mail,
-                                              color: AppColors.COLOR_TEAL_LIGHT,
+                                              color: AppColors.colorTealLight,
                                             ),
                                           ),
                                           Divider(),
@@ -226,8 +225,7 @@ class _PeerProfileState extends State<PeerProfile> {
                                               isThreeLine: true,
                                               leading: Icon(
                                                 Icons.school,
-                                                color:
-                                                    AppColors.COLOR_TEAL_LIGHT,
+                                                color: AppColors.colorTealLight,
                                               ),
                                             ),
                                           ),
@@ -259,8 +257,7 @@ class _PeerProfileState extends State<PeerProfile> {
                                                       fontSize: 20)),
                                               leading: Icon(
                                                 Icons.code,
-                                                color:
-                                                    AppColors.COLOR_TEAL_LIGHT,
+                                                color: AppColors.colorTealLight,
                                               ),
                                             ),
                                           ),
@@ -282,7 +279,7 @@ class _PeerProfileState extends State<PeerProfile> {
                                                     fontSize: 20)),
                                             leading: Icon(
                                               Icons.code,
-                                              color: AppColors.COLOR_TEAL_LIGHT,
+                                              color: AppColors.colorTealLight,
                                             ),
                                           ),
                                           Divider(),
@@ -319,7 +316,7 @@ class _PeerProfileState extends State<PeerProfile> {
                                             ),
                                             leading: Icon(
                                               Icons.code,
-                                              color: AppColors.COLOR_TEAL_LIGHT,
+                                              color: AppColors.colorTealLight,
                                             ),
                                           ),
                                           Divider(),
@@ -360,8 +357,7 @@ class _PeerProfileState extends State<PeerProfile> {
                                                                   .underline))),
                                               leading: Icon(
                                                 Icons.code,
-                                                color:
-                                                    AppColors.COLOR_TEAL_LIGHT,
+                                                color: AppColors.colorTealLight,
                                               ),
                                             ),
                                           ),

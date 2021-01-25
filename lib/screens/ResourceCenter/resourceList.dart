@@ -61,7 +61,7 @@ class _ResourceListState extends State<ResourceList> {
     ThemeNotifier _themeNotifier = Provider.of<ThemeNotifier>(context);
     var themeFlag = _themeNotifier.darkTheme;
     return new Scaffold(
-        backgroundColor: AppColors.COLOR_TEAL_LIGHT,
+        backgroundColor: AppColors.colorTealLight,
         body: Column(
           children: <Widget>[
             Expanded(

@@ -6,9 +6,9 @@ import 'package:provider/provider.dart';
 import 'package:dbapp/services/database.dart';
 import 'package:dbapp/shared/loading.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:dbapp/shared/myDrawer.dart';
+import 'package:dbapp/shared/MyDrawer.dart';
 
-final myDrawer _drawer = new myDrawer();
+final MyDrawer _drawer = new MyDrawer();
 
 class HomePage extends StatefulWidget {
   @override

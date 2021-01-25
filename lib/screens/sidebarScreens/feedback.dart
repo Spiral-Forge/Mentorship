@@ -67,7 +67,7 @@ class _MyFeedbackState extends State<MyFeedback> {
       });
       Toast.show("Thank you for your feedback", context,
           duration: Toast.LENGTH_SHORT, gravity: Toast.BOTTOM);
-    } on PlatformException catch (error) {
+    } on PlatformException {
       Toast.show("Some error occured. Please try again later.", context,
           duration: Toast.LENGTH_SHORT, gravity: Toast.BOTTOM);
     } catch (error) {
@@ -131,13 +131,12 @@ class _MyFeedbackState extends State<MyFeedback> {
                                     child: Container(
                                       height: 45,
                                       child: FlatButton(
-                                          color: AppColors.COLOR_TEAL_LIGHT,
+                                          color: AppColors.colorTealLight,
                                           shape: RoundedRectangleBorder(
                                               borderRadius:
                                                   BorderRadius.circular(10.0),
                                               side: BorderSide(
-                                                color:
-                                                    AppColors.COLOR_TEAL_LIGHT,
+                                                color: AppColors.colorTealLight,
                                               )),
                                           child: Text("Submit",
                                               style: TextStyle(
@@ -149,13 +148,12 @@ class _MyFeedbackState extends State<MyFeedback> {
                                           }),
                                     ),
                                   ),
-                                  SizedBox(height:18.0)
+                                  SizedBox(height: 18.0)
                                 ],
                               )))
                     ],
                   ))))
-    ])
-        );
+    ]));
   }
 
   buildFeedbackForm() {

@@ -58,7 +58,7 @@ class _ProfileState extends State<Profile> {
           FirebaseStorage.instance.ref().child(fileName);
       final StorageUploadTask uploadTask = ref.putFile(newDP);
 
-      StorageTaskSnapshot taskSnapshot = await uploadTask.onComplete;
+      await uploadTask.onComplete;
       if (mounted) {
         setState(() {
           Scaffold.of(context).showSnackBar(SnackBar(
@@ -214,7 +214,7 @@ class _ProfileState extends State<Profile> {
                                           height: 30,
                                           width: 30,
                                           decoration: BoxDecoration(
-                                              color: AppColors.PROTEGE_GREY,
+                                              color: AppColors.protegeGrey,
                                               borderRadius:
                                                   BorderRadius.circular(50)),
                                           child: IconButton(
@@ -275,7 +275,7 @@ class _ProfileState extends State<Profile> {
                                                 fontSize: 18)),
                                         leading: Icon(
                                           Icons.phone,
-                                          color: AppColors.COLOR_TEAL_LIGHT,
+                                          color: AppColors.colorTealLight,
                                         ),
                                       ),
                                     ),
@@ -290,7 +290,7 @@ class _ProfileState extends State<Profile> {
                                               fontSize: 18)),
                                       leading: Icon(
                                         Icons.mail,
-                                        color: AppColors.COLOR_TEAL_LIGHT,
+                                        color: AppColors.colorTealLight,
                                       ),
                                     ),
                                     Divider(),
@@ -320,7 +320,7 @@ class _ProfileState extends State<Profile> {
                                         isThreeLine: true,
                                         leading: Icon(
                                           Icons.school,
-                                          color: AppColors.COLOR_TEAL_LIGHT,
+                                          color: AppColors.colorTealLight,
                                         ),
                                       ),
                                     ),
@@ -351,7 +351,7 @@ class _ProfileState extends State<Profile> {
                                                 fontSize: 18)),
                                         leading: Icon(
                                           Icons.code,
-                                          color: AppColors.COLOR_TEAL_LIGHT,
+                                          color: AppColors.colorTealLight,
                                         ),
                                       ),
                                     ),
@@ -373,7 +373,7 @@ class _ProfileState extends State<Profile> {
                                               fontSize: 18)),
                                       leading: Icon(
                                         Icons.code,
-                                        color: AppColors.COLOR_TEAL_LIGHT,
+                                        color: AppColors.colorTealLight,
                                       ),
                                     ),
                                     Divider(),
@@ -406,7 +406,7 @@ class _ProfileState extends State<Profile> {
                                       ),
                                       leading: Icon(
                                         Icons.code,
-                                        color: AppColors.COLOR_TEAL_LIGHT,
+                                        color: AppColors.colorTealLight,
                                       ),
                                     ),
                                     Divider(),
@@ -441,7 +441,7 @@ class _ProfileState extends State<Profile> {
                                         ),
                                         leading: Icon(
                                           Icons.code,
-                                          color: AppColors.COLOR_TEAL_LIGHT,
+                                          color: AppColors.colorTealLight,
                                         ),
                                       ),
                                     ),
@@ -461,7 +461,7 @@ class _ProfileState extends State<Profile> {
                                             borderRadius:
                                                 BorderRadius.circular(10.0),
                                           ),
-                                          color: AppColors.PROTEGE_GREY,
+                                          color: AppColors.protegeGrey,
                                           onPressed: () async {
                                             Navigator.push(
                                               context,

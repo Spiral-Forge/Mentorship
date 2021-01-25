@@ -12,12 +12,12 @@ import 'package:dbapp/screens/sidebarScreens/guidelines.dart';
 import 'package:dbapp/screens/sidebarScreens/date_view.dart';
 import 'package:dbapp/screens/profile/profile.dart';
 
-class myDrawer extends StatefulWidget {
+class MyDrawer extends StatefulWidget {
   @override
-  _myDrawerState createState() => _myDrawerState();
+  _MyDrawerState createState() => _MyDrawerState();
 }
 
-class _myDrawerState extends State<myDrawer> {
+class _MyDrawerState extends State<MyDrawer> {
   var photoURL = '';
 
   void initState() {

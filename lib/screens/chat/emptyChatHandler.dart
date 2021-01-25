@@ -1,4 +1,4 @@
-import 'package:dbapp/shared/myDrawer.dart';
+import 'package:dbapp/shared/MyDrawer.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -7,7 +7,7 @@ class EmptyChat extends StatelessWidget {
   Widget build(BuildContext context) {
     final GlobalKey<ScaffoldState> _scaffoldKey =
         new GlobalKey<ScaffoldState>();
-    final myDrawer _drawer = new myDrawer();
+    final MyDrawer _drawer = new MyDrawer();
     return Scaffold(
         drawer: _drawer,
         key: _scaffoldKey,

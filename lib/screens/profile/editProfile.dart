@@ -1,11 +1,11 @@
 import 'package:dbapp/blocs/values.dart';
 import 'package:dbapp/constants/colors.dart';
+import 'package:dbapp/services/database.dart';
 import 'package:dbapp/shared/loading.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:multiselect_formfield/multiselect_formfield.dart';
-import 'package:dbapp/services/database.dart';
 import 'package:dbapp/services/storage.dart';
 import 'package:provider/provider.dart';
 import 'package:dbapp/constants/screenConstants.dart';
@@ -97,7 +97,6 @@ class RegistrationForm extends StatefulWidget {
 class _RegistrationFormState extends State<RegistrationForm> {
   final Map<String, dynamic> userInfo;
   _RegistrationFormState(this.userInfo);
-  @override
   final _formKey = GlobalKey<FormState>();
   int _hostellerValue = -1;
   int _cohortValue = -1;
@@ -170,8 +169,8 @@ class _RegistrationFormState extends State<RegistrationForm> {
       'photoURL': userInfo['photoURL'],
       'peerID': userInfo['peerID']
     };
-    
-    dynamic result = await DataBaseService(uid: user.uid).updateUserData(
+
+    await DataBaseService(uid: user.uid).updateUserData(
         name,
         phoneNo,
         userInfo['email'],
@@ -502,6 +501,7 @@ class _RegistrationFormState extends State<RegistrationForm> {
                         if (value == null || value.length == 0) {
                           return 'Please select one or more options';
                         }
+                        return null;
                       },
                       dataSource: ScreenConstants.registerFieldData,
                       textField: 'display',
@@ -564,6 +564,7 @@ class _RegistrationFormState extends State<RegistrationForm> {
                                   if (value == null || value.length == 0) {
                                     return 'Please select one or more options';
                                   }
+                                  return null;
                                 },
                                 dataSource:
                                     ScreenConstants.registerLanguageData,
@@ -664,10 +665,10 @@ class _RegistrationFormState extends State<RegistrationForm> {
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(10.0),
                               ),
-                              color: AppColors.PROTEGE_GREY,
+                              color: AppColors.protegeGrey,
                               onPressed: () async {
                                 if (_formKey.currentState.validate()) {
-                                  await updateData();
+                                  updateData();
                                   Navigator.of(context).pop();
                                 }
                               },

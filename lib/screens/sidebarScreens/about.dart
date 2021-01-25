@@ -155,7 +155,7 @@ Widget _buildCard(
               style: TextStyle(
                   fontFamily: 'GoogleSans',
                   fontWeight: FontWeight.bold,
-                  color: AppColors.COLOR_TEAL_LIGHT,
+                  color: AppColors.colorTealLight,
                   fontSize: 18),
             ),
           ),

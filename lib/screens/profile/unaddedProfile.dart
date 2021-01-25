@@ -10,7 +10,7 @@ class UnaddedProfile extends StatelessWidget {
     return Scaffold(
         appBar: new AppBar(
             title: new Text(post == "Mentor" ? "Your Mentee" : "Your Mentor"),
-            backgroundColor: AppColors.COLOR_TEAL_LIGHT),
+            backgroundColor: AppColors.colorTealLight),
         body: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[

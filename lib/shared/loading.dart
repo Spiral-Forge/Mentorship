@@ -10,13 +10,11 @@ class Loading extends StatelessWidget {
     ThemeNotifier _themeNotifier = Provider.of<ThemeNotifier>(context);
     var themeFlag = _themeNotifier.darkTheme;
     return Container(
-      color:themeFlag ? Colors.black54 : Colors.white,
-      child:Center(
-        child:SpinKitChasingDots(
-          color:AppColors.COLOR_TEAL_LIGHT,
-          size:50.0,
-        )
-      )
-    );
+        color: themeFlag ? Colors.black54 : Colors.white,
+        child: Center(
+            child: SpinKitChasingDots(
+          color: AppColors.colorTealLight,
+          size: 50.0,
+        )));
   }
 }
