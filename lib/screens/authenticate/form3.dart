@@ -1,9 +1,11 @@
+import 'package:dbapp/blocs/values.dart';
 import 'package:dbapp/constants/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:dbapp/shared/loading.dart';
 import 'package:flutter/services.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:dbapp/screens/authenticate/form4.dart';
+import 'package:provider/provider.dart';
 
 String year = '';
 String branch = '';
@@ -21,15 +23,17 @@ class RegisterForm3 extends StatefulWidget {
   //taken from parent props:
   Map<String, dynamic> userMap;
   Function toggleView;
-  RegisterForm3(this.userMap, {this.toggleView});
+  final bool theme;
+  RegisterForm3(this.userMap, this.theme, {this.toggleView});
 
   @override
-  _RegisterForm3State createState() => _RegisterForm3State(userMap);
+  _RegisterForm3State createState() => _RegisterForm3State(userMap, theme);
 }
 
 class _RegisterForm3State extends State<RegisterForm3> {
   final Map<String, dynamic> userMap;
-  _RegisterForm3State(this.userMap);
+  final bool themeFlag;
+  _RegisterForm3State(this.userMap, this.themeFlag);
 
   final _formKey3 = GlobalKey<FormState>();
 
@@ -73,11 +77,17 @@ class _RegisterForm3State extends State<RegisterForm3> {
   }
 
   List<DropdownMenuItem<ListItem>> buildDropDownMenuItems(List listItems) {
-    List<DropdownMenuItem<ListItem>> items = List();
+    List<DropdownMenuItem<ListItem>> items = [];
     for (ListItem listItem in listItems) {
       items.add(
         DropdownMenuItem(
-          child: Text(listItem.name),
+          child: Text(
+            listItem.name,
+            style: TextStyle(
+                fontFamily: 'Quicksand',
+                color: themeFlag ? Colors.white : Color(0xff777777),
+                fontSize: 15),
+          ),
           value: listItem,
         ),
       );
@@ -87,7 +97,11 @@ class _RegisterForm3State extends State<RegisterForm3> {
 
   @override
   Widget build(BuildContext context) {
+    ThemeNotifier _themeNotifier = Provider.of<ThemeNotifier>(context);
+    var themeFlag = _themeNotifier.darkTheme;
+
     return new Scaffold(
+        backgroundColor: themeFlag ? AppColors.COLOR_DARK : Colors.white,
         body: loading
             ? Loading()
             : Column(children: [
@@ -102,7 +116,13 @@ class _RegisterForm3State extends State<RegisterForm3> {
                                   Padding(
                                     padding: EdgeInsets.fromLTRB(32, 32, 0, 0),
                                     child: IconButton(
-                                      icon: Icon(Icons.arrow_back),
+                                      icon: Icon(
+                                        Icons.arrow_back,
+                                        size: 32,
+                                        color: themeFlag
+                                            ? Colors.white
+                                            : Colors.black,
+                                      ),
                                       onPressed: () {
                                         Navigator.of(context).pop();
                                       },
@@ -112,7 +132,7 @@ class _RegisterForm3State extends State<RegisterForm3> {
                                   Expanded(
                                       child: SizedBox(
                                           child: Padding(
-                                    padding: EdgeInsets.fromLTRB(32, 0, 32, 0),
+                                    padding: EdgeInsets.fromLTRB(60, 0, 60, 0),
                                     child: Form(
                                       key: _formKey3,
                                       child: ListView(
@@ -122,76 +142,108 @@ class _RegisterForm3State extends State<RegisterForm3> {
                                               height: 35.0,
                                               color: Colors.transparent),
                                           new Text(
-                                            'College info',
+                                            'College information',
                                             style: TextStyle(
-                                              fontFamily: 'GoogleSans',
-                                              fontSize: 25,
-                                              fontWeight: FontWeight.w600,
+                                              fontFamily: 'Quicksand',
+                                              fontSize: 23,
+                                              fontWeight: FontWeight.w700,
+                                              color: themeFlag
+                                                  ? Colors.white
+                                                  : Colors.black,
                                             ),
                                             textAlign: TextAlign.center,
                                           ),
                                           new Divider(
                                               height: 35.0,
                                               color: Colors.transparent),
-                                          Text(
-                                            "Select your branch",
-                                            style: TextStyle(
-                                                fontFamily: 'GoogleSans',
-                                                fontSize: 13,
-                                                color: Hexcolor('#959595')),
-                                          ),
-                                          DropdownButton<ListItem>(
-                                              hint: Padding(
-                                                padding:
-                                                    const EdgeInsets.fromLTRB(
-                                                        12.0, 0, 16, 0),
-                                                child: Text(
-                                                  "Pick your branch",
-                                                  style: TextStyle(
-                                                      color:
-                                                          Hexcolor('#a9a9a9')),
+                                          Theme(
+                                            data: Theme.of(context).copyWith(
+                                                canvasColor: themeFlag
+                                                    ? Colors.black
+                                                    : Colors.white),
+                                            child: DropdownButton<ListItem>(
+                                                iconEnabledColor: themeFlag
+                                                    ? Colors.white
+                                                    : Color(0xff777777),
+                                                underline: Container(
+                                                  height: 1,
+                                                  color: themeFlag
+                                                      ? Colors.white
+                                                      : Color(0xff777777),
                                                 ),
-                                              ),
-                                              items: _dropdownBranchItems,
-                                              onChanged: (value) {
-                                                setState(() {
-                                                  _selectedBranch = value;
-                                                  branch = value.name;
-                                                });
-                                              },
-                                              value: _selectedBranch,
-                                              isExpanded: false),
+                                                hint: Padding(
+                                                  padding:
+                                                      const EdgeInsets.fromLTRB(
+                                                          12.0, 0, 16, 0),
+                                                  child: Text(
+                                                    "Select your branch",
+                                                    style: TextStyle(
+                                                      fontFamily: 'Quicksand',
+                                                      fontSize: 15,
+                                                      fontWeight:
+                                                          FontWeight.w400,
+                                                      color: themeFlag
+                                                          ? Colors.white
+                                                          : Color(0xff777777),
+                                                    ),
+                                                  ),
+                                                ),
+                                                items: _dropdownBranchItems,
+                                                onChanged: (value) {
+                                                  setState(() {
+                                                    _selectedBranch = value;
+                                                    branch = value.name;
+                                                  });
+                                                },
+                                                value: _selectedBranch,
+                                                isExpanded: true),
+                                          ),
                                           new Divider(
                                               height: 10,
                                               color: Colors.transparent),
-                                          Text(
-                                            "Select your year",
-                                            style: TextStyle(
-                                                fontFamily: 'GoogleSans',
-                                                fontSize: 13,
-                                                color: Hexcolor('#959595')),
-                                          ),
-                                          DropdownButton<ListItem>(
-                                              hint: Padding(
-                                                padding:
-                                                    const EdgeInsets.fromLTRB(
-                                                        12.0, 0, 16, 0),
-                                                child: Text(
-                                                  "Current year of study",
-                                                  style: TextStyle(
-                                                      color:
-                                                          Hexcolor('#a9a9a9')),
+                                          Theme(
+                                            data: Theme.of(context).copyWith(
+                                              canvasColor: themeFlag
+                                                  ? Colors.black
+                                                  : Colors.white,
+                                            ),
+                                            child: DropdownButton<ListItem>(
+                                                underline: Container(
+                                                  height: 1,
+                                                  color: themeFlag
+                                                      ? Colors.white
+                                                      : Color(0xff777777),
                                                 ),
-                                              ),
-                                              items: _dropdownYearItems,
-                                              onChanged: (value) {
-                                                setState(() {
-                                                  _selectedYear = value;
-                                                  year = value.name;
-                                                });
-                                              },
-                                              value: _selectedYear,
-                                              isExpanded: false),
+                                                iconEnabledColor: themeFlag
+                                                    ? Colors.white
+                                                    : Color(0xff777777),
+                                                hint: Padding(
+                                                  padding:
+                                                      const EdgeInsets.fromLTRB(
+                                                          12.0, 0, 16, 0),
+                                                  child: Text(
+                                                    "Select your year",
+                                                    style: TextStyle(
+                                                      fontFamily: 'Quicksand',
+                                                      fontSize: 15,
+                                                      fontWeight:
+                                                          FontWeight.w400,
+                                                      color: themeFlag
+                                                          ? Colors.white
+                                                          : Color(0xff777777),
+                                                    ),
+                                                  ),
+                                                ),
+                                                items: _dropdownYearItems,
+                                                onChanged: (value) {
+                                                  setState(() {
+                                                    _selectedYear = value;
+                                                    year = value.name;
+                                                  });
+                                                },
+                                                value: _selectedYear,
+                                                isExpanded: true),
+                                          ),
                                           new Divider(
                                             height: 10,
                                             color: Colors.transparent,
@@ -199,17 +251,29 @@ class _RegisterForm3State extends State<RegisterForm3> {
                                           new TextFormField(
                                               keyboardType:
                                                   TextInputType.number,
-                                              style:
-                                                  TextStyle(color: Colors.grey),
-                                              decoration: const InputDecoration(
-                                                
+                                              style: TextStyle(
+                                                  fontFamily: 'Quicksand',
+                                                  color: themeFlag
+                                                      ? Colors.white
+                                                      : Color(0xff777777),
+                                                  fontSize: 15),
+                                              decoration: InputDecoration(
+                                                contentPadding:
+                                                    EdgeInsets.only(left: 0),
                                                 labelStyle: TextStyle(
-                                                    color: Colors.grey,
-                                                    fontFamily: 'GoogleSans'),
+                                                  color: themeFlag
+                                                      ? Colors.white
+                                                      : Color(0xff777777),
+                                                  fontFamily: 'Quicksand',
+                                                  fontSize: 15,
+                                                  fontWeight: FontWeight.w400,
+                                                ),
                                                 enabledBorder:
                                                     UnderlineInputBorder(
                                                   borderSide: BorderSide(
-                                                      color: Colors.grey),
+                                                      color: themeFlag
+                                                          ? Colors.white
+                                                          : Color(0xff777777)),
                                                 ),
                                                 focusedBorder:
                                                     UnderlineInputBorder(
@@ -231,46 +295,77 @@ class _RegisterForm3State extends State<RegisterForm3> {
                                                 });
                                               }),
                                           new Divider(
-                                              height: 20,
+                                              height: 30,
                                               color: Colors.transparent),
                                           new Text(
                                             userMap['post'] == 'Mentor'
                                                 ? "Are you a hosteller?"
                                                 : "Do you want your mentor to be a hosteller?",
                                             style: TextStyle(
-                                              fontFamily: 'GoogleSans',
-                                              fontSize: 13,
-                                              color: Colors.grey
-                                            ),
+                                                fontFamily: 'Quicksand',
+                                                fontSize: 15,
+                                                fontWeight: FontWeight.w400,
+                                                color: themeFlag
+                                                    ? Colors.white
+                                                    : Color(0xff777777)),
                                           ),
-                                          new Row(children: <Widget>[
-                                            new Radio(
-                                                value: 0,
-                                                groupValue: _hostellerValue,
-                                                onChanged:
-                                                    _handleHostellerValue),
-                                            new Text(
-                                              'Yes',
-                                              style: TextStyle(
-                                                fontFamily: 'GoogleSans',
-                                                fontSize: 15,
-                                              ),
+                                          Theme(
+                                            data: ThemeData(
+                                              unselectedWidgetColor: themeFlag
+                                                  ? Colors.white
+                                                  : Color(0xff777777),
                                             ),
-                                            new Radio(
-                                                value: 1,
-                                                groupValue: _hostellerValue,
-                                                onChanged:
-                                                    _handleHostellerValue),
-                                            new Text(
-                                              'No',
-                                              style: TextStyle(
-                                                fontFamily: 'GoogleSans',
-                                                fontSize: 15,
+                                            child: new Row(children: <Widget>[
+                                              Transform.scale(
+                                                scale: 0.8,
+                                                child: new Radio(
+                                                    activeColor: themeFlag
+                                                        ? Colors.white
+                                                        : Color(0xff777777),
+                                                    value: 0,
+                                                    groupValue: _hostellerValue,
+                                                    onChanged:
+                                                        _handleHostellerValue),
                                               ),
-                                            ),
-                                          ]),
+                                              new Text(
+                                                'Yes',
+                                                style: TextStyle(
+                                                  fontFamily: 'Quicksand',
+                                                  fontSize: 16,
+                                                  fontWeight: FontWeight.w400,
+                                                  color: themeFlag
+                                                      ? Colors.white
+                                                      : Color(0xff777777),
+                                                ),
+                                              ),
+                                              SizedBox(
+                                                width: 10,
+                                              ),
+                                              Transform.scale(
+                                                scale: 0.9,
+                                                child: new Radio(
+                                                    activeColor: themeFlag
+                                                        ? Colors.white
+                                                        : Color(0xff777777),
+                                                    value: 1,
+                                                    groupValue: _hostellerValue,
+                                                    onChanged:
+                                                        _handleHostellerValue),
+                                              ),
+                                              new Text(
+                                                'No',
+                                                style: TextStyle(
+                                                    fontFamily: 'Quicksanf',
+                                                    fontSize: 16,
+                                                    fontWeight: FontWeight.w400,
+                                                    color: themeFlag
+                                                        ? Colors.white
+                                                        : Color(0xff777777)),
+                                              ),
+                                            ]),
+                                          ),
                                           new Divider(
-                                              height: 35.0,
+                                              height: 40.0,
                                               color: Colors.transparent),
                                           Row(
                                               mainAxisAlignment:
@@ -279,17 +374,17 @@ class _RegisterForm3State extends State<RegisterForm3> {
                                                   CrossAxisAlignment.center,
                                               children: <Widget>[
                                                 Container(
-                                                    height: 40,
+                                                    width: 140,
+                                                    height: 34,
                                                     child: new MaterialButton(
                                                         shape:
                                                             RoundedRectangleBorder(
                                                           borderRadius:
                                                               BorderRadius
-                                                                  .circular(
-                                                                      10.0),
+                                                                  .circular(8),
                                                         ),
                                                         color: AppColors
-                                                            .COLOR_TEAL_LIGHT,
+                                                            .COLOR_TURQUOISE,
                                                         onPressed: () async {
                                                           if (_formKey3
                                                                   .currentState
@@ -319,11 +414,11 @@ class _RegisterForm3State extends State<RegisterForm3> {
                                                                 color: Colors
                                                                     .white,
                                                                 fontFamily:
-                                                                    'GoogleSans',
-                                                                fontSize: 18,
+                                                                    'Quicksand',
+                                                                fontSize: 15,
                                                                 fontWeight:
                                                                     FontWeight
-                                                                        .w600))))
+                                                                        .w700))))
                                               ]),
                                           new Divider(
                                               height: 18.0,

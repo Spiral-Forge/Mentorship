@@ -134,6 +134,7 @@ class _RegisterForm4State extends State<RegisterForm4> {
     ThemeNotifier _themeNotifier = Provider.of<ThemeNotifier>(context);
     var themeFlag = _themeNotifier.darkTheme;
     return new Scaffold(
+        backgroundColor: themeFlag ? AppColors.COLOR_DARK : Colors.white,
         body: loading
             ? Loading()
             : Column(children: [
@@ -144,17 +145,21 @@ class _RegisterForm4State extends State<RegisterForm4> {
                             child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  SizedBox(height: 32),
                                   Padding(
-                                    padding: EdgeInsets.fromLTRB(32, 32, 0, 0),
+                                    padding: EdgeInsets.fromLTRB(31, 29, 0, 0),
                                     child: IconButton(
-                                      icon: Icon(Icons.arrow_back),
+                                      icon: Icon(
+                                        Icons.arrow_back,
+                                        size: 39,
+                                        color: themeFlag
+                                            ? Colors.white
+                                            : Colors.black,
+                                      ),
                                       onPressed: () {
                                         Navigator.of(context).pop();
                                       },
                                     ),
                                   ),
-                                  SizedBox(height: 25),
                                   Expanded(
                                       child: SizedBox(
                                           child: Padding(
@@ -168,24 +173,11 @@ class _RegisterForm4State extends State<RegisterForm4> {
                                               height: 35.0,
                                               color: Colors.transparent),
                                           new Text(
-                                            'Additional info',
+                                            'Additional information',
                                             style: TextStyle(
-                                              fontFamily: 'GoogleSans',
-                                              fontSize: 25,
-                                              fontWeight: FontWeight.w600,
-                                            ),
-                                            textAlign: TextAlign.center,
-                                          ),
-                                          new Divider(
-                                              height: 10.0,
-                                              color: Colors.transparent),
-                                          new Text(
-                                            userMap['post'] == 'Mentor'
-                                                ? "Tell us about your domain knowledge"
-                                                : "What skills do you want to be mentored with?",
-                                            style: TextStyle(
-                                              fontFamily: 'GoogleSans',
-                                              fontSize: 13,
+                                              fontFamily: 'Quicksand',
+                                              fontSize: 23,
+                                              fontWeight: FontWeight.w700,
                                             ),
                                             textAlign: TextAlign.center,
                                           ),
@@ -194,11 +186,18 @@ class _RegisterForm4State extends State<RegisterForm4> {
                                               color: Colors.transparent),
                                           Container(
                                             child: MultiSelectFormField(
+                                              checkBoxActiveColor:
+                                                  AppColors.COLOR_TURQUOISE,
                                               fillColor: themeFlag
                                                   ? Colors.grey[700]
                                                   : Colors.transparent,
                                               autovalidate: false,
-                                              titleText: 'Domains',
+                                              title: Text(
+                                                'Select your Domains',
+                                                style: TextStyle(
+                                                    fontFamily: 'Quicksand',
+                                                    fontSize: 15),
+                                              ),
                                               validator: (value) {
                                                 if (value == null ||
                                                     value.length == 0) {
@@ -211,7 +210,8 @@ class _RegisterForm4State extends State<RegisterForm4> {
                                               valueField: 'value',
                                               okButtonLabel: 'OK',
                                               cancelButtonLabel: 'CANCEL',
-                                              hintText: 'Choose one or more',
+                                              hintWidget:
+                                                  Text('Choose one or more'),
                                               initialValue: domains,
                                               onSaved: (value) {
                                                 if (value == null) return;
@@ -222,17 +222,7 @@ class _RegisterForm4State extends State<RegisterForm4> {
                                             ),
                                           ),
                                           new Divider(
-                                              height: 15,
-                                              color: Colors.transparent),
-                                          Text(
-                                            "Select your language",
-                                            style: TextStyle(
-                                                fontFamily: 'GoogleSans',
-                                                fontSize: 13,
-                                                color: Hexcolor('#959595')),
-                                          ),
-                                          new Divider(
-                                              height: 5,
+                                              height: 20,
                                               color: Colors.transparent),
                                           userMap['post'] == 'Mentee'
                                               ? Container(
@@ -246,8 +236,9 @@ class _RegisterForm4State extends State<RegisterForm4> {
                                                         child: Text(
                                                           "Pick your language",
                                                           style: TextStyle(
-                                                              color: Hexcolor(
-                                                                  '#a9a9a9')),
+                                                              fontFamily:
+                                                                  'Quicksand',
+                                                              fontSize: 15),
                                                         ),
                                                       ),
                                                       items: _dropdownLangItems,
@@ -260,14 +251,17 @@ class _RegisterForm4State extends State<RegisterForm4> {
                                                         });
                                                       },
                                                       value: _selectedLang,
-                                                      isExpanded: false))
+                                                      isExpanded: true))
                                               : Container(
                                                   child: MultiSelectFormField(
+                                                    checkBoxActiveColor:
+                                                        AppColors
+                                                            .COLOR_TURQUOISE,
                                                     fillColor: themeFlag
                                                         ? Colors.grey[700]
                                                         : Colors.transparent,
                                                     autovalidate: false,
-                                                    titleText: 'Languages',
+                                                    title: Text('Languages'),
                                                     validator: (value) {
                                                       if (value == null ||
                                                           value.length == 0) {
@@ -280,8 +274,8 @@ class _RegisterForm4State extends State<RegisterForm4> {
                                                     valueField: 'value',
                                                     okButtonLabel: 'OK',
                                                     cancelButtonLabel: 'CANCEL',
-                                                    hintText:
-                                                        'Choose one or more',
+                                                    hintWidget: Text(
+                                                        'Choose one or more'),
                                                     initialValue: languages,
                                                     onSaved: (value) {
                                                       if (value == null) return;
@@ -296,26 +290,35 @@ class _RegisterForm4State extends State<RegisterForm4> {
                                               color: Colors.transparent),
                                           new TextFormField(
                                               keyboardType: TextInputType.text,
-                                              style:
-                                                  TextStyle(color: Colors.grey),
-                                              decoration: const InputDecoration(
+                                              style: TextStyle(
+                                                  fontFamily: 'Quicksand',
+                                                  fontWeight: FontWeight.w400,
+                                                  fontSize: 15,
+                                                  color: themeFlag
+                                                      ? Colors.white
+                                                      : Color(0xff777777)),
+                                              decoration: InputDecoration(
                                                 labelStyle: TextStyle(
-                                                    color: Colors.grey,
-                                                    fontSize: 13,
-                                                    fontFamily: 'GoogleSans'),
+                                                    color: themeFlag
+                                                        ? Colors.white
+                                                        : Color(0xff777777),
+                                                    fontSize: 15,
+                                                    fontFamily: 'Quicksand'),
                                                 enabledBorder:
                                                     UnderlineInputBorder(
                                                   borderSide: BorderSide(
-                                                      color: Colors.grey),
+                                                      color: themeFlag
+                                                          ? Colors.white
+                                                          : Color(0xff777777)),
                                                 ),
                                                 focusedBorder:
                                                     UnderlineInputBorder(
                                                   borderSide: BorderSide(
-                                                      color: Colors.blue),
+                                                      color: AppColors
+                                                          .COLOR_TURQUOISE),
                                                 ),
                                                 border: UnderlineInputBorder(),
-                                                labelText:
-                                                    'Your LinkedIN Profile URL',
+                                                labelText: 'LinkedIN ID',
                                               ),
                                               onChanged: (val) {
                                                 setState(
@@ -326,22 +329,32 @@ class _RegisterForm4State extends State<RegisterForm4> {
                                               color: Colors.transparent),
                                           new TextFormField(
                                               keyboardType: TextInputType.text,
-                                              style:
-                                                  TextStyle(color: Colors.grey),
-                                              decoration: const InputDecoration(
+                                              style: TextStyle(
+                                                  fontSize: 15,
+                                                  fontFamily: 'Quicksand',
+                                                  fontWeight: FontWeight.w400,
+                                                  color: themeFlag
+                                                      ? Colors.white
+                                                      : Color(0xff777777)),
+                                              decoration: InputDecoration(
                                                 labelStyle: TextStyle(
-                                                    color: Colors.grey,
-                                                    fontSize: 13,
-                                                    fontFamily: 'GoogleSans'),
+                                                    color: themeFlag
+                                                        ? Colors.white
+                                                        : Color(0xff777777),
+                                                    fontSize: 15,
+                                                    fontFamily: 'Quicksand'),
                                                 enabledBorder:
                                                     UnderlineInputBorder(
                                                   borderSide: BorderSide(
-                                                      color: Colors.grey),
+                                                      color: themeFlag
+                                                          ? Colors.white
+                                                          : Color(0xff777777)),
                                                 ),
                                                 focusedBorder:
                                                     UnderlineInputBorder(
                                                   borderSide: BorderSide(
-                                                      color: Colors.blue),
+                                                      color: AppColors
+                                                          .COLOR_TURQUOISE),
                                                 ),
                                                 border: UnderlineInputBorder(),
                                                 labelText:
@@ -356,14 +369,21 @@ class _RegisterForm4State extends State<RegisterForm4> {
                                           new Text(
                                             "Which cohort are you applying for?",
                                             style: TextStyle(
-                                                fontFamily: 'GoogleSans',
-                                                fontSize: 13,
-                                                color: Colors.grey),
+                                                fontSize: 15,
+                                                fontFamily: 'Quicksand',
+                                                fontWeight: FontWeight.w400,
+                                                color: themeFlag
+                                                    ? Colors.white
+                                                    : Color(0xff777777)),
                                           ),
                                           new Column(children: <Widget>[
                                             Row(
                                               children: [
                                                 new Radio(
+                                                    activeColor: themeFlag
+                                                        ? AppColors
+                                                            .COLOR_TURQUOISE
+                                                        : Colors.black,
                                                     value: 0,
                                                     groupValue: _cohortValue,
                                                     onChanged:
@@ -371,15 +391,23 @@ class _RegisterForm4State extends State<RegisterForm4> {
                                                 new Text(
                                                   'Mentober',
                                                   style: TextStyle(
-                                                      fontFamily: 'GoogleSans',
-                                                      fontSize: 13,
-                                                      color: Colors.grey),
+                                                      fontSize: 15,
+                                                      fontFamily: 'Quicksand',
+                                                      fontWeight:
+                                                          FontWeight.w400,
+                                                      color: themeFlag
+                                                          ? Colors.white
+                                                          : Color(0xff777777)),
                                                 ),
                                               ],
                                             ),
                                             Row(
                                               children: [
                                                 new Radio(
+                                                    activeColor: themeFlag
+                                                        ? AppColors
+                                                            .COLOR_TURQUOISE
+                                                        : Colors.black,
                                                     value: 1,
                                                     groupValue: _cohortValue,
                                                     onChanged:
@@ -387,15 +415,23 @@ class _RegisterForm4State extends State<RegisterForm4> {
                                                 new Text(
                                                   'January 2021',
                                                   style: TextStyle(
-                                                      fontFamily: 'GoogleSans',
-                                                      fontSize: 13,
-                                                      color: Colors.grey),
+                                                      fontSize: 15,
+                                                      fontFamily: 'Quicksand',
+                                                      fontWeight:
+                                                          FontWeight.w400,
+                                                      color: themeFlag
+                                                          ? Colors.white
+                                                          : Color(0xff777777)),
                                                 ),
                                               ],
                                             ),
                                             Row(
                                               children: [
                                                 new Radio(
+                                                    activeColor: themeFlag
+                                                        ? AppColors
+                                                            .COLOR_TURQUOISE
+                                                        : Colors.black,
                                                     value: 2,
                                                     groupValue: _cohortValue,
                                                     onChanged:
@@ -403,9 +439,13 @@ class _RegisterForm4State extends State<RegisterForm4> {
                                                 new Text(
                                                   'Just looking around',
                                                   style: TextStyle(
-                                                      fontFamily: 'GoogleSans',
-                                                      fontSize: 13,
-                                                      color: Colors.grey),
+                                                      fontSize: 15,
+                                                      fontFamily: 'Quicksand',
+                                                      fontWeight:
+                                                          FontWeight.w400,
+                                                      color: themeFlag
+                                                          ? Colors.white
+                                                          : Color(0xff777777)),
                                                 ),
                                               ],
                                             ),
@@ -420,7 +460,8 @@ class _RegisterForm4State extends State<RegisterForm4> {
                                                   CrossAxisAlignment.center,
                                               children: <Widget>[
                                                 Container(
-                                                  height: 40,
+                                                  width: 140,
+                                                  height: 34,
                                                   child: new MaterialButton(
                                                       shape:
                                                           RoundedRectangleBorder(
@@ -429,7 +470,7 @@ class _RegisterForm4State extends State<RegisterForm4> {
                                                                 .circular(10.0),
                                                       ),
                                                       color: AppColors
-                                                          .COLOR_TEAL_LIGHT,
+                                                          .COLOR_TURQUOISE,
                                                       onPressed: () async {
                                                         if (_formKey4
                                                             .currentState
@@ -454,11 +495,11 @@ class _RegisterForm4State extends State<RegisterForm4> {
                                                               color:
                                                                   Colors.white,
                                                               fontFamily:
-                                                                  'GoogleSans',
-                                                              fontSize: 18,
+                                                                  'Quicksand',
+                                                              fontSize: 15,
                                                               fontWeight:
                                                                   FontWeight
-                                                                      .w600))),
+                                                                      .w700))),
                                                 ),
                                               ]),
                                           Text(error,

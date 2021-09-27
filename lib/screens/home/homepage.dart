@@ -1,4 +1,5 @@
 import 'package:dbapp/blocs/values.dart';
+import 'package:dbapp/constants/colors.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -31,6 +32,7 @@ class _HomePageState extends State<HomePage> {
   Widget eventList() {
     ThemeNotifier _themeNotifier = Provider.of<ThemeNotifier>(context);
     var themeFlag = _themeNotifier.darkTheme;
+
     return loading
         ? Loading()
         : Center(
@@ -68,12 +70,12 @@ class _HomePageState extends State<HomePage> {
                                 child: Container(
                               child: Text("The Mentorship Society of IGDTUW",
                                   style: TextStyle(
-                                      fontFamily: 'GoogleSans',
-                                      fontWeight: FontWeight.w600,
-                                      fontSize: 18,
+                                      fontFamily: 'Quicksand',
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 17,
                                       color: themeFlag
                                           ? Colors.white
-                                          : Color(0xFF303030))),
+                                          : Colors.black)),
                             )),
                           ],
                         ),
@@ -124,10 +126,14 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    ThemeNotifier _themeNotifier = Provider.of<ThemeNotifier>(context);
+    var themeFlag = _themeNotifier.darkTheme;
+
     final GlobalKey<ScaffoldState> _scaffoldKey =
         new GlobalKey<ScaffoldState>();
 
     return Scaffold(
+      backgroundColor: themeFlag ? AppColors.COLOR_DARK : Colors.white,
       key: _scaffoldKey,
       drawer: _drawer,
       body: Column(children: [
@@ -137,16 +143,24 @@ class _HomePageState extends State<HomePage> {
           padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
           child: Column(children: [
             Padding(
-              padding: const EdgeInsets.fromLTRB(15.0, 42, 0, 0),
+              padding: const EdgeInsets.fromLTRB(19.0, 30, 0, 0),
               child: Row(children: [
                 IconButton(
-                    icon: Icon(Icons.menu),
+                    icon: Icon(
+                      Icons.menu,
+                      size: 28,
+                      color: themeFlag ? Colors.white : Colors.black,
+                    ),
                     onPressed: () {
                       _scaffoldKey.currentState.openDrawer();
                     }),
                 Text(
                   "Home",
-                  style: TextStyle(fontFamily: 'GoogleSans', fontSize: 23),
+                  style: TextStyle(
+                      fontFamily: 'Quicksand',
+                      fontSize: 17,
+                      fontWeight: FontWeight.w500,
+                      color: themeFlag ? Colors.white : Colors.black),
                 )
               ]),
             ),
@@ -178,114 +192,169 @@ class EventTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    ThemeNotifier _themeNotifier = Provider.of<ThemeNotifier>(context);
+    var themeFlag = _themeNotifier.darkTheme;
+
     return Container(
         child: Card(
+            color: themeFlag ? Color(0xff5A5A5A) : Colors.white,
             shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(15.0),
+              borderRadius: BorderRadius.circular(19.0),
             ),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: <Widget>[
-                Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Container(
-                      width: MediaQuery.of(context).size.width,
-                      height: 210.0,
-                      decoration: BoxDecoration(
-                          image: DecorationImage(
-                              fit: BoxFit.scaleDown,
-                              image: (url == null || url.length == 0)
-                                  ? AssetImage('assets/images/homebg2.jpg')
-                                  : NetworkImage(url))),
-                    )),
-                Container(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: <Widget>[
+                  Container(
                     width: MediaQuery.of(context).size.width,
-                    child: ExpansionTile(
-                      title: Center(
-                          child: Padding(
-                        padding: EdgeInsets.fromLTRB(0, 5, 0, 5),
-                        child: Text(name,
-                            style: TextStyle(
-                                fontFamily: 'GoogleSans',
-                                fontWeight: FontWeight.w600,
-                                fontSize: 18)),
-                      )),
-                      subtitle: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: <Widget>[
-                            Row(
+                    height: 210.0,
+                    decoration: BoxDecoration(
+                        image: DecorationImage(
+                            fit: BoxFit.scaleDown,
+                            image: (url == null || url.length == 0)
+                                ? AssetImage('assets/images/homebg2.jpg')
+                                : NetworkImage(url))),
+                  ),
+                  Container(
+                      width: MediaQuery.of(context).size.width,
+                      child: Theme(
+                        data: Theme.of(context).copyWith(
+                          dividerColor: Colors.transparent,
+                        ),
+                        child: ExpansionTile(
+                          trailing: Icon(
+                            Icons.arrow_drop_down,
+                            size: 20,
+                            color: themeFlag ? Colors.white : Colors.black,
+                          ),
+                          title: Center(
+                              child: Padding(
+                            padding: const EdgeInsets.only(bottom: 10),
+                            child: Text(name,
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                    color:
+                                        themeFlag ? Colors.white : Colors.black,
+                                    fontFamily: 'Quicksand',
+                                    fontWeight: FontWeight.w500,
+                                    fontSize: 17)),
+                          )),
+                          subtitle: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
                               children: <Widget>[
-                                Align(
-                                  alignment: Alignment.center,
-                                  child: Icon(Icons.date_range, size: 16),
+                                Row(
+                                  children: <Widget>[
+                                    Align(
+                                      alignment: Alignment.center,
+                                      child: Icon(
+                                        Icons.date_range,
+                                        size: 20,
+                                        color: themeFlag
+                                            ? Colors.white
+                                            : Colors.black,
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      width: 10,
+                                    ),
+                                    Expanded(
+                                      child: Text(date,
+                                          style: TextStyle(
+                                              color: themeFlag
+                                                  ? Colors.white
+                                                  : Colors.black,
+                                              fontWeight: FontWeight.w300,
+                                              fontFamily: 'Quicksand',
+                                              fontSize: 11)),
+                                    ),
+                                  ],
                                 ),
-                                Padding(
-                                    padding: EdgeInsets.fromLTRB(8, 0, 0, 5),
-                                    child: Text(date,
-                                        style: TextStyle(
-                                            fontFamily: 'GoogleSans',
-                                            fontSize: 16))),
-                              ],
-                            ),
-                            Row(
-                              children: <Widget>[
-                                Align(
-                                  alignment: Alignment.center,
-                                  child: Icon(Icons.query_builder, size: 16),
+                                Row(
+                                  children: <Widget>[
+                                    Align(
+                                      alignment: Alignment.center,
+                                      child: Icon(
+                                        Icons.query_builder,
+                                        size: 20,
+                                        color: themeFlag
+                                            ? Colors.white
+                                            : Colors.black,
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      width: 10,
+                                    ),
+                                    Expanded(
+                                      child: Text(time,
+                                          style: TextStyle(
+                                              color: themeFlag
+                                                  ? Colors.white
+                                                  : Colors.black,
+                                              fontWeight: FontWeight.w300,
+                                              fontFamily: 'Quicksand',
+                                              fontSize: 11)),
+                                    ),
+                                  ],
                                 ),
-                                Padding(
-                                    padding: EdgeInsets.fromLTRB(8, 0, 0, 5),
-                                    child: Text(time,
-                                        style: TextStyle(
-                                            fontFamily: 'GoogleSans',
-                                            fontSize: 16))),
-                              ],
-                            ),
-                            Row(
-                              children: <Widget>[
-                                Align(
-                                  alignment: Alignment.center,
-                                  child: Icon(Icons.location_on, size: 16),
-                                ),
-                                Expanded(
-                                  child: Padding(
-                                      padding: EdgeInsets.fromLTRB(8, 0, 0, 5),
+                                Row(
+                                  children: <Widget>[
+                                    Align(
+                                      alignment: Alignment.center,
+                                      child: Icon(
+                                        Icons.location_on,
+                                        size: 20,
+                                        color: themeFlag
+                                            ? Colors.white
+                                            : Colors.black,
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      width: 10,
+                                    ),
+                                    Expanded(
                                       child: Text(venue,
                                           style: TextStyle(
-                                              fontFamily: 'GoogleSans',
-                                              fontSize: 16))),
+                                              color: themeFlag
+                                                  ? Colors.white
+                                                  : Colors.black,
+                                              fontWeight: FontWeight.w300,
+                                              fontFamily: 'Quicksand',
+                                              fontSize: 11)),
+                                    ),
+                                  ],
                                 ),
-                              ],
+                              ]),
+                          children: [
+                            Padding(
+                              padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
+                              child: Text(description,
+                                  style: TextStyle(fontFamily: 'Quicksand')),
                             ),
-                          ]),
-                      children: [
-                        Padding(
-                          padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
-                          child: Text(description,
-                              style: TextStyle(fontFamily: 'GoogleSans')),
-                        ),
-                        new Padding(
-                            padding: EdgeInsets.fromLTRB(0, 5, 0, 10),
-                            child: new RichText(
-                              text: new TextSpan(
-                                children: [
-                                  new TextSpan(
-                                    text: 'Register Here',
-                                    style: new TextStyle(
-                                        color: Colors.blue,
-                                        fontFamily: 'GoogleSans'),
-                                    recognizer: new TapGestureRecognizer()
-                                      ..onTap = () {
-                                        launch(link);
-                                      },
+                            new Padding(
+                                padding: EdgeInsets.fromLTRB(0, 5, 0, 10),
+                                child: new RichText(
+                                  text: new TextSpan(
+                                    children: [
+                                      new TextSpan(
+                                        text: 'Register Here',
+                                        style: new TextStyle(
+                                            color: Colors.blue,
+                                            fontFamily: 'Quicksand'),
+                                        recognizer: new TapGestureRecognizer()
+                                          ..onTap = () {
+                                            launch(link);
+                                          },
+                                      ),
+                                    ],
                                   ),
-                                ],
-                              ),
-                            )),
-                      ],
-                    )),
-              ],
+                                )),
+                          ],
+                        ),
+                      )),
+                ],
+              ),
             )));
   }
 }

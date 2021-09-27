@@ -37,7 +37,7 @@ class _ResourceListState extends State<ResourceList> {
               padding: EdgeInsets.only(top: 20.0),
               child: Text(
                 "No resources available yet",
-                style: TextStyle(fontFamily: 'GoogleSans', fontSize: 18),
+                style: TextStyle(fontFamily: 'Quicksand', fontSize: 18),
               ),
             ),
           )
@@ -61,7 +61,7 @@ class _ResourceListState extends State<ResourceList> {
     ThemeNotifier _themeNotifier = Provider.of<ThemeNotifier>(context);
     var themeFlag = _themeNotifier.darkTheme;
     return new Scaffold(
-        backgroundColor: AppColors.COLOR_TEAL_LIGHT,
+        backgroundColor: AppColors.COLOR_TURQUOISE,
         body: Column(
           children: <Widget>[
             Expanded(
@@ -76,19 +76,27 @@ class _ResourceListState extends State<ResourceList> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            SizedBox(height: 32),
                             IconButton(
-                              icon: Icon(Icons.arrow_back),
+                              icon: Icon(
+                                Icons.arrow_back,
+                                size: 39,
+                              ),
                               onPressed: () {
                                 Navigator.of(context).pop();
                               },
                             ),
                             SizedBox(height: 25),
-                            new Text(widget.resourceField,
-                                style: TextStyle(
-                                    fontFamily: 'GoogleSans',
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 32)),
+                            Container(
+                              constraints: BoxConstraints(
+                                maxWidth:
+                                    MediaQuery.of(context).size.width * 0.5,
+                              ),
+                              child: new Text(widget.resourceField,
+                                  style: TextStyle(
+                                      fontFamily: 'Quicksand',
+                                      fontWeight: FontWeight.w700,
+                                      fontSize: 20)),
+                            ),
                             resourceList()
                           ],
                         )))),

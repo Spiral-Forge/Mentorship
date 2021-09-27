@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:io';
 
+import 'package:dbapp/blocs/values.dart';
 import 'package:dbapp/constants/colors.dart';
 import 'package:dbapp/screens/profile/editProfile.dart';
 import 'package:dbapp/services/profile.dart';
@@ -9,12 +10,16 @@ import 'package:dbapp/services/storage.dart';
 import 'package:dbapp/shared/clipper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:fluttericon/mfg_labs_icons.dart';
+import 'package:fluttericon/modern_pictograms_icons.dart';
+import 'package:fluttericon/octicons_icons.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path/path.dart';
 import 'package:image_cropper/image_cropper.dart';
+import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class Profile extends StatefulWidget {
@@ -48,6 +53,9 @@ class _ProfileState extends State<Profile> {
 
   @override
   Widget build(BuildContext context) {
+    ThemeNotifier _themeNotifier = Provider.of<ThemeNotifier>(context);
+    var themeFlag = _themeNotifier.darkTheme;
+
     String hostel = user["hosteller"] != null && user["hosteller"] == true
         ? "Hosteller: Yes"
         : "Hosteller: No";
@@ -128,12 +136,14 @@ class _ProfileState extends State<Profile> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      SizedBox(height: 32),
                       Padding(
-                        padding: EdgeInsets.fromLTRB(32, 32, 0, 0),
+                        padding: EdgeInsets.fromLTRB(31, 29, 0, 0),
                         child: Row(children: <Widget>[
                           IconButton(
-                            icon: Icon(Icons.arrow_back),
+                            icon: Icon(
+                              Icons.arrow_back,
+                              size: 39,
+                            ),
                             onPressed: () {
                               Navigator.of(context).pop();
                             },
@@ -142,9 +152,9 @@ class _ProfileState extends State<Profile> {
                             padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
                             child: Text("Your Profile",
                                 style: TextStyle(
-                                    fontFamily: 'GoogleSans',
-                                    fontWeight: FontWeight.w600,
-                                    fontSize: 25)),
+                                    fontFamily: 'Quicksand',
+                                    fontWeight: FontWeight.w700,
+                                    fontSize: 27)),
                           ),
                         ]),
                       ),
@@ -159,10 +169,19 @@ class _ProfileState extends State<Profile> {
                                   child: ClipPath(
                                     child: Column(
                                       children: <Widget>[
-                                        Image.asset(
-                                          "assets/images/bg2.jpg",
+                                        Container(
                                           width:
                                               MediaQuery.of(context).size.width,
+                                          height: MediaQuery.of(context)
+                                                  .size
+                                                  .width *
+                                              0.5,
+                                          child: FittedBox(
+                                            fit: BoxFit.fill,
+                                            child: Image.asset(
+                                              "assets/images/bg2.jpg",
+                                            ),
+                                          ),
                                         ),
                                       ],
                                     ),
@@ -171,7 +190,7 @@ class _ProfileState extends State<Profile> {
                                 ),
                                 Positioned(
                                   width: MediaQuery.of(context).size.width,
-                                  top: MediaQuery.of(context).size.height / 8.3,
+                                  top: MediaQuery.of(context).size.height / 20,
                                   child: Row(
                                       mainAxisAlignment:
                                           MainAxisAlignment.center,
@@ -180,39 +199,32 @@ class _ProfileState extends State<Profile> {
                                       mainAxisSize: MainAxisSize.min,
                                       children: <Widget>[
                                         Align(
+                                          heightFactor: 1.5,
                                           alignment: Alignment.center,
                                           child: CircleAvatar(
                                             backgroundColor: Colors.black,
-                                            radius: 75,
-                                            child: ClipOval(
-                                              child: SizedBox(
-                                                width: 150,
-                                                height: 150,
-                                                child: newDpFlag
-                                                    ? Image.file(newDP)
-                                                    : user['photoURL'] != null
-                                                        ? Image.network(
-                                                            user['photoURL'],
-                                                            fit: BoxFit
-                                                                .scaleDown)
-                                                        : Image.asset(
-                                                            "assets/images/avatars/av1.png"),
-                                              ),
-                                            ),
+                                            radius: 64,
+                                            backgroundImage: newDpFlag
+                                                ? Image.file(newDP)
+                                                : user['photoURL'] != null
+                                                    ? Image.network(
+                                                        user['photoURL'])
+                                                    : AssetImage(
+                                                        "assets/images/avatars/av1.png"),
                                           ),
                                         ),
                                       ]),
                                 ),
                                 Positioned(
                                     top: MediaQuery.of(context).size.height /
-                                        3.6,
+                                        4.12,
                                     left: MediaQuery.of(context).size.width /
                                         2.15,
                                     child: Row(
                                       children: [
                                         Container(
-                                          height: 30,
-                                          width: 30,
+                                          height: 28,
+                                          width: 28,
                                           decoration: BoxDecoration(
                                               color: AppColors.PROTEGE_GREY,
                                               borderRadius:
@@ -220,7 +232,7 @@ class _ProfileState extends State<Profile> {
                                           child: IconButton(
                                             icon: Icon(
                                               Icons.edit,
-                                              size: 12,
+                                              size: 15,
                                               color: Colors.white,
                                             ),
                                             alignment: Alignment.center,
@@ -231,11 +243,11 @@ class _ProfileState extends State<Profile> {
                                         ),
                                       ],
                                     )),
+                                SizedBox(
+                                  height:
+                                      MediaQuery.of(context).size.height * 0.29,
+                                ),
                               ]),
-                              SizedBox(
-                                height: 0,
-                              ),
-                              SizedBox(height: 25),
                               Align(
                                 alignment: Alignment.center,
                                 child: Text(
@@ -243,209 +255,272 @@ class _ProfileState extends State<Profile> {
                                         ? user["name"]
                                         : "null",
                                     style: TextStyle(
-                                        fontFamily: 'GoogleSans',
-                                        fontSize: 25)),
+                                        fontWeight: FontWeight.w500,
+                                        fontFamily: 'Quicksand',
+                                        fontSize: 27)),
                               ),
                               Align(
                                 alignment: Alignment.center,
                                 child: Text(
                                   user["post"] != null ? user["post"] : "Null",
                                   style: TextStyle(
-                                    fontSize: 18,
-                                    fontFamily: 'GoogleSans',
-                                    color: Hexcolor('#d89279'),
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.w400,
+                                    fontFamily: 'Quicksand',
+                                    color: AppColors.COLOR_TURQUOISE,
                                     fontStyle: FontStyle.italic,
                                   ),
                                 ),
                               ),
                               SizedBox(height: 20),
-                              Card(
-                                margin: EdgeInsets.fromLTRB(15, 0, 15, 0),
-                                child: Column(
-                                  children: [
-                                    Padding(
-                                      padding: const EdgeInsets.only(top: 8.0),
-                                      child: ListTile(
-                                        title: Text(
-                                            user["contact"] != null
-                                                ? user["contact"].toString()
-                                                : "null",
-                                            style: TextStyle(
-                                                fontFamily: 'GoogleSans',
-                                                fontSize: 18)),
-                                        leading: Icon(
-                                          Icons.phone,
-                                          color: AppColors.COLOR_TEAL_LIGHT,
-                                        ),
+                              Center(
+                                child: SizedBox(
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.8,
+                                  child: Card(
+                                    elevation: 10,
+                                    shadowColor: themeFlag ? null : Colors.grey,
+                                    child: Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 20, vertical: 8),
+                                      child: Column(
+                                        children: [
+                                          ListTile(
+                                            dense: true,
+                                            contentPadding: EdgeInsets.zero,
+                                            title: Text(
+                                              user["contact"] != null
+                                                  ? user["contact"].toString()
+                                                  : "null",
+                                              style: TextStyle(
+                                                  fontWeight: FontWeight.w400,
+                                                  fontFamily: 'Quicksand',
+                                                  fontSize: 15,
+                                                  color: themeFlag
+                                                      ? Colors.white
+                                                      : Colors.black),
+                                            ),
+                                            leading: Icon(
+                                              Icons.phone,
+                                              size: 21,
+                                            ),
+                                          ),
+                                          ListTile(
+                                            dense: true,
+                                            contentPadding: EdgeInsets.zero,
+                                            title: Text(
+                                                user["email"] == null
+                                                    ? "null"
+                                                    : user["email"],
+                                                style: TextStyle(
+                                                    fontWeight: FontWeight.w400,
+                                                    fontFamily: 'Quicksand',
+                                                    fontSize: 15,
+                                                    color: themeFlag
+                                                        ? Colors.white
+                                                        : Colors.black)),
+                                            leading: Icon(
+                                              Icons.mail,
+                                              size: 21,
+                                            ),
+                                          ),
+                                          ListTile(
+                                            dense: true,
+                                            contentPadding: EdgeInsets.zero,
+                                            title: Text(
+                                                user["year"] == null
+                                                    ? "null"
+                                                    : user["branch"]
+                                                            .toString() +
+                                                        ", " +
+                                                        user["year"] +
+                                                        " year",
+                                                style: TextStyle(
+                                                    fontWeight: FontWeight.w400,
+                                                    fontFamily: 'Quicksand',
+                                                    fontSize: 15,
+                                                    color: themeFlag
+                                                        ? Colors.white
+                                                        : Colors.black)),
+                                            subtitle: Text(
+                                                user["rollNo"] == null
+                                                    ? "null"
+                                                    : user["rollNo"]
+                                                            .toString() +
+                                                        "                                                    " +
+                                                        hostel,
+                                                style: TextStyle(
+                                                    fontWeight: FontWeight.w400,
+                                                    fontFamily: 'Quicksand',
+                                                    fontSize: 10)),
+                                            isThreeLine: true,
+                                            leading: Icon(
+                                              Icons.school,
+                                              size: 21,
+                                            ),
+                                          ),
+                                        ],
                                       ),
                                     ),
-                                    Divider(),
-                                    ListTile(
-                                      title: Text(
-                                          user["email"] == null
-                                              ? "null"
-                                              : user["email"],
-                                          style: TextStyle(
-                                              fontFamily: 'GoogleSans',
-                                              fontSize: 18)),
-                                      leading: Icon(
-                                        Icons.mail,
-                                        color: AppColors.COLOR_TEAL_LIGHT,
-                                      ),
-                                    ),
-                                    Divider(),
-                                    Padding(
-                                      padding:
-                                          const EdgeInsets.only(bottom: 6.0),
-                                      child: ListTile(
-                                        title: Text(
-                                            user["year"] == null
-                                                ? "null"
-                                                : user["branch"].toString() +
-                                                    ", " +
-                                                    user["year"] +
-                                                    " year",
-                                            style: TextStyle(
-                                                fontFamily: 'GoogleSans',
-                                                fontSize: 18)),
-                                        subtitle: Text(
-                                            user["rollNo"] == null
-                                                ? "null"
-                                                : user["rollNo"].toString() +
-                                                    "                                                    " +
-                                                    hostel,
-                                            style: TextStyle(
-                                                fontFamily: 'GoogleSans',
-                                                fontSize: 18)),
-                                        isThreeLine: true,
-                                        leading: Icon(
-                                          Icons.school,
-                                          color: AppColors.COLOR_TEAL_LIGHT,
-                                        ),
-                                      ),
-                                    ),
-                                  ],
+                                  ),
                                 ),
                               ),
                               SizedBox(height: 10),
-                              Card(
-                                margin: EdgeInsets.fromLTRB(15, 0, 15, 0),
-                                child: Column(
-                                  children: [
-                                    Padding(
-                                      padding: const EdgeInsets.only(top: 5.0),
-                                      child: ListTile(
-                                        title: Text("Languages",
-                                            style: TextStyle(
-                                                fontFamily: 'GoogleSans',
-                                                fontSize: 18)),
-                                        subtitle: Text(
-                                            user["languages"] != null
-                                                ? user["languages"]
-                                                    .toString()
-                                                    .split('[')[1]
-                                                    .split(']')[0]
-                                                : "null",
-                                            style: TextStyle(
-                                                fontFamily: 'GoogleSans',
-                                                fontSize: 18)),
-                                        leading: Icon(
-                                          Icons.code,
-                                          color: AppColors.COLOR_TEAL_LIGHT,
-                                        ),
-                                      ),
-                                    ),
-                                    Divider(),
-                                    ListTile(
-                                      title: Text("Domains",
-                                          style: TextStyle(
-                                              fontFamily: 'GoogleSans',
-                                              fontSize: 18)),
-                                      subtitle: Text(
-                                          user["domains"] != null
-                                              ? user["domains"]
-                                                  .toString()
-                                                  .split('[')[1]
-                                                  .split(']')[0]
-                                              : "null",
-                                          style: TextStyle(
-                                              fontFamily: 'GoogleSans',
-                                              fontSize: 18)),
-                                      leading: Icon(
-                                        Icons.code,
-                                        color: AppColors.COLOR_TEAL_LIGHT,
-                                      ),
-                                    ),
-                                    Divider(),
-                                    ListTile(
-                                      title: Text("LinkedIn Profile",
-                                          style: TextStyle(
-                                              fontFamily: 'GoogleSans',
-                                              fontSize: 18)),
-                                      subtitle: GestureDetector(
-                                        onTap: () {
-                                          if (user["linkedInURL"] != null &&
-                                              user["linkedInURL"].length != 0) {
-                                            launch(user["linkedInURL"]);
-                                          }
-                                        },
-                                        child: Text(
-                                          user["linkedInURL"] == null ||
-                                                  user["linkedInURL"].length ==
-                                                      0
-                                              ? " - "
-                                              : user["linkedInURL"],
-                                          style: GoogleFonts.lato(
-                                            textStyle: TextStyle(
-                                                fontFamily: 'GoogleSans',
-                                                fontSize: 14,
-                                                decoration:
-                                                    TextDecoration.underline),
+                              Center(
+                                child: SizedBox(
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.8,
+                                  child: Card(
+                                    elevation: 10,
+                                    shadowColor: themeFlag ? null : Colors.grey,
+                                    child: Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 20, vertical: 10),
+                                      child: Column(
+                                        children: [
+                                          ListTile(
+                                            dense: true,
+                                            contentPadding: EdgeInsets.zero,
+                                            title: Text("Languages",
+                                                style: TextStyle(
+                                                    fontWeight: FontWeight.w400,
+                                                    fontFamily: 'Quicksand',
+                                                    fontSize: 15,
+                                                    color: themeFlag
+                                                        ? Colors.white
+                                                        : Colors.black)),
+                                            subtitle: Text(
+                                                user["languages"] != null
+                                                    ? user["languages"]
+                                                        .toString()
+                                                        .split('[')[1]
+                                                        .split(']')[0]
+                                                    : "null",
+                                                style: TextStyle(
+                                                    fontWeight: FontWeight.w400,
+                                                    fontFamily: 'Quicksand',
+                                                    fontSize: 10)),
+                                            leading: Icon(
+                                              ModernPictograms.globe,
+                                              size: 21,
+                                            ),
                                           ),
-                                        ),
-                                      ),
-                                      leading: Icon(
-                                        Icons.code,
-                                        color: AppColors.COLOR_TEAL_LIGHT,
-                                      ),
-                                    ),
-                                    Divider(),
-                                    Padding(
-                                      padding: const EdgeInsets.only(bottom: 5),
-                                      child: ListTile(
-                                        title: Text(
-                                          "Github Profile",
-                                          style: TextStyle(
-                                              fontFamily: 'GoogleSans',
-                                              fontSize: 18),
-                                        ),
-                                        subtitle: GestureDetector(
-                                          onTap: () {
-                                            if (user["githubURL"] != null &&
-                                                user["githubURL"].length != 0) {
-                                              launch(user["githubURL"]);
-                                            }
-                                          },
-                                          child: Text(
-                                            user["githubURL"] == null ||
-                                                    user["githubURL"].length ==
-                                                        0
-                                                ? " - "
-                                                : user["githubURL"],
-                                            style: TextStyle(
-                                                fontFamily: 'GoogleSans',
-                                                fontSize: 14,
-                                                decoration:
-                                                    TextDecoration.underline),
+                                          ListTile(
+                                            dense: true,
+                                            contentPadding: EdgeInsets.zero,
+                                            title: Text("Domains",
+                                                style: TextStyle(
+                                                    fontWeight: FontWeight.w400,
+                                                    fontFamily: 'Quicksand',
+                                                    fontSize: 15,
+                                                    color: themeFlag
+                                                        ? Colors.white
+                                                        : Colors.black)),
+                                            subtitle: Text(
+                                                user["domains"] != null
+                                                    ? user["domains"]
+                                                        .toString()
+                                                        .split('[')[1]
+                                                        .split(']')[0]
+                                                    : "null",
+                                                style: TextStyle(
+                                                    fontWeight: FontWeight.w400,
+                                                    fontFamily: 'Quicksand',
+                                                    fontSize: 10)),
+                                            leading: Icon(
+                                              Icons.code,
+                                              size: 21,
+                                            ),
                                           ),
-                                        ),
-                                        leading: Icon(
-                                          Icons.code,
-                                          color: AppColors.COLOR_TEAL_LIGHT,
-                                        ),
+                                          ListTile(
+                                            dense: true,
+                                            contentPadding: EdgeInsets.zero,
+                                            title: Text("LinkedIn Profile",
+                                                style: TextStyle(
+                                                    fontWeight: FontWeight.w400,
+                                                    fontFamily: 'Quicksand',
+                                                    fontSize: 15,
+                                                    color: themeFlag
+                                                        ? Colors.white
+                                                        : Colors.black)),
+                                            subtitle: GestureDetector(
+                                              onTap: () {
+                                                if (user["linkedInURL"] !=
+                                                        null &&
+                                                    user["linkedInURL"]
+                                                            .length !=
+                                                        0) {
+                                                  launch(user["linkedInURL"]);
+                                                }
+                                              },
+                                              child: Text(
+                                                user["linkedInURL"] == null ||
+                                                        user["linkedInURL"]
+                                                                .length ==
+                                                            0
+                                                    ? " - "
+                                                    : user["linkedInURL"],
+                                                style: GoogleFonts.lato(
+                                                  textStyle: TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.w400,
+                                                      fontFamily: 'Quicksand',
+                                                      fontSize: 10,
+                                                      decoration: TextDecoration
+                                                          .underline),
+                                                ),
+                                              ),
+                                            ),
+                                            leading: Icon(
+                                              MfgLabs.linkedin,
+                                              size: 21,
+                                            ),
+                                          ),
+                                          ListTile(
+                                            dense: true,
+                                            contentPadding: EdgeInsets.zero,
+                                            title: Text(
+                                              "Github Profile",
+                                              style: TextStyle(
+                                                  fontWeight: FontWeight.w400,
+                                                  fontFamily: 'Quicksand',
+                                                  fontSize: 15,
+                                                  color: themeFlag
+                                                      ? Colors.white
+                                                      : Colors.black),
+                                            ),
+                                            subtitle: GestureDetector(
+                                              onTap: () {
+                                                if (user["githubURL"] != null &&
+                                                    user["githubURL"].length !=
+                                                        0) {
+                                                  launch(user["githubURL"]);
+                                                }
+                                              },
+                                              child: Text(
+                                                user["githubURL"] == null ||
+                                                        user["githubURL"]
+                                                                .length ==
+                                                            0
+                                                    ? " - "
+                                                    : user["githubURL"],
+                                                style: TextStyle(
+                                                    fontWeight: FontWeight.w400,
+                                                    fontFamily: 'Quicksand',
+                                                    fontSize: 10,
+                                                    decoration: TextDecoration
+                                                        .underline),
+                                              ),
+                                            ),
+                                            leading: Icon(
+                                              Octicons.mark_github,
+                                              size: 21,
+                                            ),
+                                          ),
+                                        ],
                                       ),
                                     ),
-                                  ],
+                                  ),
                                 ),
                               ),
                               SizedBox(height: 25),
@@ -455,13 +530,16 @@ class _ProfileState extends State<Profile> {
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: <Widget>[
                                     Container(
-                                      height: 40,
+                                      width: 140,
+                                      height: 34,
                                       child: new FlatButton(
                                           shape: RoundedRectangleBorder(
                                             borderRadius:
                                                 BorderRadius.circular(10.0),
                                           ),
-                                          color: AppColors.PROTEGE_GREY,
+                                          color: themeFlag
+                                              ? AppColors.COLOR_TURQUOISE
+                                              : Color(0xff4B7191),
                                           onPressed: () async {
                                             Navigator.push(
                                               context,
@@ -479,8 +557,9 @@ class _ProfileState extends State<Profile> {
                                           },
                                           child: Text('Edit Profile',
                                               style: TextStyle(
+                                                fontWeight: FontWeight.w700,
                                                 color: Colors.white,
-                                                fontFamily: 'GoogleSans',
+                                                fontFamily: 'Quicksand',
                                                 fontSize: 15,
                                               ))),
                                     ),

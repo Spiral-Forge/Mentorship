@@ -7,4 +7,6 @@ class AppColors {
   static final PROTEGE_CYAN = Hexcolor('#96ece7');
   static final PROTEGE_GREY = Hexcolor('#565656');
   static final COLOR_ERROR_RED = Colors.red;
+  static final COLOR_TURQUOISE = Color(0xff80B9E8);
+  static final COLOR_DARK = Color(0xff303030);
 }

@@ -1,11 +1,19 @@
+import 'package:dbapp/blocs/values.dart';
 import 'package:dbapp/constants/colors.dart';
 import 'package:dbapp/constants/sidebarConstants.dart';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:provider/provider.dart';
 import '../../constants/colors.dart';
 
-class FAQS extends StatelessWidget {
+class FAQS extends StatefulWidget {
+  @override
+  _FAQSState createState() => _FAQSState();
+}
+
+class _FAQSState extends State<FAQS> {
   final List faqlist = SidebarConstants.faqQuestionAnswers;
+
   Widget faqList() {
     return Expanded(
         child: SizedBox(
@@ -16,49 +24,21 @@ class FAQS extends StatelessWidget {
             if (index == 0) {
               return Center(child: Container());
             } else if ((index - 1) % 2 == 0) {
-              return Container(
-                margin: EdgeInsets.fromLTRB(20, 0, 20, 20),
-                decoration: BoxDecoration(
-                    color: AppColors.COLOR_TEAL_LIGHT,
-                    borderRadius: BorderRadius.circular(15)),
-                child: Column(children: <Widget>[
-                  Padding(
-                    padding: EdgeInsets.all(15),
-                    child: ConstrainedBox(
-                      constraints: BoxConstraints(
-                        maxHeight: 150,
-                        minHeight: 35,
-                      ),
-                      child:
-                          Text(
-                        faqlist[index - 1],
-                        style: TextStyle(
-                            color:Hexcolor("#303030"),
-                            fontFamily: 'GoogleSans',
-                            fontSize: 18,
-                            fontStyle: FontStyle.italic),
-                      ),
-                    ),
+              return Column(
+                children: [
+                  CustomExpansionTile(
+                    title: faqlist[index - 1],
+                    desc: faqlist[index],
                   ),
                   Padding(
-                    padding: EdgeInsets.fromLTRB(15, 0, 15, 15),
-                    child: ConstrainedBox(
-                      constraints: BoxConstraints(
-                        maxHeight: 150,
-                        minHeight: 35,
-                      ),
-                      child:
-                          Text(
-                        faqlist[index],
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontFamily: 'GoogleSans',
-                            fontSize: 18,
-                            fontWeight: FontWeight.w200),
-                      ),
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 20, vertical: 0),
+                    child: Divider(
+                      color: Colors.grey,
+                      thickness: 1,
                     ),
-                  ),
-                ]),
+                  )
+                ],
               );
             } else {
               return Center(
@@ -81,28 +61,112 @@ class FAQS extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      SizedBox(height: 32),
                       Padding(
-                        padding: EdgeInsets.fromLTRB(32, 32, 0, 0),
+                        padding: EdgeInsets.fromLTRB(31, 29, 0, 0),
                         child: IconButton(
-                          icon: Icon(Icons.arrow_back),
+                          icon: Icon(
+                            Icons.arrow_back,
+                            size: 39,
+                          ),
                           onPressed: () {
                             Navigator.of(context).pop();
                           },
                         ),
                       ),
-                      SizedBox(height: 25),
-                      Padding(
-                        padding: EdgeInsets.fromLTRB(32, 0, 0, 0),
-                        child: Text("Frequently Asked Questions",
+                      SizedBox(height: 10),
+                      Center(
+                        child: Text("FAQ",
+                            textAlign: TextAlign.center,
                             style: TextStyle(
-                                fontFamily: 'GoogleSans',
-                                fontWeight: FontWeight.bold,
-                                fontSize: 32)),
+                                fontFamily: 'Quicksand',
+                                fontWeight: FontWeight.w700,
+                                fontSize: 48)),
                       ),
                       faqList()
                     ],
                   ))))
     ]));
+  }
+}
+
+class CustomExpansionTile extends StatefulWidget {
+  final String title;
+  final String desc;
+
+  const CustomExpansionTile({Key key, this.title, this.desc}) : super(key: key);
+
+  @override
+  _CustomExpansionTileState createState() => _CustomExpansionTileState();
+}
+
+class _CustomExpansionTileState extends State<CustomExpansionTile> {
+  bool isExpanded = false;
+
+  @override
+  Widget build(BuildContext context) {
+    ThemeNotifier _themeNotifier = Provider.of<ThemeNotifier>(context);
+    var themeFlag = _themeNotifier.darkTheme;
+
+    return Container(
+      width: MediaQuery.of(context).size.width,
+      child: Theme(
+        data: Theme.of(context).copyWith(
+          dividerColor: Colors.transparent,
+          backgroundColor: themeFlag
+              ? null
+              : isExpanded
+                  ? AppColors.COLOR_TURQUOISE
+                  : null,
+        ),
+        child: ExpansionTile(
+          trailing: Icon(
+            isExpanded ? Icons.arrow_drop_up : Icons.arrow_drop_down,
+            size: 20,
+            color: themeFlag
+                ? isExpanded
+                    ? Colors.black
+                    : Colors.white
+                : Colors.black,
+          ),
+          backgroundColor: themeFlag
+              ? null
+              : isExpanded
+                  ? AppColors.COLOR_TURQUOISE
+                  : null,
+          title: Text(
+            widget.title,
+            style: TextStyle(
+              color: themeFlag
+                  ? isExpanded
+                      ? AppColors.COLOR_TURQUOISE
+                      : Colors.white
+                  : Colors.black,
+              fontFamily: 'Googlesans',
+              fontWeight: FontWeight.w700,
+              fontStyle: FontStyle.italic,
+              fontSize: 15,
+            ),
+          ),
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(10),
+              child: Text(
+                widget.desc,
+                style: TextStyle(
+                  fontFamily: 'Quicksand',
+                  fontWeight: FontWeight.w500,
+                  fontSize: 14,
+                  color: Colors.white,
+                ),
+              ),
+            )
+          ],
+          onExpansionChanged: (expanded) {
+            isExpanded = expanded;
+            setState(() {});
+          },
+        ),
+      ),
+    );
   }
 }
