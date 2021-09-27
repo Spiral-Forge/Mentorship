@@ -96,10 +96,14 @@ class _ConversationScreenState extends State<ConversationScreen> {
                 shrinkWrap: true,
                 itemCount: snapshot.data.documents.length,
                 itemBuilder: (context, index) {
-                  return MessageTile(
-                      snapshot.data.documents[index].data["message"],
-                      snapshot.data.documents[index].data["sentBy"] ==
-                          widget.userID);
+                  return Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 10),
+                    child: MessageTile(
+                        snapshot.data.documents[index].data["message"],
+                        snapshot.data.documents[index].data["sentBy"] ==
+                            widget.userID,
+                        widget.profPic),
+                  );
                 })
             : Container();
       },
@@ -162,147 +166,321 @@ class _ConversationScreenState extends State<ConversationScreen> {
     var themeFlag = _themeNotifier.darkTheme;
 
     return Scaffold(
-        appBar: new AppBar(
-            iconTheme: IconThemeData(
-              color: themeFlag ? null : Colors.black,
-            ),
-            backgroundColor: themeFlag ? null : Colors.white,
-            title: Container(
-                child: Row(
-              children: <Widget>[
+        backgroundColor:
+            themeFlag ? AppColors.COLOR_DARK : AppColors.COLOR_TURQUOISE,
+        body: Column(children: [
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 30),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Row(
+                  children: [
+                    IconButton(
+                      icon: Icon(
+                        Icons.arrow_back,
+                        size: 39,
+                        color: Colors.white,
+                      ),
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                    ),
+                    SizedBox(
+                      width: 20,
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    PeerProfile(post, widget.peerID)));
+                      },
+                      child: ConstrainedBox(
+                          constraints: BoxConstraints(
+                              maxWidth:
+                                  MediaQuery.of(context).size.width * 0.4),
+                          child: Text(widget.peerName,
+                              style: TextStyle(
+                                fontFamily: 'Quicksand',
+                                fontSize: 30,
+                                fontWeight: FontWeight.w700,
+                                color: themeFlag ? null : Colors.white,
+                              ))),
+                    ),
+                  ],
+                ),
                 CircleAvatar(
-                    backgroundColor: Colors.black,
                     radius: 20,
-                    child: ClipOval(
-                        child: SizedBox(
-                            width: 40,
-                            height: 40,
-                            child: widget.profPic != null
-                                ? Image.network(widget.profPic)
-                                : Image.asset(
-                                    "assets/images/avatars/av1.png")))),
-                SizedBox(
-                  width: 20,
-                ),
-                GestureDetector(
-                    onTap: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) =>
-                                  PeerProfile(post, widget.peerID)));
-                    },
-                    child: Container(
-                        child: Text(widget.peerName,
-                            style: TextStyle(
-                              color: themeFlag ? null : Colors.black,
-                            ))))
+                    backgroundColor:
+                        themeFlag ? Colors.black : Color(0xff569BD4),
+                    child: IconButton(
+                      icon: Icon(
+                        Icons.phone,
+                        size: 21,
+                        color: Colors.white,
+                      ),
+                      onPressed: () {},
+                    ))
               ],
-            ))),
-        body: Container(
-          decoration: BoxDecoration(
-              image: DecorationImage(
-            image: themeFlag
-                ? AssetImage("assets/images/feature graphic.png")
-                : AssetImage("assets/images/feature_light.jpeg"),
-            fit: BoxFit.cover,
-          )),
-          child: Stack(
-            children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.only(bottom: 72, top: 8),
-                child: chatMessageList(),
-              ),
-              Container(
-                alignment: Alignment.bottomCenter,
-                child: Container(
-                  color: themeFlag ? Colors.grey[900] : Colors.white,
-                  padding: EdgeInsets.symmetric(horizontal: 24, vertical: 8),
-                  child: Row(
-                    children: <Widget>[
-                      Expanded(
-                          child: TextField(
-                        controller: messageController,
-                        style: TextStyle(
-                            color: themeFlag ? Colors.white : Colors.black),
-                        decoration: InputDecoration(
-                            fillColor: themeFlag
-                                ? Colors.white
-                                : AppColors.PROTEGE_GREY,
-                            hintText: "Enter message..",
-                            hintStyle: TextStyle(
-                                color:
-                                    themeFlag ? Colors.white : Colors.black87,
-                                fontFamily: 'GoogleSans'),
-                            border: InputBorder.none),
-                      )),
-                      GestureDetector(
-                        onTap: () {
-                          sendMessage();
-                        },
-                        child: Container(
-                            height: 40,
-                            width: 40,
-                            margin: EdgeInsets.symmetric(horizontal: 5),
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(40)),
-                            padding: EdgeInsets.all(5),
-                            child: Icon(Icons.send)),
-                      )
-                    ],
-                  ),
-                ),
-              )
-            ],
+            ),
           ),
-        ));
+          Expanded(
+              child: Container(
+            decoration: BoxDecoration(
+                color: themeFlag ? Colors.black : Colors.white,
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(50),
+                  topRight: Radius.circular(50),
+                )),
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: chatMessageList(),
+            ),
+          )),
+          Container(
+              alignment: Alignment.bottomCenter,
+              child: Container(
+                color: AppColors.COLOR_DARK,
+                padding: EdgeInsets.symmetric(horizontal: 24, vertical: 8),
+                child: Row(
+                  children: <Widget>[
+                    Expanded(
+                        child: TextField(
+                      controller: messageController,
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontFamily: 'Quicksand',
+                        fontWeight: FontWeight.w400,
+                        fontSize: 17,
+                      ),
+                      decoration: InputDecoration(
+                          fillColor:
+                              themeFlag ? Colors.white : AppColors.PROTEGE_GREY,
+                          hintText: "Enter message..",
+                          hintStyle: TextStyle(
+                            color: Colors.white,
+                            fontFamily: 'Quicksand',
+                            fontWeight: FontWeight.w400,
+                            fontSize: 17,
+                          ),
+                          border: InputBorder.none),
+                    )),
+                    GestureDetector(
+                      onTap: () {
+                        sendMessage();
+                      },
+                      child: Container(
+                          height: 40,
+                          width: 40,
+                          margin: EdgeInsets.symmetric(horizontal: 5),
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(40)),
+                          padding: EdgeInsets.all(5),
+                          child: Icon(
+                            Icons.send,
+                            color: Colors.white,
+                          )),
+                    )
+                  ],
+                ),
+              ))
+        ]));
   }
 }
 
 class MessageTile extends StatelessWidget {
   final String message;
   final bool isSentByMe;
-  MessageTile(this.message, this.isSentByMe);
+  final String profile;
+  MessageTile(this.message, this.isSentByMe, this.profile);
   @override
   Widget build(BuildContext context) {
     ThemeNotifier _themeNotifier = Provider.of<ThemeNotifier>(context);
     var themeFlag = _themeNotifier.darkTheme;
 
-    return Container(
-      constraints: BoxConstraints(
-          maxWidth: (7 * MediaQuery.of(context).size.width) / 8,
-          minWidth: 10.0),
-      padding: EdgeInsets.only(
-          left: isSentByMe ? 0 : 10, right: isSentByMe ? 10 : 0),
-      margin: EdgeInsets.symmetric(vertical: 2),
-      alignment: isSentByMe ? Alignment.centerRight : Alignment.centerLeft,
-      child: Container(
-        constraints: BoxConstraints(
-            maxWidth: (7 * MediaQuery.of(context).size.width) / 8,
-            minWidth: 10.0),
-        padding: EdgeInsets.symmetric(horizontal: 13, vertical: 8),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(9),
-          color: isSentByMe
-              ? themeFlag ? Colors.grey[800] : Hexcolor("#dea38e")
-              : themeFlag ? Hexcolor("#22272B") : Colors.grey[700],
+    return isSentByMe
+        ? SelfMessageTile(message: message)
+        : PeerMessageTile(
+            message: message,
+            profile: profile,
+          );
+  }
+}
+
+class PeerMessageTile extends StatelessWidget {
+  final String message;
+  final String profile;
+
+  const PeerMessageTile({Key key, this.message, this.profile})
+      : super(key: key);
+  @override
+  Widget build(BuildContext context) {
+    ThemeNotifier _themeNotifier = Provider.of<ThemeNotifier>(context);
+    var themeFlag = _themeNotifier.darkTheme;
+    return Row(
+      children: [
+        CircleAvatar(
+          radius: 22,
+          backgroundColor: Colors.blue,
+          backgroundImage: profile != null
+              ? NetworkImage(profile)
+              : AssetImage("assets/images/avatars/av1.png"),
         ),
-        child: Linkify(
-            onOpen: (link) async {
-              if (await canLaunch(link.url)) {
-                await launch(link.url);
-              } else {
-                Toast.show("Could not launch $link", context,
-                    duration: Toast.LENGTH_SHORT, gravity: Toast.BOTTOM);
-              }
-            },
-            text: message,
-            textAlign: isSentByMe ? TextAlign.right : TextAlign.left,
-            linkStyle: TextStyle(
-                color: themeFlag ? Hexcolor("#42A2F5") : Hexcolor("#2D8CFF")),
-            style: TextStyle(
-                color: Colors.white, fontSize: 17, fontFamily: 'GoogleSans')),
-      ),
+        SizedBox(
+          width: 10,
+        ),
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Material(
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(9),
+                topRight: Radius.circular(9),
+                bottomRight: Radius.circular(9),
+              ),
+              elevation: 5,
+              color: themeFlag ? Color(0xff303030) : Colors.black,
+              child: Stack(
+                children: [
+                  Column(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(10, 10, 20, 10),
+                        child: ConstrainedBox(
+                          constraints: BoxConstraints(
+                            minWidth: 10.0,
+                            maxWidth:
+                                (6 * MediaQuery.of(context).size.width) / 10,
+                          ),
+                          child: Linkify(
+                              onOpen: (link) async {
+                                if (await canLaunch(link.url)) {
+                                  await launch(link.url);
+                                } else {
+                                  Toast.show("Could not launch $link", context,
+                                      duration: Toast.LENGTH_SHORT,
+                                      gravity: Toast.BOTTOM);
+                                }
+                              },
+                              text: message,
+                              linkStyle: TextStyle(
+                                  color: themeFlag
+                                      ? Hexcolor("#42A2F5")
+                                      : Hexcolor("#2D8CFF")),
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 17,
+                                fontFamily: 'Quicksand',
+                                fontWeight: FontWeight.w400,
+                              )),
+                        ),
+                      ),
+                      SizedBox(
+                        height: 20,
+                      )
+                    ],
+                  ),
+                  Positioned(
+                    child: Text('Time',
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 8,
+                            fontFamily: 'Quicksand',
+                            fontWeight: FontWeight.w500)),
+                    right: 5,
+                    bottom: 5,
+                  )
+                ],
+              ),
+            ),
+            SizedBox(
+              height: 10,
+            )
+          ],
+        ),
+      ],
+    );
+  }
+}
+
+class SelfMessageTile extends StatelessWidget {
+  final String message;
+
+  const SelfMessageTile({Key key, this.message}) : super(key: key);
+  @override
+  Widget build(BuildContext context) {
+    ThemeNotifier _themeNotifier = Provider.of<ThemeNotifier>(context);
+    var themeFlag = _themeNotifier.darkTheme;
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.end,
+      children: [
+        Material(
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(9),
+            topRight: Radius.circular(9),
+            bottomLeft: Radius.circular(9),
+          ),
+          elevation: 5,
+          color: themeFlag ? Color(0xff5A5A5A) : AppColors.COLOR_DARK,
+          child: Stack(
+            children: [
+              Column(
+                children: [
+                  Padding(
+                    padding: EdgeInsets.fromLTRB(10, 10, 20, 10),
+                    child: ConstrainedBox(
+                      constraints: BoxConstraints(
+                        minWidth: 20.0,
+                        maxWidth: (7 * MediaQuery.of(context).size.width) / 9,
+                      ),
+                      child: Linkify(
+                          onOpen: (link) async {
+                            if (await canLaunch(link.url)) {
+                              await launch(link.url);
+                            } else {
+                              Toast.show("Could not launch $link", context,
+                                  duration: Toast.LENGTH_SHORT,
+                                  gravity: Toast.BOTTOM);
+                            }
+                          },
+                          text: message,
+                          linkStyle: TextStyle(
+                              color: themeFlag
+                                  ? Hexcolor("#42A2F5")
+                                  : Hexcolor("#2D8CFF")),
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 17,
+                            fontFamily: 'Quicksand',
+                            fontWeight: FontWeight.w400,
+                          )),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 20,
+                  )
+                ],
+              ),
+              Positioned(
+                child: Text('Time',
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 8,
+                        fontFamily: 'Quicksand',
+                        fontWeight: FontWeight.w500)),
+                right: 5,
+                bottom: 5,
+              )
+            ],
+          ),
+        ),
+        SizedBox(
+          height: 10,
+        )
+      ],
     );
   }
 }

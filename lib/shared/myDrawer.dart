@@ -1,3 +1,4 @@
+import 'package:dbapp/constants/colors.dart';
 import 'package:dbapp/screens/authenticate/authenticate.dart';
 import 'package:dbapp/services/storage.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -11,6 +12,7 @@ import 'package:dbapp/screens/sidebarScreens/feedback.dart';
 import 'package:dbapp/screens/sidebarScreens/guidelines.dart';
 import 'package:dbapp/screens/sidebarScreens/date_view.dart';
 import 'package:dbapp/screens/profile/profile.dart';
+import 'package:flutter_switch/flutter_switch.dart';
 
 class myDrawer extends StatefulWidget {
   @override
@@ -33,6 +35,14 @@ class _myDrawerState extends State<myDrawer> {
   Widget build(BuildContext context) {
     final AuthService _auth = AuthService();
     final user = Provider.of<FirebaseUser>(context);
+
+    ThemeNotifier _themeNotifier = Provider.of<ThemeNotifier>(context);
+    var themeFlag = _themeNotifier.darkTheme;
+
+    final Widget space = SizedBox(
+      height: 10,
+    );
+
     return new Drawer(
       child: new ListView(
         children: <Widget>[
@@ -41,111 +51,171 @@ class _myDrawerState extends State<myDrawer> {
             color: Colors.transparent,
           ),
           new ListTile(
-              leading: CircleAvatar(
+              leading: Stack(children: [
+                CircleAvatar(
                   backgroundColor: Colors.black,
-                  radius: 20,
-                  child: ClipOval(
-                      child: SizedBox(
-                          width: 40,
-                          height: 40,
-                          child: photoURL != null && photoURL.length != 0
-                              ? Image.network(photoURL)
-                              : Image.asset("assets/images/avatars/av1.png")))),
+                  radius: 32,
+                  backgroundImage: photoURL != null && photoURL.length != 0
+                      ? Image.network(photoURL)
+                      : AssetImage("assets/images/avatars/av1.png"),
+                ),
+                Positioned(
+                    left: 50,
+                    top: 35,
+                    child: CircleAvatar(
+                      backgroundColor: Colors.green,
+                      radius: 5,
+                    )),
+              ]),
               title: new Text(
                 "Profile",
-                style: TextStyle(fontFamily: 'GoogleSans', fontSize: 20),
+                style: TextStyle(
+                    fontFamily: 'Quicksand',
+                    fontSize: 23,
+                    fontWeight: FontWeight.w700),
               ),
               subtitle: new Text(
                 "Logged In",
-                style: TextStyle(fontFamily: 'GoogleSans', fontSize: 13),
+                style: TextStyle(
+                    fontFamily: 'Quicksand',
+                    fontSize: 16,
+                    fontWeight: FontWeight.w400,
+                    color: themeFlag
+                        ? AppColors.COLOR_TURQUOISE
+                        : Color(0xff777777)),
               ),
               onTap: () {
                 Navigator.of(context).pop();
                 Navigator.push(context,
                     MaterialPageRoute(builder: (context) => Profile()));
               }),
-          new Divider(),
+          // new Divider(),
           new ListTile(
               title: new Text(
                 "Code of Conduct",
-                style: TextStyle(fontFamily: 'GoogleSans', fontSize: 15),
+                style: TextStyle(
+                    fontFamily: 'Quicksand',
+                    fontSize: 19,
+                    fontWeight: FontWeight.w500),
               ),
-              trailing: new Icon(Icons.arrow_right),
+              trailing: new Icon(
+                Icons.arrow_right,
+                size: 39,
+              ),
               onTap: () {
                 Navigator.of(context).pop();
                 Navigator.push(context,
                     MaterialPageRoute(builder: (context) => Guidelines()));
               }),
+          space,
           new ListTile(
               title: new Text(
                 "Deadlines",
-                style: TextStyle(fontFamily: 'GoogleSans', fontSize: 15),
+                style: TextStyle(
+                    fontFamily: 'Quicksand',
+                    fontSize: 19,
+                    fontWeight: FontWeight.w500),
               ),
-              trailing: new Icon(Icons.arrow_right),
+              trailing: new Icon(
+                Icons.arrow_right,
+                size: 39,
+              ),
               onTap: () {
                 Navigator.of(context).pop();
                 Navigator.push(context,
                     MaterialPageRoute(builder: (context) => DateView()));
               }),
+          space,
           new ListTile(
               title: new Text(
                 "Our Vision",
-                style: TextStyle(fontFamily: 'GoogleSans', fontSize: 15),
+                style: TextStyle(
+                    fontFamily: 'Quicksand',
+                    fontSize: 19,
+                    fontWeight: FontWeight.w500),
               ),
-              trailing: new Icon(Icons.arrow_right),
+              trailing: new Icon(
+                Icons.arrow_right,
+                size: 39,
+              ),
               onTap: () {
                 Navigator.of(context).pop();
                 Navigator.of(context).push(new MaterialPageRoute(
                     builder: (BuildContext context) => new About()));
               }),
+          space,
           new ListTile(
               title: new Text(
                 "FAQs",
-                style: TextStyle(fontFamily: 'GoogleSans', fontSize: 15),
+                style: TextStyle(
+                    fontFamily: 'Quicksand',
+                    fontSize: 19,
+                    fontWeight: FontWeight.w500),
               ),
-              trailing: new Icon(Icons.arrow_right),
+              trailing: new Icon(
+                Icons.arrow_right,
+                size: 39,
+              ),
               onTap: () {
                 Navigator.of(context).pop();
                 Navigator.of(context).push(new MaterialPageRoute(
                     builder: (BuildContext context) => new FAQS()));
               }),
+          space,
           new ListTile(
               title: new Text(
                 "Help Center",
-                style: TextStyle(fontFamily: 'GoogleSans', fontSize: 15),
+                style: TextStyle(
+                    fontFamily: 'Quicksand',
+                    fontSize: 19,
+                    fontWeight: FontWeight.w500),
               ),
-              trailing: new Icon(Icons.arrow_right),
+              trailing: new Icon(
+                Icons.arrow_right,
+                size: 39,
+              ),
               onTap: () {
                 Navigator.of(context).pop();
                 Navigator.of(context).push(new MaterialPageRoute(
                     builder: (BuildContext context) => new MyFeedback()));
               }),
-          new Divider(),
+          space,
+          // new Divider(),
           Consumer<ThemeNotifier>(builder: (context, notifier, child) {
-            return Align(
-              alignment: Alignment.bottomRight,
-              child: new ListTile(
-                leading: Icon(
-                  Icons.lightbulb_outline,
-                  size: 25,
-                ),
-                trailing: Transform.scale(
-                  scale: 1.4,
-                  child: Switch(
+            return Padding(
+              padding: const EdgeInsets.only(right: 20, left: 10),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Icon(
+                    Icons.lightbulb_outline,
+                    size: 39,
+                  ),
+                  FlutterSwitch(
+                    width: 30.0,
+                    height: 15.0,
+                    valueFontSize: 12.0,
+                    toggleSize: 10.0,
+                    toggleColor: themeFlag ? Colors.black : Colors.white,
+                    activeColor: themeFlag ? Colors.white : Colors.black,
                     value: notifier.darkTheme,
-                    onChanged: (val) async {
+                    onToggle: (val) async {
                       notifier.toggleTheme();
                     },
                   ),
-                ),
+                ],
               ),
             );
           }),
-          Divider(),
+          space,
+          // Divider(),
           new ListTile(
               title: new Text(
                 "Logout",
-                style: TextStyle(fontFamily: 'GoogleSans', fontSize: 15),
+                style: TextStyle(
+                    fontFamily: 'Quicksand',
+                    fontSize: 19,
+                    fontWeight: FontWeight.w500),
               ),
               trailing: new Icon(Icons.call_made),
               onTap: () async {
@@ -158,7 +228,6 @@ class _myDrawerState extends State<myDrawer> {
                   (route) => false,
                 );
               }),
-          new Divider(),
         ],
       ),
     );

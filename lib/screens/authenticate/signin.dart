@@ -45,7 +45,10 @@ class _SignInState extends State<SignIn> with SingleTickerProviderStateMixin {
   Widget build(BuildContext context) {
     ThemeNotifier _themeNotifier = Provider.of<ThemeNotifier>(context);
     var themeFlag = _themeNotifier.darkTheme;
+
+    final bg = Color(0xff303030);
     return Scaffold(
+        backgroundColor: themeFlag ? bg : Colors.white,
         body: loading
             ? Loading()
             : Container(
@@ -73,17 +76,35 @@ class _SignInState extends State<SignIn> with SingleTickerProviderStateMixin {
                             children: <Widget>[
                               SizedBox(height: 20.0),
                               TextFormField(
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    fontFamily: 'Quicksand',
+                                    fontWeight: FontWeight.w400,
+                                  ),
                                   decoration: textInputDecorations.copyWith(
+                                      fillColor: Colors.white,
+                                      filled: true,
+                                      contentPadding: EdgeInsets.symmetric(
+                                          horizontal: 30, vertical: 20),
                                       labelText: "Enter Email",
                                       labelStyle: TextStyle(
-                                        fontFamily: 'GoogleSans',
+                                        color: Colors.black,
+                                        fontFamily: 'Quicksand',
+                                        fontWeight: FontWeight.w400,
                                       ),
+                                      enabledBorder: OutlineInputBorder(
+                                          borderRadius: BorderRadius.all(
+                                            Radius.circular(12),
+                                          ),
+                                          borderSide: BorderSide(
+                                            width: 1.5,
+                                          )),
                                       focusedBorder: OutlineInputBorder(
                                           borderRadius: BorderRadius.all(
                                               Radius.circular(8)),
                                           borderSide: BorderSide(
                                               color:
-                                                  AppColors.COLOR_TEAL_LIGHT))),
+                                                  AppColors.COLOR_TURQUOISE))),
                                   validator: (val) =>
                                       val.isEmpty ? 'Enter an email' : null,
                                   onChanged: (val) {
@@ -92,17 +113,35 @@ class _SignInState extends State<SignIn> with SingleTickerProviderStateMixin {
                                   }),
                               SizedBox(height: 20.0),
                               TextField(
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    fontFamily: 'Quicksand',
+                                    fontWeight: FontWeight.w400,
+                                  ),
                                   decoration: textInputDecorations.copyWith(
+                                      fillColor: Colors.white,
+                                      filled: true,
+                                      contentPadding: EdgeInsets.symmetric(
+                                          horizontal: 30, vertical: 20),
                                       labelText: "Enter Password",
                                       labelStyle: TextStyle(
-                                        fontFamily: 'GoogleSans',
+                                        color: Colors.black,
+                                        fontFamily: 'Quicksand',
+                                        fontWeight: FontWeight.w400,
                                       ),
+                                      enabledBorder: OutlineInputBorder(
+                                          borderRadius: BorderRadius.all(
+                                            Radius.circular(12),
+                                          ),
+                                          borderSide: BorderSide(
+                                            width: 1.5,
+                                          )),
                                       focusedBorder: OutlineInputBorder(
                                           borderRadius: BorderRadius.all(
                                               Radius.circular(8)),
                                           borderSide: BorderSide(
                                               color:
-                                                  AppColors.COLOR_TEAL_LIGHT))),
+                                                  AppColors.COLOR_TURQUOISE))),
                                   obscureText: true,
                                   onChanged: (val) {
                                     setState(() => password = val);
@@ -113,85 +152,158 @@ class _SignInState extends State<SignIn> with SingleTickerProviderStateMixin {
                                   showDialog(
                                       context: context,
                                       builder: (context) {
+                                        var width =
+                                            MediaQuery.of(context).size.width;
                                         return Container(
                                           padding: EdgeInsets.all(20.0),
                                           child: AlertDialog(
-                                            shape: RoundedRectangleBorder(
-                                                borderRadius: BorderRadius.all(
-                                                    Radius.circular(20.0))),
+                                            insetPadding: EdgeInsets.zero,
+                                            clipBehavior:
+                                                Clip.antiAliasWithSaveLayer,
+                                            backgroundColor:
+                                                themeFlag ? bg : Colors.white,
+                                            // shape: RoundedRectangleBorder(
+                                            //     borderRadius: BorderRadius.all(
+                                            //         Radius.circular(0))),
                                             contentPadding:
                                                 EdgeInsets.all(15.0),
-                                            title: Text(
-                                              'Enter your email',
-                                              style: TextStyle(
-                                                  fontSize: 20,
-                                                  fontFamily: 'GoogleSans'),
-                                            ),
-                                            content: TextField(
-                                              controller:
-                                                  resetPasswordController,
-                                              decoration: InputDecoration(
-                                                  hintText: "Email address"),
-                                            ),
-                                            actions: <Widget>[
-                                              new FlatButton(
-                                                child: new Text(
-                                                  'Cancel',
+                                            title: Container(
+                                              width: 366 > width * 0.9
+                                                  ? width * 0.9
+                                                  : 366,
+                                              child: Center(
+                                                child: Text(
+                                                  'Enter your email',
                                                   style: TextStyle(
-                                                      fontSize: 14,
-                                                      fontFamily: 'GoogleSans'),
-                                                ),
-                                                onPressed: () {
-                                                  Navigator.of(context).pop();
-                                                },
-                                              ),
-                                              new FlatButton(
-                                                child: new Text(
-                                                  'Send Reset Link',
-                                                  style: TextStyle(
-                                                    fontSize: 14,
-                                                    fontFamily: 'GoogleSans',
+                                                    color: themeFlag
+                                                        ? Colors.white
+                                                        : Colors.black,
+                                                    fontSize: 27,
+                                                    fontFamily: 'Quicksand',
+                                                    fontWeight: FontWeight.w700,
                                                   ),
                                                 ),
-                                                onPressed: () async {
-                                                  if (resetPasswordController
-                                                      .text.isEmpty) {
-                                                    Toast.show(
-                                                        "Email can't be empty.",
-                                                        context,
-                                                        duration:
-                                                            Toast.LENGTH_SHORT,
-                                                        gravity: Toast.BOTTOM);
-                                                  } else {
-                                                    var rv = await _auth
-                                                        .resetPassword(
-                                                            resetPasswordController
-                                                                .text);
-                                                    if (rv != null) {
-                                                      Toast.show(
-                                                          "Incorrect email. Please try again.",
-                                                          context,
-                                                          duration: Toast
-                                                              .LENGTH_SHORT,
-                                                          gravity:
-                                                              Toast.BOTTOM);
-                                                      resetPasswordController
-                                                          .text = "";
-                                                    } else {
-                                                      Navigator.of(context)
-                                                          .pop();
-                                                      Toast.show(
-                                                          "Password reset link has been sent to your email.",
-                                                          context,
-                                                          duration: Toast
-                                                              .LENGTH_SHORT,
-                                                          gravity:
-                                                              Toast.BOTTOM);
-                                                    }
-                                                  }
-                                                },
-                                              )
-                                            ],
+                                              ),
+                                            ),
+                                            content: Padding(
+                                              padding: const EdgeInsets.all(20),
+                                              child: Column(
+                                                mainAxisSize: MainAxisSize.min,
+                                                children: [
+                                                  TextField(
+                                                    controller:
+                                                        resetPasswordController,
+                                                    decoration: InputDecoration(
+                                                        enabledBorder:
+                                                            UnderlineInputBorder(
+                                                          borderSide: BorderSide(
+                                                              color: themeFlag
+                                                                  ? Colors.white
+                                                                  : Colors
+                                                                      .black),
+                                                        ),
+                                                        hintStyle: TextStyle(
+                                                          color: themeFlag
+                                                              ? Colors.white
+                                                              : Colors.black,
+                                                        ),
+                                                        hintText:
+                                                            "Email address"),
+                                                  ),
+                                                  SizedBox(
+                                                    height: 10,
+                                                  ),
+                                                  Row(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .spaceBetween,
+                                                    children: [
+                                                      TextButton(
+                                                        style: TextButton
+                                                            .styleFrom(
+                                                          padding:
+                                                              EdgeInsets.all(0),
+                                                        ),
+                                                        onPressed: () {
+                                                          Navigator.of(context)
+                                                              .pop();
+                                                        },
+                                                        child: Text(
+                                                          'Cancel',
+                                                          style: TextStyle(
+                                                            fontFamily:
+                                                                'Quicksand',
+                                                            fontSize: 15,
+                                                            fontWeight:
+                                                                FontWeight.w700,
+                                                            color: AppColors
+                                                                .COLOR_TURQUOISE,
+                                                          ),
+                                                        ),
+                                                      ),
+                                                      TextButton(
+                                                        style: TextButton
+                                                            .styleFrom(
+                                                          padding:
+                                                              EdgeInsets.all(0),
+                                                        ),
+                                                        onPressed: () async {
+                                                          if (resetPasswordController
+                                                              .text.isEmpty) {
+                                                            Toast.show(
+                                                                "Email can't be empty.",
+                                                                context,
+                                                                duration: Toast
+                                                                    .LENGTH_SHORT,
+                                                                gravity: Toast
+                                                                    .BOTTOM);
+                                                          } else {
+                                                            var rv = await _auth
+                                                                .resetPassword(
+                                                                    resetPasswordController
+                                                                        .text);
+                                                            if (rv != null) {
+                                                              Toast.show(
+                                                                  "Incorrect email. Please try again.",
+                                                                  context,
+                                                                  duration: Toast
+                                                                      .LENGTH_SHORT,
+                                                                  gravity: Toast
+                                                                      .BOTTOM);
+                                                              resetPasswordController
+                                                                  .text = "";
+                                                            } else {
+                                                              Navigator.of(
+                                                                      context)
+                                                                  .pop();
+                                                              Toast.show(
+                                                                  "Password reset link has been sent to your email.",
+                                                                  context,
+                                                                  duration: Toast
+                                                                      .LENGTH_SHORT,
+                                                                  gravity: Toast
+                                                                      .BOTTOM);
+                                                            }
+                                                          }
+                                                        },
+                                                        child: Text(
+                                                          'Send Reset Link',
+                                                          style: TextStyle(
+                                                            fontFamily:
+                                                                'Quicksand',
+                                                            fontSize: 15,
+                                                            fontWeight:
+                                                                FontWeight.w700,
+                                                            color: AppColors
+                                                                .COLOR_TURQUOISE,
+                                                          ),
+                                                        ),
+                                                      )
+                                                    ],
+                                                  )
+                                                ],
+                                              ),
+                                            ),
                                           ),
                                         );
                                       });
@@ -200,9 +312,10 @@ class _SignInState extends State<SignIn> with SingleTickerProviderStateMixin {
                                   alignment: Alignment.bottomRight,
                                   child: Text("Forgot password?",
                                       style: TextStyle(
-                                          color: AppColors.COLOR_TEAL_LIGHT,
+                                          color: AppColors.COLOR_TURQUOISE,
                                           fontSize: 15.0,
-                                          fontFamily: 'GoogleSans',
+                                          fontFamily: 'Quicksand',
+                                          fontWeight: FontWeight.w500,
                                           decoration:
                                               TextDecoration.underline)),
                                 ),
@@ -211,19 +324,19 @@ class _SignInState extends State<SignIn> with SingleTickerProviderStateMixin {
                               Container(
                                 margin: EdgeInsets.symmetric(horizontal: 50),
                                 child: MaterialButton(
-                                  minWidth: double.infinity,
-                                  height: 48,
+                                  minWidth: 140,
+                                  height: 34,
                                   shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(50.0),
+                                    borderRadius: BorderRadius.circular(8),
                                   ),
-                                  color: AppColors.COLOR_TEAL_LIGHT,
+                                  color: AppColors.COLOR_TURQUOISE,
                                   child: Text(
                                     'LOGIN',
                                     style: TextStyle(
                                         color: Colors.white,
                                         fontSize: 17,
-                                        fontWeight: FontWeight.w600,
-                                        fontFamily: 'GoogleSans'),
+                                        fontWeight: FontWeight.w700,
+                                        fontFamily: 'Quicksand'),
                                   ),
                                   onPressed: () async {
                                     if (_formKey.currentState.validate()) {
@@ -254,17 +367,18 @@ class _SignInState extends State<SignIn> with SingleTickerProviderStateMixin {
                                   },
                                 ),
                               ),
-                              SizedBox(height: 10.0),
+                              SizedBox(height: 20.0),
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: <Widget>[
                                   Text('New Here? ',
                                       style: TextStyle(
                                           color: themeFlag
-                                              ? const Color(0xFF959595)
-                                              : AppColors.PROTEGE_GREY,
+                                              ? Colors.white
+                                              : Colors.black,
                                           fontSize: 14.5,
-                                          fontFamily: 'GoogleSans')),
+                                          fontFamily: 'Quicksand',
+                                          fontWeight: FontWeight.w400)),
                                   SizedBox(height: 5.0),
                                   InkWell(
                                     onTap: () {
@@ -274,11 +388,12 @@ class _SignInState extends State<SignIn> with SingleTickerProviderStateMixin {
                                       alignment: Alignment.bottomCenter,
                                       margin:
                                           EdgeInsets.symmetric(vertical: 12),
-                                      child: Text("Register NOW",
+                                      child: Text("Register Now",
                                           style: TextStyle(
-                                              fontFamily: 'GoogleSans',
-                                              color: AppColors.COLOR_TEAL_LIGHT,
+                                              color: AppColors.COLOR_TURQUOISE,
                                               fontSize: 14.5,
+                                              fontFamily: 'Quicksand',
+                                              fontWeight: FontWeight.w500,
                                               decoration:
                                                   TextDecoration.underline)),
                                     ),

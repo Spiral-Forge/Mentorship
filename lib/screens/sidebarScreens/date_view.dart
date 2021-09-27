@@ -1,7 +1,9 @@
+import 'package:dbapp/blocs/values.dart';
 import 'package:dbapp/constants/colors.dart';
 import 'package:dbapp/screens/ResourceCenter/resource.dart';
 import 'package:dbapp/services/database.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:dbapp/services/storage.dart';
 
@@ -53,10 +55,12 @@ class _DateViewState extends State<DateView> {
             alignment: Alignment.center,
             child: Container(
               padding: EdgeInsets.only(top: 20.0),
-              child: Text(
-                "No deadlines on this day",
-                style: TextStyle(fontFamily: 'GoogleSans', fontSize: 18),
-              ),
+              child: Text("No deadlines on this day",
+                  style: TextStyle(
+                    fontFamily: 'Quicksand',
+                    fontSize: 18,
+                    fontWeight: FontWeight.w700,
+                  )),
             ),
           )
         : Expanded(
@@ -76,6 +80,9 @@ class _DateViewState extends State<DateView> {
 
   @override
   Widget build(BuildContext context) {
+    ThemeNotifier _themeNotifier = Provider.of<ThemeNotifier>(context);
+    var themeFlag = _themeNotifier.darkTheme;
+
     _showDialogue() {
       showDialog<void>(
           context: context,
@@ -126,11 +133,11 @@ class _DateViewState extends State<DateView> {
                             Padding(
                               padding: const EdgeInsets.all(8.0),
                               child: RaisedButton(
-                                  color: AppColors.COLOR_TEAL_LIGHT,
+                                  color: AppColors.COLOR_TURQUOISE,
                                   shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(10.0),
                                       side: BorderSide(
-                                        color: AppColors.COLOR_TEAL_LIGHT,
+                                        color: AppColors.COLOR_TURQUOISE,
                                       )),
                                   child: Text(
                                     "Submit",
@@ -167,19 +174,27 @@ class _DateViewState extends State<DateView> {
                 child: new Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
-                      SizedBox(height: 32),
-                      IconButton(
-                        icon: Icon(Icons.arrow_back),
-                        onPressed: () {
-                          Navigator.of(context).pop();
-                        },
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(11, 9, 0, 0),
+                        child: IconButton(
+                          icon: Icon(
+                            Icons.arrow_back,
+                            size: 39,
+                          ),
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                          },
+                        ),
                       ),
-                      SizedBox(height: 25),
-                      Text("Don't Miss Deadlines!",
-                          style: TextStyle(
-                              fontFamily: 'GoogleSans',
-                              fontWeight: FontWeight.bold,
-                              fontSize: 32)),
+                      SizedBox(height: 14),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 7),
+                        child: Text("Don't Miss Deadlines!",
+                            style: TextStyle(
+                                fontFamily: 'Quicksand',
+                                fontWeight: FontWeight.w700,
+                                fontSize: 27)),
+                      ),
                       Center(
                           child: TableCalendar(
                               events: _events,
@@ -192,7 +207,9 @@ class _DateViewState extends State<DateView> {
                                 });
                               },
                               calendarStyle: CalendarStyle(
-                                  todayColor: AppColors.COLOR_TEAL_DARK),
+                                  todayColor: Color(0xff039788),
+                                  markersColor:
+                                      themeFlag ? Colors.white : Colors.black),
                               builders: CalendarBuilders(
                                   selectedDayBuilder: (context, date, events) =>
                                       Container(

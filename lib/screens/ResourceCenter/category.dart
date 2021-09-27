@@ -1,4 +1,6 @@
+import 'package:dbapp/blocs/values.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class ResourceCategoryTile extends StatelessWidget {
   final String categoryName;
@@ -8,30 +10,41 @@ class ResourceCategoryTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    ThemeNotifier _themeNotifier = Provider.of<ThemeNotifier>(context);
+    var themeFlag = _themeNotifier.darkTheme;
+
     return Container(
         child: Card(
             shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(15.0),
+              side: BorderSide(
+                  width: 1,
+                  color: themeFlag
+                      ? Colors.white
+                      : Color(
+                          0xffE8E8E8,
+                        )),
+              borderRadius: BorderRadius.circular(11.0),
             ),
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
                 Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Container(
-                      width: MediaQuery.of(context).size.width / 2.4,
-                      height: MediaQuery.of(context).size.width / 2.4,
-                      decoration: BoxDecoration(
-                          image: DecorationImage(
-                              fit: BoxFit.fill, image: AssetImage(imagePath))),
-                    )),
+                  padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
+                  child: CircleAvatar(
+                    backgroundImage: AssetImage(imagePath),
+                    radius: MediaQuery.of(context).size.width / 6,
+                  ),
+                ),
                 Container(
                   width: MediaQuery.of(context).size.width / 2.4,
                   child: ListTile(
                     title: Center(
                         child: Text(
                       categoryName,
-                      style: TextStyle(fontSize: 18, fontFamily: 'GoogleSans'),
+                      style: TextStyle(
+                          fontSize: 11,
+                          fontFamily: 'Quicksand',
+                          fontWeight: FontWeight.w500),
                       textAlign: TextAlign.center,
                     )),
                   ),

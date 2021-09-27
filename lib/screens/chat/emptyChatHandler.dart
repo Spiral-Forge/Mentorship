@@ -1,10 +1,15 @@
+import 'package:dbapp/blocs/values.dart';
 import 'package:dbapp/shared/myDrawer.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 
 class EmptyChat extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    ThemeNotifier _themeNotifier = Provider.of<ThemeNotifier>(context);
+    var themeFlag = _themeNotifier.darkTheme;
+
     final GlobalKey<ScaffoldState> _scaffoldKey =
         new GlobalKey<ScaffoldState>();
     final myDrawer _drawer = new myDrawer();
@@ -18,17 +23,26 @@ class EmptyChat extends StatelessWidget {
                       padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
                       child: Column(children: [
                         Padding(
-                          padding: const EdgeInsets.fromLTRB(15.0, 42, 0, 0),
+                          padding: const EdgeInsets.fromLTRB(19.0, 30, 0, 0),
                           child: Row(children: [
                             IconButton(
-                                icon: Icon(Icons.menu),
+                                icon: Icon(
+                                  Icons.menu,
+                                  size: 28,
+                                  color:
+                                      themeFlag ? Colors.white : Colors.black,
+                                ),
                                 onPressed: () {
                                   _scaffoldKey.currentState.openDrawer();
                                 }),
                             Text(
                               "Chat Room",
                               style: TextStyle(
-                                  fontFamily: 'GoogleSans', fontSize: 23),
+                                  fontFamily: 'Quicksand',
+                                  fontSize: 17,
+                                  fontWeight: FontWeight.w500,
+                                  color:
+                                      themeFlag ? Colors.white : Colors.black),
                             )
                           ]),
                         ),
@@ -48,12 +62,13 @@ class EmptyChat extends StatelessWidget {
                                                 'assets/images/wait_for_it.png')))),
                               ),
                             ),
-                            Text("WAIT FOR IT...",
-                                style: GoogleFonts.lato(
-                                  textStyle: TextStyle(
-                                      fontSize: 30,
-                                      fontWeight: FontWeight.bold),
-                                ))
+                            Text(
+                              "WAIT FOR IT...",
+                              style: TextStyle(
+                                  fontFamily: 'Quicksand',
+                                  fontSize: 37,
+                                  fontWeight: FontWeight.w500),
+                            )
                           ],
                         ))
                       ]))))

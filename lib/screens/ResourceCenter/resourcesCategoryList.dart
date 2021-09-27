@@ -1,3 +1,4 @@
+import 'package:dbapp/blocs/values.dart';
 import 'package:dbapp/constants/colors.dart';
 import 'package:dbapp/constants/screenConstants.dart';
 import 'package:dbapp/screens/ResourceCenter/category.dart';
@@ -5,6 +6,7 @@ import 'package:dbapp/screens/ResourceCenter/resourceList.dart';
 import 'package:dbapp/services/database.dart';
 import 'package:dbapp/services/storage.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:toast/toast.dart';
 import 'package:dbapp/shared/myDrawer.dart';
 
@@ -40,6 +42,9 @@ class _ResourceCategoryListState extends State<ResourceCategoryList> {
 
   @override
   Widget build(BuildContext context) {
+    ThemeNotifier _themeNotifier = Provider.of<ThemeNotifier>(context);
+    var themeFlag = _themeNotifier.darkTheme;
+
     final GlobalKey<ScaffoldState> _scaffoldKey =
         new GlobalKey<ScaffoldState>();
 
@@ -53,17 +58,24 @@ class _ResourceCategoryListState extends State<ResourceCategoryList> {
                     padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
                     child: Column(children: [
                       Padding(
-                        padding: const EdgeInsets.fromLTRB(15.0, 42, 0, 0),
+                        padding: const EdgeInsets.fromLTRB(19.0, 30, 0, 0),
                         child: Row(children: [
                           IconButton(
-                              icon: Icon(Icons.menu),
+                              icon: Icon(
+                                Icons.menu,
+                                size: 28,
+                                color: themeFlag ? Colors.white : Colors.black,
+                              ),
                               onPressed: () {
                                 _scaffoldKey.currentState.openDrawer();
                               }),
                           Text(
                             "Resource Center",
                             style: TextStyle(
-                                fontFamily: 'GoogleSans', fontSize: 23),
+                                fontFamily: 'Quicksand',
+                                fontSize: 17,
+                                fontWeight: FontWeight.w500,
+                                color: themeFlag ? Colors.white : Colors.black),
                           )
                         ]),
                       ),
@@ -74,7 +86,8 @@ class _ResourceCategoryListState extends State<ResourceCategoryList> {
                               width: MediaQuery.of(context).size.width,
                               child: Column(children: <Widget>[
                                 Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
                                   children: <Widget>[
                                     GestureDetector(
                                         onTap: () {
@@ -106,8 +119,12 @@ class _ResourceCategoryListState extends State<ResourceCategoryList> {
                                             "assets/images/book.jpg"))
                                   ],
                                 ),
+                                SizedBox(
+                                  height: 10,
+                                ),
                                 Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
                                   children: <Widget>[
                                     GestureDetector(
                                         onTap: () {
@@ -138,8 +155,12 @@ class _ResourceCategoryListState extends State<ResourceCategoryList> {
                                             "assets/images/scholar.jpg"))
                                   ],
                                 ),
+                                SizedBox(
+                                  height: 10,
+                                ),
                                 Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceEvenly,
                                     children: <Widget>[
                                       GestureDetector(
                                           onTap: () {
@@ -169,8 +190,12 @@ class _ResourceCategoryListState extends State<ResourceCategoryList> {
                                               "Open-Source",
                                               "assets/images/opensrc.png"))
                                     ]),
+                                SizedBox(
+                                  height: 10,
+                                ),
                                 Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceEvenly,
                                     children: <Widget>[
                                       GestureDetector(
                                           onTap: () {

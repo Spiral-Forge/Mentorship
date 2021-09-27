@@ -1,8 +1,10 @@
+import 'package:dbapp/blocs/values.dart';
 import 'package:dbapp/constants/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:dbapp/shared/loading.dart';
 import 'package:flutter/services.dart';
 import 'package:dbapp/screens/authenticate/form3.dart';
+import 'package:provider/provider.dart';
 
 String name = '';
 String phoneNo = '';
@@ -39,7 +41,11 @@ class _RegisterForm2State extends State<RegisterForm2> {
 
   @override
   Widget build(BuildContext context) {
+    ThemeNotifier _themeNotifier = Provider.of<ThemeNotifier>(context);
+    bool themeFlag = _themeNotifier.darkTheme;
+
     return new Scaffold(
+      backgroundColor: themeFlag ? AppColors.COLOR_DARK : Colors.white,
       body: loading
           ? Loading()
           : Column(children: [
@@ -54,7 +60,13 @@ class _RegisterForm2State extends State<RegisterForm2> {
                                 Padding(
                                   padding: EdgeInsets.fromLTRB(32, 32, 0, 0),
                                   child: IconButton(
-                                    icon: Icon(Icons.arrow_back),
+                                    icon: Icon(
+                                      Icons.arrow_back,
+                                      size: 32,
+                                      color: themeFlag
+                                          ? Colors.white
+                                          : Colors.black,
+                                    ),
                                     onPressed: () {
                                       Navigator.of(context).pop();
                                     },
@@ -64,7 +76,7 @@ class _RegisterForm2State extends State<RegisterForm2> {
                                 Expanded(
                                     child: SizedBox(
                                         child: Padding(
-                                  padding: EdgeInsets.fromLTRB(32, 0, 32, 0),
+                                  padding: EdgeInsets.fromLTRB(51, 0, 51, 0),
                                   child: Form(
                                       key: _formKey2,
                                       child:
@@ -76,9 +88,12 @@ class _RegisterForm2State extends State<RegisterForm2> {
                                         new Text(
                                           'Create your account',
                                           style: TextStyle(
-                                            fontFamily: 'GoogleSans',
-                                            fontSize: 25,
-                                            fontWeight: FontWeight.w600,
+                                            color: themeFlag
+                                                ? Colors.white
+                                                : Colors.black,
+                                            fontFamily: 'Quicksand',
+                                            fontSize: 23,
+                                            fontWeight: FontWeight.w700,
                                           ),
                                           textAlign: TextAlign.center,
                                         ),
@@ -89,22 +104,36 @@ class _RegisterForm2State extends State<RegisterForm2> {
                                             keyboardType: TextInputType.text,
                                             style:
                                                 TextStyle(color: Colors.grey),
-                                            decoration: const InputDecoration(
+                                            decoration: InputDecoration(
                                               labelStyle: TextStyle(
-                                                  color: Colors.grey,
-                                                  fontFamily: 'GoogleSans'),
+                                                  color: themeFlag
+                                                      ? Colors.white
+                                                      : Color(0xff777777),
+                                                  fontFamily: 'Quicksand',
+                                                  fontSize: 15,
+                                                  fontWeight: FontWeight.w400),
                                               enabledBorder:
                                                   UnderlineInputBorder(
                                                 borderSide: BorderSide(
-                                                    color: Colors.grey),
+                                                    color: themeFlag
+                                                        ? Colors.white
+                                                        : Color(0xff777777)),
                                               ),
                                               focusedBorder:
                                                   UnderlineInputBorder(
                                                 borderSide: BorderSide(
-                                                    color: Colors.blue),
+                                                    color: themeFlag
+                                                        ? Colors.white
+                                                        : Color(0xff80B9E8)),
                                               ),
                                               border: UnderlineInputBorder(),
-                                              icon: const Icon(Icons.person),
+                                              icon: Icon(
+                                                Icons.person,
+                                                size: 24,
+                                                color: themeFlag
+                                                    ? Colors.white
+                                                    : Color(0xff777777),
+                                              ),
                                               labelText: 'Full Name',
                                             ),
                                             validator: (value) {
@@ -120,23 +149,37 @@ class _RegisterForm2State extends State<RegisterForm2> {
                                             keyboardType: TextInputType.phone,
                                             style:
                                                 TextStyle(color: Colors.grey),
-                                            decoration: const InputDecoration(
+                                            decoration: InputDecoration(
                                                 labelStyle: TextStyle(
-                                                  color: Colors.grey,
-                                                  fontFamily: 'GoogleSans',
-                                                ),
+                                                    color: themeFlag
+                                                        ? Colors.white
+                                                        : Color(0xff777777),
+                                                    fontFamily: 'Quicksand',
+                                                    fontSize: 15,
+                                                    fontWeight:
+                                                        FontWeight.w400),
                                                 enabledBorder:
                                                     UnderlineInputBorder(
                                                   borderSide: BorderSide(
-                                                      color: Colors.grey),
+                                                      color: themeFlag
+                                                          ? Colors.white
+                                                          : Color(0xff777777)),
                                                 ),
                                                 focusedBorder:
                                                     UnderlineInputBorder(
                                                   borderSide: BorderSide(
-                                                      color: Colors.blue),
+                                                      color: themeFlag
+                                                          ? Colors.white
+                                                          : Color(0xff80B9E8)),
                                                 ),
                                                 border: UnderlineInputBorder(),
-                                                icon: const Icon(Icons.phone),
+                                                icon: Icon(
+                                                  Icons.phone,
+                                                  size: 24,
+                                                  color: themeFlag
+                                                      ? Colors.white
+                                                      : Color(0xff777777),
+                                                ),
                                                 labelText: 'Phone'),
                                             validator: (value) {
                                               if (value.isEmpty) {
@@ -154,22 +197,36 @@ class _RegisterForm2State extends State<RegisterForm2> {
                                                 TextInputType.emailAddress,
                                             style:
                                                 TextStyle(color: Colors.grey),
-                                            decoration: const InputDecoration(
+                                            decoration: InputDecoration(
                                               labelStyle: TextStyle(
-                                                  color: Colors.grey,
-                                                  fontFamily: 'GoogleSans'),
+                                                  color: themeFlag
+                                                      ? Colors.white
+                                                      : Color(0xff777777),
+                                                  fontFamily: 'Quicksand',
+                                                  fontSize: 15,
+                                                  fontWeight: FontWeight.w400),
                                               enabledBorder:
                                                   UnderlineInputBorder(
                                                 borderSide: BorderSide(
-                                                    color: Colors.grey),
+                                                    color: themeFlag
+                                                        ? Colors.white
+                                                        : Color(0xff777777)),
                                               ),
                                               focusedBorder:
                                                   UnderlineInputBorder(
                                                 borderSide: BorderSide(
-                                                    color: Colors.blue),
+                                                    color: themeFlag
+                                                        ? Colors.white
+                                                        : Color(0xff80B9E8)),
                                               ),
                                               border: UnderlineInputBorder(),
-                                              icon: const Icon(Icons.email),
+                                              icon: Icon(
+                                                Icons.email,
+                                                size: 24,
+                                                color: themeFlag
+                                                    ? Colors.white
+                                                    : Color(0xff777777),
+                                              ),
                                               labelText: 'Email id',
                                             ),
                                             validator: (value) {
@@ -185,22 +242,36 @@ class _RegisterForm2State extends State<RegisterForm2> {
                                         TextFormField(
                                             style:
                                                 TextStyle(color: Colors.grey),
-                                            decoration: const InputDecoration(
+                                            decoration: InputDecoration(
                                               labelStyle: TextStyle(
-                                                  color: Colors.grey,
-                                                  fontFamily: 'GoogleSans'),
+                                                  color: themeFlag
+                                                      ? Colors.white
+                                                      : Color(0xff777777),
+                                                  fontFamily: 'Quicksand',
+                                                  fontSize: 15,
+                                                  fontWeight: FontWeight.w400),
                                               enabledBorder:
                                                   UnderlineInputBorder(
                                                 borderSide: BorderSide(
-                                                    color: Colors.grey),
+                                                    color: themeFlag
+                                                        ? Colors.white
+                                                        : Color(0xff777777)),
                                               ),
                                               focusedBorder:
                                                   UnderlineInputBorder(
                                                 borderSide: BorderSide(
-                                                    color: Colors.blue),
+                                                    color: themeFlag
+                                                        ? Colors.white
+                                                        : Color(0xff80B9E8)),
                                               ),
                                               border: UnderlineInputBorder(),
-                                              icon: const Icon(Icons.security),
+                                              icon: Icon(
+                                                Icons.security,
+                                                size: 24,
+                                                color: themeFlag
+                                                    ? Colors.white
+                                                    : Color(0xff777777),
+                                              ),
                                               labelText: 'Password',
                                             ),
                                             validator: (value) {
@@ -214,7 +285,7 @@ class _RegisterForm2State extends State<RegisterForm2> {
                                               setState(() => password = val);
                                             }),
                                         new Divider(
-                                            height: 35.0,
+                                            height: 80.0,
                                             color: Colors.transparent),
                                         Row(
                                             mainAxisAlignment:
@@ -223,16 +294,17 @@ class _RegisterForm2State extends State<RegisterForm2> {
                                                 CrossAxisAlignment.center,
                                             children: <Widget>[
                                               Container(
-                                                height: 40,
+                                                height: 34,
+                                                width: 140,
                                                 child: new MaterialButton(
                                                     shape:
                                                         RoundedRectangleBorder(
                                                       borderRadius:
                                                           BorderRadius.circular(
-                                                              10.0),
+                                                              8.0),
                                                     ),
                                                     color: AppColors
-                                                        .COLOR_TEAL_LIGHT,
+                                                        .COLOR_TURQUOISE,
                                                     onPressed: () async {
                                                       if (_formKey2.currentState
                                                           .validate()) {
@@ -251,18 +323,19 @@ class _RegisterForm2State extends State<RegisterForm2> {
                                                             MaterialPageRoute(
                                                                 builder: (context) =>
                                                                     RegisterForm3(
-                                                                        userMap)));
+                                                                        userMap,
+                                                                        themeFlag)));
                                                       }
                                                     },
                                                     child: Text('Next',
                                                         style: TextStyle(
                                                             color: Colors.white,
                                                             fontFamily:
-                                                                'GoogleSans',
-                                                            fontSize: 18,
+                                                                'Quicksand',
+                                                            fontSize: 15,
                                                             fontWeight:
                                                                 FontWeight
-                                                                    .w600))),
+                                                                    .w700))),
                                               ),
                                             ]),
                                         new Divider(

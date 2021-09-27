@@ -6,9 +6,8 @@ import 'package:provider/provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'blocs/values.dart';
 
-
 void main() {
-  runApp( MyApp());
+  runApp(MyApp());
 }
 
 class MyApp extends StatefulWidget {
@@ -17,29 +16,23 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-    
   @override
   Widget build(BuildContext context) {
-    
     return StreamProvider<FirebaseUser>.value(
-      value:AuthService().user,
-          child: ChangeNotifierProvider(
+      value: AuthService().user,
+      initialData: null,
+      child: ChangeNotifierProvider(
         create: (_) => ThemeNotifier(),
-            child: Consumer<ThemeNotifier>(
-              builder: (context, ThemeNotifier notifier, child) {
-
-                return MaterialApp(
-                debugShowCheckedModeBanner: false,
-                theme: notifier.darkTheme ? darkTheme : lightTheme,
-                home:Wrapper(),
-              );
-              } ,
-            ),
+        child: Consumer<ThemeNotifier>(
+          builder: (context, ThemeNotifier notifier, child) {
+            return MaterialApp(
+              debugShowCheckedModeBanner: false,
+              theme: notifier.darkTheme ? darkTheme : lightTheme,
+              home: Wrapper(),
+            );
+          },
+        ),
       ),
     );
   }
 }
-    
-
-
-
